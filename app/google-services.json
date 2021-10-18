@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "531495186078",
+    "project_id": "jo-tabletop-game",
+    "storage_bucket": "jo-tabletop-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531495186078:android:91d47797ca41b84c49958f",
+        "android_client_info": {
+          "package_name": "com.kappstudio.jotabletopgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531495186078-1aumage7ncnt1rs312t6c8tv6e7ekllr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3LHlKyZ8MazCi-pgmxS-Ot2295TKjqPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531495186078-1aumage7ncnt1rs312t6c8tv6e7ekllr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
