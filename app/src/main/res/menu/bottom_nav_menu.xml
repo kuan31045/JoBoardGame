@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home_page"/>
+
+    <item
+        android:id="@+id/gameFragment"
+        android:icon="@drawable/ic_game"
+        android:title="@string/game_page"/>
+
+    <item
+        android:id="@+id/toolFragment"
+        android:icon="@drawable/ic_tool"
+        android:title="@string/tool_page"/>
+
+</menu>
+
+    <!--ID一定要跟navigation檔案裡的一樣!!!-->

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".home.HomeFragment">
+
+        <TextView
+            android:id="@+id/tv_title_party"
+            style="@style/titleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/lets_party"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_start_date"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_spn"
+            android:gravity="center"
+            android:text="@string/date_sample"
+            android:textColor="@color/black_3f3a3a"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title_date"
+            app:layout_constraintEnd_toEndOf="@+id/spn_country"
+            app:layout_constraintStart_toStartOf="@+id/spn_country"
+            app:layout_constraintTop_toTopOf="@+id/tv_title_date" />
+
+
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="20dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/black"
+            app:layout_constraintStart_toEndOf="@id/tv_start_date"
+            app:layout_constraintBottom_toBottomOf="@id/tv_start_date"
+            app:layout_constraintTop_toTopOf="@id/tv_start_date"/>
+
+        <TextView
+            android:id="@+id/tv_last_date"
+            android:layout_width="120dp"
+            android:layout_marginStart="8dp"
+
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_spn"
+            android:gravity="center"
+            android:text="@string/date_sample"
+            android:textColor="@color/black_3f3a3a"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_start_date"
+            app:layout_constraintStart_toEndOf="@+id/view_line"
+            app:layout_constraintTop_toTopOf="@+id/tv_start_date" />
+        <TextView
+            android:id="@+id/tv_my_party"
+            style="@style/clickableText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_party_2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title_party"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title_country"
+            style="@style/fontSpaceColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/country"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_party"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_party" />
+
+
+        <TextView
+            android:id="@+id/tv_title_date"
+            style="@style/fontSpaceColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/date"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_country"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_country" />
+
+        <Spinner
+            android:id="@+id/spn_country"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/country"
+
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title_country"
+            app:layout_constraintStart_toEndOf="@+id/tv_title_country"
+            app:layout_constraintTop_toTopOf="@+id/tv_title_country" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_my_party"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_date"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_party" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue_8187ff"
+            android:src="@drawable/ic_baseline_add_24"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

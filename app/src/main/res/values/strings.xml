@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">Jo Tabletop Game</string>
+    <string name="app_name">Jo 桌遊</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="home_page">首頁</string>
+    <string name="game_page">遊戲總覽</string>
+    <string name="tool_page">小工具</string>
+    <string name="my_party_2">我的聚會 》</string>
+    <string name="see_all">看全部 》</string>
+    <string name="already_join">✓以參加</string>
+    <string name="host">主辦</string>
+    <string name="lets_party">來場聚會吧!</string>
+    <string name="country">縣市</string>
+    <string name="date">日期</string>
+    <string name="date_sample">2021/10/21</string>
+    <string name="location">地點</string>
+    <string name="time">時間</string>
+    <string name="game">遊戲</string>
+    <string name="dice">骰子</string>
+    <string name="timer">計時器</string>
+    <string name="spin">轉盤</string>
+    <string name="lie_test">測謊機</string>
+
 </resources>

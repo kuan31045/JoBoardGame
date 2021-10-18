@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fontSpaceColor">
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textColor">@color/black_3f3a3a</item>
+    </style>
+
+    <style name="titleStyle" parent="fontSpaceColor">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="clickableText">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_3f3a3a</item>
+    </style>
+
+    <style name="party_item_detail">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="viewSpLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:background">@color/primaryDarkColor</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+
+</resources>
