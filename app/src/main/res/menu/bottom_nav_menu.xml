@@ -16,6 +16,11 @@
         android:icon="@drawable/ic_tool"
         android:title="@string/tool_page"/>
 
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile_page"/>
+
 </menu>
 
     <!--ID一定要跟navigation檔案裡的一樣!!!-->

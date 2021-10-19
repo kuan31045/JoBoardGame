@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.gameFragment, R.id.toolFragment
+                R.id.homeFragment, R.id.gameFragment, R.id.toolFragment,R.id.profileFragment
             )
         )
 
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.gameFragment -> getString(R.string.game_page)
                 R.id.toolFragment -> getString(R.string.tool_page)
+                R.id.profileFragment -> getString(R.string.profile_page)
 
                 else -> ""
             }

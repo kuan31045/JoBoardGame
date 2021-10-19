@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_app_page"
     tools:context=".MainActivity">
 
 
@@ -49,7 +50,6 @@
 
         <LinearLayout
             android:id="@+id/layout_tool_bar_right"
-            android:paddingEnd="12dp"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -69,13 +69,7 @@
                 android:src="@drawable/ic_notifications"
                 android:backgroundTint="@color/white"
                 />
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/profile_sample"
-                android:backgroundTint="@color/transparent"
-                />
+
 
 
 
@@ -87,6 +81,8 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
+        app:labelVisibilityMode="labeled"
+
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
