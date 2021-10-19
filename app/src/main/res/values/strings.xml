@@ -22,8 +22,9 @@
     <string name="time">時間</string>
     <string name="game">遊戲</string>
 <!--Game-->
-    <string name="sample_game_name">富饒之城</string>
-    <string name="sample_game_name2">卡坦島</string>
+    <string name="sample_game_name">卡坦島</string>
+
+    <string name="sample_game_name2">富饒之城</string>
 
     <!--    Tool-->
     <string name="dice">骰子</string>
@@ -39,5 +40,9 @@
     <string name="my_favorite">我的收藏</string>
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽</string>
+    <string name="hots">熱門</string>
+    <string name="recommend">猜你喜歡</string>
+    <string name="top_rating">評分最高</string>
+    <string name="sort_filter">排序與篩選</string>
 
 </resources>
