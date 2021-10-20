@@ -3,13 +3,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    Bottom Nav-->
+    <!--    Bottom Nav-->
     <string name="home_page">首頁</string>
     <string name="game_page">遊戲總覽</string>
     <string name="tool_page">小工具</string>
     <string name="profile_page">個人</string>
 
-<!--    Home-->
+    <!--    Home-->
     <string name="my_party_2">我的聚會 》</string>
     <string name="see_all">看全部 》</string>
     <string name="already_join">✓以參加</string>
@@ -21,10 +21,13 @@
     <string name="location">地點</string>
     <string name="time">時間</string>
     <string name="game">遊戲</string>
-<!--Game-->
-    <string name="sample_game_name">卡坦島</string>
 
+    <!--Game-->
+    <string name="sample_game_name">卡坦島</string>
     <string name="sample_game_name2">富饒之城</string>
+    <string name="featured">精選</string>
+    <string name="all">全部</string>
+
 
     <!--    Tool-->
     <string name="dice">骰子</string>
@@ -32,7 +35,7 @@
     <string name="spin">轉盤</string>
     <string name="lie_test">測謊機</string>
 
-<!--    Profile-->
+    <!--    Profile-->
     <string name="sample_user_name">AKuan</string>
     <string name="user_profile_status">動態...</string>
     <string name="my_rating">我的評分</string>

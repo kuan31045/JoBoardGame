@@ -10,19 +10,18 @@
         android:id="@+id/tabs_layout"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:elevation="@dimen/elevation_4dp"
+        android:backgroundTint="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabSelectedTextColor="@color/black_3f3a3a"
         app:tabTextColor="@color/warm_grey_two"
-        app:tabTextAppearance="@style/titleStyle"
+        app:tabTextAppearance="@style/title2Style"
         />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

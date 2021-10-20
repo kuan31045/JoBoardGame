@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:paddingStart="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         <TextView
             android:layout_marginTop="8dp"
             android:id="@+id/tv_title_hots"
-            style="@style/titleStyle"
+            style="@style/title2Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hots"
@@ -24,6 +24,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:id="@+id/rv_hots"
+
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:orientation="horizontal"
@@ -36,7 +37,7 @@
 
         <TextView
             android:id="@+id/tv_title_recommend"
-            style="@style/titleStyle"
+            style="@style/title2Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
@@ -59,7 +60,7 @@
 
         <TextView
             android:id="@+id/tv_title_top_rating"
-            style="@style/titleStyle"
+            style="@style/title2Style"
             android:layout_marginTop="26dp"
 
             android:layout_width="wrap_content"

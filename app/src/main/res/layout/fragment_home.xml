@@ -7,11 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".home.HomeFragment">
-
+        tools:context=".party.HomeFragment">
+y
         <TextView
             android:id="@+id/tv_title_party"
-            style="@style/titleStyle"
+            style="@style/title2Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
