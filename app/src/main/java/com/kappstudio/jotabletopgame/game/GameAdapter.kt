@@ -9,7 +9,7 @@ import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
 
 //type1 = info
-class GameAdapter( type:Int) : ListAdapter<Game, GameAdapter.GameViewHolder>(DiffCallback) {
+class GameAdapter(type: Int) : ListAdapter<Game, GameAdapter.GameViewHolder>(DiffCallback) {
 
     class GameViewHolder(private var binding: ItemGameInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -19,7 +19,7 @@ class GameAdapter( type:Int) : ListAdapter<Game, GameAdapter.GameViewHolder>(Dif
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
-                tvRating.text =(  game.totalRating / game.ratingQty ).toString()
+                tvRating.text = (game.totalRating / game.ratingQty).toString()
 
             }
         }

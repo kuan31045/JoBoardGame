@@ -1,4 +1,4 @@
 package com.kappstudio.jotabletopgame.data
 
-class Message {
+class GameMessage {
 }

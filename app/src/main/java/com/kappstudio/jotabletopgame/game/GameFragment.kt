@@ -17,7 +17,6 @@ class GameFragment : Fragment() {
     ): View? {
 
         val binding = FragmentGameBinding.inflate(inflater)
-
         // set View Pager Adapter
         val sectionsPagerAdapter = GamePagerAdapter(childFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter

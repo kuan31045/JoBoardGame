@@ -33,48 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/iv_game"
             app:layout_constraintTop_toBottomOf="@id/iv_game"
             tools:text="@string/sample_game_name" />
 
-        <TextView
-            android:id="@+id/tv_playerQty"
-            style="@style/fontSpaceColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:drawableLeft="@drawable/ic_people_18"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            tools:text="3-4人" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/fontSpaceColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_time_18"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_playerQty"
-            tools:text="75分" />
-
-        <TextView
-            android:id="@+id/tv_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="5dp"
-            android:drawableTop="@drawable/ic_star_18dp"
-            android:textColor="@color/black_3f3a3a"
-            android:textSize="13sp"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_playerQty"
-            tools:text="8.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

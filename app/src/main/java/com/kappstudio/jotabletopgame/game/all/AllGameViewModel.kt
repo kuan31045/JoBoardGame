@@ -10,7 +10,7 @@ class AllGameViewModel: ViewModel() {
     val games: LiveData<List<Game>?> = FirebaseService.getAllGames()
 
 
-//    init{
-//        FirebaseService.addMockGame()
-//    }
+    init{
+    //    FirebaseService.addMockGame()
+    }
 }

@@ -54,7 +54,7 @@
     <style name="btnProfile" parent="title2Style">
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:backgroundTint">@color/themeColor</item>
+        <item name="android:backgroundTint">@color/white</item>
         <item name="android:gravity">center|start</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>

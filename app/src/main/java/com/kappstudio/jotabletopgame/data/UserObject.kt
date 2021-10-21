@@ -1,5 +1,5 @@
 package com.kappstudio.jotabletopgame.data
 
 object UserObject {
-    val mUserId = "akuan123"
+    val mUserId = "user1"
 }

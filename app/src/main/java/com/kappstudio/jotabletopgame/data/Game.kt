@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Game(
     val id:String = "",
-    val name: String = "",
+    var name: String = "",
     val image: String = "",
     val type: MutableList<String>? = null,
     val time: Long = 0,
