@@ -8,11 +8,12 @@
     <string name="game_page">遊戲總覽</string>
     <string name="tool_page">小工具</string>
     <string name="profile_page">個人</string>
+    <string name="party_detail_page">聚會資訊</string>
 
     <!--    Home-->
     <string name="my_party_2">我的聚會 》</string>
     <string name="see_all">看全部 》</string>
-    <string name="already_join">✓以參加</string>
+    <string name="already_join">✓已加入</string>
     <string name="host">主辦</string>
     <string name="lets_party">來場聚會吧!</string>
     <string name="country">縣市</string>
@@ -27,7 +28,10 @@
     <string name="sample_game_name2">富饒之城</string>
     <string name="featured">精選</string>
     <string name="all">全部</string>
-
+    <string name="hots">熱門</string>
+    <string name="recommend">猜你喜歡</string>
+    <string name="top_rating">評分最高</string>
+    <string name="sort_filter">排序與篩選</string>
 
     <!--    Tool-->
     <string name="dice">骰子</string>
@@ -43,9 +47,16 @@
     <string name="my_favorite">我的收藏</string>
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽</string>
-    <string name="hots">熱門</string>
-    <string name="recommend">猜你喜歡</string>
-    <string name="top_rating">評分最高</string>
-    <string name="sort_filter">排序與篩選</string>
+    <string name="play_list">遊玩清單</string>
+    <string name="more_info">更多資訊</string>
+    <string name="host_">主辦:</string>
+    <string name="location_">地點:</string>
+    <string name="time_">時間:</string>
+    <string name="note_">備註:</string>
+    <string name="msg">留言</string>
+    <string name="join">加入</string>
+    <string name="out">退出</string>
+    <string name="require_player_qty">徵求人數:</string>
+
 
 </resources>

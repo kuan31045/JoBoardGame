@@ -11,12 +11,12 @@ import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.data.UserObject
 import com.kappstudio.jotabletopgame.databinding.ItemPartyBinding
 
-class PartyAdapter : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
+class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
     class PartyViewHolder(private var binding: ItemPartyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(party: Party) {
+        fun bind(party: Party, viewModel: HomeViewModel) {
 
             binding.apply {
                 tvTitle.text = party.title
@@ -25,11 +25,16 @@ class PartyAdapter : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallba
                 tvHost.text = party.hostName
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
                 party.gameNameList.forEach {
-                    tvGame.text = "${tvGame.text} $it,"
+                    tvGame.text = "${tvGame.text}$it, "
                 }
                 if (UserObject.mUserId in party.playerIdList){
                     tvAlreadyJoin.visibility = View.VISIBLE
                 }
+
+                clParty.setOnClickListener {
+                    viewModel.navToPartyDetail(party.id)
+                }
+
             }
 
         }
@@ -56,6 +61,6 @@ class PartyAdapter : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallba
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position),viewModel )
     }
 }

@@ -25,13 +25,22 @@
         android:id="@+id/btn_filter"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/white"
         android:layout_width="wrap_content"
         style="@style/fontSpaceColor"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:text="@string/sort_filter"
         android:drawableLeft="@drawable/ic_filter_28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:text="@string/more_info"
+        android:id="@+id/btn_more_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.databinding.FragmentGameAllBinding
 import com.kappstudio.jotabletopgame.databinding.FragmentHomeBinding
@@ -25,10 +26,18 @@ class HomeFragment : Fragment() {
 
         viewModel.parties.observe(viewLifecycleOwner, {
             Timber.d("$it")
-            binding.rvParty.adapter = PartyAdapter().apply {
+            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
                 submitList(it)
             }
         })
+
+        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(HomeFragmentDirections.navToPartyDetailFragment(it))
+                viewModel.onNavToPartyDetail()
+            }
+        })
+
 
         return binding.root
     }

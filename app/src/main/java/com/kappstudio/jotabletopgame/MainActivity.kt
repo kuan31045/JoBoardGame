@@ -10,9 +10,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
 
-
-
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.ivLogo.visibility = View.GONE
-
+            binding.toolbar.visibility=View.VISIBLE
+            binding.navView.visibility=View.VISIBLE
             binding.tvTitle.text = when (destination.id) {
 
                 R.id.homeFragment -> {
@@ -45,6 +43,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.gameFragment -> getString(R.string.game_page)
                 R.id.toolFragment -> getString(R.string.tool_page)
                 R.id.profileFragment -> getString(R.string.profile_page)
+                R.id.partyDetailFragment -> {
+                    binding.toolbar.visibility=View.GONE
+                    binding.navView.visibility=View.GONE
+                    getString(R.string.party_detail_page)
+                }
 
                 else -> ""
             }

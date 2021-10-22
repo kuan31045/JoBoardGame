@@ -11,12 +11,23 @@ class HomeViewModel : ViewModel() {
 
     val parties: LiveData<List<Party>?> = FirebaseService.getAllParties()
 
+    // nav
+    private val _navToPartyDetail = MutableLiveData<String?>()
+    val navToPartyDetail: LiveData<String?>
+        get() = _navToPartyDetail
 
     init {
-          //   FirebaseService.addMockParty()
+        FirebaseService.joinParty("SHvb4qWEgKpx5eZ2Axhs")
+        //   FirebaseService.addMockParty()
     }
 
+    fun navToPartyDetail(partyId:String) {
+        _navToPartyDetail.value = partyId
+    }
 
+    fun onNavToPartyDetail() {
+        _navToPartyDetail.value = null
+    }
 
 
 }

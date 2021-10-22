@@ -9,7 +9,13 @@
         android:id="@+id/homeFragment"
         android:name="com.kappstudio.jotabletopgame.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/nav_to_party_detail_fragment"
+            app:destination="@id/partyDetailFragment" />
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/gameFragment"
@@ -28,5 +34,16 @@
         android:name="com.kappstudio.jotabletopgame.profile.ProflieFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+
+    <fragment
+        android:id="@+id/partyDetailFragment"
+        android:name="com.kappstudio.jotabletopgame.partydetail.PartyDetailFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="selectedPartyId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

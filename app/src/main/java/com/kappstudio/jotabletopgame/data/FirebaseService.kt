@@ -15,6 +15,15 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
+    fun joinParty(partyId:String){
+        val party = FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+        party.update("playerIdList", FieldValue.arrayUnion("user9527"))
+
+
+        }
+
+
     fun getAllParties(): MutableLiveData<List<Party>?> {
         Timber.d("-----Get All Parties------------------------------")
 
