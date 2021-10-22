@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setNavController()
         setBarAttr()
-
     }
 
     private fun setNavController() {
@@ -66,10 +65,6 @@ class MainActivity : AppCompatActivity() {
                     else -> PageType.OTHER
                 }
             )
-
-
         }
     }
-
-
 }

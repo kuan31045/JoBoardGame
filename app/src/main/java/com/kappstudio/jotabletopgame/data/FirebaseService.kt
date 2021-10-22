@@ -6,6 +6,9 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
+import com.kappstudio.jotabletopgame.R
+import com.kappstudio.jotabletopgame.appInstance
+import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.io.Serializable
 import java.util.*
@@ -15,14 +18,72 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
-    fun joinParty(partyId:String){
-        val party = FirebaseFirestore.getInstance()
+   suspend fun getUserById(hostId: String): MutableLiveData<User?> =
+       suspendCoroutine { continuation ->
+        Timber.d("-----Get User By Id------------------------------")
+
+        val user = MutableLiveData<User?>()
+
+        val userQuery = FirebaseFirestore.getInstance()
+            .collection("users").document(hostId)
+
+        userQuery
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                user.value = documentSnapshot.toObject<User>()
+                Timber.d("user to object: ${user.value?.name}")
+                continuation.resume(user)
+
+            }
+            .addOnFailureListener { exception ->
+                Timber.d("Error getting documents., $exception")
+                user.value = null
+            }
+    }
+
+    fun leaveParty(partyId: String) {
+        Timber.d("-----Leave Party------------------------------")
+        val partyQuery = FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
-        party.update("playerIdList", FieldValue.arrayUnion("user9527"))
+        partyQuery.update("playerIdList", FieldValue.arrayRemove(UserObject.mUserId))
+        ToastUtil.show(appInstance.getString(R.string.bye))
+    }
 
+    fun joinParty(partyId: String) {
+        Timber.d("-----Join Party------------------------------")
 
-        }
+        val partyQuery = FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+        partyQuery.update("playerIdList", FieldValue.arrayUnion(UserObject.mUserId))
+        ToastUtil.show(appInstance.getString(R.string.welcome))
+    }
 
+    fun getPartyById(partyId: String): MutableLiveData<Party?> {
+        Timber.d("-----Get Party By Id------------------------------")
+
+        val party = MutableLiveData<Party?>()
+
+        val partyQuery = FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+
+        partyQuery
+            .get()
+            .addOnSuccessListener {
+                partyQuery.addSnapshotListener { snapshots, e ->
+                    val result =
+                        snapshots?.toObject<Party>()
+
+                    party.value = result ?: Party()
+                }
+            }
+
+            .addOnFailureListener { exception ->
+                Timber.d("Error getting documents., $exception")
+                party.value = null
+            }
+
+        return party
+    }
 
     fun getAllParties(): MutableLiveData<List<Party>?> {
         Timber.d("-----Get All Parties------------------------------")
@@ -163,5 +224,6 @@ object FirebaseService {
         }
 
     }
+
 
 }

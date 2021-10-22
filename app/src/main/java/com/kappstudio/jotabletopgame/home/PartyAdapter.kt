@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kappstudio.jotabletopgame.data.FirebaseService
 import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.data.UserObject
 import com.kappstudio.jotabletopgame.databinding.ItemPartyBinding

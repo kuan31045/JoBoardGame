@@ -40,7 +40,7 @@
             style="@style/title2Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="42dp"
             android:text="@string/recommend"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_hots" />
@@ -61,7 +61,7 @@
         <TextView
             android:id="@+id/tv_title_top_rating"
             style="@style/title2Style"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="42dp"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

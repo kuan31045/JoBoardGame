@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
@@ -14,6 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_game_info"
         app:spanCount="2"
@@ -23,7 +27,6 @@
 
     <Button
         android:id="@+id/btn_filter"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="wrap_content"
         style="@style/fontSpaceColor"
@@ -33,14 +36,5 @@
         android:drawableLeft="@drawable/ic_filter_28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:text="@string/more_info"
-        android:id="@+id/btn_more_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

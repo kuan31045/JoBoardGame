@@ -17,7 +17,6 @@ class HomeViewModel : ViewModel() {
         get() = _navToPartyDetail
 
     init {
-        FirebaseService.joinParty("SHvb4qWEgKpx5eZ2Axhs")
         //   FirebaseService.addMockParty()
     }
 

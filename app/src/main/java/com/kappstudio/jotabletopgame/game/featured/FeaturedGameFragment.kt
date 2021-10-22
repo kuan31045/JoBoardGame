@@ -12,10 +12,11 @@ import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.FragmentGameAllBinding
 import com.kappstudio.jotabletopgame.databinding.FragmentGameFeaturedBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
+import com.kappstudio.jotabletopgame.game.GameAdapterType
 import com.kappstudio.jotabletopgame.game.all.AllGameViewModel
 import java.util.*
 
-class FeaturedGameFragment: Fragment() {
+class FeaturedGameFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -24,15 +25,15 @@ class FeaturedGameFragment: Fragment() {
     ): View? {
         val binding = FragmentGameFeaturedBinding.inflate(inflater)
         val viewModel: AllGameViewModel by viewModels()
-        viewModel.games.observe(viewLifecycleOwner,{
-            binding.rvHots.adapter = GameAdapter(1).apply {
+        viewModel.games.observe(viewLifecycleOwner, {
+            binding.rvHots.adapter = GameAdapter(GameAdapterType.INFO).apply {
                 submitList(it)
             }
-            binding.rvRecommend.adapter = GameAdapter(1).apply {
+            binding.rvRecommend.adapter = GameAdapter(GameAdapterType.INFO).apply {
 
                 submitList(it?.shuffled())
             }
-            binding.rvTopRating.adapter = GameAdapter(1).apply {
+            binding.rvTopRating.adapter = GameAdapter(GameAdapterType.INFO).apply {
                 submitList(it)
             }
 

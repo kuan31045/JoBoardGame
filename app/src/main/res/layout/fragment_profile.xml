@@ -218,7 +218,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_recently_viewed"
                     tools:itemCount="7"
-                    tools:listitem="@layout/item_game_info" />
+                    tools:listitem="@layout/item_game_simple" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:paddingBottom="12dp">
 
     <ImageView
         android:id="@+id/iv_user"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile_sample" />
@@ -18,6 +18,8 @@
         android:id="@+id/tv_name"
         style="@style/textStyleWhite"
         android:layout_marginStart="8dp"
+        android:textSize="13sp"
+
         app:layout_constraintStart_toEndOf="@+id/iv_user"
         app:layout_constraintTop_toTopOf="@+id/iv_user"
         tools:text="AKuan" />
@@ -26,6 +28,7 @@
         android:id="@+id/tv_time"
         style="@style/textStyleWhite"
         android:layout_marginStart="8dp"
+        android:textSize="13sp"
 
         app:layout_constraintBottom_toBottomOf="@+id/view_line"
         app:layout_constraintStart_toEndOf="@+id/view_line"
@@ -37,6 +40,7 @@
         android:layout_marginStart="8dp"
         android:background="@color/transparentWhite"
         android:layout_width="1.4dp"
+
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_height="0dp"
@@ -46,9 +50,12 @@
 
     <TextView
         android:id="@+id/tv_msg"
+        android:layout_width="0dp"
+        android:textSize="14sp"
+        style="@style/textStyleWhite"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
-        tools:text="啊是誰要帶啦"
-        android:layout_marginTop="3dp"
-        style="@style/textStyleWhite" />
+        tools:text="啊是誰要帶啦" />
 </androidx.constraintlayout.widget.ConstraintLayout>

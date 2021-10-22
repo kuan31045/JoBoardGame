@@ -40,6 +40,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/already_join"
+            android:textStyle="italic"
             android:textColor="@color/green_29AA36"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_title_host"

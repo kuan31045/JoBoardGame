@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.kappstudio.jotabletopgame.databinding.FragmentGameAllBinding
 import com.kappstudio.jotabletopgame.databinding.FragmentGameFeaturedBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
+import com.kappstudio.jotabletopgame.game.GameAdapterType
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
@@ -20,8 +21,8 @@ class AllGameFragment : Fragment() {
     ): View? {
         val binding = FragmentGameAllBinding.inflate(inflater)
         val viewModel: AllGameViewModel by viewModels()
-        viewModel.games.observe(viewLifecycleOwner,{
-            binding.rvAllGame.adapter = GameAdapter(1).apply {
+        viewModel.games.observe(viewLifecycleOwner, {
+            binding.rvAllGame.adapter = GameAdapter(GameAdapterType.INFO,false).apply {
                 submitList(it)
             }
         })

@@ -5,22 +5,39 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kappstudio.jotabletopgame.R
+import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
+import com.kappstudio.jotabletopgame.databinding.ItemGameSimpleBinding
 
-//type1 = info
-class GameAdapter(type: Int) : ListAdapter<Game, GameAdapter.GameViewHolder>(DiffCallback) {
+class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
+    ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback) {
 
-    class GameViewHolder(private var binding: ItemGameInfoBinding) :
+    class InfoViewHolder(private var binding: ItemGameInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(game: Game) {
+        fun bind(game: Game, isHorizontal: Boolean) {
             binding.apply {
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
                 tvRating.text = (game.totalRating / game.ratingQty).toString()
 
+                if (isHorizontal) {
+                    ivGame.layoutParams.width =
+                        appInstance.resources.getDimensionPixelSize(R.dimen.game_item_image)
+                }
+            }
+        }
+    }
+
+    class SimpleViewHolder(private val binding: ItemGameSimpleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(game: Game, isHorizontal: Boolean) {
+            binding.apply {
+                tvName.text = game.name
             }
         }
     }
@@ -35,17 +52,37 @@ class GameAdapter(type: Int) : ListAdapter<Game, GameAdapter.GameViewHolder>(Dif
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
-        return GameViewHolder(
-            ItemGameInfoBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        return when (type) {
+            GameAdapterType.SIMPLE -> {
+                SimpleViewHolder(
+                    ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
+                )
+            }
+
+            GameAdapterType.INFO -> {
+                InfoViewHolder(
+                    ItemGameInfoBinding.inflate(LayoutInflater.from(parent.context))
+                )
+            }
+            else -> {
+                SimpleViewHolder(
+                    ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
+                )
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        when (holder) {
+            is SimpleViewHolder -> {
+                holder.bind(getItem(position), isHorizontal)
+            }
+            is InfoViewHolder -> {
+                holder.bind(getItem(position), isHorizontal)
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-android:color="#228187ff">
+android:color="#7781c1ff">
 <item android:id="@android:id/background" >
     <shape>
         <corners android:radius="8dp" />
