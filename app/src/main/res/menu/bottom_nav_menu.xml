@@ -4,22 +4,22 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
-        android:title="@string/home_page"/>
+        android:title="@string/home"/>
 
     <item
         android:id="@+id/gameFragment"
         android:icon="@drawable/ic_game"
-        android:title="@string/game_page"/>
+        android:title="@string/game_viewed"/>
 
     <item
         android:id="@+id/toolFragment"
         android:icon="@drawable/ic_tool"
-        android:title="@string/tool_page"/>
+        android:title="@string/tool"/>
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
-        android:title="@string/profile_page"/>
+        android:title="@string/profile"/>
 
 </menu>
 

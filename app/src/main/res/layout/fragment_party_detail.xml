@@ -38,13 +38,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="礦坑團" />
+                android:text="礦坑團" />
 
             <TextView
                 android:id="@+id/tv_already_join"
                 style="@style/alreadyJoin"
                 android:layout_marginStart="16dp"
-                android:text="@string/already_join"
+                android:text=""
                 app:layout_constraintStart_toEndOf="@+id/tv_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
@@ -112,7 +112,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_host"
                 app:layout_constraintStart_toEndOf="@id/tv_title_host"
                 app:layout_constraintTop_toTopOf="@id/tv_title_host"
-                tools:text="AKuan" />
+                android:text="AKuan" />
 
             <View
                 android:id="@+id/view_line_host"
@@ -142,7 +142,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_location"
                 app:layout_constraintStart_toEndOf="@id/tv_title_location"
                 app:layout_constraintTop_toTopOf="@id/tv_title_location"
-                tools:text="台北市-基隆路一段178號" />
+                android:text="台北市-基隆路一段178號" />
 
             <View
                 android:id="@+id/view_line_location"
@@ -173,7 +173,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
                 app:layout_constraintStart_toEndOf="@id/tv_title_time"
                 app:layout_constraintTop_toTopOf="@id/tv_title_time"
-                tools:text="2021/10/22(五) 20:00" />
+                android:text="2021/10/22(五) 20:00" />
 
             <View
                 android:id="@+id/view_line_time"
@@ -206,7 +206,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/tv_title_note"
                 app:layout_constraintTop_toTopOf="@id/tv_title_note"
-                tools:text="提供提供兩箱啤酒兩箱提供兩箱啤酒提供兩箱啤酒啤酒提提供兩提供兩箱啤酒箱啤酒供兩箱啤酒" />
+                android:text="提供提供兩箱啤酒兩箱提供兩箱啤酒提供兩箱啤酒啤酒提提供兩提供兩箱啤酒箱啤酒供兩箱啤酒" />
 
             <View
                 android:id="@+id/view_line_note"
@@ -239,17 +239,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/tv_title_require_player"
                 app:layout_constraintTop_toTopOf="@id/tv_title_require_player"
-                tools:text="2/4人 (缺)" />
+                android:text="2/4人 (缺)" />
 
-            <View
-                android:id="@+id/view_line_require_player"
-                style="@style/view_line_white"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_view_player" />
 
 
             <TextView
@@ -296,10 +287,10 @@
         android:layout_height="35dp"
         android:background="@drawable/bg_corners_4dp"
         android:elevation="@dimen/elevation_4dp"
-        android:text="@string/out"
+        android:text="@string/join"
         android:layout_marginTop="4dp"
         android:textSize="15sp"
-        android:textColor="#ff5679"
+        android:textColor="@color/green_7bff75"
        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

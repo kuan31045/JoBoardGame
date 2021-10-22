@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kappstudio.jotabletopgame.R
+import com.kappstudio.jotabletopgame.data.Game
+import com.kappstudio.jotabletopgame.databinding.FragmentHomeBinding
+import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
+import com.kappstudio.jotabletopgame.game.GameAdapter
+import com.kappstudio.jotabletopgame.game.GameNormalAdapter
 
 class PartyDetailFragment : Fragment() {
 
@@ -18,8 +23,22 @@ class PartyDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_party_detail, container, false)
+        val binding = FragmentPartyDetailBinding.inflate(inflater)
+        var games: MutableList<Game> = mutableListOf()
+        repeat(13){
+            games.add(
+                Game(
+                    name = "卡坦島$it"
+                )
+            )
+        }
+
+
+        binding.rvGame.adapter = GameNormalAdapter().apply{submitList(
+            games
+        )}
+
+        return binding.root
     }
 
 

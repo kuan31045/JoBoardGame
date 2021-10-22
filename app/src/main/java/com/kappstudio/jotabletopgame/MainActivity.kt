@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -11,47 +12,64 @@ import androidx.navigation.ui.setupWithNavController
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    val viewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
 
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+
+        binding.toolbar.setNavigationOnClickListener {
+            when (viewModel.page.value) {
+                PageType.PARTY_DETAIL -> navController.popBackStack()
+            }
+        }
+
         setSupportActionBar(binding.toolbar)
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        setNavController()
+        setBarAttr()
+
+    }
+
+    private fun setNavController() {
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.gameFragment, R.id.toolFragment,R.id.profileFragment
+                R.id.homeFragment, R.id.gameFragment, R.id.toolFragment, R.id.profileFragment
             )
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
+    }
+
+    private fun setBarAttr() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.ivLogo.visibility = View.GONE
-            binding.toolbar.visibility=View.VISIBLE
-            binding.navView.visibility=View.VISIBLE
-            binding.tvTitle.text = when (destination.id) {
+            supportActionBar?.title = ""
 
-                R.id.homeFragment -> {
-                    binding.ivLogo.visibility = View.VISIBLE
-                    ""
-                }
-                R.id.gameFragment -> getString(R.string.game_page)
-                R.id.toolFragment -> getString(R.string.tool_page)
-                R.id.profileFragment -> getString(R.string.profile_page)
-                R.id.partyDetailFragment -> {
-                    binding.toolbar.visibility=View.GONE
-                    binding.navView.visibility=View.GONE
-                    getString(R.string.party_detail_page)
-                }
+            viewModel.setBarStatus(
+                when (destination.id) {
+                    R.id.homeFragment -> PageType.HOME
+                    R.id.gameFragment -> PageType.GAME
+                    R.id.toolFragment -> PageType.TOOL
+                    R.id.profileFragment -> PageType.PROFILE
+                    R.id.partyDetailFragment->PageType.PARTY_DETAIL
 
-                else -> ""
-            }
+                    else -> PageType.OTHER
+                }
+            )
+
 
         }
     }
+
+
 }
