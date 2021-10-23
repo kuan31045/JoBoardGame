@@ -11,14 +11,15 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PartyDetailViewModel(private val partyId: String) : ViewModel() {
-    val party: LiveData<Party?> = FirebaseService.getPartyById(partyId)
+    val party: LiveData<Party?> = FirebaseService.getLivePartyById(partyId)
 
     private var _host = MutableLiveData<User?>()
     val host: LiveData<User?>
         get() = _host
 
-
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
+        setHost()
+
         it?.playerIdList?.contains(UserObject.mUserId)
     }
 
@@ -30,17 +31,11 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel() {
         str
     }
 
-    init {
-
-    }
-
-    fun setHost() {
+   private fun setHost() {
         viewModelScope.launch {
-            _host.value = FirebaseService.getUserById("user1").value
+            _host.value = FirebaseService.getUserById(party.value?.hostId?:"")
             Timber.d("set host${host.value}")
-
         }
-
     }
 
     fun joinParty() {

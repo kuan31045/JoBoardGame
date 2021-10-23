@@ -1,6 +1,5 @@
 package com.kappstudio.jotabletopgame.data
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,143 +9,112 @@ import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
-import java.io.Serializable
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
-   suspend fun getUserById(hostId: String): MutableLiveData<User?> =
-       suspendCoroutine { continuation ->
-        Timber.d("-----Get User By Id------------------------------")
+    suspend fun getUserById(hostId: String): User? =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get User By Id------------------------------")
 
-        val user = MutableLiveData<User?>()
+            FirebaseFirestore.getInstance()
+                .collection("users").document(hostId)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = task.result?.toObject(User::class.java)
+                        continuation.resume(user)
+                    } else {
+                        task.exception?.let {
+                            //   continuation.resume(Result.Error(it))
+                            Timber.w("Error getting documents.,$it")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 
-        val userQuery = FirebaseFirestore.getInstance()
-            .collection("users").document(hostId)
 
-        userQuery
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                user.value = documentSnapshot.toObject<User>()
-                Timber.d("user to object: ${user.value?.name}")
-                continuation.resume(user)
-
-            }
-            .addOnFailureListener { exception ->
-                Timber.d("Error getting documents., $exception")
-                user.value = null
-            }
-    }
-
-    fun leaveParty(partyId: String) {
-        Timber.d("-----Leave Party------------------------------")
-        val partyQuery = FirebaseFirestore.getInstance()
-            .collection("parties").document(partyId)
-        partyQuery.update("playerIdList", FieldValue.arrayRemove(UserObject.mUserId))
-        ToastUtil.show(appInstance.getString(R.string.bye))
-    }
-
-    fun joinParty(partyId: String) {
-        Timber.d("-----Join Party------------------------------")
-
-        val partyQuery = FirebaseFirestore.getInstance()
-            .collection("parties").document(partyId)
-        partyQuery.update("playerIdList", FieldValue.arrayUnion(UserObject.mUserId))
-        ToastUtil.show(appInstance.getString(R.string.welcome))
-    }
-
-    fun getPartyById(partyId: String): MutableLiveData<Party?> {
+    fun getLivePartyById(partyId: String): MutableLiveData<Party> {
         Timber.d("-----Get Party By Id------------------------------")
 
-        val party = MutableLiveData<Party?>()
+        val party = MutableLiveData<Party>()
 
-        val partyQuery = FirebaseFirestore.getInstance()
-            .collection("parties").document(partyId)
-
-        partyQuery
-            .get()
-            .addOnSuccessListener {
-                partyQuery.addSnapshotListener { snapshots, e ->
-                    val result =
-                        snapshots?.toObject<Party>()
-
-                    party.value = result ?: Party()
+        FirebaseFirestore.getInstance().collection("parties").document(partyId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
                 }
-            }
 
-            .addOnFailureListener { exception ->
-                Timber.d("Error getting documents., $exception")
-                party.value = null
+                if (snapshot != null && snapshot.exists()) {
+                    Timber.d("Current data: ${snapshot.data}")
+                    party.value = snapshot.toObject<Party>()
+                } else {
+                    Timber.d("Current data: null")
+                }
             }
 
         return party
     }
 
-    fun getAllParties(): MutableLiveData<List<Party>?> {
+    fun getLiveParties(): MutableLiveData<List<Party>> {
         Timber.d("-----Get All Parties------------------------------")
 
-        val parties = MutableLiveData<List<Party>?>()
-        val db = FirebaseFirestore.getInstance()
-        val query = db.collection("parties").orderBy("partyTime", Query.Direction.ASCENDING)
+        val liveData = MutableLiveData<List<Party>>()
 
-        query
+        FirebaseFirestore.getInstance()
+            .collection("parties").orderBy("partyTime", Query.Direction.ASCENDING)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                liveData.value = snapshot?.toObjects(Party::class.java) ?: mutableListOf()
+                Timber.d("Current data: ${liveData.value}")
+            }
+        return liveData
+    }
+
+    suspend fun getGames(): List<Game> = suspendCoroutine { continuation ->
+        Timber.d("-----Get All Games------------------------------")
+
+        FirebaseFirestore.getInstance()
+            .collection("games").orderBy("createdTime", Query.Direction.ASCENDING)
             .get()
-            .addOnSuccessListener {
-                query.addSnapshotListener { snapshots, e ->
-                    val result =
-                        snapshots?.toObjects(Party::class.java) ?: mutableListOf()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list =  task.result?.toObjects(Game::class.java) ?: mutableListOf()
+                    Timber.d("Current data: $list")
 
-                    result.forEach {
-                        //Set Host Name
-                        val queryHost = db.collection("users").document(it.hostId)
-                        queryHost.get().addOnSuccessListener { documentSnapshot ->
-                            val user = documentSnapshot.toObject<User>()
-                            if (user != null) {
-                                it.hostName = user.name
-                                Timber.d("user to object: ${user.name}")
-                                if (result.last() == it) {
-                                    parties.value = result
-                                }
-                            }
-                        }
+                    continuation.resume(list)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("Error getting documents. ${it.message}")
+                        return@addOnCompleteListener
                     }
                 }
             }
-
-            .addOnFailureListener { exception ->
-                Timber.d("Error getting documents., $exception")
-                parties.value = null
-            }
-
-        return parties
     }
 
-    fun getAllGames(): MutableLiveData<List<Game>?> {
-        Timber.d("-----Get All Games------------------------------")
+    fun leaveParty(partyId: String) {
+        Timber.d("-----Leave Party------------------------------")
+        FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+            .update("playerIdList", FieldValue.arrayRemove(UserObject.mUserId))
+        ToastUtil.show(appInstance.getString(R.string.bye))
+    }
 
-        var games = MutableLiveData<List<Game>?>()
-        val db = FirebaseFirestore.getInstance()
-        val query = db.collection("games").orderBy("createdTime", Query.Direction.ASCENDING)
-
-        query
-            .get()
-            .addOnSuccessListener {
-                query.addSnapshotListener { snapshots, e ->
-                    games.value =
-                        snapshots?.toObjects(Game::class.java) ?: mutableListOf()
-                    Timber.d("Success getting documents: ${games.value}")
-                }
-            }
-
-            .addOnFailureListener { exception ->
-                Timber.d("Error getting documents., $exception")
-                games.value = null
-            }
-
-        return games
+    fun joinParty(partyId: String) {
+        Timber.d("-----Join Party------------------------------")
+        FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+            .update("playerIdList", FieldValue.arrayUnion(UserObject.mUserId))
+        ToastUtil.show(appInstance.getString(R.string.welcome))
     }
 
     fun addMockUser() {
@@ -162,7 +130,11 @@ object FirebaseService {
                 "name" to "AKuan${it + 1}",
                 "picture" to "image.xxx.com",
                 "favoriteGame" to listOf("game${it + 1}", "game${it + 2}", "game${it + 3}"),
-                "recentlyViewed" to listOf("game${it + 4}", "game${it + 5}", "game${it + 6}"),
+                "recentlyViewed" to listOf(
+                    "game${it + 4}",
+                    "game${it + 5}",
+                    "game${it + 6}"
+                ),
                 "status" to "好餓"
             )
 
@@ -185,7 +157,7 @@ object FirebaseService {
                 "title" to "卡坦團${it + 1}",
                 "partyTime" to Calendar.getInstance().timeInMillis + 1,
                 "location" to "台北市-基隆路一段178號",
-                "note" to "卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會。",
+                "note" to "提供箱${it + 1}箱啤酒",
                 "requirePlayerQty" to it + 3,
                 "gameIdList" to listOf("game${it + 1}", "game${it + 2}", "game${it + 3}"),
                 "gameNameList" to listOf("卡坦島${it + 1}", "卡坦島${it + 2}", "卡坦島${it + 3}"),
@@ -222,8 +194,10 @@ object FirebaseService {
             games.document("game${it + 1}")
                 .set(data)
         }
-
     }
-
-
 }
+
+
+
+
+

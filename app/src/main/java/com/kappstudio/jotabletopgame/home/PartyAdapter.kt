@@ -28,6 +28,8 @@ class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, Pa
                 }
                 if (UserObject.mUserId in party.playerIdList){
                     tvAlreadyJoin.visibility = View.VISIBLE
+                }else{
+                    tvAlreadyJoin.visibility = View.GONE
                 }
 
                 clParty.setOnClickListener {

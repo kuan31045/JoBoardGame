@@ -41,14 +41,7 @@ class PartyDetailFragment : Fragment() {
                 )
             )
         }
-        viewModel.host.observe(viewLifecycleOwner, {
-            it?.let {
-                Timber.d("gethost ${it.name}")
-            }
-        })
-        viewModel.party.observe(viewLifecycleOwner,{
-            viewModel.setHost()
-        })
+
 
         binding.rvPartyGame.adapter = GameAdapter(GameAdapterType.SIMPLE).apply {
             submitList(games)
