@@ -62,7 +62,7 @@
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽</string>
     <string name="peopleQty">人數:</string>
-    <string name="lack">\" (缺)\"</string>
+    <string name="lack"> (缺)</string>
 
 
 </resources>

@@ -21,7 +21,7 @@ class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, Pa
                 tvTitle.text = party.title
                 tvLocation.text = party.location
                 tvTime.text = party.partyTime.toString()
-                tvHost.text = party.hostName
+                tvHost.text = party.host.name
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
                 party.gameNameList.forEach {
                     tvGame.text = "${tvGame.text}$it, "

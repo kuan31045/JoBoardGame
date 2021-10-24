@@ -8,19 +8,7 @@ import timber.log.Timber
 
 class HomeViewModel : ViewModel() {
 
-    private var partiesResult = FirebaseService.getLiveParties()
-    val canSetHostName: LiveData<Boolean> = Transformations.map(partiesResult) {
-        it?.let {
-            setHostName()
-        }
-
-        it.isNotEmpty()
-    }
-
-    private var _parties = MutableLiveData<List<Party>>()
-    val parties: LiveData<List<Party>>
-        get() = _parties
-
+    val parties: LiveData<List<Party>> = FirebaseService.getLiveParties()
 
     // nav
     private val _navToPartyDetail = MutableLiveData<String?>()
@@ -28,7 +16,7 @@ class HomeViewModel : ViewModel() {
         get() = _navToPartyDetail
 
     init {
-        //  FirebaseService.addMockParty()
+         // FirebaseService.addMockParty()
         //  FirebaseService.addMockGame()
         //  FirebaseService.addMockUser()
     }
@@ -39,17 +27,6 @@ class HomeViewModel : ViewModel() {
 
     fun onNavToPartyDetail() {
         _navToPartyDetail.value = null
-    }
-
-    private fun setHostName() {
-
-        viewModelScope.launch {
-            partiesResult.value?.forEach {
-                it.hostName = FirebaseService.getUserById(it.hostId)?.name ?: ""
-                Timber.d("Set host name${it.hostName}")
-            }
-            _parties.value = partiesResult.value
-        }
     }
 
 }

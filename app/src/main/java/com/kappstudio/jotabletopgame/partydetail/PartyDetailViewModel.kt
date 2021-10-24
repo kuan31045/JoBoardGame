@@ -1,5 +1,6 @@
 package com.kappstudio.jotabletopgame.partydetail
 
+
 import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
@@ -10,17 +11,12 @@ import timber.log.Timber
 class PartyDetailViewModel(private val partyId: String) : ViewModel() {
     val party: LiveData<Party?> = FirebaseService.getLivePartyById(partyId)
 
-    private var _host = MutableLiveData<User>()
-    val host: LiveData<User>
-        get() = _host
-
-    private var _games = MutableLiveData<Game>()
-    val games: LiveData<Game>
+    private var _games = MutableLiveData<List<Game>>()
+    val games: LiveData<List<Game>>
         get() = _games
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
-        setHost()
-    //    setGame()
+        setGame()
 
         it?.playerIdList?.contains(UserManager.user["id"])
     }
@@ -33,19 +29,16 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel() {
         str
     }
 
-//    private fun setGame() {
-//        viewModelScope.launch {
-//            _games.value = FirebaseService.getGamesByPartyId(party.value?.id?:"")
-//            Timber.d("set host${host.value}")
-//        }
-//    }
-
-   private fun setHost() {
+    private fun setGame() {
         viewModelScope.launch {
-            _host.value = FirebaseService.getUserById(party.value?.hostId?:"")
-            Timber.d("set host${host.value}")
+            Timber.d("setGame")
+                _games.value =
+                    FirebaseService.getGamesByNames(party.value?.gameNameList ?: mutableListOf())
+
+
         }
     }
+
 
     fun joinParty() {
         FirebaseService.joinParty(partyId)

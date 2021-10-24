@@ -17,6 +17,51 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
+    suspend fun getGamesByNames(gameNameList: List<String>): List<Game> =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get Games By Names------------------------------")
+            var games = mutableListOf<Game>()
+
+            if (gameNameList.isEmpty()) {
+                Timber.d("Game list is empty.")
+                continuation.resume(games)
+            }
+
+            gameNameList.forEach {
+                FirebaseFirestore.getInstance()
+                    .collection("games").whereEqualTo("name", it)
+                    .get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+
+                            // 若資料庫內找不到此Game，給予一個新的Game物件，name自設
+                            games.add(
+                                try {
+                                    task.result?.first()?.toObject(Game::class.java) ?: Game(name = it)
+                                }catch (e:Exception){
+                                    Timber.d("Game not found: $it")
+                                    Game(name = it)
+                                }
+                            )
+
+                            Timber.d("Games.add data: $it")
+                            if (it == gameNameList.last()) {
+                                Timber.d("Current data: $games")
+
+                                continuation.resume(games)
+                            }
+                        } else {
+                            task.exception?.let {
+                                //   continuation.resume(Result.Error(it))
+                                Timber.w("Error getting documents.,$it")
+                                return@addOnCompleteListener
+                            }
+                        }
+                    }
+
+            }
+
+        }
 
     suspend fun getUserById(userId: String): User? =
         suspendCoroutine { continuation ->
@@ -28,6 +73,8 @@ object FirebaseService {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val user = task.result?.toObject(User::class.java)
+                        Timber.d("Current data: $user")
+
                         continuation.resume(user)
                     } else {
                         task.exception?.let {
@@ -109,6 +156,9 @@ object FirebaseService {
         FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
             .update("playerIdList", FieldValue.arrayRemove(UserManager.user["id"]))
+        FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+            .update("playerList", FieldValue.arrayRemove(UserManager.user))
         ToastUtil.show(appInstance.getString(R.string.bye))
     }
 
@@ -117,6 +167,9 @@ object FirebaseService {
         FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
             .update("playerIdList", FieldValue.arrayUnion(UserManager.user["id"]))
+        FirebaseFirestore.getInstance()
+            .collection("parties").document(partyId)
+            .update("playerList", FieldValue.arrayUnion(UserManager.user))
         ToastUtil.show(appInstance.getString(R.string.welcome))
     }
 
@@ -174,7 +227,7 @@ object FirebaseService {
         val parties = FirebaseFirestore.getInstance().collection("parties")
 
         //game20
-        repeat(5) {
+        repeat(3) {
             val doc = parties.document()
 
             val data = hashMapOf(
@@ -187,7 +240,7 @@ object FirebaseService {
                 "note" to "提供箱${it + 1}箱啤酒",
                 "requirePlayerQty" to it + 3,
                 "gameNameList" to listOf("卡坦島${it + 1}", "卡坦島${it + 2}", "卡坦島${it + 3}"),
-                "playerIdList" to listOf("user1", "user2", "user3"),
+                "playerIdList" to listOf("user${it + 1}", "user${it + 2}", "user${it + 3}"),
                 "playerList" to listOf(
 
                     hashMapOf(
@@ -195,19 +248,14 @@ object FirebaseService {
                         "name" to "AKuan${it + 1}",
                         "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=640a394b-a6f1-4867-860a-b5599ba2a72e"
                     ),
-                            hashMapOf(
-                            "id" to "user${it + 2}",
-                    "name" to "AKuan${it + 2}",
-                    "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=640a394b-a6f1-4867-860a-b5599ba2a72e"
-                ),
-                        hashMapOf(
-                        "id" to "user${it + 3}",
-                "name" to "AKuan${it + 3}",
-                "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=640a394b-a6f1-4867-860a-b5599ba2a72e"
-            ),
                     hashMapOf(
-                        "id" to "user${it + 4}",
-                        "name" to "AKuan${it + 4}",
+                        "id" to "user${it + 2}",
+                        "name" to "AKuan${it + 2}",
+                        "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=640a394b-a6f1-4867-860a-b5599ba2a72e"
+                    ),
+                    hashMapOf(
+                        "id" to "user${it + 3}",
+                        "name" to "AKuan${it + 3}",
                         "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=640a394b-a6f1-4867-860a-b5599ba2a72e"
                     )
                 )

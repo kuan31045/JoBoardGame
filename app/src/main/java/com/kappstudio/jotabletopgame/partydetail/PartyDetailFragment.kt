@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+
 import com.kappstudio.jotabletopgame.VMFactory
-import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
 import com.kappstudio.jotabletopgame.game.GameAdapterType
@@ -33,20 +33,17 @@ class PartyDetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        var games: MutableList<Game> = mutableListOf()
-        repeat(13) {
-            games.add(
-                Game(
-                    name = "卡坦島$it"
-                )
-            )
-        }
 
 
-        binding.rvPartyGame.adapter = GameAdapter(GameAdapterType.SIMPLE).apply {
-            submitList(games)
-        }
+
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        viewModel.games.observe(viewLifecycleOwner,{
+            Timber.d("Games = $it")
+            binding.rvPartyGame.adapter = GameAdapter(GameAdapterType.SIMPLE).apply {
+                submitList(it)
+            }
+        })
 
         return binding.root
     }

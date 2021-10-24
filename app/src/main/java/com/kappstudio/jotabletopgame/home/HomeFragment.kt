@@ -19,19 +19,12 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.inflate(inflater)
         val viewModel: HomeViewModel by viewModels()
 
-        viewModel.canSetHostName.observe(viewLifecycleOwner, {
-          Timber.d("Can set host name: $it")
-        })
         viewModel.parties.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
             binding.rvParty.adapter = PartyAdapter(viewModel).apply {
                 submitList(it)
             }
         })
-
-
-
-
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {

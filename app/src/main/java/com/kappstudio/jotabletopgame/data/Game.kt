@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Game(
-    val id:String = "notFound",
+    val id: String = "notFound",
     var name: String = "",
     val image: String = "",
     val type: MutableList<String>? = null,
@@ -16,4 +16,12 @@ data class Game(
     var avgRating: Double = 0.0,
     var ratingQty: Long = 0,
     var createdTime: Long = 0,
-): Parcelable
+) : Parcelable {
+    fun toMap(): HashMap<String, String> {
+        return hashMapOf(
+            "id" to id,
+            "name" to name,
+            "image" to image
+        )
+    }
+}
