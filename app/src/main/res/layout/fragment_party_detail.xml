@@ -8,7 +8,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="vm"
+            name="viewModel"
             type="com.kappstudio.jotabletopgame.partydetail.PartyDetailViewModel" />
 
     </data>
@@ -47,7 +47,7 @@
                     android:id="@+id/tv_title"
                     style="@style/titleStyleWhite"
                     android:layout_marginTop="8dp"
-                    android:text="@{vm.party.title}"
+                    android:text="@{viewModel.party.title}"
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
                     style="@style/alreadyJoin"
                     android:layout_marginStart="16dp"
                     android:text="@string/already_join"
-                    android:visibility="@{ vm.isJoin()?View.VISIBLE:View.GONE }"
+                    android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
                     app:layout_constraintStart_toEndOf="@+id/tv_title"
                     app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
@@ -69,12 +69,12 @@
                     android:layout_height="0dp"
                     android:layout_marginEnd="3dp"
                     android:backgroundTint="@color/white"
-                    android:onClick="@{()->vm.joinParty()}"
+                    android:onClick="@{()->viewModel.joinParty()}"
                     android:text="@string/join"
                     android:textColor="@color/green_29AA36"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:visibility="@{ vm.isJoin()?View.GONE:View.VISIBLE }"
+                    android:visibility="@{ viewModel.isJoin()?View.GONE:View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,7 +144,7 @@
                     app:layout_constraintStart_toEndOf="@id/tv_title_host"
                     app:layout_constraintTop_toTopOf="@id/tv_title_host"
                     tools:text="AKuan"
-                    android:text="@{vm.party.host.name}"
+                    android:text="@{viewModel.party.host.name}"
                     />
 
                 <View
@@ -167,7 +167,7 @@
                     app:layout_constraintTop_toBottomOf="@id/view_line_host" />
 
                 <TextView
-                    android:text="@{vm.party.location}"
+                    android:text="@{viewModel.party.location}"
 
                     android:id="@id/tv_location"
                     style="@style/textStyleWhite"
@@ -202,7 +202,7 @@
                     android:id="@id/tv_time"
                     style="@style/textStyleWhite"
                     android:layout_width="wrap_content"
-                    android:text="@{String.valueOf(vm.party.partyTime)}"
+                    android:text="@{String.valueOf(viewModel.party.partyTime)}"
 
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -233,7 +233,7 @@
                 <TextView
                     android:id="@+id/tv_note"
                     style="@style/textStyleWhite"
-                    android:text="@{vm.party.note}"
+                    android:text="@{viewModel.party.note}"
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                 <TextView
                     android:id="@+id/tv_player_qty"
                     style="@style/textStyleWhite"
-                    android:text="@{vm.playerQtyStatus}"
+                    android:text="@{viewModel.playerQtyStatus}"
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -290,13 +290,13 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_title_player_qty" />
 
                 <TextView
-
+            
                     android:id="@+id/tv_title_msg"
                     style="@style/titleStyleWhite2"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/msg"
                     app:layout_constraintStart_toStartOf="@+id/tv_title_player_qty"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_view_player" />
+                    app:layout_constraintTop_toBottomOf="@+id/view_line_rv_player" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_msg"
@@ -312,27 +312,55 @@
                     tools:listitem="@layout/item_party_msg" />
 
                 <TextView
-                    android:id="@+id/tv_view_player"
-                    style="@style/textStyleWhite"
+                    android:id="@+id/tv_title_player"
+                    style="@style/titleStyleWhite2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?android:selectableItemBackground"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/ic_people_18"
+                    android:layout_marginTop="12dp"
+
                     android:focusable="true"
-                    android:padding="5dp"
+
                     android:text="@string/join_players"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_player_qty"
-                    app:layout_constraintEnd_toEndOf="@+id/view_line_player"
-                    app:layout_constraintTop_toTopOf="@+id/tv_player_qty" />
+                    app:layout_constraintStart_toStartOf="@+id/view_line_player"
+                    app:layout_constraintTop_toBottomOf="@+id/view_line_player" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_player"
+                    android:layout_width="0dp"
+                    android:visibility="@{ viewModel.party.playerIdList.empty ?View.GONE:View.VISIBLE }"
+
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/cl_games"
+                   tools:listitem="@layout/item_user"
+                    tools:itemCount="5"
+                    android:layout_marginTop="6dp"
+
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_player"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_player" />
 
                 <View
+                    android:id="@+id/view_line_rv_player"
+                    style="@style/view_line_white"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="17dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_player" />
+
+                <View
+                    app:layout_goneMarginTop="4dp"
                     android:id="@+id/view_line_view_player"
                     style="@style/view_line_white"
                     android:layout_marginStart="17dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="17dp"
                     app:layout_constraintEnd_toEndOf="parent"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_note" />
 
@@ -342,13 +370,13 @@
                     android:layout_height="0dp"
                     android:layout_marginEnd="3dp"
                     android:backgroundTint="@color/white"
-                    android:onClick="@{()->vm.leaveParty()}"
+                    android:onClick="@{()->viewModel.leaveParty()}"
                     android:text="@string/out"
                     android:textColor="@color/red_ff7275"
                     android:textSize="16sp"
                     android:textStyle="bold"
 
-                    android:visibility="@{ vm.isJoin()?View.VISIBLE:View.GONE }"
+                    android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 

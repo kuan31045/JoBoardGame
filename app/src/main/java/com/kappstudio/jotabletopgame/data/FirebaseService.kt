@@ -37,8 +37,9 @@ object FirebaseService {
                             // 若資料庫內找不到此Game，給予一個新的Game物件，name自設
                             games.add(
                                 try {
-                                    task.result?.first()?.toObject(Game::class.java) ?: Game(name = it)
-                                }catch (e:Exception){
+                                    task.result?.first()?.toObject(Game::class.java)
+                                        ?: Game(name = it)
+                                } catch (e: Exception) {
                                     Timber.d("Game not found: $it")
                                     Game(name = it)
                                 }
@@ -47,7 +48,9 @@ object FirebaseService {
                             Timber.d("Games.add data: $it")
                             if (it == gameNameList.last()) {
                                 Timber.d("Current data: $games")
-
+                                games.sortBy {
+                                    it.createdTime
+                                }
                                 continuation.resume(games)
                             }
                         } else {

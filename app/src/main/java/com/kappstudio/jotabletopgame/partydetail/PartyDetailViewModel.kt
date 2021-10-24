@@ -29,13 +29,13 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel() {
         str
     }
 
+
+
     private fun setGame() {
         viewModelScope.launch {
             Timber.d("setGame")
-                _games.value =
-                    FirebaseService.getGamesByNames(party.value?.gameNameList ?: mutableListOf())
-
-
+            _games.value =
+                FirebaseService.getGamesByNames(party.value?.gameNameList ?: mutableListOf())
         }
     }
 
@@ -47,6 +47,8 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel() {
     fun leaveParty() {
         FirebaseService.leaveParty(partyId)
     }
+
+
 
 
 }

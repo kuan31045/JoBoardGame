@@ -21,3 +21,4 @@ data class Party(
     var gameList: MutableList<Game>? = null,
 
     ) : Parcelable
+

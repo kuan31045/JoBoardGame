@@ -9,11 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 
 import com.kappstudio.jotabletopgame.VMFactory
+import com.kappstudio.jotabletopgame.data.User
 import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
 import com.kappstudio.jotabletopgame.game.GameAdapterType
-import tech.gujin.toast.ToastUtil
 import timber.log.Timber
+import java.util.ArrayList
 
 class PartyDetailFragment : Fragment() {
 
@@ -31,19 +32,24 @@ class PartyDetailFragment : Fragment() {
         }
 
         binding.lifecycleOwner = this
-        binding.vm = viewModel
-
-
-
+        binding.viewModel = viewModel
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
 
-        viewModel.games.observe(viewLifecycleOwner,{
+        viewModel.party.observe(viewLifecycleOwner,{
+            binding.rvPlayer.adapter = PlayerAdapter().apply {
+                submitList(it?.playerList)
+            }
+        })
+
+        viewModel.games.observe(viewLifecycleOwner, {
             Timber.d("Games = $it")
             binding.rvPartyGame.adapter = GameAdapter(GameAdapterType.SIMPLE).apply {
                 submitList(it)
             }
         })
+
+
 
         return binding.root
     }
