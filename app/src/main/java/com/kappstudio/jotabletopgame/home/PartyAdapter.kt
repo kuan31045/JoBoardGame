@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.jotabletopgame.data.Party
-import com.kappstudio.jotabletopgame.data.UserObject
+import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.databinding.ItemPartyBinding
 
 class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
@@ -26,7 +26,7 @@ class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, Pa
                 party.gameNameList.forEach {
                     tvGame.text = "${tvGame.text}$it, "
                 }
-                if (UserObject.mUserId in party.playerIdList){
+                if (UserManager.user["id"] in party.playerIdList){
                     tvAlreadyJoin.visibility = View.VISIBLE
                 }else{
                     tvAlreadyJoin.visibility = View.GONE

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Game(
-    val id:String = "",
+    val id:String = "notFound",
     var name: String = "",
     val image: String = "",
     val type: MutableList<String>? = null,
@@ -13,7 +13,7 @@ data class Game(
     val minPlayerQty: Int = 0,
     val maxPlayerQty: Int = 0,
     val desc: String = "",
-    var totalRating: Long = -1,
-    var ratingQty: Long = -1,
+    var avgRating: Double = 0.0,
+    var ratingQty: Long = 0,
     var createdTime: Long = 0,
 ): Parcelable

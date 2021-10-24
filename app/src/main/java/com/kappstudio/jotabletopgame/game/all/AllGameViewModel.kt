@@ -17,7 +17,6 @@ class AllGameViewModel : ViewModel() {
 
     init {
         getGame()
-        //    FirebaseService.addMockGame()
     }
 
     private fun getGame() {

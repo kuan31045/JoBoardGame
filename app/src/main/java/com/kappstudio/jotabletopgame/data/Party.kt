@@ -8,18 +8,16 @@ import kotlinx.parcelize.Parcelize
 data class Party(
     val id: String = "",
     var hostId: String = "",
+    var host: User = User(),
     var title: String = "",
     var partyTime: Long = 0,
     var location: String = "",
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameIdList: MutableList<String> = mutableListOf(),
     var gameNameList: MutableList<String> = mutableListOf(),
-
     var playerIdList: MutableList<String> = mutableListOf(),
+    var playerList: MutableList<User>? = null,
 
-    var hostName: String = "",
-    var gamesList: MutableList<Game>? = null,
-    var playerList: MutableList<User>? = null
+    var gameList: MutableList<Game>? = null,
 
-) : Parcelable
+    ) : Parcelable

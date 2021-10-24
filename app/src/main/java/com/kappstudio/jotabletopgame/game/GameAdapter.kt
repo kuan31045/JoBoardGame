@@ -22,7 +22,7 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
-                tvRating.text = (game.totalRating / game.ratingQty).toString()
+                tvRating.text =game.avgRating.toString()
 
                 if (isHorizontal) {
                     ivGame.layoutParams.width =
@@ -44,7 +44,7 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
 
     companion object DiffCallback : DiffUtil.ItemCallback<Game>() {
         override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {

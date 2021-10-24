@@ -12,7 +12,7 @@
         android:layout_height="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile_sample" />
+        app:srcCompat="@drawable/defult_profile" />
 
     <TextView
         android:id="@+id/tv_name"

@@ -7,8 +7,8 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     var id: String = "",
     var name: String = "",
-    var picture: String = "",
+    var image: String = "",
     var status: String = "",
-    var favoriteGames: MutableList<String>? = null,
-    var recentlyViewed: MutableList<String>? = null
+    var favoriteGames: MutableList<Game>? = null,
+    var recentlyViewed: MutableList<Game>? = null
 ): Parcelable

@@ -28,7 +28,9 @@ class HomeViewModel : ViewModel() {
         get() = _navToPartyDetail
 
     init {
-        //   FirebaseService.addMockParty()
+        //  FirebaseService.addMockParty()
+        //  FirebaseService.addMockGame()
+        //  FirebaseService.addMockUser()
     }
 
     fun navToPartyDetail(partyId: String) {

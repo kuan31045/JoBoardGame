@@ -37,7 +37,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_featured.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_party_detail.xml" value="1.0" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_profile.xml" value="0.21039354187689202" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_proflie.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_tool.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_game_checked.xml" value="0.3442028985507246" />
@@ -60,12 +60,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.38817480719794345" />
-      </ProjectState>
-    </option>
   </component>
 </project>
