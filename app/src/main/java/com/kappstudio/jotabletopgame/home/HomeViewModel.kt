@@ -29,4 +29,6 @@ class HomeViewModel : ViewModel() {
         _navToPartyDetail.value = null
     }
 
+
+
 }

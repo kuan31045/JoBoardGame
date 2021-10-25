@@ -16,6 +16,29 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
+    suspend fun getMyParties(): List<Party>? =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get My Parties------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection("parties").whereArrayContains("playerIdList", UserManager.user["id"]?:"")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
+                        Timber.d("Current data: $list")
+
+                        continuation.resume(list)
+                    } else {
+                        task.exception?.let {
+
+                            Timber.w("Error getting documents. ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
     suspend fun createParty(party: PostPartyBody): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
 

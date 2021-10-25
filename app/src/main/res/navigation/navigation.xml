@@ -16,6 +16,9 @@
         <action
             android:id="@+id/nav_to_new_party_fragment"
             app:destination="@id/newPartyFragment" />
+        <action
+            android:id="@+id/nav_to_my_party_fragment"
+            app:destination="@id/myPartyFragment" />
     </fragment>
 
 
@@ -56,7 +59,11 @@
         tools:layout="@layout/fragment_new_party" >
 
     </fragment>
-
+    <fragment
+        android:id="@+id/myPartyFragment"
+        android:name="com.kappstudio.jotabletopgame.myparty.MyPartyFragment"
+        android:label="fragment_my_party"
+        tools:layout="@layout/fragment_my_party" />
 
 
 </navigation>

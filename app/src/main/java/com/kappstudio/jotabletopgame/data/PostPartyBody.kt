@@ -18,7 +18,7 @@ data class PostPartyBody(
     var playerIdList: MutableList<String> = mutableListOf(UserManager.user["id"] ?: ""),
     var playerList: MutableList<HashMap<String, String>> = mutableListOf(
         UserManager.user
-    ),
+    )
 
 
     ) : Parcelable

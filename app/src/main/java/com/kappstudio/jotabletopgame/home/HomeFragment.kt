@@ -21,6 +21,10 @@ class HomeFragment : Fragment() {
         val viewModel: HomeViewModel by viewModels()
         bindSpinnerCountries(binding.spnCountry)
 
+        binding.btnMyParty.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.navToMyPartyFragment())
+        }
+
         binding.btnNewParty.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.navToNewPartyFragment())
 
