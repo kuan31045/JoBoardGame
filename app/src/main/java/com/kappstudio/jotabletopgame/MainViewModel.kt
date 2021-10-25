@@ -18,16 +18,6 @@ class MainViewModel : ViewModel() {
     fun setBarStatus(status: PageType) {
         Timber.d("Status: $status")
         _page.value = status
-        _title.value = when (status) {
-            PageType.HOME -> ""
-            PageType.GAME -> appInstance.getString(R.string.game_viewed)
-            PageType.TOOL -> appInstance.getString(R.string.tool)
-            PageType.PROFILE -> appInstance.getString(R.string.profile)
-            PageType.NEW_PARTY -> appInstance.getString(R.string.new_party)
-
-            else -> {
-                title.value
-            }
-        }
+        _title.value = status.title
     }
 }

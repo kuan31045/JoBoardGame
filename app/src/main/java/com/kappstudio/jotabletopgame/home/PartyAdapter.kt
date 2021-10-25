@@ -3,6 +3,7 @@ package com.kappstudio.jotabletopgame.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,13 +11,14 @@ import com.kappstudio.jotabletopgame.bindTextViewDate
 import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.databinding.ItemPartyBinding
+import com.kappstudio.jotabletopgame.myparty.MyPartyViewModel
 
-class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
+class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
     class PartyViewHolder(private var binding: ItemPartyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(party: Party, viewModel: HomeViewModel) {
+        fun bind(party: Party, viewModel: ViewModel) {
 
             binding.apply {
                 tvTitle.text = party.title
@@ -36,7 +38,11 @@ class PartyAdapter(private val viewModel: HomeViewModel) : ListAdapter<Party, Pa
                 }
 
                 clParty.setOnClickListener {
-                    viewModel.navToPartyDetail(party.id)
+                    when(viewModel){
+                        is HomeViewModel -> viewModel.navToPartyDetail(party.id)
+                        is MyPartyViewModel -> viewModel.navToPartyDetail(party.id)
+
+                    }
                 }
 
             }

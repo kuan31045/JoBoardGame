@@ -97,7 +97,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="0dp"
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.NEW_PARTY ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.HOME || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
 
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"

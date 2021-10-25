@@ -10,15 +10,11 @@
         android:name="com.kappstudio.jotabletopgame.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/nav_to_party_detail_fragment"
-            app:destination="@id/partyDetailFragment" />
+
         <action
             android:id="@+id/nav_to_new_party_fragment"
             app:destination="@id/newPartyFragment" />
-        <action
-            android:id="@+id/nav_to_my_party_fragment"
-            app:destination="@id/myPartyFragment" />
+
     </fragment>
 
 
@@ -36,7 +32,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kappstudio.jotabletopgame.profile.ProflieFragment"
+        android:name="com.kappstudio.jotabletopgame.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 
@@ -64,6 +60,10 @@
         android:name="com.kappstudio.jotabletopgame.myparty.MyPartyFragment"
         android:label="fragment_my_party"
         tools:layout="@layout/fragment_my_party" />
-
-
+    <action
+        android:id="@+id/nav_to_my_party_fragment"
+        app:destination="@id/myPartyFragment" />
+    <action
+        android:id="@+id/nav_to_party_detail_fragment"
+        app:destination="@id/partyDetailFragment" />
 </navigation>

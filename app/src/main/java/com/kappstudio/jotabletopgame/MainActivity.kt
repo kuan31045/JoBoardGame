@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.profileFragment -> PageType.PROFILE
                     R.id.partyDetailFragment->PageType.PARTY_DETAIL
                     R.id.newPartyFragment ->PageType.NEW_PARTY
+                    R.id.myPartyFragment ->PageType.MY_PARTY
 
                     else -> PageType.OTHER
                 }

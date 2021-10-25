@@ -15,14 +15,26 @@ class MyPartyViewModel : ViewModel() {
     val parties: LiveData<List<Party>>
         get() = _parties
 
+    // nav
+    private val _navToPartyDetail = MutableLiveData<String?>()
+    val navToPartyDetail: LiveData<String?>
+        get() = _navToPartyDetail
 
     init {
         getMyParties()
     }
 
-    private fun  getMyParties() {
+    fun getMyParties() {
         viewModelScope.launch {
             _parties.value = FirebaseService.getMyParties()
         }
+    }
+
+    fun navToPartyDetail(partyId: String) {
+        _navToPartyDetail.value = partyId
+    }
+
+    fun onNavToPartyDetail() {
+        _navToPartyDetail.value = null
     }
 }
