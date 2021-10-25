@@ -14,8 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabSelectedTextColor="@color/black_3f3a3a"
-        app:tabTextColor="@color/warm_grey_two"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/transparentWhite"
         app:tabTextAppearance="@style/title2Style"
         />
 

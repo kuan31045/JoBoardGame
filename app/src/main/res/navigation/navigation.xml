@@ -13,7 +13,9 @@
         <action
             android:id="@+id/nav_to_party_detail_fragment"
             app:destination="@id/partyDetailFragment" />
-
+        <action
+            android:id="@+id/nav_to_new_party_fragment"
+            app:destination="@id/newPartyFragment" />
     </fragment>
 
 
@@ -44,6 +46,14 @@
         <argument
             android:name="selectedPartyId"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newPartyFragment"
+        android:name="com.kappstudio.jotabletopgame.newparty.NewPartyFragment"
+        android:label="fragment_new_party"
+        tools:layout="@layout/fragment_new_party" >
 
     </fragment>
 

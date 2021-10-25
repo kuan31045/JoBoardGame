@@ -22,6 +22,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+
             android:visibility="@{vm.page == PageType.PARTY_DETAIL ? View.GONE : View.VISIBLE}"
             android:layout_width="0dp"
             android:layout_height="46dp"
@@ -96,7 +97,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="0dp"
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.NEW_PARTY ? View.GONE : View.VISIBLE}"
 
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"

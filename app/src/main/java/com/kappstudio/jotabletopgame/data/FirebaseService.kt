@@ -7,15 +7,40 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.util.*
+import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
+
+    suspend fun createParty(party: PostPartyBody): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Create Party------------------------------")
+
+        val parties  = FirebaseFirestore.getInstance().collection("parties")
+        val document = parties.document()
+
+        party.id = document.id
+
+        document
+            .set(party)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Create Party Successful: $party")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
 
     suspend fun getGamesByNames(gameNameList: List<String>): List<Game> =
         suspendCoroutine { continuation ->
@@ -161,7 +186,8 @@ object FirebaseService {
             .update("playerIdList", FieldValue.arrayRemove(UserManager.user["id"]))
         FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
-            .update("playerList", FieldValue.arrayRemove(UserManager.user))
+            .update("playerList", FieldValue.arrayRemove(
+                UserManager.user))
         ToastUtil.show(appInstance.getString(R.string.bye))
     }
 
@@ -177,8 +203,8 @@ object FirebaseService {
     }
 
     fun addMockUser() {
-        val games = FirebaseFirestore.getInstance().collection("users")
-        val gameCount = FirebaseFirestore.getInstance()
+        val users = FirebaseFirestore.getInstance().collection("users")
+        val userCount = FirebaseFirestore.getInstance()
             .collection("info").document("userCount")
 
         //user5
@@ -220,8 +246,8 @@ object FirebaseService {
                 )
             )
 
-            gameCount.update("userCount", FieldValue.increment(1))
-            games.document("user${n + 1}")
+            userCount.update("userCount", FieldValue.increment(1))
+            users.document("user${n + 1}")
                 .set(data)
         }
     }

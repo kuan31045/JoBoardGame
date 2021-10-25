@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_app_page.xml" value="0.33" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_app_theme.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_card_item.xml" value="0.4546875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_card_item_inside.xml" value="0.4546875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_card_item_stroke.xml" value="0.4546875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_corners.xml" value="0.4546875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_corners_4dp.xml" value="0.44351851851851853" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_corners_8dp.xml" value="0.3333333333333333" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_edittext.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_rv_msg.xml" value="0.38457609805924414" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_spn.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/ic_back_26dp.xml" value="0.38457609805924414" />
@@ -34,10 +36,12 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/dialog_player.xml" value="0.32563405797101447" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/dialog_profile.xml" value="0.33" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_creat_party.xml" value="0.27717391304347827" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_all.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_featured.xml" value="0.22" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_new_party.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_party_detail.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_proflie.xml" value="0.25" />
@@ -51,7 +55,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_party.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_party_msg.xml" value="1.0" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_simple_game.xml" value="0.3442028985507246" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_user.xml" value="0.67" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/item_user.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/menu/menu.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1287037037037037" />
@@ -67,7 +71,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.22" />
+        <option name="scale" value="0.2" />
       </ProjectState>
     </option>
   </component>

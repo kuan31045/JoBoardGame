@@ -16,12 +16,4 @@ data class Game(
     var avgRating: Double = 0.0,
     var ratingQty: Long = 0,
     var createdTime: Long = 0,
-) : Parcelable {
-    fun toMap(): HashMap<String, String> {
-        return hashMapOf(
-            "id" to id,
-            "name" to name,
-            "image" to image
-        )
-    }
-}
+) : Parcelable

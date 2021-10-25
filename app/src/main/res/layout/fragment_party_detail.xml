@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="@drawable/bg_corners_8dp"
+        android:background="@color/transparentWhite"
         tools:background="@color/blue_8187ff"
         tools:context=".partydetail.PartyDetailFragment">
 
@@ -35,11 +35,11 @@
 
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:layout_marginTop="4dp"
                     android:background="?android:selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_back_26dp"
+                    app:layout_constraintBottom_toTopOf="@+id/view_line_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,6 +89,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_games"
                     android:layout_width="0dp"
+                    android:minHeight="220dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="16dp"
@@ -202,8 +203,7 @@
                     android:id="@id/tv_time"
                     style="@style/textStyleWhite"
                     android:layout_width="wrap_content"
-                    android:text="@{String.valueOf(viewModel.party.partyTime)}"
-
+app:date="@{viewModel.party.partyTime}"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_title_time"

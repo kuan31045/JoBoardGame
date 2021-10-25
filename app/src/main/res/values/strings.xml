@@ -8,8 +8,9 @@
     <string name="game_viewed">遊戲總覽</string>
     <string name="tool">小工具</string>
     <string name="profile">個人</string>
+    <string name="new_party">舉辦聚會</string>
 
-    <!--    Home-->
+    <!--    Party -->
     <string name="my_party_2">我的聚會 》</string>
     <string name="see_all">看全部 》</string>
     <string name="already_join">✓已加入</string>
@@ -17,14 +18,13 @@
     <string name="lets_party">來場聚會吧!</string>
     <string name="country">縣市</string>
     <string name="date">日期</string>
-    <string name="date_sample">2021/10/21</string>
+    <string name="date_sample">2021/10/25</string>
     <string name="location">地點</string>
     <string name="time">時間</string>
     <string name="game">遊戲</string>
 
-    <!--    Party Detail-->
+    <!--    Party Detail -->
     <string name="play_list">遊玩清單</string>
-    <string name="more_info">更多資訊</string>
     <string name="host_">主辦:</string>
     <string name="location_">地點:</string>
     <string name="time_">時間:</string>
@@ -32,10 +32,14 @@
     <string name="msg">留言</string>
     <string name="join">加入</string>
     <string name="out">退出</string>
-    <string name="require_player_qty">徵求人數:</string>
+    <string name="require_player_qty">徵求人數</string>
     <string name="join_players">參加者</string>
     <string name="welcome">Welcome!</string>
     <string name="bye">"Bye~"</string>
+    <string name="peopleQty">人數:</string>
+    <string name="lack"> (缺)</string>
+
+
 
     <!--Game-->
     <string name="sample_game_name">卡坦島</string>
@@ -46,6 +50,7 @@
     <string name="recommend">猜你喜歡</string>
     <string name="top_rating">評分最高</string>
     <string name="sort_filter">排序與篩選</string>
+    <string name="more_info">更多資訊</string>
 
     <!--    Tool-->
     <string name="dice">骰子</string>
@@ -61,8 +66,15 @@
     <string name="my_favorite">我的收藏</string>
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽</string>
-    <string name="peopleQty">人數:</string>
-    <string name="lack"> (缺)</string>
+
+    <!--    New Party -->
+    <string name="hint_title">標題</string>
+    <string name="hint_date">日期</string>
+    <string name="hint_time">時間</string>
+    <string name="note">備註</string>
+    <string name="hint_game_list">遊玩清單(請以,隔開)</string>
+    <string name="create">創建</string>
+    <string name="data_time"><![CDATA[日期 & 時間]]></string>
 
 
 </resources>

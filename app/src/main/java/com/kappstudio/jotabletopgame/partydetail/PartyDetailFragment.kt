@@ -13,6 +13,7 @@ import com.kappstudio.jotabletopgame.data.User
 import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
 import com.kappstudio.jotabletopgame.game.GameAdapterType
+import com.kappstudio.jotabletopgame.util.mapsToUsers
 import timber.log.Timber
 import java.util.ArrayList
 
@@ -36,7 +37,7 @@ class PartyDetailFragment : Fragment() {
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
 
-        viewModel.party.observe(viewLifecycleOwner,{
+        viewModel.party.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter().apply {
                 submitList(it?.playerList)
             }

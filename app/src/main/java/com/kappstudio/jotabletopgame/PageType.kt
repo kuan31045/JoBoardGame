@@ -6,6 +6,8 @@ enum class PageType {
     TOOL,
     PROFILE,
     PARTY_DETAIL,
+    NEW_PARTY,
+    GAME_DETAIL,
 
     OTHER
 }

@@ -125,4 +125,18 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="EdittextUser">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColorHint">@color/brownish_grey</item>
+        <item name="android:textColor">@color/black_3f3a3a</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <dimen name="height_btn_58dp">58dp</dimen>
 </resources>

@@ -18,7 +18,6 @@ data class Party(
     var playerIdList: MutableList<String> = mutableListOf(),
     var playerList: MutableList<User>? = null,
 
-    var gameList: MutableList<Game>? = null,
 
     ) : Parcelable
 

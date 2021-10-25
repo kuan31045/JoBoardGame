@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kappstudio.jotabletopgame.bindImage
 import com.kappstudio.jotabletopgame.data.User
 import com.kappstudio.jotabletopgame.databinding.ItemUserBinding
 import timber.log.Timber
@@ -20,7 +21,7 @@ init {
 
         fun bind(user: User) {
             Timber.d(" bind")
-
+            bindImage(binding.ivUser,user.image)
             binding.tvName.text = user.name
         }
     }

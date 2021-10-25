@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".newparty.NewPartyFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.jotabletopgame.newparty.NewPartyViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            tools:background="@drawable/bg_app_theme">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/et_title"
+                    style="@style/EdittextUser"
+                    android:hint="@string/hint_title"
+                    android:inputType="text"
+                    android:text="@={ viewModel.title }" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tl_title">
+
+                <EditText
+                    android:id="@+id/et_time"
+                    style="@style/EdittextUser"
+                    android:focusable="false"
+                    android:hint="@string/data_time"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/spn_country"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spn_height"
+                android:layout_marginTop="16dp"
+                android:spinnerMode="dialog"
+                app:countries="@{true}"
+                android:selectedItemPosition="@={viewModel.countryPosition}"
+
+                app:layout_constraintEnd_toEndOf="@id/guideline_mid"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tl_time" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spn_country">
+
+                <EditText
+                    android:id="@+id/et_location"
+                    style="@style/EdittextUser"
+                    android:hint="@string/location"
+
+                    android:inputType="text"
+                    android:text="@={ viewModel.location }" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_require_player_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tl_location">
+
+                <EditText
+                    android:id="@+id/et_require_player_qty"
+                    style="@style/EdittextUser"
+                    android:hint="@string/require_player_qty"
+                    android:inputType="number"
+
+                    android:maxLength="6"
+                    android:text="@={ viewModel.requirePlayerQty }" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tl_require_player_qty">
+
+                <EditText
+                    android:id="@+id/et_note"
+                    style="@style/EdittextUser"
+                    android:hint="@string/note"
+                    android:inputType="text"
+
+                    android:text="@={ viewModel.note }" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_game_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeWidth="0.7dp"
+                app:hintTextColor="@color/brownish_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tl_note">
+
+                <EditText
+                    android:id="@+id/et_game_list"
+                    style="@style/EdittextUser"
+                    android:hint="@string/hint_game_list"
+                    android:inputType="text"
+
+                    android:text="@={ viewModel.games }" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btn_create"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_btn_58dp"
+                android:layout_marginTop="48dp"
+                android:backgroundTint="@color/secondaryColor"
+                android:letterSpacing="0.25"
+                android:onClick="@{ ()-> viewModel.createParty()}"
+                android:text="@string/create"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tl_game_list" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

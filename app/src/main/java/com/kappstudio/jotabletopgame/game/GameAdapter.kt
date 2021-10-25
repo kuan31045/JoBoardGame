@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
+import com.kappstudio.jotabletopgame.bindImage
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
 import com.kappstudio.jotabletopgame.databinding.ItemGameSimpleBinding
@@ -23,6 +24,7 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
                 tvRating.text =game.avgRating.toString()
+                bindImage(ivGame,game.image)
 
                 if (isHorizontal) {
                     ivGame.layoutParams.width =
@@ -38,6 +40,7 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
         fun bind(game: Game, isHorizontal: Boolean) {
             binding.apply {
                 tvName.text = game.name
+                bindImage(ivGame,game.image)
             }
         }
     }

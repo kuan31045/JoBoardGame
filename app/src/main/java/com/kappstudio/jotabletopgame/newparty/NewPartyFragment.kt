@@ -1,60 +1,70 @@
 package com.kappstudio.jotabletopgame.newparty
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.kappstudio.jotabletopgame.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.kappstudio.jotabletopgame.VMFactory
+import com.kappstudio.jotabletopgame.appInstance
+import com.kappstudio.jotabletopgame.bindSpinnerCountries
+import com.kappstudio.jotabletopgame.data.User
+import com.kappstudio.jotabletopgame.databinding.FragmentNewPartyBinding
+import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
+import com.kappstudio.jotabletopgame.game.GameAdapter
+import com.kappstudio.jotabletopgame.game.GameAdapterType
+import com.kappstudio.jotabletopgame.home.HomeViewModel
+import tech.gujin.toast.ToastUtil
+import timber.log.Timber
+import java.util.ArrayList
+import kotlin.time.milliseconds
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CreatPartyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CreatPartyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class NewPartyFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentNewPartyBinding
+    val viewModel: NewPartyViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_creat_party, container, false)
+        binding = FragmentNewPartyBinding.inflate(inflater)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        viewModel.country.observe(viewLifecycleOwner, {
+            Timber.d("country $it")
+        })
+
+        binding.etTime.setOnClickListener {
+            showTimePicker()
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreatPartyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreatPartyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun showTimePicker() {
+        SingleDateAndTimePickerDialog.Builder(context)
+            .bottomSheet()
+            .curved()
+            .backgroundColor(appInstance.getColor(R.color.white))
+            .mainColor(R.color.white)
+            .titleTextColor(R.color.white)
+            .displayListener {}
+
+            .title(getString(R.string.data_time))
+            .listener { date ->
+                binding.etTime.setText(date.toString())
+                viewModel.time.value = date.time
             }
+            .display()
     }
+
 }

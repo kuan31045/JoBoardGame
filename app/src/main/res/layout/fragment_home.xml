@@ -21,9 +21,9 @@
         <TextView
             android:id="@+id/tv_title_party"
             style="@style/titleStyleWhite2"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="@string/lets_party"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
         <TextView
             android:id="@+id/tv_start_date"
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:background="@drawable/bg_spn"
             android:gravity="center"
             android:text="@string/date_sample"
@@ -55,7 +55,7 @@
         <TextView
             android:id="@+id/tv_last_date"
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
 
             android:layout_marginStart="8dp"
             android:background="@drawable/bg_spn"
@@ -66,17 +66,6 @@
             app:layout_constraintStart_toEndOf="@+id/view_line"
             app:layout_constraintTop_toTopOf="@+id/tv_start_date" />
 
-        <TextView
-            android:id="@+id/tv_my_party"
-            style="@style/textStyleWhite"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:selectableItemBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_party_2"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_title_party"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_title_country"
@@ -95,18 +84,20 @@
             style="@style/textStyleWhite"
 
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/date"
             app:layout_constraintStart_toStartOf="@+id/tv_title_country"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_country" />
 
         <Spinner
+            android:spinnerMode="dialog"
+            android:background="@color/transparentWhite"
             android:id="@+id/spn_country"
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
+            android:backgroundTint="@color/white"
             android:layout_marginStart="16dp"
             android:text="@string/country"
-
             app:layout_constraintBottom_toBottomOf="@+id/tv_title_country"
             app:layout_constraintStart_toEndOf="@+id/tv_title_country"
             app:layout_constraintTop_toTopOf="@+id/tv_title_country" />
@@ -133,11 +124,24 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/blue_8187ff"
         android:src="@drawable/ic_baseline_add_24"
         android:id="@+id/btn_new_party"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btn_filter"
+        style="@style/fontSpaceColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/my_party_2"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ class MainViewModel : ViewModel() {
             PageType.GAME -> appInstance.getString(R.string.game_viewed)
             PageType.TOOL -> appInstance.getString(R.string.tool)
             PageType.PROFILE -> appInstance.getString(R.string.profile)
+            PageType.NEW_PARTY -> appInstance.getString(R.string.new_party)
 
             else -> {
                 title.value

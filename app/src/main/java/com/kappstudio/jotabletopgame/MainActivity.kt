@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels()
@@ -25,22 +26,21 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        binding.toolbar.setNavigationOnClickListener {
-            when (viewModel.page.value) {
-                PageType.PARTY_DETAIL -> navController.popBackStack()
-            }
-        }
 
         setSupportActionBar(binding.toolbar)
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        binding.toolbar.setNavigationOnClickListener {
+           navController.popBackStack()
+
+        }
         setNavController()
         setBarAttr()
     }
 
     private fun setNavController() {
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
+        var appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment, R.id.gameFragment, R.id.toolFragment, R.id.profileFragment
             )
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.toolFragment -> PageType.TOOL
                     R.id.profileFragment -> PageType.PROFILE
                     R.id.partyDetailFragment->PageType.PARTY_DETAIL
+                    R.id.newPartyFragment ->PageType.NEW_PARTY
 
                     else -> PageType.OTHER
                 }

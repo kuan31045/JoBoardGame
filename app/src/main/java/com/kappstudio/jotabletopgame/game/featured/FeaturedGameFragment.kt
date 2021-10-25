@@ -34,7 +34,7 @@ class FeaturedGameFragment : Fragment() {
                 submitList(it?.shuffled())
             }
             binding.rvTopRating.adapter = GameAdapter(GameAdapterType.INFO).apply {
-                submitList(it)
+                submitList(it.sortedByDescending { it.avgRating })
             }
 
 

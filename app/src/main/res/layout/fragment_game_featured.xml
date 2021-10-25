@@ -14,7 +14,7 @@
         <TextView
             android:layout_marginTop="8dp"
             android:id="@+id/tv_title_hots"
-            style="@style/title2Style"
+            style="@style/titleStyleWhite2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hots"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/tv_title_recommend"
-            style="@style/title2Style"
+            style="@style/titleStyleWhite2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/tv_title_top_rating"
-            style="@style/title2Style"
+            style="@style/titleStyleWhite2"
             android:layout_marginTop="42dp"
 
             android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.jotabletopgame.bindSpinnerCountries
 import com.kappstudio.jotabletopgame.databinding.FragmentHomeBinding
 import timber.log.Timber
 
@@ -18,6 +19,12 @@ class HomeFragment : Fragment() {
     ): View? {
         val binding = FragmentHomeBinding.inflate(inflater)
         val viewModel: HomeViewModel by viewModels()
+        bindSpinnerCountries(binding.spnCountry)
+
+        binding.btnNewParty.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.navToNewPartyFragment())
+
+        }
 
         viewModel.parties.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
