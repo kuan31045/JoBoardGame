@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/partyFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.kappstudio.jotabletopgame.home.HomeFragment"
+        android:id="@+id/partyFragment"
+        android:name="com.kappstudio.jotabletopgame.party.PartyFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 

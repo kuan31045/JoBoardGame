@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    Bottom Nav-->
-    <string name="home">首頁</string>
+    <string name="party">聚會</string>
     <string name="game_viewed">遊戲總覽</string>
     <string name="tool">小工具</string>
     <string name="profile">個人</string>
@@ -74,6 +74,15 @@
     <string name="hint_game_list">遊玩清單(請以,隔開)</string>
     <string name="create">創建</string>
     <string name="data_time"><![CDATA[日期 & 時間]]></string>
+    <string name="people_qty">人數</string>
+    <string name="player_qty">遊戲人數:</string>
+    <string name="play_time">遊戲時間:</string>
+    <string name="type">類型:</string>
+    <string name="game_desc">遊戲簡介:</string>
+    <string name="your_rating">您的評分</string>
+    <string name="go_to_msg">前往留言板</string>
+    <string name="favorite">收藏</string>
+    <string name="SHOW_MSG">顯示留言</string>
 
 
 </resources>

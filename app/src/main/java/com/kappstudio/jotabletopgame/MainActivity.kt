@@ -10,7 +10,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels()
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         var appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.gameFragment, R.id.toolFragment, R.id.profileFragment
+                R.id.partyFragment, R.id.gameFragment, R.id.toolFragment, R.id.profileFragment
             )
         )
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             viewModel.setBarStatus(
                 when (destination.id) {
-                    R.id.homeFragment -> PageType.HOME
+                    R.id.partyFragment -> PageType.PARTY
                     R.id.gameFragment -> PageType.GAME
                     R.id.toolFragment -> PageType.TOOL
                     R.id.profileFragment -> PageType.PROFILE

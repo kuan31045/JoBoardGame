@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.jotabletopgame.gamedetail.GameDetailViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            tools:context=".gamedetail.GameDetailFragment">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_game"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                
+                android:src="@drawable/sample_game"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/bottomCorner" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/titleStyleWhite"
+                android:layout_width="0dp"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_game"
+                tools:text="卡坦島" />
+
+            <View
+                android:id="@+id/view_line_title"
+                style="@style/view_line_white"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_title_type"
+                style="@style/titleStyleWhite2"
+
+                android:layout_marginTop="12dp"
+                android:text="@string/type"
+
+                app:layout_constraintStart_toStartOf="@+id/tv_title_player_qty"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_title" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
+                android:text="刺激 | 刺激 | 刺激 "
+                style="@style/textStyle1"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_title_type"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_type" />
+            <View
+                android:id="@+id/view_line_type"
+                style="@style/view_line_white"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_type" />
+
+            <TextView
+                android:id="@id/tv_title_player_qty"
+                style="@style/titleStyleWhite2"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/player_qty"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_type" />
+
+            <TextView
+                android:id="@id/tv_player_qty"
+                style="@style/textStyle1"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title_player_qty"
+                app:layout_constraintStart_toEndOf="@id/tv_title_player_qty"
+                app:layout_constraintTop_toTopOf="@id/tv_title_player_qty"
+                tools:text="3-4" />
+            <View
+                android:id="@+id/view_line_player_qty"
+                style="@style/view_line_white"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_player_qty" />
+
+
+            <TextView
+                android:id="@id/tv_title_time"
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="12dp"
+                android:text="@string/play_time"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_player_qty"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_player_qty" />
+
+            <TextView
+                android:id="@id/tv_time"
+                style="@style/textStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
+                app:layout_constraintStart_toEndOf="@id/tv_title_time"
+                app:layout_constraintTop_toTopOf="@id/tv_title_time"
+                tools:text="70 mins" />
+            <View
+                android:id="@+id/view_line_time"
+                style="@style/view_line_white"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_time" />
+
+            <TextView
+                android:id="@+id/tv_title_desc"
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="12dp"
+                android:text="@string/game_desc"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_time"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_time" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                style="@style/textStyle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_desc"
+                tools:text="自己Google不會很難" />
+            <View
+                android:id="@+id/view_line_desc"
+                style="@style/view_line_white"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="-10dp"
+                android:background="@color/white_bg_f7f7f7"
+
+                app:layout_constraintBottom_toBottomOf="@id/btn_to_msg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_your_rating" />
+            <TextView
+                android:id="@+id/tv_avg_rating"
+                style="@style/textStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:drawableTop="@drawable/ic_star_28dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/tv_your_rating"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+                tools:text="8.5" />
+
+            <TextView
+                android:id="@+id/tv_your_rating"
+                style="@style/textStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableTop="@drawable/ic_star_empty_28dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_avg_rating"
+                app:layout_constraintTop_toTopOf="@+id/tv_avg_rating"
+                tools:text="8.5" />
+
+            <TextView
+                android:id="@+id/tv_title_your_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/your_rating"
+                app:layout_constraintEnd_toEndOf="@+id/tv_your_rating"
+                app:layout_constraintStart_toStartOf="@+id/tv_your_rating"
+                app:layout_constraintTop_toBottomOf="@+id/tv_your_rating" />
+
+            <TextView
+                android:id="@+id/tv_rating_qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/tv_avg_rating"
+                app:layout_constraintStart_toStartOf="@+id/tv_avg_rating"
+                app:layout_constraintTop_toBottomOf="@+id/tv_avg_rating"
+                tools:text="300人" />
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="35dp"
+                android:layout_height="0dp"
+
+                android:drawableTop="@drawable/ic_heart_empty_28dp"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:src="@drawable/ic_heart_empty_28dp"
+                android:text="收藏"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_your_rating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_your_rating"
+                app:layout_constraintTop_toTopOf="@+id/tv_your_rating" />
+
+            <TextView
+                android:id="@+id/tv_title_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/favorite"
+                app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
+                app:layout_constraintStart_toStartOf="@+id/iv_favorite"
+                app:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_to_msg"
+                style="@style/textStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/bg_btn_purple"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/SHOW_MSG"
+                android:textColor="@color/white_text_fffcff"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating_qty" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

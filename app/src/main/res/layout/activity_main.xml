@@ -19,14 +19,12 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_app_theme"
         tools:context=".MainActivity">
-
-        <androidx.appcompat.widget.Toolbar
+  <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-
+           android:layout_marginTop="8dp"
             android:visibility="@{vm.page == PageType.PARTY_DETAIL ? View.GONE : View.VISIBLE}"
             android:layout_width="0dp"
-            android:layout_height="46dp"
-            android:background="@color/white"
+            android:layout_height="@dimen/toolbar_height"
             android:elevation="@dimen/elevation_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -36,7 +34,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/transparent">
+               >
+
+
 
                 <ImageView
                     android:id="@+id/iv_logo"
@@ -46,7 +46,7 @@
                     android:layout_marginBottom="5dp"
                     android:scaleType="fitStart"
                     android:src="@drawable/title"
-                    android:visibility="@{vm.page == PageType.HOME ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.page == PageType.PARTY ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -67,6 +67,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+
                     android:id="@+id/layout_tool_bar_right"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -76,16 +78,19 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
+                        android:background="@drawable/bg_toolbar_btn"
                         android:layout_width="wrap_content"
+                        android:padding="10dp"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
                         android:src="@drawable/ic_search" />
 
                     <ImageButton
+                        android:background="@drawable/bg_toolbar_btn"
+                        android:padding="10dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
-                        android:backgroundTint="@color/white"
                         android:src="@drawable/ic_notifications" />
 
 
@@ -97,12 +102,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="0dp"
-            android:visibility="@{vm.page == PageType.HOME || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
-
+            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+            app:itemIconTint="@drawable/bottom_nav_item_selector"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="@color/white"
+            android:background="@color/white_bg_f7f7f7"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -116,9 +121,11 @@
             android:layout_height="0dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/nav_view"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintVertical_bias="0.0"
             app:navGraph="@navigation/navigation" />
 
 

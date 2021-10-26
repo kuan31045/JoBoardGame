@@ -35,9 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -57,9 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tl_title">
@@ -74,6 +72,7 @@
 
 
             <Spinner
+                android:backgroundTint="@color/purple_light_9148F9"
                 android:id="@+id/spn_country"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spn_height"
@@ -92,9 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spn_country">
@@ -115,9 +113,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_location">
@@ -127,7 +124,6 @@
                     style="@style/EdittextUser"
                     android:hint="@string/require_player_qty"
                     android:inputType="number"
-
                     android:maxLength="6"
                     android:text="@={ viewModel.requirePlayerQty }" />
 
@@ -140,9 +136,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_require_player_qty">
@@ -163,9 +158,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/secondaryColor"
+                app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
-                app:hintTextColor="@color/brownish_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_note">
@@ -181,13 +175,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/height_btn_58dp"
+                android:layout_height="@dimen/height_btn_56dp"
                 android:layout_marginTop="48dp"
-                android:backgroundTint="@color/secondaryColor"
                 android:letterSpacing="0.25"
+                android:textColor="@color/white_text_fffcff"
+                android:background="@drawable/bg_btn_purple"
                 android:onClick="@{ ()-> viewModel.createParty()}"
                 android:text="@string/create"
                 android:textSize="20sp"

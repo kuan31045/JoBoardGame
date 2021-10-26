@@ -4,7 +4,7 @@
     <style name="fontSpaceColor">
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.15</item>
-        <item name="android:textColor">@color/black_3f3a3a</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="titleStyle" parent="fontSpaceColor">
@@ -19,7 +19,7 @@
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.05</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black_3f3a3a</item>
+        <item name="android:textColor">@color/black_text_191919</item>
     </style>
 
     <style name="party_item_detail">
@@ -35,7 +35,7 @@
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">12dp</item>
         <item name="android:layout_marginStart">8dp</item>
-        <item name="android:background">@color/primaryDarkColor</item>
+        <item name="android:background">@color/purple_light_9148F9</item>
         <item name="android:paddingTop">1dp</item>
         <item name="android:paddingBottom">1dp</item>
     </style>
@@ -52,9 +52,7 @@
     </style>
 
     <style name="btnProfile" parent="title2Style">
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:background">@drawable/btn_btn_gray</item>
         <item name="android:gravity">center|start</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
@@ -65,11 +63,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.15</item>
-        <item name="android:shadowColor">@color/black_3f3a3a</item>
-        <item name="android:shadowDx">7</item>
-        <item name="android:shadowDy">7</item>
-        <item name="android:shadowRadius">7</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:shadowColor">@color/gray_text_424244</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:shadowRadius">0.5</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">24sp</item>
     </style>
     <style name="titleStyleWhite2" >
@@ -77,23 +75,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.15</item>
-        <item name="android:shadowColor">@color/black_3f3a3a</item>
-        <item name="android:shadowDx">4</item>
-        <item name="android:shadowDy">4</item>
-        <item name="android:shadowRadius">4</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:shadowColor">@color/gray_text_424244</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
     </style>
-    <style name="textStyleWhite" >
+    <style name="textStyle1" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.06</item>
-        <item name="android:shadowColor">@color/black_3f3a3a</item>
-        <item name="android:shadowDx">3</item>
-        <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">3</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black_text_191919</item>
         <item name="android:textSize">15sp</item>
     </style>
 
@@ -101,18 +92,14 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/noto_sans</item>
-        <item name="android:shadowColor">@color/black_3f3a3a</item>
-        <item name="android:shadowDx">0.3</item>
-        <item name="android:shadowDy">0.3</item>
-        <item name="android:shadowRadius">0.3</item>
-        <item name="android:textColor">@color/green_7bff75</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/green_29AA36</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="view_line_white">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0.7dp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/purple_dark_782be9</item>
         <item name="android:elevation">1dp</item>
     </style>
 
@@ -121,7 +108,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.06</item>
-        <item name="android:textColor">@color/black_3f3a3a</item>
+        <item name="android:textColor">@color/black_text_191919</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -132,11 +119,15 @@
         <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:maxLines">1</item>
         <item name="android:letterSpacing">0.1</item>
-        <item name="android:textColorHint">@color/brownish_grey</item>
-        <item name="android:textColor">@color/black_3f3a3a</item>
+        <item name="android:textColor">@color/black_text_191919</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <!--底盤圓角-->
+    <style name="bottomCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">55dp</item>
+        <item name="cornerSizeBottomRight">55dp</item>
 
-    <dimen name="height_btn_58dp">58dp</dimen>
+    </style>
 </resources>

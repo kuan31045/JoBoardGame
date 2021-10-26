@@ -5,21 +5,19 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-
     android:layout_marginBottom="16dp"
-
-    app:cardCornerRadius="8dp">
-
+    app:cardBackgroundColor="@color/purple_light_9148F9"
+    app:cardCornerRadius="6dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_party"
+android:layout_margin="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:background="@drawable/bg_card_item"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/bg_card_item"
         android:paddingBottom="8dp">
 
         <TextView
@@ -40,9 +38,9 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/already_join"
-            android:textStyle="italic"
             android:textColor="@color/green_29AA36"
             android:textSize="14sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toTopOf="@+id/tv_title_host"
             app:layout_constraintStart_toStartOf="@+id/tv_title_host"
             app:layout_constraintTop_toTopOf="@id/tv_title" />
@@ -93,8 +91,8 @@
 
         <TextView
             android:id="@+id/tv_location"
-            android:layout_width="0dp"
             style="@style/party_item_detail"
+            android:layout_width="0dp"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_line_location"
@@ -144,8 +142,8 @@
 
         <TextView
             android:id="@+id/tv_game"
-            android:layout_width="0dp"
             style="@style/party_item_detail"
+            android:layout_width="0dp"
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_line_game"
@@ -154,12 +152,12 @@
 
         <TextView
             android:id="@+id/tv_player_qty"
-            tools:text="2/4"
             style="@style/party_item_detail"
-            android:drawableTop="@drawable/ic_baseline_people_24"
             android:layout_marginEnd="16dp"
+            android:drawableTop="@drawable/ic_baseline_people_24"
             app:layout_constraintBottom_toBottomOf="@+id/tv_host"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="2/4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

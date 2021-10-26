@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_name"
-        style="@style/textStyleWhite"
+        style="@style/textStyle1"
         android:layout_marginStart="8dp"
         android:textSize="13sp"
 
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_time"
-        style="@style/textStyleWhite"
+        style="@style/textStyle1"
         android:layout_marginStart="8dp"
         android:textSize="13sp"
 
@@ -52,7 +52,7 @@
         android:id="@+id/tv_msg"
         android:layout_width="0dp"
         android:textSize="14sp"
-        style="@style/textStyleWhite"
+        style="@style/textStyle1"
         android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_name"

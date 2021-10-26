@@ -1,7 +1,7 @@
 package com.kappstudio.jotabletopgame
 
 enum class PageType(val title:String) {
-    HOME(""),
+    PARTY(""),
     GAME(appInstance.getString(R.string.game_viewed)),
     TOOL(appInstance.getString(R.string.tool)),
     PROFILE(appInstance.getString(R.string.profile)),

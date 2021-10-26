@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
+    android:background="@drawable/bg_card_item"
     android:clickable="true"
     android:layout_marginEnd="24dp"
 
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/tv_name"
-        style="@style/textStyleWhite"
+        style="@style/textStyle1"
         android:textSize="14sp"
         android:layout_marginTop="@dimen/elevation_4dp"
         android:layout_width="wrap_content"

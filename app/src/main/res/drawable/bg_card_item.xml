@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-android:color="#7781c1ff">
+android:color="@color/purple_light_9148F9">
 <item android:id="@android:id/background" >
     <shape>
-        <corners android:radius="8dp" />
+        <corners android:radius="5dp" />
         <solid android:color="@color/white" />
 
         <solid  android:background="?android:selectableItemBackground"/>

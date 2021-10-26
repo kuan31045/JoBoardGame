@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeFragment">
+    tools:context=".party.PartyFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_home"
@@ -14,7 +14,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
+        android:paddingLeft="13dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp">
 
@@ -22,6 +22,7 @@
             android:id="@+id/tv_title_party"
             style="@style/titleStyleWhite2"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lets_party"
@@ -69,7 +70,7 @@
 
         <TextView
             android:id="@+id/tv_title_country"
-            style="@style/textStyleWhite"
+            style="@style/textStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -81,7 +82,7 @@
         <TextView
             android:id="@+id/tv_title_date"
             android:layout_width="wrap_content"
-            style="@style/textStyleWhite"
+            style="@style/textStyle1"
 
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -91,11 +92,10 @@
 
         <Spinner
             android:spinnerMode="dialog"
-            android:background="@color/transparentWhite"
+            android:backgroundTint="@color/purple_light_9148F9"
             android:id="@+id/spn_country"
             android:layout_width="120dp"
             android:layout_height="36dp"
-            android:backgroundTint="@color/white"
             android:layout_marginStart="16dp"
             android:text="@string/country"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title_country"
@@ -126,21 +126,23 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/blue_8187ff"
         android:src="@drawable/ic_baseline_add_24"
         android:id="@+id/btn_new_party"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_my_party"
         style="@style/fontSpaceColor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:paddingLeft="10dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+
+        android:background="@drawable/bg_btn_purple"
         android:text="@string/my_party_2"
-        android:textColor="@color/white"
+        android:textColor="@color/white_text_fffcff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

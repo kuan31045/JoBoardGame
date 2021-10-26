@@ -1,12 +1,10 @@
-package com.kappstudio.jotabletopgame.home
+package com.kappstudio.jotabletopgame.party
 
 import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.data.FirebaseService
 import com.kappstudio.jotabletopgame.data.Party
-import kotlinx.coroutines.launch
-import timber.log.Timber
 
-class HomeViewModel : ViewModel() {
+class PartyViewModel : ViewModel() {
 
     val parties: LiveData<List<Party>> = FirebaseService.getLiveParties()
 

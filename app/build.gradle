@@ -70,7 +70,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    //SingleDateAndTimePicker
+    //SingleDate And TimePicker
     implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
+
+    //Shapeable ImageView
+    implementation 'com.google.android.material:material:1.4.0'
 
 }

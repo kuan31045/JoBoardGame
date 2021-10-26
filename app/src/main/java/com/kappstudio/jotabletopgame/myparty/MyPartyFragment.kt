@@ -7,15 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.jotabletopgame.R
-import com.kappstudio.jotabletopgame.VMFactory
 import com.kappstudio.jotabletopgame.databinding.FragmentMyPartyBinding
-import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
-import com.kappstudio.jotabletopgame.home.HomeFragmentDirections
-import com.kappstudio.jotabletopgame.home.PartyAdapter
-import com.kappstudio.jotabletopgame.partydetail.PartyDetailFragmentArgs
-import com.kappstudio.jotabletopgame.partydetail.PartyDetailViewModel
-import timber.log.Timber
+import com.kappstudio.jotabletopgame.party.PartyAdapter
 
 class MyPartyFragment : Fragment() {
     val viewModel: MyPartyViewModel by viewModels()

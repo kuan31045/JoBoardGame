@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.jotabletopgame.R
-import com.kappstudio.jotabletopgame.databinding.FragmentHomeBinding
 import com.kappstudio.jotabletopgame.databinding.FragmentProfileBinding
-import com.kappstudio.jotabletopgame.home.HomeFragmentDirections
 
 class ProfileFragment : Fragment() {
 

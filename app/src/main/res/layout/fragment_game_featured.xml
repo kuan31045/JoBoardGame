@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="8dp">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:id="@+id/tv_title_hots"
             style="@style/titleStyleWhite2"
+            android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hots"
@@ -38,6 +39,7 @@
         <TextView
             android:id="@+id/tv_title_recommend"
             style="@style/titleStyleWhite2"
+            android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
@@ -62,7 +64,8 @@
             android:id="@+id/tv_title_top_rating"
             style="@style/titleStyleWhite2"
             android:layout_marginTop="42dp"
-
+            android:layout_marginStart="8dp"
+            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/top_rating"

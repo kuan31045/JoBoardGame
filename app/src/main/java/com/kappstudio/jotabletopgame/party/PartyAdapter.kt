@@ -1,4 +1,4 @@
-package com.kappstudio.jotabletopgame.home
+package com.kappstudio.jotabletopgame.party
 
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +39,7 @@ class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyA
 
                 clParty.setOnClickListener {
                     when(viewModel){
-                        is HomeViewModel -> viewModel.navToPartyDetail(party.id)
+                        is PartyViewModel -> viewModel.navToPartyDetail(party.id)
                         is MyPartyViewModel -> viewModel.navToPartyDetail(party.id)
 
                     }

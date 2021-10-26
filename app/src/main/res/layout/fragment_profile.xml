@@ -14,10 +14,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_user"
             android:layout_width="0dp"
-            app:cardCornerRadius="5dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -25,6 +25,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/gray_bg_eaeaea"
+
                 android:paddingLeft="6dp"
                 android:paddingTop="8dp"
                 android:paddingRight="6dp"
@@ -58,7 +60,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/bg_corners_4dp"
+                    android:background="@drawable/bg_spn"
                     android:hint="@string/user_profile_status"
                     android:inputType="textMultiLine"
                     android:maxLength="50"
@@ -78,19 +80,11 @@
                     app:layout_constraintStart_toStartOf="@id/tv_user_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_level" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.7" />
-
                 <View
                     android:id="@+id/view_exp"
-                    android:layout_width="0dp"
+                    android:layout_width="120dp"
                     android:layout_height="3dp"
-                    android:background="@color/blue_8187ff"
-                    app:layout_constraintEnd_toEndOf="@id/guideline_exp"
+                    android:background="@color/purple_dark_782be9"
                     app:layout_constraintStart_toStartOf="@id/view_bg_exp"
                     app:layout_constraintTop_toTopOf="@id/view_bg_exp" />
 
@@ -116,56 +110,70 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_my_rating"
             style="@style/btnProfile"
-
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="6dp"
             android:drawableLeft="@drawable/ic_star_28dp"
+
+            android:drawablePadding="10dp"
+            android:padding="10dp"
             android:text="@string/my_rating"
             app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_user" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_my_msg"
             style="@style/btnProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="12dp"
+android:layout_marginEnd="6dp"
             android:drawableLeft="@drawable/ic_msg_28dp"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
             android:text="@string/my_msg"
+            app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
             app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btn_my_rating"
             app:layout_constraintTop_toBottomOf="@id/btn_my_rating" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_my_favorite"
             style="@style/btnProfile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
+
+            android:layout_marginTop="12dp"
             android:drawableLeft="@drawable/ic_heart_28dp"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+
             android:text="@string/my_favorite"
+            app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
             app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/btn_my_rating"
             app:layout_constraintTop_toBottomOf="@id/btn_my_msg" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_my_party"
             style="@style/btnProfile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:drawableTop="@drawable/ic_party_100x92dp"
+            android:layout_marginStart="6dp"
+            android:drawableTop="@drawable/ic_party_90dp"
             android:gravity="center"
-            android:paddingTop="32dp"
+            android:paddingTop="22dp"
             android:text="@string/my_party"
             app:layout_constraintBottom_toBottomOf="@+id/btn_my_favorite"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cv_user"
             app:layout_constraintStart_toStartOf="@id/guideline_mid"
             app:layout_constraintTop_toTopOf="@id/btn_my_rating" />
 
@@ -180,7 +188,7 @@
             android:id="@+id/cv_recently_viewed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
@@ -191,16 +199,21 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:background="@color/gray_bg_eaeaea"
+                android:minHeight="220dp"
+
                 android:layout_height="match_parent"
-                android:padding="8dp">
+                android:padding="4dp">
 
                 <TextView
+                    android:gravity="center"
                     android:id="@+id/tv_title_recently_viewed"
                     style="@style/title2Style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="6dp"
+                   android:drawableLeft="@drawable/ic_record_28dp"
                     android:text="@string/recently_viewed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

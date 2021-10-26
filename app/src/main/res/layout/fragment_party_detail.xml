@@ -16,9 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:background="@color/transparentWhite"
-        tools:background="@color/blue_8187ff"
+        android:background="@color/white"
         tools:context=".partydetail.PartyDetailFragment">
 
         <androidx.core.widget.NestedScrollView
@@ -30,30 +28,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/iv_back"
 
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_back_26dp"
-                    app:layout_constraintBottom_toTopOf="@+id/view_line_title"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:background="@color/white_bg_f7f7f7"
                     android:id="@+id/tv_title"
                     style="@style/titleStyleWhite"
-                    android:layout_marginTop="8dp"
+                    android:padding="10dp"
+                    android:layout_width="0dp"
+                    android:gravity="center"
                     android:text="@{viewModel.party.title}"
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="礦坑團" />
-
+                <ImageView
+                    android:id="@+id/iv_back"
+android:layout_marginStart="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="?android:selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_back_26dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <TextView
                     android:id="@+id/tv_already_join"
                     style="@style/alreadyJoin"
@@ -67,38 +68,28 @@
                     android:id="@+id/btn_join"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginEnd="3dp"
-                    android:backgroundTint="@color/white"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_btn_purple"
                     android:onClick="@{()->viewModel.joinParty()}"
                     android:text="@string/join"
-                    android:textColor="@color/green_29AA36"
+                    android:textColor="@color/white_text_fffcff"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="@{ viewModel.isJoin()?View.GONE:View.VISIBLE }"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
-                <View
-                    android:id="@+id/view_line_title"
-                    style="@style/view_line_white"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+              <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_games"
                     android:layout_width="0dp"
                     android:minHeight="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/bg_corners_4dp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_line_title">
+                    app:layout_constraintTop_toBottomOf="@id/tv_title">
 
                     <TextView
 
@@ -113,11 +104,13 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_party_game"
                         android:layout_width="0dp"
+                        android:layout_marginTop="8dp"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
                         android:paddingBottom="8dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_title_game_list"
                         tools:itemCount="5"
@@ -137,7 +130,7 @@
 
                 <TextView
                     android:id="@id/tv_host"
-                    style="@style/textStyleWhite"
+                    style="@style/textStyle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -171,7 +164,7 @@
                     android:text="@{viewModel.party.location}"
 
                     android:id="@id/tv_location"
-                    style="@style/textStyleWhite"
+                    style="@style/textStyle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -201,7 +194,7 @@
 
                 <TextView
                     android:id="@id/tv_time"
-                    style="@style/textStyleWhite"
+                    style="@style/textStyle1"
                     android:layout_width="wrap_content"
 app:date="@{viewModel.party.partyTime}"
                     android:layout_height="wrap_content"
@@ -232,7 +225,7 @@ app:date="@{viewModel.party.partyTime}"
 
                 <TextView
                     android:id="@+id/tv_note"
-                    style="@style/textStyleWhite"
+                    style="@style/textStyle1"
                     android:text="@{viewModel.party.note}"
 
                     android:layout_width="0dp"
@@ -266,7 +259,7 @@ app:date="@{viewModel.party.partyTime}"
 
                 <TextView
                     android:id="@+id/tv_player_qty"
-                    style="@style/textStyleWhite"
+                    style="@style/textStyle1"
                     android:text="@{viewModel.playerQtyStatus}"
 
                     android:layout_width="0dp"
@@ -372,7 +365,7 @@ app:date="@{viewModel.party.partyTime}"
                     android:backgroundTint="@color/white"
                     android:onClick="@{()->viewModel.leaveParty()}"
                     android:text="@string/out"
-                    android:textColor="@color/red_ff7275"
+                    android:textColor="@color/purple_light_9148F9"
                     android:textSize="16sp"
                     android:textStyle="bold"
 
