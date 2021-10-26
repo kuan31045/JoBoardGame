@@ -5,30 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp">
+   >
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="0dp"
         android:id="@+id/rv_all_game"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="16dp"
+        android:background="@color/gray_bg_eaeaea"
         android:clipToPadding="false"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
+        android:paddingBottom="150dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_game_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:spanCount="2"
         tools:itemCount="10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        tools:listitem="@layout/item_game_info" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_filter"
-        android:layout_marginBottom="8dp"
+        android:padding="4dp"
+        android:drawablePadding="5dp"
+        android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         style="@style/fontSpaceColor"
-        android:textColor="@color/white"
+        android:background="@drawable/bg_card_item"
+        android:textColor="@color/black_text_191919"
+        android:textStyle="bold"
+
+        android:layout_marginStart="16dp"
         android:layout_height="wrap_content"
         android:text="@string/sort_filter"
         android:drawableLeft="@drawable/ic_filter_28dp"

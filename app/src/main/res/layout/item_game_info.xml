@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/gray_bg_eaeaea"
 
-        android:padding="6dp">
+        android:padding="2dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
