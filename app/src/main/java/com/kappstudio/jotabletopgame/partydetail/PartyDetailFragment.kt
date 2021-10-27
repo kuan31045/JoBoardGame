@@ -9,12 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 
 import com.kappstudio.jotabletopgame.VMFactory
-import com.kappstudio.jotabletopgame.data.User
 import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
-import com.kappstudio.jotabletopgame.game.GameAdapterType
 import timber.log.Timber
-import java.util.ArrayList
 
 class PartyDetailFragment : Fragment() {
 
@@ -26,12 +23,12 @@ class PartyDetailFragment : Fragment() {
         val viewModel: PartyDetailViewModel by viewModels {
             VMFactory {
                 PartyDetailViewModel(
-                    PartyDetailFragmentArgs.fromBundle(requireArguments()).selectedPartyId,
+                    PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId,
                 )
             }
         }
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
@@ -44,12 +41,17 @@ class PartyDetailFragment : Fragment() {
 
         viewModel.games.observe(viewLifecycleOwner, {
             Timber.d("Games = $it")
-            binding.rvPartyGame.adapter = GameAdapter(GameAdapterType.SIMPLE).apply {
+            binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
                 submitList(it)
             }
         })
 
-
+        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(PartyDetailFragmentDirections.navToGameDetailFragment(it))
+                viewModel.onNavToGameDetail()
+            }
+        })
 
         return binding.root
     }

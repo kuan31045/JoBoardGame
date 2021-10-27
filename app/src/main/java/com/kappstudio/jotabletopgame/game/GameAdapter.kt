@@ -2,33 +2,35 @@ package com.kappstudio.jotabletopgame.game
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kappstudio.jotabletopgame.R
-import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.bindImage
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
 import com.kappstudio.jotabletopgame.databinding.ItemGameSimpleBinding
+import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
+import com.kappstudio.jotabletopgame.party.PartyViewModel
 
-class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
+class GameAdapter(private val viewModel: ViewModel) :
     ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback) {
 
     class InfoViewHolder(private var binding: ItemGameInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(game: Game, isHorizontal: Boolean) {
+        fun bind(game: Game ,viewModel: ViewModel) {
             binding.apply {
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
-                tvRating.text =game.avgRating.toString()
-                bindImage(ivGame,game.image)
+                tvRating.text = game.avgRating.toString()
+                bindImage(ivGame, game.image)
 
-                if (isHorizontal) {
-                    ivGame.layoutParams.width =
-                        appInstance.resources.getDimensionPixelSize(R.dimen.game_item_image)
+                clGame.setOnClickListener {
+                    when(viewModel){
+                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game.id)
+                    }
                 }
             }
         }
@@ -37,10 +39,17 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
     class SimpleViewHolder(private val binding: ItemGameSimpleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(game: Game, isHorizontal: Boolean) {
+        fun bind(game: Game, viewModel: ViewModel) {
             binding.apply {
                 tvName.text = game.name
-                bindImage(ivGame,game.image)
+                bindImage(ivGame, game.image)
+
+                clGame.setOnClickListener {
+                    when(viewModel){
+                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game.id)
+                    }
+                }
+
             }
         }
     }
@@ -57,14 +66,14 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return when (type) {
-            GameAdapterType.SIMPLE -> {
+        return when (viewModel) {
+            is PartyViewModel -> {
                 SimpleViewHolder(
                     ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
                 )
             }
 
-            GameAdapterType.INFO -> {
+            is GameViewModel -> {
                 InfoViewHolder(
                     ItemGameInfoBinding.inflate(LayoutInflater.from(parent.context))
                 )
@@ -81,11 +90,13 @@ class GameAdapter(val type: GameAdapterType, val isHorizontal: Boolean = true) :
 
         when (holder) {
             is SimpleViewHolder -> {
-                holder.bind(getItem(position), isHorizontal)
+                holder.bind(getItem(position), viewModel)
+
             }
             is InfoViewHolder -> {
-                holder.bind(getItem(position), isHorizontal)
+                holder.bind(getItem(position), viewModel)
             }
         }
     }
+
 }

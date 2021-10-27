@@ -8,7 +8,7 @@ data class Game(
     val id: String = "notFound",
     var name: String = "",
     val image: String = "",
-    val type: MutableList<String>? = null,
+    val type: MutableList<String>? = mutableListOf(),
     val time: Long = 0,
     val minPlayerQty: Int = 0,
     val maxPlayerQty: Int = 0,

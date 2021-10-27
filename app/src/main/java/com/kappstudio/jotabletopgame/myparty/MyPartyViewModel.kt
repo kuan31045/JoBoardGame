@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.jotabletopgame.data.FirebaseService
-import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.data.Party
+import com.kappstudio.jotabletopgame.data.UserManager
+import com.kappstudio.jotabletopgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
 
-class MyPartyViewModel : ViewModel() {
+class MyPartyViewModel : ViewModel(), NavToPartyDetailInterface {
 
     private var _parties = MutableLiveData<List<Party>>()
     val parties: LiveData<List<Party>>
@@ -21,20 +22,19 @@ class MyPartyViewModel : ViewModel() {
         get() = _navToPartyDetail
 
     init {
-        getMyParties()
     }
 
     fun getMyParties() {
         viewModelScope.launch {
-            _parties.value = FirebaseService.getMyParties()
+            _parties.value = FirebaseService.getUserParties(UserManager.user["id"]?:"")
         }
     }
 
-    fun navToPartyDetail(partyId: String) {
+    override fun navToPartyDetail(partyId: String) {
         _navToPartyDetail.value = partyId
     }
 
-    fun onNavToPartyDetail() {
+    override fun onNavToPartyDetail() {
         _navToPartyDetail.value = null
     }
 }

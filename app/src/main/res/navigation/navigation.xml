@@ -22,7 +22,7 @@
         android:id="@+id/gameFragment"
         android:name="com.kappstudio.jotabletopgame.game.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game"/>
 
     <fragment
         android:id="@+id/toolFragment"
@@ -41,18 +41,17 @@
         android:id="@+id/partyDetailFragment"
         android:name="com.kappstudio.jotabletopgame.partydetail.PartyDetailFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <argument
-            android:name="selectedPartyId"
+            android:name="clickedPartyId"
             app:argType="string" />
-
     </fragment>
 
     <fragment
         android:id="@+id/newPartyFragment"
         android:name="com.kappstudio.jotabletopgame.newparty.NewPartyFragment"
         android:label="fragment_new_party"
-        tools:layout="@layout/fragment_new_party" >
+        tools:layout="@layout/fragment_new_party">
 
     </fragment>
     <fragment
@@ -60,10 +59,26 @@
         android:name="com.kappstudio.jotabletopgame.myparty.MyPartyFragment"
         android:label="fragment_my_party"
         tools:layout="@layout/fragment_my_party" />
+
+
+    <fragment
+        android:id="@+id/gameDetailFragment"
+        android:name="com.kappstudio.jotabletopgame.gamedetail.GameDetailFragment"
+        android:label="fragment_game_detail"
+        tools:layout="@layout/fragment_game_detail">
+        <argument
+            android:name="clickedGameId"
+            app:argType="string" />
+    </fragment>
+
     <action
         android:id="@+id/nav_to_my_party_fragment"
         app:destination="@id/myPartyFragment" />
     <action
         android:id="@+id/nav_to_party_detail_fragment"
         app:destination="@id/partyDetailFragment" />
+
+    <action
+        android:id="@+id/nav_to_game_detail_fragment"
+        app:destination="@id/gameDetailFragment" />
 </navigation>

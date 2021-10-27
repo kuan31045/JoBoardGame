@@ -28,7 +28,7 @@
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.15</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="android:textColor">@color/black_text_191919</item>
     </style>
 
     <style name="viewSpLine">
@@ -126,8 +126,16 @@
     <!--底盤圓角-->
     <style name="bottomCorner">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">55dp</item>
-        <item name="cornerSizeBottomRight">55dp</item>
+        <item name="cornerSizeBottomLeft">45dp</item>
+        <item name="cornerSizeBottomRight">45dp</item>
 
+    </style>
+
+    <style name="toolbarBtn">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/bg_toolbar_btn</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 </resources>

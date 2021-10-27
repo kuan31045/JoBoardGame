@@ -4,8 +4,7 @@ import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.data.FirebaseService
-import com.kappstudio.jotabletopgame.data.Party
-import com.kappstudio.jotabletopgame.data.PostPartyBody
+import com.kappstudio.jotabletopgame.data.NewParty
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
@@ -41,7 +40,7 @@ class NewPartyViewModel : ViewModel() {
        val gameNameList = games.value?.split(",")
         viewModelScope.launch {
           val res =   FirebaseService.createParty(
-                PostPartyBody(
+                NewParty(
                     title = title.value?:"",
                     partyTime = time.value?:0,
                     location = location.value?:"",

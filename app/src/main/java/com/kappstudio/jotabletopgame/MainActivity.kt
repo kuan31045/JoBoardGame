@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
+import com.kappstudio.jotabletopgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels()
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
+        viewModel.isImmersion.observe(this, {
+            statusBarUtil(this, it)
+        })
 
         setSupportActionBar(binding.toolbar)
         navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
            navController.popBackStack()
 
         }
+
         setNavController()
         setBarAttr()
     }
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.partyDetailFragment->PageType.PARTY_DETAIL
                     R.id.newPartyFragment ->PageType.NEW_PARTY
                     R.id.myPartyFragment ->PageType.MY_PARTY
+                    R.id.gameDetailFragment ->PageType.GAME_DETAIL
 
                     else -> PageType.OTHER
                 }

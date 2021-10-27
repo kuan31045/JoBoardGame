@@ -43,14 +43,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="礦坑團" />
+
                 <ImageView
                     android:id="@+id/iv_back"
-android:layout_marginStart="4dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="?android:selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
+                    style="@style/toolbarBtn"
+                    android:layout_marginStart="4dp"
                     android:src="@drawable/ic_back_26dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,6 +101,7 @@ android:layout_marginStart="4dp"
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_party_game"
                         android:layout_width="0dp"
+
                         android:layout_marginTop="8dp"
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"

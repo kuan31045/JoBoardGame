@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+
     android:layout_marginBottom="16dp"
     app:cardBackgroundColor="@color/purple_light_9148F9"
     app:cardCornerRadius="6dp">

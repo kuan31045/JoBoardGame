@@ -26,6 +26,7 @@
             android:layout_margin="0.4dp"
             android:background="@drawable/bg_card_item"
             android:clickable="true"
+            android:id="@+id/cl_game"
 
             android:focusable="true">
 

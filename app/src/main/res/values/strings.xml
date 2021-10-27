@@ -43,7 +43,6 @@
     <!--Game-->
     <string name="sample_game_name">卡坦島</string>
     <string name="sample_game_name2">富饒之城</string>
-    <string name="featured">精選</string>
     <string name="all">全部</string>
     <string name="hots">熱門</string>
     <string name="recommend">猜你喜歡</string>
@@ -74,6 +73,8 @@
     <string name="hint_game_list">遊玩清單(請以,隔開)</string>
     <string name="create">創建</string>
     <string name="data_time"><![CDATA[日期 & 時間]]></string>
+
+    <!--    Game Detail-->
     <string name="people_qty">人數</string>
     <string name="player_qty">遊戲人數:</string>
     <string name="play_time">遊戲時間:</string>
@@ -82,7 +83,11 @@
     <string name="your_rating">您的評分</string>
     <string name="go_to_msg">前往留言板</string>
     <string name="favorite">收藏</string>
-    <string name="SHOW_MSG">顯示留言</string>
+    <string name="show_msg">顯示留言</string>
+    <string name="to"> - </string>
+    <string name="man">人</string>
+    <string name="host_x">主辦x</string>
+    <string name="party_x">聚會x</string>
 
 
 </resources>

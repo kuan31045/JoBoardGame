@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kappstudio.jotabletopgame.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -17,13 +19,20 @@ class GameFragment : Fragment() {
     ): View? {
 
         val binding = FragmentGameBinding.inflate(inflater)
-        // set View Pager Adapter
-        val sectionsPagerAdapter = GamePagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = sectionsPagerAdapter
+        val viewModel: GameViewModel by viewModels()
 
-        // set Tabs Layout Adapter
-        binding.tabsLayout.setupWithViewPager(binding.viewPager)
+        viewModel.games.observe(viewLifecycleOwner, {
+            binding.rvAllGame.adapter = GameAdapter(viewModel).apply {
+                submitList(it)
+            }
+        })
 
+        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(GameFragmentDirections.navToGameDetailFragment(it))
+                viewModel.onNavToGameDetail()
+            }
+        })
         return binding.root
     }
 }

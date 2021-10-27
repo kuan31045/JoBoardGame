@@ -15,9 +15,14 @@ class MainViewModel : ViewModel() {
     val title: LiveData<String>
         get() = _title
 
+    private val _isImmersion = MutableLiveData(false)
+    val isImmersion: LiveData<Boolean>
+        get() = _isImmersion
+
     fun setBarStatus(status: PageType) {
         Timber.d("Status: $status")
         _page.value = status
         _title.value = status.title
+        _isImmersion.value = status == PageType.GAME_DETAIL
     }
 }

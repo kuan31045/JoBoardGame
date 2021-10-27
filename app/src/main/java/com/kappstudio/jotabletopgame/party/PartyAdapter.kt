@@ -11,7 +11,7 @@ import com.kappstudio.jotabletopgame.bindTextViewDate
 import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.databinding.ItemPartyBinding
-import com.kappstudio.jotabletopgame.myparty.MyPartyViewModel
+import com.kappstudio.jotabletopgame.partydetail.NavToPartyDetailInterface
 
 class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
@@ -39,8 +39,7 @@ class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyA
 
                 clParty.setOnClickListener {
                     when(viewModel){
-                        is PartyViewModel -> viewModel.navToPartyDetail(party.id)
-                        is MyPartyViewModel -> viewModel.navToPartyDetail(party.id)
+                        is NavToPartyDetailInterface->viewModel.navToPartyDetail(party.id)
 
                     }
                 }

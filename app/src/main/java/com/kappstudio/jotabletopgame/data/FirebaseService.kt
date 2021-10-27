@@ -10,18 +10,17 @@ import com.kappstudio.jotabletopgame.appInstance
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
-    suspend fun getMyParties(): List<Party>? =
+    suspend fun getUserHosts(userId:String): List<Party> =
         suspendCoroutine { continuation ->
-            Timber.d("-----Get My Parties------------------------------")
+            Timber.d("-----Get User Hosts------------------------------")
 
             FirebaseFirestore.getInstance()
-                .collection("parties").whereArrayContains("playerIdList", UserManager.user["id"]?:"")
+                .collection("parties").whereEqualTo("hostId", userId)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -39,7 +38,76 @@ object FirebaseService {
                 }
         }
 
-    suspend fun createParty(party: PostPartyBody): Boolean = suspendCoroutine { continuation ->
+    fun getLiveUserById(userId: String): MutableLiveData<User> {
+        Timber.d("-----Get Live User By Id------------------------------")
+
+        val user = MutableLiveData<User>()
+
+        FirebaseFirestore.getInstance().collection("users").document(userId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Timber.d("Current data: ${snapshot.data}")
+                    user.value = snapshot.toObject<User>()
+                } else {
+                    Timber.d("Current data: null")
+                }
+            }
+
+        return user
+    }
+
+    fun getLiveGameById(gameId: String): MutableLiveData<Game> {
+        Timber.d("-----Get Live Game By Id------------------------------")
+
+        val game = MutableLiveData<Game>()
+
+        FirebaseFirestore.getInstance().collection("games").document(gameId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Timber.d("Current data: ${snapshot.data}")
+                    game.value = snapshot.toObject<Game>()
+                } else {
+                    Timber.d("Current data: null")
+                }
+            }
+
+        return game
+    }
+
+    suspend fun getUserParties(userId:String): List<Party> =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get User Parties------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection("parties").whereArrayContains("playerIdList", userId)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
+                        Timber.d("Current data: $list")
+
+                        continuation.resume(list)
+                    } else {
+                        task.exception?.let {
+
+                            Timber.w("Error getting documents. ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    suspend fun createParty(party: NewParty): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
 
         val parties  = FirebaseFirestore.getInstance().collection("parties")
@@ -114,32 +182,11 @@ object FirebaseService {
 
         }
 
-    suspend fun getUserById(userId: String): User? =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get User By Id------------------------------")
 
-            FirebaseFirestore.getInstance()
-                .collection("users").document(userId)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user = task.result?.toObject(User::class.java)
-                        Timber.d("Current data: $user")
-
-                        continuation.resume(user)
-                    } else {
-                        task.exception?.let {
-                            //   continuation.resume(Result.Error(it))
-                            Timber.w("Error getting documents.,$it")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
 
     fun getLivePartyById(partyId: String): MutableLiveData<Party> {
-        Timber.d("-----Get Party By Id------------------------------")
+        Timber.d("-----Get Live Party By Id------------------------------")
 
         val party = MutableLiveData<Party>()
 
@@ -162,7 +209,7 @@ object FirebaseService {
     }
 
     fun getLiveParties(): MutableLiveData<List<Party>> {
-        Timber.d("-----Get All Parties------------------------------")
+        Timber.d("-----Get All Live Parties------------------------------")
 
         val liveData = MutableLiveData<List<Party>>()
 

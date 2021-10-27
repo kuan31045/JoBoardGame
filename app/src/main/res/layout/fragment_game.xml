@@ -6,30 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs_layout"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabSelectedTextColor="@color/black_text_191919"
-        app:tabTextColor="@color/brownish_grey"
-        app:tabTextAppearance="@style/title2Style"
-        />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_all_game"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/gray_bg_eaeaea"
+        android:clipToPadding="false"
+        android:paddingStart="9dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="9dp"
+        android:paddingBottom="@dimen/paddingBottom"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabs_layout" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="2"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_game_info" />
 
-    </androidx.viewpager.widget.ViewPager>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_filter"
+        style="@style/fontSpaceColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_card_item"
+        android:drawableLeft="@drawable/ic_filter_28dp"
+        android:drawablePadding="5dp"
+
+        android:padding="4dp"
+        android:text="@string/sort_filter"
+        android:textColor="@color/black_text_191919"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
