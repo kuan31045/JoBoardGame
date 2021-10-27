@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.data.*
+import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil

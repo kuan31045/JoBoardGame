@@ -1,4 +1,4 @@
-package com.kappstudio.jotabletopgame.data
+package com.kappstudio.jotabletopgame.data.sourc.remote
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FieldValue
@@ -7,6 +7,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
+import com.kappstudio.jotabletopgame.data.*
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.util.*
@@ -75,7 +76,9 @@ object FirebaseService {
 
                 if (snapshot != null && snapshot.exists()) {
                     Timber.d("Current data: ${snapshot.data}")
-                    game.value = snapshot.toObject<Game>()
+                    game.value = snapshot.toObject<Game>()?.apply {
+                        viewedTime = Calendar.getInstance().timeInMillis
+                    }
                 } else {
                     Timber.d("Current data: null")
                 }
@@ -257,7 +260,8 @@ object FirebaseService {
         FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
             .update("playerList", FieldValue.arrayRemove(
-                UserManager.user))
+                UserManager.user
+            ))
         ToastUtil.show(appInstance.getString(R.string.bye))
     }
 

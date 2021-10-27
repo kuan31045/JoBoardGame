@@ -3,7 +3,7 @@ package com.kappstudio.jotabletopgame.newparty
 import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
-import com.kappstudio.jotabletopgame.data.FirebaseService
+import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.NewParty
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil

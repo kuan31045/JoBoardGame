@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kappstudio.jotabletopgame.data.FirebaseService
+import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
@@ -23,7 +23,6 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
 
     init {
         getGame()
-
     }
 
     private fun getGame() {
@@ -33,18 +32,20 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     }
 
     override fun navToGameDetail(gameId: String) {
-        if (gameId != "notFound"){
+        if (gameId != "notFound") {
             _navToGameDetail.value = gameId
-        }else{
+        } else {
             ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
         }
     }
 
 
-
     override fun onNavToGameDetail() {
         _navToGameDetail.value = null
     }
+
+
+
 
 
 }

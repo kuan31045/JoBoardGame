@@ -12,6 +12,7 @@ import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
 import com.kappstudio.jotabletopgame.databinding.ItemGameSimpleBinding
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import com.kappstudio.jotabletopgame.party.PartyViewModel
+import com.kappstudio.jotabletopgame.profile.ProfileViewModel
 
 class GameAdapter(private val viewModel: ViewModel) :
     ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback) {
@@ -67,12 +68,6 @@ class GameAdapter(private val viewModel: ViewModel) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return when (viewModel) {
-            is PartyViewModel -> {
-                SimpleViewHolder(
-                    ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
-                )
-            }
-
             is GameViewModel -> {
                 InfoViewHolder(
                     ItemGameInfoBinding.inflate(LayoutInflater.from(parent.context))

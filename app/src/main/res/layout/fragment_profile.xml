@@ -18,7 +18,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         tools:context=".profile.ProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +28,7 @@
                 android:id="@+id/cv_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="16dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,10 +71,10 @@
                         android:id="@+id/et_user_status"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:focusable="false"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/bg_spn"
+                        android:focusable="false"
                         android:hint="@string/user_profile_status"
                         android:inputType="textMultiLine"
                         android:maxLength="50"
@@ -109,8 +108,8 @@
                         style="@style/party_item_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/host_x"
                         android:layout_marginEnd="2dp"
+                        android:text="@string/host_x"
                         app:layout_constraintEnd_toStartOf="@+id/tv_host_qty"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_party_qty" />
 
@@ -128,10 +127,10 @@
                     <TextView
                         android:id="@+id/tv_title_party_qty"
                         style="@style/party_item_detail"
-                        android:layout_marginEnd="2dp"
-
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
                         android:text="@string/party_x"
                         app:layout_constraintEnd_toStartOf="@+id/tv_party_qty"
                         app:layout_constraintTop_toTopOf="@+id/tv_user_name" />
@@ -153,8 +152,8 @@
                         style="@style/party_item_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LV. "
                         android:layout_marginTop="4dp"
+                        android:text="LV. "
                         app:layout_constraintEnd_toStartOf="@+id/tv_level"
                         app:layout_constraintTop_toBottomOf="@+id/tv_title_host_qty" />
 
@@ -162,9 +161,9 @@
                         android:id="@+id/tv_level"
                         style="@style/party_item_detail"
                         android:layout_width="wrap_content"
-                        android:text="@{String.valueOf(viewModel.partyQty+viewModel.hostQty*2)}"
-
                         android:layout_height="wrap_content"
+
+                        android:text="@{String.valueOf(viewModel.partyQty+viewModel.hostQty*2)}"
                         app:layout_constraintEnd_toEndOf="@+id/tv_host_qty"
                         app:layout_constraintTop_toTopOf="@+id/tv_title_level"
                         tools:text="77" />
@@ -179,7 +178,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
                 android:drawableLeft="@drawable/ic_star_28dp"
@@ -188,7 +186,7 @@
                 android:padding="10dp"
                 android:text="@string/my_rating"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/cv_user"
                 app:layout_constraintTop_toBottomOf="@id/cv_user" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -262,32 +260,34 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@color/gray_bg_eaeaea"
-                    android:minHeight="220dp"
-
                     android:layout_height="match_parent"
-                    android:padding="4dp">
+                    android:background="@color/gray_bg_eaeaea"
+
+                    android:minHeight="230dp">
 
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/tv_title_recently_viewed"
                         style="@style/title2Style"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
                         android:layout_marginTop="6dp"
                         android:drawableLeft="@drawable/ic_record_28dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
                         android:text="@string/recently_viewed"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_recently_viewed_game"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
+                        android:paddingBottom="10dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

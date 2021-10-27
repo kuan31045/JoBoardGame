@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.kappstudio.jotabletopgame.R
-import com.kappstudio.jotabletopgame.VMFactory
-import com.kappstudio.jotabletopgame.bindImage
-import com.kappstudio.jotabletopgame.bindTextViewGameTypes
+import com.kappstudio.jotabletopgame.*
 import com.kappstudio.jotabletopgame.databinding.FragmentGameDetailBinding
 import timber.log.Timber
 
@@ -26,6 +23,7 @@ class GameDetailFragment : Fragment() {
             VMFactory {
                 GameDetailViewModel(
                     GameDetailFragmentArgs.fromBundle(requireArguments()).clickedGameId,
+                    appInstance.provideJoRepository()
                 )
             }
         }
@@ -35,8 +33,11 @@ class GameDetailFragment : Fragment() {
         viewModel.game.observe(viewLifecycleOwner, {
             Timber.d("game= $it")
             bindImage(binding.ivGame, it.image)
-            it.type?.let { it1 -> bindTextViewGameTypes(binding.tvType, it1) }
+            bindTextViewGameTypes(binding.tvType,it.type)
+
+            viewModel.addViewedGame() //加入瀏覽紀錄
         })
+
 
 
         return binding.root

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.jotabletopgame.VMFactory
+import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {

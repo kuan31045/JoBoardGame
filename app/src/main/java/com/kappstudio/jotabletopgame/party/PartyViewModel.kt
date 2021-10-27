@@ -1,9 +1,8 @@
 package com.kappstudio.jotabletopgame.party
 
 import androidx.lifecycle.*
-import com.kappstudio.jotabletopgame.data.FirebaseService
+import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.Party
-import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
