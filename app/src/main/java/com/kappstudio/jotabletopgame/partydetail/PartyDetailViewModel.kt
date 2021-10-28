@@ -7,11 +7,12 @@ import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.data.*
 import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
+import com.kappstudio.jotabletopgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
-class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface {
+class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,NavToUserInterface {
 
     private var _party: MutableLiveData<Party> =  FirebaseService.getLivePartyById(partyId)
     val party: LiveData<Party>
@@ -25,6 +26,10 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     private val _navToGameDetail = MutableLiveData<String?>()
     val navToGameDetail: LiveData<String?>
         get() = _navToGameDetail
+    // nav
+    private val _navToUser = MutableLiveData<String?>()
+    val navToUser: LiveData<String?>
+        get() = _navToUser
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
         setGame()
@@ -74,9 +79,15 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
             ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
         }
     }
-
     override fun onNavToGameDetail() {
         _navToGameDetail.value = null
+    }
+
+    override fun navToUser(userId: String) {
+        _navToUser.value = userId
+    }
+    override fun onNavToUser() {
+        _navToUser.value = null
     }
 
 

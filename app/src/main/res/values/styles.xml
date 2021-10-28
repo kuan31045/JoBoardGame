@@ -138,4 +138,9 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
+
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
 </resources>

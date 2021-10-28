@@ -23,7 +23,7 @@
   <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
            android:layout_marginTop="8dp"
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER ? View.GONE : View.VISIBLE}"
             android:layout_width="0dp"
             android:layout_height="@dimen/toolbar_height"
 

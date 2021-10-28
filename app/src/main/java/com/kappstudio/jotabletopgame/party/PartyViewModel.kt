@@ -4,9 +4,6 @@ import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.partydetail.NavToPartyDetailInterface
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
@@ -18,11 +15,6 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
     private val _navToPartyDetail = MutableLiveData<String?>()
     val navToPartyDetail: LiveData<String?>
         get() = _navToPartyDetail
-    // Create a Coroutine scope using a job to be able to cancel when needed
-    private var viewModelJob = Job()
-
-    // the Coroutine runs using the Main (UI) dispatcher
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
     init {
@@ -36,7 +28,7 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
     }
 
     private fun getMyParties() {
-        coroutineScope.launch {
+        viewModelScope.launch {
             _parties  = FirebaseService.getLiveParties()
         }
     }
@@ -48,10 +40,6 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
 
     override fun onNavToPartyDetail() {
         _navToPartyDetail.value = null
-    }
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.start()
     }
 
 }

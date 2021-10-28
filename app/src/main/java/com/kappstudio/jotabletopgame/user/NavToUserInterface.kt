@@ -1,6 +1,6 @@
 package com.kappstudio.jotabletopgame.user
 
-interface UserInterface {
+interface NavToUserInterface {
     fun navToUser(userId: String)
     fun onNavToUser()
 }

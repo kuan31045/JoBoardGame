@@ -34,7 +34,7 @@ class PartyDetailFragment : Fragment() {
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
 
         viewModel.party.observe(viewLifecycleOwner, {
-            binding.rvPlayer.adapter = PlayerAdapter().apply {
+            binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it?.playerList)
             }
         })
@@ -50,6 +50,13 @@ class PartyDetailFragment : Fragment() {
             it?.let {
                 findNavController().navigate(PartyDetailFragmentDirections.navToGameDetailFragment(it))
                 viewModel.onNavToGameDetail()
+            }
+        })
+
+        viewModel.navToUser.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(PartyDetailFragmentDirections.navToUserDialog(it))
+                viewModel.onNavToUser()
             }
         })
 

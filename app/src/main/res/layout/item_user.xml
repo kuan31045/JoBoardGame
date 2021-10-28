@@ -7,18 +7,21 @@
     android:background="@drawable/bg_card_item"
     android:clickable="true"
     android:layout_marginEnd="24dp"
-
+    android:id="@+id/cl_user"
     android:focusable="true">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_user"
-        android:layout_width="@dimen/user_item_image"
+        android:backgroundTint="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1:1"
-        android:layout_height="@dimen/user_item_image"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/defult_profile"  />
+        app:shapeAppearanceOverlay="@style/circle"
+        tools:src="@drawable/defult_profile" />
 
     <TextView
         android:id="@+id/tv_name"

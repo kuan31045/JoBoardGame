@@ -71,6 +71,16 @@
             app:argType="string" />
     </fragment>
 
+    <dialog
+        android:id="@+id/userDialog"
+        android:name="com.kappstudio.jotabletopgame.user.UserDialog"
+        android:label="UserDialog" >
+
+        <argument
+            android:name="clickedUserId"
+            app:argType="string" />
+    </dialog>
+
     <action
         android:id="@+id/nav_to_my_party_fragment"
         app:destination="@id/myPartyFragment" />
@@ -81,4 +91,8 @@
     <action
         android:id="@+id/nav_to_game_detail_fragment"
         app:destination="@id/gameDetailFragment" />
+
+    <action
+        android:id="@+id/nav_to_userDialog"
+        app:destination="@id/userDialog" />
 </navigation>

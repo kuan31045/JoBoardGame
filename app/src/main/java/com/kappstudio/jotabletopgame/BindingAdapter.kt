@@ -33,8 +33,9 @@ fun bindTextViewDate(tv: TextView, time: Long) {
 
 }
 
-@BindingAdapter("imageUrl")
-fun bindImage(iv: ImageView, imgUrl: String) {
+@BindingAdapter("imgUrl")
+fun bindImage(iv: ImageView, imgUrl: String?) {
+
     Glide.with(iv.context)
         .load(imgUrl)
         .apply(

@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 
 class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface {
+    val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
     private var _user = MutableLiveData<User>()
     val user: LiveData<User>
@@ -27,7 +28,6 @@ class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetai
     val hostQty: LiveData<Int>
         get() = _hostQty
 
-    val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
     // nav
     private val _navToGameDetail = MutableLiveData<String?>()

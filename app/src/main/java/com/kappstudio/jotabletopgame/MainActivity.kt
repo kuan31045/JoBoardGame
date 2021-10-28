@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.newPartyFragment ->PageType.NEW_PARTY
                     R.id.myPartyFragment ->PageType.MY_PARTY
                     R.id.gameDetailFragment ->PageType.GAME_DETAIL
+                    R.id.userDialog ->PageType.USER
 
                     else -> PageType.OTHER
                 }

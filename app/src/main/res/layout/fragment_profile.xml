@@ -40,19 +40,29 @@
                     android:layout_height="match_parent"
                     android:background="@color/gray_bg_eaeaea"
 
-                    android:paddingLeft="6dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="6dp"
-                    android:paddingBottom="16dp">
-
+                    android:padding="10dp">
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/iv_profile"
+                        android:id="@+id/iv_profile_bg"
+                        android:background="@color/white"
                         android:layout_width="0dp"
-                        android:layout_height="65dp"
-                        android:scaleType="fitCenter"
+                        android:layout_height="72dp"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/circle"
+                        />
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_profile"
+                        android:backgroundTint="@color/white"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="@id/iv_profile_bg"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_bg"
+
+                        app:layout_constraintStart_toStartOf="@id/iv_profile_bg"
+                        app:layout_constraintTop_toTopOf="@id/iv_profile_bg"
                         app:shapeAppearanceOverlay="@style/circle"
                         tools:src="@drawable/defult_profile" />
 
@@ -72,7 +82,6 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         android:background="@drawable/bg_spn"
                         android:focusable="false"
                         android:hint="@string/user_profile_status"
@@ -177,8 +186,7 @@
                 style="@style/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="12dp"
+                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
                 android:drawableLeft="@drawable/ic_star_28dp"
 
@@ -283,7 +291,7 @@
                         android:id="@+id/rv_recently_viewed_game"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
+                        android:paddingStart="4dp"
                         android:layout_marginTop="8dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
