@@ -16,7 +16,29 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
-    suspend fun getUserHosts(userId:String): List<Party> =
+    suspend fun setUserStatus(status:String): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Set User Status------------------------------")
+
+        FirebaseFirestore.getInstance().collection("users")
+            .document(UserManager.user["id"] ?: "")
+            .update("status",status)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Set User Status Successful")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Set User Status  Error. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
+    suspend fun getUserHosts(userId: String): List<Party> =
         suspendCoroutine { continuation ->
             Timber.d("-----Get User Hosts------------------------------")
 
@@ -87,7 +109,7 @@ object FirebaseService {
         return game
     }
 
-    suspend fun getUserParties(userId:String): List<Party> =
+    suspend fun getUserParties(userId: String): List<Party> =
         suspendCoroutine { continuation ->
             Timber.d("-----Get User Parties------------------------------")
 
@@ -113,7 +135,7 @@ object FirebaseService {
     suspend fun createParty(party: NewParty): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
 
-        val parties  = FirebaseFirestore.getInstance().collection("parties")
+        val parties = FirebaseFirestore.getInstance().collection("parties")
         val document = parties.document()
 
         party.id = document.id
@@ -184,8 +206,6 @@ object FirebaseService {
             }
 
         }
-
-
 
 
     fun getLivePartyById(partyId: String): MutableLiveData<Party> {
@@ -259,9 +279,11 @@ object FirebaseService {
             .update("playerIdList", FieldValue.arrayRemove(UserManager.user["id"]))
         FirebaseFirestore.getInstance()
             .collection("parties").document(partyId)
-            .update("playerList", FieldValue.arrayRemove(
-                UserManager.user
-            ))
+            .update(
+                "playerList", FieldValue.arrayRemove(
+                    UserManager.user
+                )
+            )
         ToastUtil.show(appInstance.getString(R.string.bye))
     }
 

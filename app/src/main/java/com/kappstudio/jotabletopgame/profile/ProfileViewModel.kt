@@ -61,4 +61,12 @@ class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetai
         _navToGameDetail.value = null
     }
 
+    fun setStatus(status: String) {
+        viewModelScope.launch {
+            FirebaseService.setUserStatus(status)
+
+        }
+
+    }
+
 }
