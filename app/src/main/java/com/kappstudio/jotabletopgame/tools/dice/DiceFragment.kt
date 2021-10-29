@@ -21,10 +21,10 @@ class DiceFragment : Fragment() {
         val adapter = DiceAdapter(viewModel)
         binding.rvDice.adapter = adapter
 
-        viewModel.qty.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.qty.observe(viewLifecycleOwner, {
             it?.let {
                 val amount = mutableListOf<Int>()
-                for (i in 1..it) {
+                repeat(it){i->
                     amount.add(i)
                 }
                 adapter.submitList(amount)

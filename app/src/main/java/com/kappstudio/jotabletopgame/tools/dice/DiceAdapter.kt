@@ -18,7 +18,7 @@ class DiceAdapter(var viewModel: DiceViewModel) :
 
         fun bind(item: Int, viewModel: DiceViewModel) {
             binding.lottieDice.frame = 0
-            binding.lottieDice.speed = 0.7F
+            binding.lottieDice.speed = 1.0F
 
             binding.lottieDice.setAnimation(R.raw.anim_dice)
             if (viewModel.isRolling.value == true) {

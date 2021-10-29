@@ -6,43 +6,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_hots"
+        style="@style/gamePageBtn"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+
+
+        android:layout_marginEnd="8dp"
+        android:text="@string/hots"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_recommend"
+        style="@style/gamePageBtn"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/recommend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/btn_hots" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_all_game"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/gray_bg_eaeaea"
         android:clipToPadding="false"
         android:paddingStart="9dp"
-        android:paddingTop="9dp"
+        android:layout_marginTop="24dp"
         android:paddingEnd="9dp"
         android:paddingBottom="@dimen/paddingBottom"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_hots"
         tools:itemCount="10"
-        tools:listitem="@layout/item_game_info" />
+        tools:listitem="@layout/item_game_all" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_filter"
         style="@style/fontSpaceColor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_card_item"
         android:drawableLeft="@drawable/ic_filter_28dp"
         android:drawablePadding="5dp"
 
-        android:padding="4dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="@string/sort_filter"
         android:textColor="@color/black_text_191919"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

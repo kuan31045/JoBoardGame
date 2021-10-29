@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(viewModel.total)}"
-            android:textSize="36dp"
+            android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_total"
@@ -70,10 +70,11 @@
 
         <ImageButton
             android:id="@+id/btn_minus"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/bg_card_item"
+            android:backgroundTint="@color/gray_bg_eaeaea"
 
             android:visibility="@{viewModel.qty > 1 ? View.VISIBLE : View.INVISIBLE }"
 
@@ -95,6 +96,7 @@
             android:text="@{String.valueOf(viewModel.qty)}"
             android:textAlignment="center"
             android:textStyle="bold"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@id/btn_minus"
             app:layout_constraintEnd_toStartOf="@+id/btn_add"
             app:layout_constraintStart_toEndOf="@id/btn_minus"
@@ -103,14 +105,14 @@
 
         <ImageButton
             android:id="@+id/btn_add"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/bg_card_item"
             android:enabled="@{!viewModel.isRolling() &amp;&amp; viewModel.qty &lt; 9 }"
             android:onClick="@{() -> viewModel.plusQty()}"
             android:scaleType="centerCrop"
             android:visibility="@{viewModel.qty &lt; 9 ? View.VISIBLE : View.INVISIBLE }"
-
+            android:backgroundTint="@color/gray_bg_eaeaea"
             app:layout_constraintBottom_toBottomOf="@+id/btn_minus"
             app:layout_constraintEnd_toEndOf="@+id/btn_roll"
             app:srcCompat="@drawable/ic_24px_add02" />
