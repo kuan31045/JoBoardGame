@@ -16,10 +16,10 @@
         android:title="@string/game_viewed"/>
 
     <item
-        android:id="@+id/toolFragment"
+        android:id="@+id/toolsFragment"
         android:icon="@drawable/ic_tool"
         android:iconTint="@color/black"
-        android:title="@string/tool"/>
+        android:title="@string/tools"/>
 
     <item
         android:id="@+id/profileFragment"

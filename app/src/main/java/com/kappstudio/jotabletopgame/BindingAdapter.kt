@@ -1,9 +1,6 @@
 package com.kappstudio.jotabletopgame
 
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -53,4 +50,9 @@ fun bindSpinnerCountries(spn: Spinner, countries: Boolean = true) {
         android.R.layout.simple_spinner_dropdown_item,
         appInstance.resources.getStringArray(R.array.country_list).toList()
     )
+}
+
+@BindingAdapter("imageBtnEnable")
+fun imageBtnEnable(btn: ImageButton, enabled: Boolean) {
+    btn.isEnabled = enabled
 }

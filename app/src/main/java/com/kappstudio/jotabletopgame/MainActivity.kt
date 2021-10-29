@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         var appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.partyFragment, R.id.gameFragment, R.id.toolFragment, R.id.profileFragment
+                R.id.partyFragment, R.id.gameFragment, R.id.toolsFragment, R.id.profileFragment
             )
         )
 
@@ -57,18 +57,23 @@ class MainActivity : AppCompatActivity() {
     private fun setBarAttr() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             supportActionBar?.title = ""
-
             viewModel.setBarStatus(
                 when (destination.id) {
                     R.id.partyFragment -> PageType.PARTY
                     R.id.gameFragment -> PageType.GAME
-                    R.id.toolFragment -> PageType.TOOL
+                    R.id.toolsFragment -> PageType.TOOLS
                     R.id.profileFragment -> PageType.PROFILE
                     R.id.partyDetailFragment->PageType.PARTY_DETAIL
                     R.id.newPartyFragment ->PageType.NEW_PARTY
                     R.id.myPartyFragment ->PageType.MY_PARTY
                     R.id.gameDetailFragment ->PageType.GAME_DETAIL
                     R.id.userDialog ->PageType.USER
+
+                    R.id.diceFragment ->PageType.DICE
+                    R.id.timerFragment ->PageType.TIMER
+                    R.id.spinFragment ->PageType.SPIN
+
+
 
                     else -> PageType.OTHER
                 }

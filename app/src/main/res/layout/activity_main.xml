@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOLS || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
 
                     android:id="@+id/layout_tool_bar_right"
                     android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="0dp"
-            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOL || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOLS || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
             app:itemIconTint="@drawable/bottom_nav_item_selector"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"

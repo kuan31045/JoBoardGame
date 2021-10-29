@@ -22,13 +22,13 @@
         android:id="@+id/gameFragment"
         android:name="com.kappstudio.jotabletopgame.game.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game"/>
+        tools:layout="@layout/fragment_game" />
 
     <fragment
-        android:id="@+id/toolFragment"
-        android:name="com.kappstudio.jotabletopgame.tool.ToolFragment"
-        android:label="fragment_tool"
-        tools:layout="@layout/fragment_tool" />
+        android:id="@+id/toolsFragment"
+        android:name="com.kappstudio.jotabletopgame.tools.ToolsFragment"
+        android:label="fragment_tools"
+        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/profileFragment"
@@ -71,15 +71,41 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/diceFragment"
+        android:name="com.kappstudio.jotabletopgame.tools.dice.DiceFragment"
+        android:label="fragment_dice"
+        tools:layout="@layout/fragment_dice" />
+    <fragment
+        android:id="@+id/spinFragment"
+        android:name="com.kappstudio.jotabletopgame.tools.spin.SpinFragment"
+        android:label="fragment_spin"
+        tools:layout="@layout/fragment_spin" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.kappstudio.jotabletopgame.tools.timer.TimerFragment"
+        android:label="fragment_timer"
+        tools:layout="@layout/fragment_timer" />
+
     <dialog
         android:id="@+id/userDialog"
         android:name="com.kappstudio.jotabletopgame.user.UserDialog"
-        android:label="UserDialog" >
+        android:label="UserDialog">
 
         <argument
             android:name="clickedUserId"
             app:argType="string" />
     </dialog>
+
+    <action
+        android:id="@+id/nav_to_dice_fragment"
+        app:destination="@id/diceFragment" />
+    <action
+        android:id="@+id/nav_to_timer_fragment"
+        app:destination="@id/timerFragment" />
+    <action
+        android:id="@+id/nav_to_spin_fragment"
+        app:destination="@id/spinFragment" />
 
     <action
         android:id="@+id/nav_to_my_party_fragment"
@@ -95,4 +121,5 @@
     <action
         android:id="@+id/nav_to_userDialog"
         app:destination="@id/userDialog" />
+
 </navigation>

@@ -6,7 +6,7 @@
     <!--    Bottom Nav-->
     <string name="party">聚會</string>
     <string name="game_viewed">遊戲總覽</string>
-    <string name="tool">小工具</string>
+    <string name="tools">小工具</string>
     <string name="profile">個人</string>
     <string name="new_party">舉辦聚會</string>
 
@@ -94,6 +94,9 @@
     <string name="i_think">我想...</string>
     <string name="scoreboard">記分板</string>
     <string name="draw_lots">抽籤</string>
+    <string name="dice_qty">骰子數量</string>
+    <string name="total">總和</string>
+    <string name="roll">Roll</string>
 
 
 </resources>
