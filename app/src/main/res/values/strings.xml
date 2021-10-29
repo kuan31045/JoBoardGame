@@ -92,6 +92,8 @@
     <string name="send">送出</string>
     <string name="cancel">取消</string>
     <string name="i_think">我想...</string>
+    <string name="scoreboard">記分板</string>
+    <string name="draw_lots">抽籤</string>
 
 
 </resources>
