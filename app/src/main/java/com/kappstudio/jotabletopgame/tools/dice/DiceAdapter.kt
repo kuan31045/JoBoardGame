@@ -17,22 +17,18 @@ class DiceAdapter(var viewModel: DiceViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Int, viewModel: DiceViewModel) {
+            binding.lottieDice.frame = 0
+            binding.lottieDice.speed = 0.7F
 
             binding.lottieDice.setAnimation(R.raw.anim_dice)
             if (viewModel.isRolling.value == true) {
-                binding.lottieDice.frame=0
 
-                binding.ivDice.visibility = View.INVISIBLE
-                binding.lottieDice.visibility = View.VISIBLE
-                binding.lottieDice.speed = 0.8F
-                binding.lottieDice.setAnimation(R.raw.anim_dice)
                 binding.lottieDice.playAnimation()
                 Handler().postDelayed({
-                    binding.ivDice.setImageResource(viewModel.getRollResult())
-                    binding.ivDice.visibility = View.VISIBLE
-                    binding.lottieDice.visibility = View.GONE
+                    binding.lottieDice.pauseAnimation()
+                    binding.lottieDice.frame = viewModel.getRollResult()
 
-                }, 700)
+                }, 800)
 
             }
         }

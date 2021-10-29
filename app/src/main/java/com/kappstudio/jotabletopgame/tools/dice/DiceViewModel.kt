@@ -11,15 +11,7 @@ class DiceViewModel : ViewModel() {
     val qty = MutableLiveData(1)
     val isRolling = MutableLiveData(false)
     val total = MutableLiveData(0)
-    val diceImages =
-        listOf(
-            R.drawable.image_dice_1,
-            R.drawable.image_dice_2,
-            R.drawable.image_dice_3,
-            R.drawable.image_dice_4,
-            R.drawable.image_dice_5,
-            R.drawable.image_dice_6
-        )
+
 
     fun plusQty() {
         qty.value = qty.value?.plus(1)
@@ -35,9 +27,17 @@ class DiceViewModel : ViewModel() {
         val num = Random().nextInt(6) + 1
         total.value = total.value?.plus(num)
         Timber.d("roll result: $num")
-
         isRolling.value = false
-        return diceImages[num - 1]
+
+        return when (num) {
+            1 -> 25
+            2 -> 30
+            3 -> 35
+            4 -> 40
+            5 -> 45
+            else -> 50
+        }
+
     }
 
     fun roll() {
