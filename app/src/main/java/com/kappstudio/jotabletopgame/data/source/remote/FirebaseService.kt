@@ -11,10 +11,86 @@ import com.kappstudio.jotabletopgame.data.*
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.util.*
+import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
+
+
+    fun getLiveFavorites(): MutableLiveData<List<Game>> {
+        Timber.d("-----Get Live Favorites------------------------------")
+
+        val games = MutableLiveData<List<Game>>()
+
+        FirebaseFirestore.getInstance().collection("users").document(UserManager.user["id"]?:"")
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Timber.d("Current data: ${snapshot.data}")
+                    val user = snapshot.toObject<User>()
+                    if (user != null) {
+                        games.value = user.favoriteGames?: mutableListOf()
+                    }
+                } else {
+                    Timber.d("Current data: null")
+                }
+            }
+
+        return games
+    }
+
+
+    suspend fun checkFavorite(gameMap: HashMap<String, String>): Boolean =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Check Favorite------------------------------")
+            FirebaseFirestore.getInstance()
+                .collection("users")
+                .whereEqualTo("id", UserManager.user["id"])
+                .whereArrayContains("favoriteGames", gameMap)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if (task.result?.size() != 0) {
+                            Timber.d("Is favorite: $gameMap")
+                            continuation.resume(true)
+                        } else {
+                            Timber.d("Not favorite: $gameMap")
+                            continuation.resume(false)
+                        }
+
+                    } else {
+                        task.exception?.let {
+
+                            Timber.w("Error getting documents. ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    fun addToFavorite(gameMap: HashMap<String, String>) {
+        Timber.d("-----Add To Favorite------------------------------")
+        FirebaseFirestore.getInstance()
+            .collection("users").document(UserManager.user["id"] ?: "")
+            .update("favoriteGames", FieldValue.arrayUnion(gameMap))
+
+        ToastUtil.show(appInstance.getString(R.string.favorite_in))
+    }
+
+    fun removeFavorite(gameMap: HashMap<String, String>) {
+        Timber.d("-----Remove Favorite------------------------------")
+        FirebaseFirestore.getInstance()
+            .collection("users").document(UserManager.user["id"] ?: "")
+            .update("favoriteGames", FieldValue.arrayRemove(gameMap))
+
+
+        ToastUtil.show(appInstance.getString(R.string.favorite_out))
+    }
 
 
     fun getLivePartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
@@ -27,19 +103,15 @@ object FirebaseService {
             .collection("partyMsgs").whereEqualTo("partyId", id)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                Timber.w("Listen failed.", e)
-                return@addSnapshotListener
-            }
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
 
                 liveData.value = snapshot?.toObjects(PartyMsg::class.java) ?: mutableListOf()
                 Timber.d("Current data: ${liveData.value}")
             }
 
         return liveData
-
-
-
-
     }
 
     suspend fun sendPartyMsg(msg: NewPartyMsg): Boolean = suspendCoroutine { continuation ->
@@ -469,6 +541,8 @@ object FirebaseService {
                 .set(data)
         }
     }
+
+
 }
 
 

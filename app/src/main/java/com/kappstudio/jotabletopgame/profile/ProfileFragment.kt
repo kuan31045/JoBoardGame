@@ -18,6 +18,7 @@ import com.kappstudio.jotabletopgame.bindImage
 import com.kappstudio.jotabletopgame.databinding.FragmentProfileBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
 import com.kappstudio.jotabletopgame.game.GameFragmentDirections
+import com.kappstudio.jotabletopgame.party.PartyFragmentDirections
 import com.kappstudio.jotabletopgame.util.closeKeyBoard
 import timber.log.Timber
 
@@ -78,6 +79,10 @@ class ProfileFragment : Fragment() {
                 })
 
             builder.show()
+        }
+
+        binding.btnMyFavorite.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToFavoriteFragment())
         }
 
         viewModel.viewedGames.observe(viewLifecycleOwner, {

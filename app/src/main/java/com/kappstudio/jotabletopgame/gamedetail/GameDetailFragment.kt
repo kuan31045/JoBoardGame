@@ -35,14 +35,17 @@ class GameDetailFragment : Fragment() {
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
 
         viewModel.game.observe(viewLifecycleOwner, {
-            Timber.d("game= $it")
-            bindImage(binding.ivGame, it.image)
-            bindTextViewGameTypes(binding.tvType,it.type)
-            binding.nsvMain.post{
-                binding.nsvMain.fullScroll(View.FOCUS_UP);
+            it?.let{
+                Timber.d("game= $it")
+                bindImage(binding.ivGame, it.image)
+                bindTextViewGameTypes(binding.tvType,it.type)
+                binding.nsvMain.post{
+                    binding.nsvMain.fullScroll(View.FOCUS_UP);
 
-                binding.nsvMain.scrollTo(0, 200)   }
-            viewModel.addViewedGame() //加入瀏覽紀錄
+                    binding.nsvMain.scrollTo(0, 200)   }
+                viewModel.addViewedGame() //加入瀏覽紀錄
+                viewModel.checkFavorite()
+            }
         })
 
 

@@ -41,3 +41,11 @@ data class Game(
     var viewedTime: Long = 0
 
 ) : Parcelable
+
+fun toGameMap(game:Game):HashMap<String, String>{
+    return hashMapOf(
+        "id" to game.id,
+        "name" to game.name,
+        "image" to game.image
+    )
+}

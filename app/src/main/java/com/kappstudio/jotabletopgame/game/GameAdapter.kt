@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.jotabletopgame.bindImage
 import com.kappstudio.jotabletopgame.data.Game
+import com.kappstudio.jotabletopgame.databinding.ItemGameFavoriteBinding
 import com.kappstudio.jotabletopgame.databinding.ItemGameInfoBinding
 import com.kappstudio.jotabletopgame.databinding.ItemGameSimpleBinding
+import com.kappstudio.jotabletopgame.favorite.FavoriteViewModel
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import com.kappstudio.jotabletopgame.party.PartyViewModel
 import com.kappstudio.jotabletopgame.profile.ProfileViewModel
@@ -41,6 +43,7 @@ class GameAdapter(private val viewModel: ViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(game: Game, viewModel: ViewModel) {
+
             binding.apply {
                 tvName.text = game.name
                 bindImage(ivGame, game.image)

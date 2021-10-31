@@ -14,9 +14,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_main"
-        android:paddingBottom="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,17 +83,18 @@
             <TextView
 
                 android:id="@+id/tv_type"
+                style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="2dp"
-                tools:text="刺激 | 刺激 | 刺激 "
-
-                style="@style/textStyle1"
 
                 app:layout_constraintEnd_toEndOf="parent"
+
                 app:layout_constraintStart_toEndOf="@+id/tv_title_type"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_type" />
+                app:layout_constraintTop_toTopOf="@+id/tv_title_type"
+                tools:text="刺激 | 刺激 | 刺激 " />
+
             <View
                 android:id="@+id/view_line_type"
                 style="@style/view_line_white"
@@ -117,13 +118,14 @@
                 android:id="@id/tv_player_qty"
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
-                android:text="@{viewModel.game.minPlayerQty + @string/to + viewModel.game.maxPlayerQty}"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:text="@{viewModel.game.minPlayerQty + @string/to + viewModel.game.maxPlayerQty}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_player_qty"
                 app:layout_constraintStart_toEndOf="@id/tv_title_player_qty"
                 app:layout_constraintTop_toTopOf="@id/tv_title_player_qty"
                 tools:text="3-4" />
+
             <View
                 android:id="@+id/view_line_player_qty"
                 style="@style/view_line_white"
@@ -146,14 +148,15 @@
             <TextView
                 android:id="@id/tv_time"
                 style="@style/textStyle1"
-                android:text="@{String.valueOf(viewModel.game.time)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:text="@{String.valueOf(viewModel.game.time)}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
                 app:layout_constraintStart_toEndOf="@id/tv_title_time"
                 app:layout_constraintTop_toTopOf="@id/tv_title_time"
                 tools:text="70 mins" />
+
             <View
                 android:id="@+id/view_line_time"
                 style="@style/view_line_white"
@@ -183,6 +186,7 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_desc"
                 tools:text="自己Google不會很難" />
+
             <View
                 android:id="@+id/view_line_desc"
                 style="@style/view_line_white"
@@ -193,31 +197,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_desc" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="-10dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/white_bg_f7f7f7"
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_your_rating" />
             <TextView
                 android:id="@+id/tv_avg_rating"
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="24dp"
                 android:drawableTop="@drawable/ic_star_28dp"
                 android:gravity="center"
                 android:text="@{String.valueOf(viewModel.game.avgRating)}"
                 app:layout_constraintEnd_toStartOf="@+id/tv_your_rating"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+                app:layout_constraintTop_toBottomOf="@id/view_line_desc"
                 tools:text="8.5" />
 
             <TextView
@@ -228,7 +221,7 @@
 
                 android:drawableTop="@drawable/ic_star_empty_28dp"
                 android:gravity="center"
-                app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
+                app:layout_constraintEnd_toStartOf="@+id/cb_favorite"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toTopOf="@+id/tv_avg_rating"
@@ -255,31 +248,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_avg_rating"
                 tools:text="300人" />
 
-            <ImageView
-                android:id="@+id/iv_favorite"
-                android:layout_width="35dp"
-                android:layout_height="0dp"
-
-                android:drawableTop="@drawable/ic_heart_empty_28dp"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:src="@drawable/ic_heart_empty_28dp"
-                android:text="收藏"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_your_rating"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_your_rating"
-                app:layout_constraintTop_toTopOf="@+id/tv_your_rating" />
-
             <TextView
                 android:id="@+id/tv_title_favorite"
+                style="@style/textStyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:text="@string/favorite"
-                app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
-                app:layout_constraintStart_toStartOf="@+id/iv_favorite"
-                app:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
+                app:layout_constraintEnd_toEndOf="@+id/cb_favorite"
+                app:layout_constraintStart_toStartOf="@+id/cb_favorite"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_your_rating" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+
+                android:id="@+id/cb_favorite"
+                android:layout_width="28dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:button="@drawable/checkbox_favorite"
+                android:checked="@{viewModel.isFavorite}"
+                android:gravity="top"
+                android:onClick="@{()->viewModel.updateCollect()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_your_rating"
+                app:layout_constraintTop_toTopOf="@id/tv_your_rating" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
