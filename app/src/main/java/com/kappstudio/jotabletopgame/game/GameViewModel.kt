@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
+import com.kappstudio.jotabletopgame.data.source.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch

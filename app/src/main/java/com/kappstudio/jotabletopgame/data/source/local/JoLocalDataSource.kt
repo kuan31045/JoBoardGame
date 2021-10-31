@@ -1,9 +1,9 @@
-package com.kappstudio.jotabletopgame.data.sourc.local
+package com.kappstudio.jotabletopgame.data.source.local
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.kappstudio.jotabletopgame.data.Game
-import com.kappstudio.jotabletopgame.data.sourc.JoDataSource
+import com.kappstudio.jotabletopgame.data.source.JoDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

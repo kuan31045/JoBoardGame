@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.bindSpinnerCountries
 import com.kappstudio.jotabletopgame.databinding.FragmentHomeBinding
 import timber.log.Timber

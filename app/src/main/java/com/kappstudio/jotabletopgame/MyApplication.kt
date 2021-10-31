@@ -1,10 +1,10 @@
 package com.kappstudio.jotabletopgame
 
 import android.app.Application
-import com.kappstudio.jotabletopgame.data.sourc.DefaultJoRepository
-import com.kappstudio.jotabletopgame.data.sourc.JoRepository
-import com.kappstudio.jotabletopgame.data.sourc.local.JoLocalDataSource
-import com.kappstudio.jotabletopgame.data.sourc.remote.JoRemoteDataSource
+import com.kappstudio.jotabletopgame.data.source.DefaultJoRepository
+import com.kappstudio.jotabletopgame.data.source.JoRepository
+import com.kappstudio.jotabletopgame.data.source.local.JoLocalDataSource
+import com.kappstudio.jotabletopgame.data.source.remote.JoRemoteDataSource
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 

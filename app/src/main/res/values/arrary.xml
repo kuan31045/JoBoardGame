@@ -26,4 +26,11 @@
         <item>連江縣</item>
 
     </string-array>
+
+    <string-array name="user_list">
+        <item>user1</item>
+        <item>user2</item>
+        <item>user3</item>
+        <item>user4</item>
+    </string-array>
 </resources>

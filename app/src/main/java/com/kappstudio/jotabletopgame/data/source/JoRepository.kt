@@ -1,9 +1,9 @@
-package com.kappstudio.jotabletopgame.data.sourc
+package com.kappstudio.jotabletopgame.data.source
 
 import androidx.lifecycle.LiveData
 import com.kappstudio.jotabletopgame.data.Game
 
-interface JoDataSource {
+interface JoRepository {
 
     suspend fun getViewedGame(id: String): Game?
 
@@ -11,6 +11,6 @@ interface JoDataSource {
 
     suspend fun updateViewedGame(game: Game)
 
-    fun getAllViewedGames(): LiveData<List<Game>>
+     fun getAllViewedGames(): LiveData<List<Game>>
 
 }

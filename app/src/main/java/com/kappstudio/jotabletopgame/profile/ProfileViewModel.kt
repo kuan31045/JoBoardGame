@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.jotabletopgame.data.Game
-import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
+import com.kappstudio.jotabletopgame.data.source.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.User
 import com.kappstudio.jotabletopgame.data.UserManager
-import com.kappstudio.jotabletopgame.data.sourc.JoRepository
+import com.kappstudio.jotabletopgame.data.source.JoRepository
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil

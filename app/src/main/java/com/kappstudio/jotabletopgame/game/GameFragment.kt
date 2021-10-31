@@ -24,7 +24,7 @@ class GameFragment : Fragment() {
         val viewModel: GameViewModel by viewModels()
 
         viewModel.games.observe(viewLifecycleOwner, {
-            binding.rvAllGame.adapter = GameAdapter(viewModel).apply {
+            binding.rvAllGame.adapter = AllGameAdapter(viewModel).apply {
                 submitList(it)
             }
         })

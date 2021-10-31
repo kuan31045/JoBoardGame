@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.jotabletopgame.data.User
-import com.kappstudio.jotabletopgame.data.UserManager
-import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
+import com.kappstudio.jotabletopgame.data.source.remote.FirebaseService
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val userId: String):ViewModel() {

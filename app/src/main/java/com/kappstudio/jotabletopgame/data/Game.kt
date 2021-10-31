@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.kappstudio.jotabletopgame.data.sourc.local.JoConverters
+import com.kappstudio.jotabletopgame.data.source.local.JoConverters
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "jo_game_table")

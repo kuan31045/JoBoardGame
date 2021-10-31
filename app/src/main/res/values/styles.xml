@@ -68,7 +68,7 @@
         <item name="android:shadowDy">0.5</item>
         <item name="android:shadowRadius">0.5</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
     <style name="titleStyleWhite2" >
         <item name="android:layout_width">wrap_content</item>
@@ -143,13 +143,16 @@
         <item name="android:windowBackground">@color/transparent</item>
     </style>
 
-    <style name="gamePageBtn">
+    <style name="pageTopBtn">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_height">42dp</item>
         <item name="android:background">@drawable/bg_btn_purple</item>
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:gravity">center|left</item>
-        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textStyle">bold</item>
+
         <item name="android:textColor">@color/white_text_fffcff</item>
         <item name="android:textSize">18sp</item>
     </style>

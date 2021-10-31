@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 
 import com.kappstudio.jotabletopgame.VMFactory
+import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.jotabletopgame.game.GameAdapter
 import timber.log.Timber
@@ -32,23 +34,38 @@ class PartyDetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
-
+        binding.rvMsg.addItemDecoration(
+            DividerItemDecoration(
+                appInstance, DividerItemDecoration.VERTICAL
+            )
+        )
         viewModel.party.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it?.playerList)
             }
+
         })
 
         viewModel.games.observe(viewLifecycleOwner, {
-            Timber.d("Games = $it")
             binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
                 submitList(it)
             }
         })
 
+        viewModel.partyMsgs.observe(viewLifecycleOwner, {
+            binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {
+                submitList(it.sortedByDescending { it.createdTime })
+            }
+        })
+
+
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToGameDetailFragment(it))
+                findNavController().navigate(
+                    PartyDetailFragmentDirections.navToGameDetailFragment(
+                        it
+                    )
+                )
                 viewModel.onNavToGameDetail()
             }
         })
@@ -59,6 +76,8 @@ class PartyDetailFragment : Fragment() {
                 viewModel.onNavToUser()
             }
         })
+
+
 
         return binding.root
     }

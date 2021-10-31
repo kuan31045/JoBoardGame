@@ -13,6 +13,8 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_main"
+        android:paddingBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,23 +29,25 @@
                 android:id="@+id/iv_game"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                tools:src="@drawable/sample_game"
+                android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/bottomCorner" />
+                app:shapeAppearanceOverlay="@style/bottomCorner"
+                tools:src="@drawable/sample_game" />
 
             <ImageView
                 android:id="@+id/iv_back"
                 style="@style/toolbarBtn"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="45dp"
 
                 android:backgroundTint="@color/transparentWhite"
                 android:src="@drawable/ic_back_26dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintVertical_bias="0.77" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -196,10 +200,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="-10dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="-10dp"
                 android:background="@color/white_bg_f7f7f7"
 
-                app:layout_constraintBottom_toBottomOf="@id/btn_to_msg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_your_rating" />
@@ -278,21 +280,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/iv_favorite"
                 app:layout_constraintStart_toStartOf="@+id/iv_favorite"
                 app:layout_constraintTop_toBottomOf="@+id/iv_favorite" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_to_msg"
-                style="@style/textStyle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/bg_btn_purple"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/show_msg"
-                android:textColor="@color/white_text_fffcff"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintTop_toBottomOf="@+id/tv_rating_qty" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

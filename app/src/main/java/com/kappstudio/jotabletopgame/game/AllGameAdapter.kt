@@ -22,7 +22,7 @@ class AllGameAdapter(private val viewModel: GameViewModel) :
             binding.apply {
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
-                tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
+                tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
                 tvRating.text = game.avgRating.toString()
                 bindImage(ivGame, game.image)
 

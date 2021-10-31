@@ -1,4 +1,4 @@
-package com.kappstudio.jotabletopgame.data.sourc.local
+package com.kappstudio.jotabletopgame.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

@@ -30,7 +30,7 @@
     <string name="time_">時間:</string>
     <string name="note_">備註:</string>
     <string name="msg">留言</string>
-    <string name="join">加入</string>
+    <string name="join">參加</string>
     <string name="out">退出</string>
     <string name="require_player_qty">徵求人數</string>
     <string name="join_players">參加者</string>
@@ -97,6 +97,9 @@
     <string name="dice_qty">骰子數量</string>
     <string name="total">總和</string>
     <string name="roll">Roll</string>
+    <string name="new_msg">新增留言...</string>
+    <string name="send_ok">發送成功!</string>
+    <string name="creat_ok">創建成功!</string>
 
 
 </resources>

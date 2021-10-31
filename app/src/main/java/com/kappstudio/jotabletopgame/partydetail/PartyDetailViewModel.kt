@@ -5,18 +5,25 @@ import androidx.lifecycle.*
 import com.kappstudio.jotabletopgame.R
 import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.data.*
-import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
+import com.kappstudio.jotabletopgame.data.source.remote.FirebaseService
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
 import com.kappstudio.jotabletopgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
-class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,NavToUserInterface {
+class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
+    NavToUserInterface {
 
-    private var _party: MutableLiveData<Party> =  FirebaseService.getLivePartyById(partyId)
+
+    private var _party: MutableLiveData<Party> = FirebaseService.getLivePartyById(partyId)
     val party: LiveData<Party>
         get() = _party
+
+    private var _partyMsgs: MutableLiveData<List<PartyMsg>> =
+        FirebaseService.getLivePartyMsgs(partyId)
+    val partyMsgs: LiveData<List<PartyMsg>>
+        get() = _partyMsgs
 
     private var _games = MutableLiveData<List<Game>>()
     val games: LiveData<List<Game>>
@@ -26,6 +33,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     private val _navToGameDetail = MutableLiveData<String?>()
     val navToGameDetail: LiveData<String?>
         get() = _navToGameDetail
+
     // nav
     private val _navToUser = MutableLiveData<String?>()
     val navToUser: LiveData<String?>
@@ -45,15 +53,9 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         str
     }
 
-    init {
-        //  getParty()
-    }
+    //Msg edittext
+    var newMsg = MutableLiveData("")
 
-    private fun getParty() {
-        viewModelScope.launch {
-            _party = FirebaseService.getLivePartyById(partyId)
-        }
-    }
 
     private fun setGame() {
         viewModelScope.launch {
@@ -79,6 +81,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
             ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
         }
     }
+
     override fun onNavToGameDetail() {
         _navToGameDetail.value = null
     }
@@ -86,9 +89,31 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     override fun navToUser(userId: String) {
         _navToUser.value = userId
     }
+
     override fun onNavToUser() {
         _navToUser.value = null
     }
 
 
+    fun sendMsg() {
+        if (newMsg.value?.replace("\\s".toRegex(), "") != "") {
+            viewModelScope.launch {
+                val res = FirebaseService.sendPartyMsg(
+                    NewPartyMsg(
+                        partyId = partyId,
+                        msg = newMsg.value ?: ""
+                    )
+                )
+
+                if (res) {
+                    ToastUtil.show(appInstance.getString(R.string.send_ok))
+                    newMsg.value = ""
+                }
+
+            }
+        } else {
+            ToastUtil.show("請填寫內容!")
+        }
+
+    }
 }

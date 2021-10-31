@@ -1,7 +1,7 @@
 package com.kappstudio.jotabletopgame.party
 
 import androidx.lifecycle.*
-import com.kappstudio.jotabletopgame.data.sourc.remote.FirebaseService
+import com.kappstudio.jotabletopgame.data.source.remote.FirebaseService
 import com.kappstudio.jotabletopgame.data.Party
 import com.kappstudio.jotabletopgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
@@ -15,6 +15,8 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
     private val _navToPartyDetail = MutableLiveData<String?>()
     val navToPartyDetail: LiveData<String?>
         get() = _navToPartyDetail
+
+
 
 
     init {

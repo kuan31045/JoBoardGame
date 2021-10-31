@@ -1,8 +1,8 @@
-package com.kappstudio.jotabletopgame.data.sourc.remote
+package com.kappstudio.jotabletopgame.data.source.remote
 
 import androidx.lifecycle.LiveData
 import com.kappstudio.jotabletopgame.data.Game
-import com.kappstudio.jotabletopgame.data.sourc.JoDataSource
+import com.kappstudio.jotabletopgame.data.source.JoDataSource
 
 object JoRemoteDataSource: JoDataSource {
     override suspend fun getViewedGame(id: String): Game? {

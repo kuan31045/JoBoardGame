@@ -3,12 +3,15 @@ package com.kappstudio.jotabletopgame
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
 import com.kappstudio.jotabletopgame.util.statusBarUtil
 
@@ -25,6 +28,32 @@ class MainActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         binding.vm = viewModel
+
+        binding.spnUser.adapter = ArrayAdapter(
+            appInstance,
+            android.R.layout.simple_spinner_dropdown_item,
+            appInstance.resources.getStringArray(R.array.user_list).toList()
+        )
+        binding.spnUser.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when(position){
+                    0->UserManager.user = UserManager.user1
+                    1->UserManager.user = UserManager.user2
+
+                    2->UserManager.user = UserManager.user3
+
+                    3->UserManager.user = UserManager.user4
+
+                }
+            }
+
+        }
+        
+
 
         viewModel.isImmersion.observe(this, {
             statusBarUtil(this, it)

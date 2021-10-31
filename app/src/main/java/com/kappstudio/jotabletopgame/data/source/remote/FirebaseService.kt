@@ -1,4 +1,4 @@
-package com.kappstudio.jotabletopgame.data.sourc.remote
+package com.kappstudio.jotabletopgame.data.source.remote
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FieldValue
@@ -16,12 +16,64 @@ import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
 
-    suspend fun setUserStatus(status:String): Boolean = suspendCoroutine { continuation ->
+
+    fun getLivePartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
+        Timber.d("-----Get Live Party Msgs------------------------------")
+
+
+        val liveData = MutableLiveData<List<PartyMsg>>()
+
+        FirebaseFirestore.getInstance()
+            .collection("partyMsgs").whereEqualTo("partyId", id)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                Timber.w("Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+                liveData.value = snapshot?.toObjects(PartyMsg::class.java) ?: mutableListOf()
+                Timber.d("Current data: ${liveData.value}")
+            }
+
+        return liveData
+
+
+
+
+    }
+
+    suspend fun sendPartyMsg(msg: NewPartyMsg): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Send Party Msg------------------------------")
+
+        val msgs = FirebaseFirestore.getInstance().collection("partyMsgs")
+        val document = msgs.document()
+
+        msg.id = document.id
+
+        document
+            .set(msg)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Send Party Msg Successful: $msg")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
+    suspend fun setUserStatus(status: String): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Set User Status------------------------------")
 
         FirebaseFirestore.getInstance().collection("users")
             .document(UserManager.user["id"] ?: "")
-            .update("status",status)
+            .update("status", status)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Timber.d("Set User Status Successful")
