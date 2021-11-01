@@ -34,6 +34,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_title"
                     android:layout_width="0dp"
+
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,10 +116,9 @@
                     android:id="@+id/cv_games"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:minHeight="220dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
-                    app:cardCornerRadius="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_title">
@@ -142,7 +142,7 @@
                             android:layout_width="0dp"
 
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="2dp"
                             android:clipToPadding="false"
                             android:orientation="horizontal"
                             android:paddingBottom="8dp"
@@ -160,9 +160,8 @@
                     android:id="@+id/cv_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
-                    app:cardCornerRadius="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_games">
@@ -195,24 +194,14 @@
                             app:layout_constraintTop_toTopOf="@id/tv_title_host"
                             tools:text="AKuan" />
 
-                        <View
-                            android:id="@+id/view_line_host"
-                            style="@style/view_line_white"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="17dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_title_host" />
-
                         <TextView
                             android:id="@id/tv_title_location"
                             style="@style/titleStyleWhite2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="12dp"
                             android:text="@string/location_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/view_line_host" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_host" />
 
                         <TextView
                             android:id="@id/tv_location"
@@ -227,24 +216,14 @@
                             app:layout_constraintTop_toTopOf="@id/tv_title_location"
                             tools:text="台北市-基隆路一段178號" />
 
-                        <View
-                            android:id="@+id/view_line_location"
-                            style="@style/view_line_white"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="17dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_title_location" />
-
                         <TextView
                             android:id="@id/tv_title_time"
                             style="@style/titleStyleWhite2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="12dp"
                             android:text="@string/time_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/view_line_location" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_location" />
 
                         <TextView
                             android:id="@id/tv_time"
@@ -258,24 +237,14 @@
                             app:layout_constraintTop_toTopOf="@id/tv_title_time"
                             tools:text="2021/10/22(五) 20:00" />
 
-                        <View
-                            android:id="@+id/view_line_time"
-                            style="@style/view_line_white"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="17dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_title_time" />
-
                         <TextView
                             android:id="@+id/tv_title_note"
                             style="@style/titleStyleWhite2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="12dp"
                             android:text="@string/note_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/view_line_time" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_time" />
 
                         <TextView
                             android:id="@+id/tv_note"
@@ -286,30 +255,18 @@
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="2dp"
                             android:text="@{viewModel.party.note}"
-                            app:layout_constraintEnd_toEndOf="@id/view_line_note"
-                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@id/tv_title_note"
                             app:layout_constraintTop_toTopOf="@id/tv_title_note"
                             tools:text="提供提供兩箱啤酒兩箱提供兩箱啤酒提供兩箱啤酒啤酒提提供兩提供兩箱啤酒箱啤酒供兩箱啤酒" />
-
-                        <View
-                            android:id="@+id/view_line_note"
-                            style="@style/view_line_white"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="17dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_note" />
 
                         <TextView
                             android:id="@+id/tv_title_player_qty"
                             style="@style/titleStyleWhite2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="14dp"
                             android:text="@string/peopleQty"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/view_line_note" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_note" />
 
                         <TextView
                             android:id="@+id/tv_player_qty"
@@ -326,16 +283,6 @@
                             app:layout_constraintTop_toTopOf="@id/tv_title_player_qty"
                             tools:text="2/4人 (缺)" />
 
-                        <View
-                            android:id="@+id/view_line_player"
-                            style="@style/view_line_white"
-                            android:layout_marginStart="17dp"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginEnd="17dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_title_player_qty" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -343,9 +290,8 @@
                     android:id="@+id/cv_players"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
-                    app:cardCornerRadius="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_info">
@@ -395,9 +341,8 @@
                     android:id="@+id/cv_msgs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
-                    app:cardCornerRadius="5dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

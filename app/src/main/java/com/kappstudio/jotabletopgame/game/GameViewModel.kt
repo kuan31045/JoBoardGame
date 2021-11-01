@@ -27,7 +27,7 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
 
     private fun getGame() {
         viewModelScope.launch {
-            _games.value = FirebaseService.getGames()
+            _games= FirebaseService.getLiveGames()
         }
     }
 

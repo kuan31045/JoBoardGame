@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".tools.bottle.BottleFragment">
+
+    <ImageView
+        android:id="@+id/iv_bottle"
+        android:layout_width="190dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+
+        android:src="@drawable/bottle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_spin"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_btn_56dp"
+
+        android:background="@drawable/btn_white"
+        android:fontFamily="@font/noto_sans"
+        android:letterSpacing="0.5"
+        android:text="@string/spin"
+        android:textColor="@color/purple_dark_782be9"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bottle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

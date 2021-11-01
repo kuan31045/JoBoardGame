@@ -374,26 +374,23 @@ object FirebaseService {
         return liveData
     }
 
-    suspend fun getGames(): List<Game> = suspendCoroutine { continuation ->
-        Timber.d("-----Get All Games------------------------------")
+    fun getLiveGames(): MutableLiveData<List<Game>> {
+        Timber.d("-----Get All Live Games------------------------------")
+
+        val liveData = MutableLiveData<List<Game>>()
 
         FirebaseFirestore.getInstance()
             .collection("games").orderBy("createdTime", Query.Direction.ASCENDING)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val list = task.result?.toObjects(Game::class.java) ?: mutableListOf()
-                    Timber.d("Current data: $list")
-
-                    continuation.resume(list)
-                } else {
-                    task.exception?.let {
-
-                        Timber.w("Error getting documents. ${it.message}")
-                        return@addOnCompleteListener
-                    }
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
                 }
+
+                liveData.value = snapshot?.toObjects(Game::class.java) ?: mutableListOf()
+                Timber.d("Current data: ${liveData.value}")
             }
+        return liveData
     }
 
     fun leaveParty(partyId: String) {

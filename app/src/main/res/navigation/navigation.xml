@@ -81,10 +81,10 @@
         android:label="fragment_dice"
         tools:layout="@layout/fragment_dice" />
     <fragment
-        android:id="@+id/spinFragment"
-        android:name="com.kappstudio.jotabletopgame.tools.spin.SpinFragment"
-        android:label="fragment_spin"
-        tools:layout="@layout/fragment_spin" />
+        android:id="@+id/bottleFragment"
+        android:name="com.kappstudio.jotabletopgame.tools.bottle.BottleFragment"
+        android:label="fragment_bottle"
+        tools:layout="@layout/fragment_bottle" />
     <fragment
         android:id="@+id/timerFragment"
         android:name="com.kappstudio.jotabletopgame.tools.timer.TimerFragment"
@@ -113,8 +113,8 @@
         android:id="@+id/nav_to_timer_fragment"
         app:destination="@id/timerFragment" />
     <action
-        android:id="@+id/nav_to_spin_fragment"
-        app:destination="@id/spinFragment" />
+        android:id="@+id/nav_to_bottle_fragment"
+        app:destination="@id/bottleFragment" />
 
     <action
         android:id="@+id/nav_to_my_party_fragment"

@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.diceFragment ->PageType.DICE
                     R.id.timerFragment ->PageType.TIMER
-                    R.id.spinFragment ->PageType.SPIN
+                    R.id.bottleFragment ->PageType.BOTTLE
 
 
 

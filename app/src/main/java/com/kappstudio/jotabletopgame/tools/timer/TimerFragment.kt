@@ -1,6 +1,7 @@
 package com.kappstudio.jotabletopgame.tools.timer
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +18,12 @@ class TimerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentTimerBinding.inflate(inflater)
+
+
+
+
+
 
         return binding.root
     }

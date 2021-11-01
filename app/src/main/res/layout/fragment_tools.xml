@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity=""
                 android:layout_marginTop="16dp"
-                android:text="@string/spin"
+                android:text="@string/spin_bottle"
                 app:layout_constraintEnd_toEndOf="@+id/iv_spin"
                 app:layout_constraintStart_toStartOf="@+id/iv_spin"
                 app:layout_constraintTop_toBottomOf="@+id/iv_spin" />

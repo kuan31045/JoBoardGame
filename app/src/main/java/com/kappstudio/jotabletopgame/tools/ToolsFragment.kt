@@ -23,7 +23,7 @@ class ToolsFragment : Fragment() {
             findNavController().navigate(ToolsFragmentDirections.navToTimerFragment())
         }
         binding.clSpin.setOnClickListener {
-            findNavController().navigate(ToolsFragmentDirections.navToSpinFragment())
+            findNavController().navigate(ToolsFragmentDirections.navToBottleFragment())
         }
 
         return binding.root

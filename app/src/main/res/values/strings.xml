@@ -53,8 +53,9 @@
     <!--    Tool-->
     <string name="dice">骰子</string>
     <string name="timer">計時器</string>
-    <string name="spin">轉盤</string>
+    <string name="spin_bottle">轉瓶</string>
     <string name="lie_test">測謊機</string>
+    <string name="scoreboard">計分板</string>
 
     <!--    Profile-->
     <string name="sample_user_name">AKuan</string>
@@ -92,7 +93,6 @@
     <string name="send">送出</string>
     <string name="cancel">取消</string>
     <string name="i_think">我想...</string>
-    <string name="scoreboard">記分板</string>
     <string name="draw_lots">抽籤</string>
     <string name="dice_qty">骰子數量</string>
     <string name="total">總和</string>
@@ -103,6 +103,7 @@
     <string name="favorite_in">已加入收藏!</string>
     <string name="favorite_out">已移出收藏!</string>
     <string name="remove">移除</string>
+    <string name="spin">SPIN</string>
 
 
 </resources>

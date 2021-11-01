@@ -18,7 +18,8 @@ class FavoriteFragment : Fragment() {
     ): View? {
         val binding = FragmentFavoriteBinding.inflate(inflater)
         val viewModel: FavoriteViewModel by viewModels()
-val adapter =  FavoriteAdapter(viewModel)
+        val adapter = FavoriteAdapter(viewModel)
+        
         binding.rvGame.adapter = adapter
         viewModel.games.observe(viewLifecycleOwner, {
            adapter.submitList(it)

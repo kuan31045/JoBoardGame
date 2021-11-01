@@ -16,20 +16,11 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
     val navToPartyDetail: LiveData<String?>
         get() = _navToPartyDetail
 
-
-
-
     init {
-         // FirebaseService.addMockParty()
-        //  FirebaseService.addMockGame()
-        //  FirebaseService.addMockUser()
+        getParties()
     }
 
-    init {
-        getMyParties()
-    }
-
-    private fun getMyParties() {
+    private fun getParties() {
         viewModelScope.launch {
             _parties  = FirebaseService.getLiveParties()
         }

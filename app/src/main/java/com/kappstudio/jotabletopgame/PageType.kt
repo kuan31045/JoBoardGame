@@ -13,7 +13,7 @@ enum class PageType(val title: String) {
     FAVORITE(appInstance.getString(R.string.my_favorite)),
     DICE(appInstance.getString(R.string.dice)),
     TIMER(appInstance.getString(R.string.timer)),
-    SPIN(appInstance.getString(R.string.spin)),
+    BOTTLE(appInstance.getString(R.string.spin_bottle)),
 
 
     OTHER("")
