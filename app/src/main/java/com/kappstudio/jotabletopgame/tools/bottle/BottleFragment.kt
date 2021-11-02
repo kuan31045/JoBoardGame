@@ -39,7 +39,7 @@ class BottleFragment : Fragment() {
 
             this.binding.ivBottle.startAnimation(animSet)
         }
-        
+
         return binding.root
     }
 }

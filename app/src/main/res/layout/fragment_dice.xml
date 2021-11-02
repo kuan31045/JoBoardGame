@@ -119,21 +119,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_roll"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/height_btn_56dp"
 
-            android:background="@drawable/btn_white"
             android:enabled="@{!viewModel.isRolling()}"
 
-            android:fontFamily="@font/noto_sans"
-            android:letterSpacing="0.5"
             android:onClick="@{() -> viewModel.roll()}"
             android:text="@string/roll"
-            android:textColor="@color/purple_dark_782be9"
-            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/toolsBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

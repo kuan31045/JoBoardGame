@@ -104,6 +104,7 @@
     <string name="favorite_out">已移出收藏!</string>
     <string name="remove">移除</string>
     <string name="spin">SPIN</string>
+    <string name="start">start</string>
 
 
 </resources>
