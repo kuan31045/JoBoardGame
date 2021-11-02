@@ -23,7 +23,7 @@ object FirebaseService {
 
         val games = MutableLiveData<List<Game>>()
 
-        FirebaseFirestore.getInstance().collection("users").document(UserManager.user["id"]?:"")
+        FirebaseFirestore.getInstance().collection("users").document(UserManager.user["id"] ?: "")
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.w("Listen failed.", e)
@@ -34,7 +34,7 @@ object FirebaseService {
                     Timber.d("Current data: ${snapshot.data}")
                     val user = snapshot.toObject<User>()
                     if (user != null) {
-                        games.value = user.favoriteGames?: mutableListOf()
+                        games.value = user.favoriteGames ?: mutableListOf()
                     }
                 } else {
                     Timber.d("Current data: null")
@@ -262,7 +262,7 @@ object FirebaseService {
         val parties = FirebaseFirestore.getInstance().collection("parties")
         val document = parties.document()
 
-        party.id = document.id
+        party.id  = document.id
 
         document
             .set(party)
@@ -281,6 +281,41 @@ object FirebaseService {
                 }
             }
     }
+
+    suspend fun getGameByName(gameName: String): Game =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get Game By Name------------------------------")
+
+
+            FirebaseFirestore.getInstance()
+                .collection("games").whereEqualTo("name", gameName)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+
+                        // 若資料庫內找不到此Game，給予一個新的Game物件，name自設
+
+
+                        continuation.resume(
+                            try {
+                                task.result?.first()?.toObject(Game::class.java)
+                                    ?: Game(name = gameName)
+                            } catch (e: Exception) {
+                                Timber.d("Game not found: $gameName")
+                                Game(name = gameName)
+                            }
+                        )
+
+                    } else {
+                        task.exception?.let {
+                            //   continuation.resume(Result.Error(it))
+                            Timber.w("Error getting documents.,$it")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+
+        }
 
     suspend fun getGamesByNames(gameNameList: List<String>): List<Game> =
         suspendCoroutine { continuation ->

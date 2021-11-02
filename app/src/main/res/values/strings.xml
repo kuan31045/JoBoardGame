@@ -45,7 +45,7 @@
     <string name="sample_game_name2">富饒之城</string>
     <string name="all">全部</string>
     <string name="hots">熱門</string>
-    <string name="recommend">猜你喜歡</string>
+    <string name="bgg_rank">BGG排行榜</string>
     <string name="top_rating">評分最高</string>
     <string name="sort_filter">排序與篩選</string>
     <string name="more_info">更多資訊</string>
@@ -71,7 +71,7 @@
     <string name="hint_date">日期</string>
     <string name="hint_time">時間</string>
     <string name="note">備註</string>
-    <string name="hint_game_list">遊玩清單(請以,隔開)</string>
+    <string name="hint_add_game">加入遊戲</string>
     <string name="create">創建</string>
     <string name="data_time"><![CDATA[日期 & 時間]]></string>
 
@@ -105,6 +105,7 @@
     <string name="remove">移除</string>
     <string name="spin">SPIN</string>
     <string name="start">start</string>
+    <string name="already_in_list">已經在清單中了</string>
 
 
 </resources>

@@ -15,16 +15,15 @@
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        app:cardBackgroundColor="@color/purple_light_9148F9"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_margin="3dp"
         app:cardCornerRadius="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="0.4dp"
             android:background="@drawable/bg_card_item"
+
             android:clickable="true"
             android:id="@+id/cl_game"
 
@@ -34,7 +33,6 @@
                 android:id="@+id/iv_game"
                 android:layout_width="@dimen/game_item_image"
                 app:layout_constraintDimensionRatio="1:1"
-
                 android:layout_height="0dp"
                 android:src="@drawable/sample_game"
                 app:layout_constraintEnd_toEndOf="parent"

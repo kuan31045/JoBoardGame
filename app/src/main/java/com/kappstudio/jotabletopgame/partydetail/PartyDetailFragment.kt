@@ -43,14 +43,13 @@ class PartyDetailFragment : Fragment() {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it?.playerList)
             }
-
-        })
-
-        viewModel.games.observe(viewLifecycleOwner, {
             binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
-                submitList(it)
+                submitList(it?.gameList)
             }
+
         })
+
+
 
         viewModel.partyMsgs.observe(viewLifecycleOwner, {
             binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {

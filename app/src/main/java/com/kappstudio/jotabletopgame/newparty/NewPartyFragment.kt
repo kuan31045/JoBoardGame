@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.kappstudio.jotabletopgame.R
 
 import com.kappstudio.jotabletopgame.appInstance
 import com.kappstudio.jotabletopgame.databinding.FragmentNewPartyBinding
+import com.kappstudio.jotabletopgame.favorite.FavoriteFragmentDirections
 import timber.log.Timber
 
 class NewPartyFragment : Fragment() {
@@ -22,7 +24,6 @@ class NewPartyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentNewPartyBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
@@ -30,6 +31,18 @@ class NewPartyFragment : Fragment() {
 
         viewModel.country.observe(viewLifecycleOwner, {
             Timber.d("country $it")
+        })
+        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(FavoriteFragmentDirections.navToGameDetailFragment(it))
+                viewModel.onNavToGameDetail()
+            }
+        })
+        viewModel.games.observe(viewLifecycleOwner,{
+            Timber.d("games: $it")
+            binding.rvGame.adapter = AddGameAdapter(viewModel).apply {
+                submitList(it.reversed())
+            }
         })
 
         binding.etTime.setOnClickListener {

@@ -14,12 +14,11 @@ data class Party(
     var location: String = "",
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameNameList: MutableList<String> = mutableListOf(),
+    var gameList: MutableList<Game> = mutableListOf(),
     var playerIdList: MutableList<String> = mutableListOf(),
     var playerList: MutableList<User>? = null,
 
     ) : Parcelable
-
 
 @Parcelize
 data class NewParty(
@@ -32,7 +31,7 @@ data class NewParty(
     var location: String = "",
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameNameList: MutableList<String> = mutableListOf(),
+    var gameList: MutableList<HashMap<String, String>> = mutableListOf(),
     var playerIdList: MutableList<String> = mutableListOf(UserManager.user["id"] ?: ""),
     var playerList: MutableList<HashMap<String, String>> = mutableListOf(
         UserManager.user

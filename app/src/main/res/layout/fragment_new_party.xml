@@ -152,34 +152,77 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_marginTop="8dp"
+
+                android:id="@+id/tv_title_game_list"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/play_list"
+                app:layout_constraintTop_toBottomOf="@id/tl_note"
+                style="@style/titleStyleWhite2"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/rv_game"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_game_list"
+                tools:itemCount="5"
+
+                tools:listitem="@layout/item_game_add" />
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tl_game_list"
+                android:id="@+id/tl_add_game"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
+                android:background="@color/gray_bg_eaeaea"
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tl_note">
+                app:layout_constraintTop_toBottomOf="@id/rv_game">
 
                 <EditText
-                    android:id="@+id/et_game_list"
+                    android:id="@+id/et_add_game"
                     style="@style/EdittextUser"
-                    android:hint="@string/hint_game_list"
+                    android:hint="@string/hint_add_game"
                     android:inputType="text"
 
-                    android:text="@={ viewModel.games }" />
+                    android:text="@={ viewModel.gameName }" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btn_add"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_card_item"
+                android:backgroundTint="@color/gray_bg_eaeaea"
+                android:scaleType="centerCrop"
+                android:onClick="@{()->viewModel.addGame()}"
+                app:layout_constraintBottom_toBottomOf="@id/tl_add_game"
+                app:layout_constraintEnd_toEndOf="@+id/tl_add_game"
+                app:layout_constraintTop_toTopOf="@id/tl_add_game"
+                app:srcCompat="@drawable/ic_24px_add03" />
+
+
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btn_56dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="250dp"
                 android:letterSpacing="0.25"
                 android:textColor="@color/white_text_fffcff"
                 android:background="@drawable/bg_btn_purple"
@@ -188,7 +231,7 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tl_game_list" />
+                app:layout_constraintTop_toBottomOf="@id/tl_add_game" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

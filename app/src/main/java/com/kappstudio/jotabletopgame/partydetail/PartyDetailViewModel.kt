@@ -25,10 +25,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val partyMsgs: LiveData<List<PartyMsg>>
         get() = _partyMsgs
 
-    private var _games = MutableLiveData<List<Game>>()
-    val games: LiveData<List<Game>>
-        get() = _games
-
     // nav
     private val _navToGameDetail = MutableLiveData<String?>()
     val navToGameDetail: LiveData<String?>
@@ -40,7 +36,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         get() = _navToUser
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
-        setGame()
 
         it?.playerIdList?.contains(UserManager.user["id"])
     }
@@ -55,15 +50,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
 
     //Msg edittext
     var newMsg = MutableLiveData("")
-
-
-    private fun setGame() {
-        viewModelScope.launch {
-            Timber.d("setGame")
-            _games.value =
-                FirebaseService.getGamesByNames(party.value?.gameNameList ?: mutableListOf())
-        }
-    }
 
 
     fun joinParty() {
