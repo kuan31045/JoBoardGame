@@ -14,10 +14,11 @@
         android:clickable="true"
         android:focusable="true"
         android:padding="16dp"
-        android:background="@drawable/bg_card_item"
-        android:backgroundTint="@color/white_bg_f7f7f7"
-     >
 
+        android:foreground="@drawable/bg_ripple"
+android:backgroundTint="@color/white_bg_f7f7f7"
+        android:background="@drawable/bg_card_item"
+     >
         <ImageView
             android:id="@+id/iv_game"
             android:layout_width="90dp"

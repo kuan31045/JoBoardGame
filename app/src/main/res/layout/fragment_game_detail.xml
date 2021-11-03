@@ -25,7 +25,9 @@
 
             tools:context=".gamedetail.GameDetailFragment">
 
-            <com.google.android.material.imageview.ShapeableImageView
+
+
+            <ImageView
                 android:id="@+id/iv_game"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -190,9 +192,7 @@
             <View
                 android:id="@+id/view_line_desc"
                 style="@style/view_line_white"
-                android:layout_marginStart="17dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginEnd="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_desc" />
@@ -204,9 +204,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:drawablePadding="4dp"
                 android:drawableTop="@drawable/ic_star_28dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(viewModel.game.avgRating)}"
+                android:text="@{String.valueOf(viewModel.avgRating)}"
                 app:layout_constraintEnd_toStartOf="@+id/tv_your_rating"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -218,19 +220,26 @@
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:drawableTop="@drawable/ic_star_empty_28dp"
+                android:drawablePadding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:selectableItemBackground"
+                android:onClick="@{()->viewModel.navToRating(viewModel.myRating)}"
+                android:drawableTop="@{ viewModel.myRating.id.empty == true ? @drawable/ic_star_empty_28dp  : @drawable/ic_star_has_rating_28dp }"
                 android:gravity="center"
                 app:layout_constraintEnd_toStartOf="@+id/cb_favorite"
                 app:layout_constraintHorizontal_bias="0.5"
+                android:textSize="16sp"
+                android:text="@{ viewModel.myRating.id.empty == true ? @string/dash : String.valueOf(viewModel.myRating.score) }"
                 app:layout_constraintStart_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toTopOf="@+id/tv_avg_rating"
-                tools:text="8.5" />
+                tools:text="8" />
 
             <TextView
                 android:id="@+id/tv_title_your_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
 
                 android:text="@string/your_rating"
                 app:layout_constraintEnd_toEndOf="@+id/tv_your_rating"
@@ -242,7 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(viewModel.game.ratingQty)+ @string/man }"
-
+            android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintStart_toStartOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toBottomOf="@+id/tv_avg_rating"
@@ -257,19 +266,18 @@
                 android:text="@string/favorite"
                 app:layout_constraintEnd_toEndOf="@+id/cb_favorite"
                 app:layout_constraintStart_toStartOf="@+id/cb_favorite"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_your_rating" />
+                app:layout_constraintTop_toBottomOf="@+id/cb_favorite" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
 
                 android:id="@+id/cb_favorite"
                 android:layout_width="28dp"
-                android:layout_height="0dp"
+                android:layout_height="36dp"
                 android:layout_marginTop="2dp"
                 android:button="@drawable/checkbox_favorite"
                 android:checked="@{viewModel.isFavorite}"
                 android:gravity="top"
                 android:onClick="@{()->viewModel.updateCollect()}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_your_rating"

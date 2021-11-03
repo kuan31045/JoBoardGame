@@ -98,6 +98,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.gameDetailFragment ->PageType.GAME_DETAIL
                     R.id.userDialog ->PageType.USER
                     R.id.favoriteFragment ->PageType.FAVORITE
+                    R.id.myRatingFragment ->PageType.MY_RATING
+                    R.id.ratingDialog ->PageType.RATING
 
                     R.id.diceFragment ->PageType.DICE
                     R.id.timerFragment ->PageType.TIMER

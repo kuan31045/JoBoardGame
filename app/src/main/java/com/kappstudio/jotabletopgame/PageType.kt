@@ -14,6 +14,8 @@ enum class PageType(val title: String) {
     DICE(appInstance.getString(R.string.dice)),
     TIMER(appInstance.getString(R.string.timer)),
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
+    MY_RATING(appInstance.getString(R.string.my_rating)),
+    RATING(""),
 
 
     OTHER("")

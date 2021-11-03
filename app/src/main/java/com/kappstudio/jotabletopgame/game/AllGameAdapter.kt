@@ -11,6 +11,7 @@ import com.kappstudio.jotabletopgame.bindTextViewGameTypes
 import com.kappstudio.jotabletopgame.data.Game
 import com.kappstudio.jotabletopgame.databinding.ItemGameAllBinding
 import com.kappstudio.jotabletopgame.gamedetail.NavToGameDetailInterface
+import kotlin.math.roundToInt
 
 class AllGameAdapter(private val viewModel: GameViewModel) :
     ListAdapter<Game, AllGameAdapter.GameViewHolder>(DiffCallback) {
@@ -23,7 +24,9 @@ class AllGameAdapter(private val viewModel: GameViewModel) :
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
-                tvRating.text = game.avgRating.toString()
+val avg = game.totalRating / game.ratingQty.toFloat()
+
+                tvRating.text = ((avg * 10.0).roundToInt() / 10.0).toString()
                 bindImage(ivGame, game.image)
 
                 clGame.setOnClickListener {

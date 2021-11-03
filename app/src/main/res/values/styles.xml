@@ -99,7 +99,7 @@
     <style name="view_line_white">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0.7dp</item>
-        <item name="android:background">@color/purple_dark_782be9</item>
+        <item name="android:background">@color/gray_bg_eaeaea</item>
         <item name="android:elevation">1dp</item>
     </style>
 
@@ -134,7 +134,7 @@
     <style name="toolbarBtn">
         <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:background">@drawable/bg_toolbar_btn</item>
+        <item name="android:background">@drawable/bg_ripple</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
     </style>
@@ -166,5 +166,16 @@
         <item name="android:textColor">@color/purple_dark_782be9</item>
         <item name="android:textSize">17sp</item>
     </style>
+
+    <!--实现BottomSheetDialog圆角效果 且无背景阴影-->
+    <style name="BottomSheetDialogBg" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 
 </resources>

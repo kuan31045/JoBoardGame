@@ -2,6 +2,7 @@
     <string name="app_name">Jo 桌遊</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dash">-</string>
 
     <!--    Bottom Nav-->
     <string name="party">聚會</string>
@@ -106,6 +107,13 @@
     <string name="spin">SPIN</string>
     <string name="start">start</string>
     <string name="already_in_list">已經在清單中了</string>
+    <string name="ask_rating">您將如何評分</string>
+    <string name="rating">評分</string>
+    <string name="remove_rating">移除評分</string>
+    <string name="q">？</string>
+    <string name="rating_ok">評分成功!</string>
+    <string name="remove_ok">移除成功</string>
+    <string name="error">發生了不可預期的錯誤!</string>
 
 
 </resources>

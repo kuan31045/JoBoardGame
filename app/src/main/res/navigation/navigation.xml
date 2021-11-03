@@ -38,6 +38,9 @@
         <action
             android:id="@+id/nav_to_favorite_fragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/nav_to_my_rating_fragment"
+            app:destination="@id/myRatingFragment" />
     </fragment>
 
 
@@ -95,7 +98,11 @@
         android:name="com.kappstudio.jotabletopgame.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
-
+    <fragment
+        android:id="@+id/myRatingFragment"
+        android:name="com.kappstudio.jotabletopgame.myrating.MyRatingFragment"
+        android:label="fragment_my_rating"
+        tools:layout="@layout/fragment_my_rating" />
     <dialog
         android:id="@+id/userDialog"
         android:name="com.kappstudio.jotabletopgame.user.UserDialog"
@@ -105,6 +112,17 @@
             android:name="clickedUserId"
             app:argType="string" />
     </dialog>
+
+    <dialog
+        android:id="@+id/ratingDialog"
+        android:name="com.kappstudio.jotabletopgame.rating.RatingDialog"
+        android:label="RatingDialog">
+
+        <argument
+            android:name="rating"
+            app:argType="com.kappstudio.jotabletopgame.data.Rating" />
+    </dialog>
+
 
     <action
         android:id="@+id/nav_to_dice_fragment"
@@ -130,5 +148,8 @@
     <action
         android:id="@+id/nav_to_userDialog"
         app:destination="@id/userDialog" />
+    <action
+        android:id="@+id/nav_to_ratingDialog"
+        app:destination="@id/ratingDialog" />
 
 </navigation>

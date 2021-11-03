@@ -9,25 +9,28 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.jotabletopgame.*
 import com.kappstudio.jotabletopgame.databinding.FragmentGameDetailBinding
+import com.kappstudio.jotabletopgame.myparty.MyPartyFragmentDirections
+import com.kappstudio.jotabletopgame.util.setBlurView
+import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 
 class GameDetailFragment : Fragment() {
-
+    val viewModel: GameDetailViewModel by viewModels {
+        VMFactory {
+            GameDetailViewModel(
+                GameDetailFragmentArgs.fromBundle(requireArguments()).clickedGameId,
+                appInstance.provideJoRepository()
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentGameDetailBinding.inflate(inflater)
-        val viewModel: GameDetailViewModel by viewModels {
-            VMFactory {
-                GameDetailViewModel(
-                    GameDetailFragmentArgs.fromBundle(requireArguments()).clickedGameId,
-                    appInstance.provideJoRepository()
-                )
-            }
-        }
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -35,16 +38,25 @@ class GameDetailFragment : Fragment() {
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
 
         viewModel.game.observe(viewLifecycleOwner, {
-            it?.let{
+            it?.let {
                 Timber.d("game= $it")
                 bindImage(binding.ivGame, it.image)
-                bindTextViewGameTypes(binding.tvType,it.type)
-                binding.nsvMain.post{
-                    binding.nsvMain.fullScroll(View.FOCUS_UP);
+                bindTextViewGameTypes(binding.tvType, it.type)
 
-                    binding.nsvMain.scrollTo(0, 200)   }
                 viewModel.addViewedGame() //加入瀏覽紀錄
                 viewModel.checkFavorite()
+                viewModel.checkRating()
+                viewModel.calAvgRating()
+
+            }
+        })
+
+
+
+        viewModel.navToRating.observe(viewLifecycleOwner, {
+            it?.let { it ->
+                findNavController().navigate(GameDetailFragmentDirections.navToRatingDialog(it))
+                viewModel.onNavToRating()
             }
         })
 
@@ -52,6 +64,12 @@ class GameDetailFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onResume() {
+
+        super.onResume()
+        Timber.d("onResume")
+     }
 
 
 }

@@ -12,6 +12,6 @@ fun closeSoftKeyboard(view: View) {
 }
 
 fun closeKeyBoard(activity: Activity){
-    activity?.window?.setSoftInputMode(
+    activity.window?.setSoftInputMode(
         WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }

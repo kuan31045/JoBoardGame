@@ -19,25 +19,6 @@ import com.kappstudio.jotabletopgame.profile.ProfileViewModel
 class GameAdapter(private val viewModel: ViewModel) :
     ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback) {
 
-    class InfoViewHolder(private var binding: ItemGameInfoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(game: Game ,viewModel: ViewModel) {
-            binding.apply {
-                tvName.text = game.name
-                tvTime.text = game.time.toString()
-                tvPlayerQty.text = "${game.minPlayerQty} - ${game.maxPlayerQty}"
-                tvRating.text = game.avgRating.toString()
-                bindImage(ivGame, game.image)
-
-                clGame.setOnClickListener {
-                    when(viewModel){
-                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game.id)
-                    }
-                }
-            }
-        }
-    }
 
     class SimpleViewHolder(private val binding: ItemGameSimpleBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -71,11 +52,7 @@ class GameAdapter(private val viewModel: ViewModel) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return when (viewModel) {
-            is GameViewModel -> {
-                InfoViewHolder(
-                    ItemGameInfoBinding.inflate(LayoutInflater.from(parent.context))
-                )
-            }
+
             else -> {
                 SimpleViewHolder(
                     ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
@@ -91,9 +68,7 @@ class GameAdapter(private val viewModel: ViewModel) :
                 holder.bind(getItem(position), viewModel)
 
             }
-            is InfoViewHolder -> {
-                holder.bind(getItem(position), viewModel)
-            }
+
         }
     }
 

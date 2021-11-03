@@ -4,7 +4,7 @@
     <!-- Bg-->
     <color name="white_bg_f7f7f7">#f7f7f7</color>
     <!-- Bg Gray-->
-    <color name="gray_bg_eaeaea">#EAEAEA</color>
+    <color name="gray_bg_eaeaea">#eaeaea</color>
     <!-- Btn-->
     <color name="purple_dark_782be9">#782be9</color>
     <color name="purple_light_9148F9">#9148F9</color>
@@ -34,7 +34,7 @@
     <color name="secondaryTextColor">#ffffff</color>
 
     <color name="themeColor">#F9DFB7</color>
-    <color name="transparentWhite">#33FFFFFF</color>
+    <color name="transparentWhite">#99FFFFFF</color>
     <color name="blue_8187ff">#8187ff</color>
     <color name="black_3f3a3a">#000000</color>
     <color name="green_29AA36">#66AA36</color>

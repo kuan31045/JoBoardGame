@@ -28,8 +28,8 @@ data class Game(
 
     val desc: String = "",
 
-    @ColumnInfo(name = "avg_rating")
-    var avgRating: Double = 0.0,
+    @ColumnInfo(name = "total_rating")
+    var totalRating: Long = 0,
 
     @ColumnInfo(name = "rating_qty")
     var ratingQty: Long = 0,

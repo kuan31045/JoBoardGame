@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0.4dp"
+        android:background="@drawable/bg_card_item"
+        android:clickable="true"
+        android:backgroundTint="@color/white_bg_f7f7f7"
+        android:id="@+id/cl_game"
+        android:foreground="@drawable/bg_ripple"
+
+        android:focusable="true">
+
+        <ImageView
+            android:id="@+id/iv_game"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:src="@drawable/sample_game"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/fontSpaceColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_rating"
+            app:layout_constraintStart_toStartOf="@id/iv_game"
+            app:layout_constraintTop_toBottomOf="@id/iv_game"
+            tools:text="@string/sample_game_name" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            style="@style/textStyle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_star_has_rating_20dp"
+            android:drawablePadding="4dp"
+            android:layout_margin="4dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_game"
+            tools:text="8.5" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

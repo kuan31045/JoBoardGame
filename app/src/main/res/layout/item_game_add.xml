@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_card_item"
+                android:foreground="@drawable/bg_ripple"
 
                 android:clickable="true"
                 android:id="@+id/cl_game"

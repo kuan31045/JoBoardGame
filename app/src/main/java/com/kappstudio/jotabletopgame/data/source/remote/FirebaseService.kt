@@ -16,6 +16,118 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object FirebaseService {
+    suspend fun removeRating(rating: Rating): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Remove Rating------------------------------")
+        val game = FirebaseFirestore.getInstance()
+            .collection("games").document(rating.gameId)
+        game.update("totalRating", FieldValue.increment(-(rating.score.toDouble())))
+        game.update("ratingQty", FieldValue.increment(-1))
+
+        FirebaseFirestore.getInstance().collection("ratings").document(rating.id)
+            .delete()
+            .addOnSuccessListener {
+                continuation.resume(true)
+            }
+            .addOnFailureListener {
+                continuation.resume(false)
+            }
+
+    }
+
+    fun updateRating(rating: Rating, addScore: Int) {
+        val game = FirebaseFirestore.getInstance()
+            .collection("games").document(rating.gameId)
+        game.update("totalRating", FieldValue.increment(addScore.toDouble()))
+
+        if (rating.id == "") {
+            game.update("ratingQty", FieldValue.increment(1))
+        }
+
+    }
+
+    suspend fun sendRating(rating: NewRating): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Send Rating------------------------------")
+
+        val ratings = FirebaseFirestore.getInstance().collection("ratings")
+        if (rating.id.isEmpty()) {
+            rating.id = ratings.document().id
+        }
+
+        ratings.document(rating.id)
+            .set(rating)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Send Party Msg Successful: $rating")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
+    suspend fun getRating(game: Game): Rating =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Get My Rating------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection("ratings")
+                .whereEqualTo("userId", UserManager.user["id"])
+                .whereEqualTo("gameId", game.id)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if (task.result?.size() != 0) {
+                            Timber.d("Has Rating: ${game.name}")
+                            val rating =
+                                task.result?.toObjects(Rating::class.java)?.first() ?: Rating()
+
+                            continuation.resume(rating)
+                        } else {
+                            Timber.d("Has Not Rating: ${game.name}")
+                            continuation.resume(
+                                Rating(
+                                    gameId = game.id,
+                                    game = game,
+                                    userId = UserManager.user["id"] ?: ""
+                                )
+                            )
+                        }
+
+                    } else {
+                        task.exception?.let {
+
+                            Timber.w("Error getting documents. ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    fun getLiveRatings(id: String): MutableLiveData<List<Rating>> {
+        Timber.d("-----Get Live Ratings------------------------------")
+
+        val liveData = MutableLiveData<List<Rating>>()
+
+        FirebaseFirestore.getInstance()
+            .collection("ratings").whereEqualTo("userId", id)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                liveData.value = snapshot?.toObjects(Rating::class.java) ?: mutableListOf()
+                Timber.d("Current data: ${liveData.value}")
+            }
+
+        return liveData
+    }
 
 
     fun getLiveFavorites(): MutableLiveData<List<Game>> {
@@ -262,7 +374,7 @@ object FirebaseService {
         val parties = FirebaseFirestore.getInstance().collection("parties")
         val document = parties.document()
 
-        party.id  = document.id
+        party.id = document.id
 
         document
             .set(party)

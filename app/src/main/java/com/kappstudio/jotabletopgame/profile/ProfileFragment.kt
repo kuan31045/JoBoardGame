@@ -80,7 +80,9 @@ class ProfileFragment : Fragment() {
 
             builder.show()
         }
-
+        binding.btnMyRating.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToMyRatingFragment())
+        }
         binding.btnMyFavorite.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.navToFavoriteFragment())
         }

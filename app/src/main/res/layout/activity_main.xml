@@ -23,7 +23,7 @@
   <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
            android:layout_marginTop="8dp"
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  ? View.GONE : View.VISIBLE}"
             android:layout_width="0dp"
             android:layout_height="@dimen/toolbar_height"
 
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:background="@color/white_bg_f7f7f7"
+            android:background="@color/white_text_fffcff"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

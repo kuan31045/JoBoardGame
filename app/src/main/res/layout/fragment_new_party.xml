@@ -222,7 +222,7 @@
                 android:id="@+id/btn_create"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btn_56dp"
-                android:layout_marginTop="250dp"
+                android:layout_marginTop="50dp"
                 android:letterSpacing="0.25"
                 android:textColor="@color/white_text_fffcff"
                 android:background="@drawable/bg_btn_purple"

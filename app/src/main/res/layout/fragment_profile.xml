@@ -38,7 +38,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_bg_eaeaea"
+                    android:background="@color/white"
 
                     android:padding="10dp">
                     <com.google.android.material.imageview.ShapeableImageView
@@ -185,6 +185,8 @@
                 android:id="@+id/btn_my_rating"
                 style="@style/btnProfile"
                 android:layout_width="0dp"
+                android:backgroundTint="@color/white"
+
                 android:layout_height="wrap_content"
                  android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
@@ -207,6 +209,8 @@
                 android:drawableLeft="@drawable/ic_msg_28dp"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
+                android:backgroundTint="@color/white"
+
                 android:text="@string/my_msg"
                 app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
@@ -219,6 +223,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/white"
 
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_heart_28dp"
@@ -237,6 +242,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="6dp"
+                android:backgroundTint="@color/white"
+
                 android:drawableTop="@drawable/ic_party_90dp"
                 android:gravity="center"
                 android:paddingTop="22dp"
@@ -269,7 +276,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gray_bg_eaeaea"
+                    android:background="@color/white"
 
                     android:minHeight="230dp">
 
