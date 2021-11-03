@@ -47,16 +47,15 @@
                 android:id="@+id/tv_start_date"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_spn"
                 android:gravity="center"
                 android:text="@string/date_sample"
-                android:layout_marginEnd="16dp"
                 android:textColor="@color/black_3f3a3a"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title_date"
                 app:layout_constraintEnd_toStartOf="@+id/tv_last_date"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_title_date"
-                app:layout_constraintStart_toStartOf="@+id/spn_country"
                 app:layout_constraintTop_toTopOf="@+id/tv_title_date" />
 <TextView
     android:layout_width="wrap_content"
@@ -88,39 +87,16 @@ android:fontFamily="@font/noto_sans"
                 app:layout_constraintStart_toEndOf="@+id/tv_start_date"
                 app:layout_constraintTop_toTopOf="@+id/tv_title_date" />
 
-            <TextView
-                android:id="@+id/tv_title_country"
-                style="@style/textStyle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/country"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_party"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_party" />
-
 
             <TextView
                 android:id="@+id/tv_title_date"
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
-
+                    android:layout_marginTop="24dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="@string/date"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_country"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_country" />
-
-            <Spinner
-                android:id="@+id/spn_country"
-                android:layout_width="120dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="16dp"
-                android:backgroundTint="@color/purple_light_9148F9"
-                android:spinnerMode="dialog"
-                android:text="@string/country"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_title_country"
-                app:layout_constraintStart_toEndOf="@+id/tv_title_country"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_country" />
+                app:layout_constraintStart_toStartOf="@+id/tv_title_party"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_party" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_party"

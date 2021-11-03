@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:background="@color/gray_bg_eaeaea"
+        android:background="@drawable/bg_app_theme"
         tools:context=".partydetail.PartyDetailFragment">
 
         <androidx.core.widget.NestedScrollView
@@ -37,7 +37,7 @@
                     android:layout_width="0dp"
 
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="#f3f1f5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -141,7 +141,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_party_game"
                             android:layout_width="0dp"
-
+                                android:paddingLeft="9dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:clipToPadding="false"
@@ -413,7 +413,7 @@ android:layout_marginBottom="120dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
-                            android:layout_marginBottom="40dp"
+                            android:layout_marginBottom="16dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

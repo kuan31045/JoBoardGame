@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.libraries.places.api.Places
 import com.kappstudio.jotabletopgame.data.UserManager
 import com.kappstudio.jotabletopgame.databinding.ActivityMainBinding
 import com.kappstudio.jotabletopgame.util.statusBarUtil
@@ -28,6 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         binding.vm = viewModel
+
+        // Initialize the SDK
+        Places.initialize(applicationContext,getString(R.string.place_api_key) )
+
+        // Create a new PlacesClient instance
+        val placesClient = Places.createClient(this)
+
 
         binding.spnUser.adapter = ArrayAdapter(
             appInstance,

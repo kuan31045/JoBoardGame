@@ -71,36 +71,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Spinner
-                android:backgroundTint="@color/purple_light_9148F9"
-                android:id="@+id/spn_country"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/spn_height"
-                android:layout_marginTop="16dp"
-                android:spinnerMode="dialog"
-                app:countries="@{true}"
-                android:selectedItemPosition="@={viewModel.countryPosition}"
-
-                app:layout_constraintEnd_toEndOf="@id/guideline_mid"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tl_time" />
-
-            <com.google.android.material.textfield.TextInputLayout
+           <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
+                android:layout_marginTop="16dp"
+
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spn_country">
+                app:layout_constraintTop_toBottomOf="@+id/tl_time">
 
                 <EditText
                     android:id="@+id/et_location"
                     style="@style/EdittextUser"
                     android:hint="@string/location"
+                    android:focusable="false"
 
                     android:inputType="text"
                     android:text="@={ viewModel.location }" />

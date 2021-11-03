@@ -90,14 +90,14 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
-                        android:background="@drawable/bg_toolbar_btn"
+                        android:background="@drawable/bg_ripple"
                         android:layout_width="wrap_content"
                         android:padding="10dp"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_search" />
 
                     <ImageButton
-                        android:background="@drawable/bg_toolbar_btn"
+                        android:background="@drawable/bg_ripple"
                         android:padding="10dp"
 
                         android:layout_width="wrap_content"

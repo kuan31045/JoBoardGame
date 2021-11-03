@@ -64,7 +64,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/image_set_size.xml" value="0.4546875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/item_dice.xml" value="0.4041666666666667" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/font/noto_sans.xml" value="0.1" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/dialog_player.xml" value="0.32563405797101447" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/dialog_profile.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/dialog_rating.xml" value="0.2" />
@@ -73,14 +73,14 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_creat_party.xml" value="0.27717391304347827" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_dice.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_favorite.xml" value="0.31023550724637683" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game.xml" value="0.37601442741208296" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game.xml" value="0.32191338073691017" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_all.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.18" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_game_featured.xml" value="0.1" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_my_party.xml" value="0.32472826086956524" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_my_rating.xml" value="0.33" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_new_party.xml" value="0.33" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_new_party.xml" value="0.2" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_party_detail.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/layout/fragment_proflie.xml" value="0.25" />

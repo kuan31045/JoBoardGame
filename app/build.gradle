@@ -1,10 +1,14 @@
+
+
 plugins {
-    id 'com.android.application'
+   id 'com.android.application'
+
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -102,8 +106,13 @@ dependencies {
     //MaterialRatingBar
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
     //BlurView
-
     implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
     implementation 'com.eightbitlab:blurview:1.6.6'
 
+    //place
+    implementation 'com.google.android.libraries.places:places:2.5.0'
+
+    implementation 'com.github.DylanCaiCoding:ActivityResultLauncher:1.1.2'
+
 }
+

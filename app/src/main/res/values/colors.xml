@@ -2,6 +2,8 @@
 <resources>
 
     <!-- Bg-->
+    <color name="white_bg_f3f1f5">#f3f1f5</color>
+
     <color name="white_bg_f7f7f7">#f7f7f7</color>
     <!-- Bg Gray-->
     <color name="gray_bg_eaeaea">#eaeaea</color>

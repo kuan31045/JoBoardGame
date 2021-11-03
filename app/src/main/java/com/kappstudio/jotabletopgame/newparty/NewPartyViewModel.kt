@@ -26,11 +26,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     val games: LiveData<MutableList<Game>>
         get() = _games
 
-    // Spinner
-    val countryPosition = MutableLiveData<Int>()
-    val country: LiveData<String> = Transformations.map(countryPosition) {
-        appInstance.resources.getStringArray(R.array.country_list)[countryPosition.value ?: 0]
-    }
+
     // nav
     private val _navToGameDetail = MutableLiveData<String?>()
     val navToGameDetail: LiveData<String?>

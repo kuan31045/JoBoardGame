@@ -14,6 +14,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_main"
+        android:background="@color/white_bg_f7f7f7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="16dp">
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintDimensionRatio="1:0.95"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -182,6 +183,8 @@
                 style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:maxLines="5"
+
                 android:gravity="left"
                 android:text="@{viewModel.game.desc}"
                 app:layout_constraintEnd_toEndOf="parent"

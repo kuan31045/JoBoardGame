@@ -43,14 +43,7 @@ fun bindImage(iv: ImageView, imgUrl: String?) {
         .into(iv)
 }
 
-@BindingAdapter("countries")
-fun bindSpinnerCountries(spn: Spinner, countries: Boolean = true) {
-    spn.adapter = ArrayAdapter(
-        appInstance,
-        android.R.layout.simple_spinner_dropdown_item,
-        appInstance.resources.getStringArray(R.array.country_list).toList()
-    )
-}
+
 
 @BindingAdapter("imageBtnEnable")
 fun imageBtnEnable(btn: ImageButton, enabled: Boolean) {
