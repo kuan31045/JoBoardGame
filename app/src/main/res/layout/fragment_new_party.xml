@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.jotabletopgame.newparty.NewPartyViewModel" />
+            type="com.kappstudio.joboardgame.newparty.NewPartyViewModel" />
 
     </data>
 

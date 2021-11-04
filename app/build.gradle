@@ -15,7 +15,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.kappstudio.jotabletopgame"
+        applicationId "com.kappstudio.joboardgame"
         minSdk 26
         targetSdk 30
         versionCode 1

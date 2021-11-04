@@ -10,7 +10,7 @@
 
             <variable
                 name="viewModel"
-                type="com.kappstudio.jotabletopgame.profile.ProfileViewModel" />
+                type="com.kappstudio.joboardgame.profile.ProfileViewModel" />
 
         </data>
 

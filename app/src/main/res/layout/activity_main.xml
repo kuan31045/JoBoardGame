@@ -7,11 +7,11 @@
 
         <import type="android.view.View" />
 
-        <import type="com.kappstudio.jotabletopgame.PageType" />
+        <import type="com.kappstudio.joboardgame.PageType" />
 
         <variable
             name="vm"
-            type="com.kappstudio.jotabletopgame.MainViewModel" />
+            type="com.kappstudio.joboardgame.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.jotabletopgame.partydetail.PartyDetailViewModel" />
+            type="com.kappstudio.joboardgame.partydetail.PartyDetailViewModel" />
 
     </data>
 

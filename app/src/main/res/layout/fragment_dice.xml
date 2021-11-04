@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.jotabletopgame.tools.dice.DiceViewModel" />
+            type="com.kappstudio.joboardgame.tools.dice.DiceViewModel" />
 
     </data>
 

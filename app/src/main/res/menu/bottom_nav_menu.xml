@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/partyFragment"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_joparty"
         android:iconTint="@color/black"
 
         android:title="@string/party"/>
