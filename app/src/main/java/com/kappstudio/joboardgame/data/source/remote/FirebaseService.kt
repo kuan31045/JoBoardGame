@@ -665,9 +665,9 @@ object FirebaseService {
             .collection("info").document("gameCount")
 
         //game20
-        repeat(20) {
+        repeat(10) {
             val data = hashMapOf(
-                "id" to "game${it + 1}",
+                "id" to "game${it +11}",
                 "name" to "卡坦島${it + 1}",
                 "image" to "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/catan.png?alt=media&token=d5aea421-5119-471f-9fa3-0ce7da5d5140",
                 "type" to listOf("策略", "貿易"),
@@ -675,13 +675,13 @@ object FirebaseService {
                 "minPlayerQty" to 3,
                 "maxPlayerQty" to 4,
                 "desc" to "卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會。",
-                "avgRating" to 8.5,
-                "ratingQty" to 100,
+                "totalRating" to 85,
+                "ratingQty" to 10,
                 "createdTime" to Calendar.getInstance().timeInMillis + 1
             )
 
             gameCount.update("gameCount", FieldValue.increment(1))
-            games.document("game${it + 1}")
+            games.document("game${it+11 }")
                 .set(data)
         }
     }

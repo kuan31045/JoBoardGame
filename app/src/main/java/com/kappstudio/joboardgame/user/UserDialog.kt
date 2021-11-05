@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.DialogUserBinding
 
 class UserDialog : DialogFragment() {
@@ -33,7 +34,6 @@ class UserDialog : DialogFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.ivClose.setOnClickListener { dismiss() }
-
 
 
         return binding.root

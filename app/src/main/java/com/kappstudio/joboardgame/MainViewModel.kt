@@ -23,6 +23,16 @@ class MainViewModel : ViewModel() {
         Timber.d("Status: $status")
         _page.value = status
         _title.value = status.title
-        _isImmersion.value = status == PageType.GAME_DETAIL
+
+
+        _isImmersion.value =
+            when (status) {
+                PageType.GAME_DETAIL -> true
+                PageType.PARTY_DETAIL -> true
+                PageType.USER -> true
+
+                else -> false
+
+            }
     }
 }

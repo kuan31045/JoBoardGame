@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    android:layout_marginBottom="16dp"
-    app:cardBackgroundColor="@color/purple_light_9148F9"
+    android:layout_margin="16dp"
     app:cardCornerRadius="6dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_party"
-        android:layout_margin="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_card_item"
@@ -19,134 +17,120 @@
         android:focusable="true"
         android:paddingBottom="8dp">
 
+
+        <ImageView
+
+            android:id="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cover1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_title"
             style="@style/titleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_cover"
             tools:text="Carzy Friday!" />
 
         <TextView
             android:id="@+id/tv_already_join"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/already_join"
             android:textColor="@color/green_29AA36"
             android:textSize="14sp"
             android:textStyle="italic"
-            app:layout_constraintBottom_toTopOf="@+id/tv_title_host"
-            app:layout_constraintStart_toStartOf="@+id/tv_title_host"
-            app:layout_constraintTop_toTopOf="@id/tv_title" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_cover" />
 
-        <TextView
-            android:id="@+id/tv_title_host"
-            style="@style/party_item_detail"
-
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_host"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/host"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/defult_profile"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-        <View
-            android:id="@+id/view_line_host"
-            style="@style/viewSpLine"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title_host"
-            app:layout_constraintStart_toEndOf="@id/tv_title_host"
-            app:layout_constraintTop_toTopOf="@id/tv_title_host" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:shapeAppearanceOverlay="@style/circle" />
 
         <TextView
             android:id="@+id/tv_host"
             style="@style/party_item_detail"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
-            app:layout_constraintStart_toEndOf="@+id/view_line_host"
-            app:layout_constraintTop_toTopOf="@+id/tv_title_host"
+            android:layout_marginStart="5dp"
+            android:textSize="17sp"
+
+            app:layout_constraintBottom_toBottomOf="@+id/iv_host"
+            app:layout_constraintStart_toEndOf="@+id/iv_host"
             tools:text="AKuan" />
 
         <TextView
-            android:id="@+id/tv_title_location"
-            style="@style/party_item_detail"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-
-            android:text="@string/location"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_host" />
-
-        <View
-            android:id="@+id/view_line_location"
-            style="@style/viewSpLine"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title_location"
-            app:layout_constraintStart_toEndOf="@id/tv_title_location"
-            app:layout_constraintTop_toTopOf="@id/tv_title_location" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/host"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_host"
+            app:layout_constraintStart_toStartOf="@+id/tv_host" />
 
         <TextView
             android:id="@+id/tv_location"
             style="@style/party_item_detail"
             android:layout_width="0dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view_line_location"
-            app:layout_constraintTop_toTopOf="@+id/tv_title_location"
-            tools:text="台北市-基隆路178號" />
-
-        <TextView
-            android:id="@+id/tv_title_time"
-            style="@style/party_item_detail"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:drawableLeft="@drawable/ic_location_28dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|left"
+            android:paddingLeft="4dp"
 
-        <View
-            android:id="@+id/view_line_time"
-            style="@style/viewSpLine"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
-            app:layout_constraintStart_toEndOf="@id/tv_title_time"
-            app:layout_constraintTop_toTopOf="@id/tv_title_time" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_host"
+            tools:text="台北市-基隆路178號" />
 
         <TextView
             android:id="@+id/tv_time"
             style="@style/party_item_detail"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_title_time"
-            app:layout_constraintStart_toEndOf="@+id/view_line_time"
-            app:layout_constraintTop_toTopOf="@+id/tv_title_time"
-            tools:text="10/22(五) 20:00" />
-
-        <TextView
-            android:id="@+id/tv_title_game"
-            style="@style/party_item_detail"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:text="@string/game"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_time" />
+            android:drawableLeft="@drawable/ic_date_28dp"
 
-        <View
-            android:id="@+id/view_line_game"
-            style="@style/viewSpLine"
-            app:layout_constraintBottom_toBottomOf="@id/tv_title_game"
-            app:layout_constraintStart_toEndOf="@id/tv_title_game"
-            app:layout_constraintTop_toTopOf="@id/tv_title_game" />
+            android:drawablePadding="8dp"
+            android:gravity="center|left"
+            android:paddingLeft="4dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_location"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location"
+            tools:text="10/22(五) 20:00" />
 
         <TextView
             android:id="@+id/tv_game"
             style="@style/party_item_detail"
+
             android:layout_width="0dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view_line_game"
-            app:layout_constraintTop_toTopOf="@+id/tv_title_game"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="1dp"
+            android:drawableLeft="@drawable/ic_game_24dp"
+            android:drawablePadding="8dp"
+            android:gravity="center|left"
+            android:paddingLeft="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_location"
+            app:layout_constraintStart_toStartOf="@+id/tv_location"
+            app:layout_constraintTop_toBottomOf="@+id/tv_time"
             tools:text="閃靈快手，富饒之城，卡坦島" />
 
         <TextView
@@ -154,8 +138,8 @@
             style="@style/party_item_detail"
             android:layout_marginEnd="16dp"
             android:drawableTop="@drawable/ic_baseline_people_24"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_host"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="2/4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

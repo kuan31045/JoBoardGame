@@ -9,122 +9,88 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp">
+            android:paddingTop="16dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_my_party"
-                style="@style/fontSpaceColor"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_btn_purple"
-
-                android:paddingLeft="10dp"
-                android:text="@string/my_party_2"
-                android:textColor="@color/white_text_fffcff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_party" />
-
-            <TextView
-                android:id="@+id/tv_title_party"
-                style="@style/titleStyleWhite2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lets_party"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_start_date"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_spn"
-                android:gravity="center"
-                android:text="@string/date_sample"
-                android:textColor="@color/black_3f3a3a"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_title_date"
-                app:layout_constraintEnd_toStartOf="@+id/tv_last_date"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_title_date"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_date" />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="～"
-
-
-android:fontFamily="@font/noto_sans"
-    android:textColor="@color/gray_text_424244"
-    app:layout_constraintTop_toTopOf="@id/tv_start_date"
-    app:layout_constraintBottom_toBottomOf="@id/tv_start_date"
-    app:layout_constraintEnd_toStartOf="@id/tv_last_date"
-    app:layout_constraintStart_toEndOf="@id/tv_start_date"/>
-
-
-            <TextView
-                android:id="@+id/tv_last_date"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="16dp"
-
-                android:background="@drawable/bg_spn"
-                android:gravity="center"
-                android:text="@string/date_sample"
-                android:textColor="@color/black_3f3a3a"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_title_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_start_date"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_date" />
-
-
-            <TextView
-                android:id="@+id/tv_title_date"
-                style="@style/textStyle1"
                 android:layout_width="wrap_content"
-                    android:layout_marginTop="24dp"
                 android:layout_height="wrap_content"
-                android:text="@string/date"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_party"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_party" />
+                android:background="@drawable/bg_ripple"
+                android:clickable="true"
+                android:layout_marginStart="16dp"
+                android:drawableLeft="@drawable/ic_date_28dp"
+                android:drawablePadding="4dp"
+                android:focusable="true"
+                android:gravity="center|left"
+                android:text="@string/date_sample"
+                android:textColor="@color/black_3f3a3a"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_party"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/paddingBottom"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/btn_my_party"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_party"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_start_date"
                 tools:itemCount="6"
                 tools:listitem="@layout/item_party" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_new_party"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_add_24"
-        android:id="@+id/btn_new_party"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_near_party"
+        style="@style/pageTopBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:drawableTop="@drawable/ic_location_24dp"
+        android:text="@string/near_party"
+        android:visibility="gone"
+
+        app:layout_constraintEnd_toStartOf="@+id/btn_my_party"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_my_party"
+        style="@style/pageTopBtn"
+        android:layout_margin="16dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:drawableTop="@drawable/ic_baseline_person_24"
+
+        android:text="@string/my_party"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 

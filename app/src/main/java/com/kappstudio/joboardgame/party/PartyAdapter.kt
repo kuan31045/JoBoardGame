@@ -7,20 +7,23 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.UserManager
 import com.kappstudio.joboardgame.databinding.ItemPartyBinding
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
+import com.kappstudio.joboardgame.util.setBlurView
 
 class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
-    class PartyViewHolder(private var binding: ItemPartyBinding) :
+   inner class PartyViewHolder(private var binding: ItemPartyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(party: Party, viewModel: ViewModel) {
+        fun bind(party: Party) {
 
             binding.apply {
+                bindImage(ivHost, party.host.image)
                 tvTitle.text = party.title
                 tvLocation.text = party.location
                 tvTime.text = party.partyTime.toString()
@@ -70,6 +73,6 @@ class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyA
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {
-        holder.bind(getItem(position),viewModel )
+        holder.bind(getItem(position) )
     }
 }

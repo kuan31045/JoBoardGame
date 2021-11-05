@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.newparty
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -62,7 +63,6 @@ class NewPartyFragment : Fragment() {
         }
         return binding.root
     }
-
 
     private fun startAutoCompleteIntent() {
 

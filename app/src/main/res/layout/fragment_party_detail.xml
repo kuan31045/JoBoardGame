@@ -32,11 +32,33 @@
                 >
 
 
+                <ImageView
+                    android:id="@+id/iv_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cover1"
+                    app:layout_constraintDimensionRatio="1:0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/bottomCorner" />
+
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    style="@style/toolbarBtn"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="38dp"
+                    android:src="@drawable/ic_back_26dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_title"
                     android:layout_width="0dp"
-
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="500dp"
                     app:cardBackgroundColor="#f3f1f5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,67 +68,6 @@
                         android:layout_width="match_parent"
 
                         android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tv_title"
-                            style="@style/titleStyleWhite"
-                            android:layout_width="wrap_content"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@{viewModel.party.title}"
-                            app:layout_constraintBottom_toBottomOf="parent"
-
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:text="礦坑團" />
-
-                        <ImageView
-                            android:id="@+id/iv_back"
-                            style="@style/toolbarBtn"
-                            android:layout_marginStart="4dp"
-                            android:src="@drawable/ic_back_26dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btn_out"
-                            android:layout_width="55dp"
-                            android:layout_height="45dp"
-                            android:layout_margin="8dp"
-                            android:background="@drawable/btn_white"
-                            android:onClick="@{()->viewModel.leaveParty()}"
-
-                            android:text="@string/out"
-                            android:textColor="@color/purple_light_9148F9"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btn_join"
-                            android:layout_width="55dp"
-
-                            android:layout_height="45dp"
-
-                            android:layout_margin="8dp"
-
-                            android:background="@drawable/bg_btn_purple"
-                            android:onClick="@{()->viewModel.joinParty()}"
-                            android:text="@string/join"
-                            android:textColor="@color/white_text_fffcff"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-
-                            android:visibility="@{ viewModel.isJoin()?View.GONE:View.VISIBLE }"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -122,7 +83,7 @@
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_title">
+                    app:layout_constraintTop_toBottomOf="@id/cv_info">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -132,21 +93,24 @@
 
                             android:id="@+id/tv_title_game_list"
                             style="@style/titleStyleWhite2"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
+                            android:drawableLeft="@drawable/ic_game_24dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/play_list"
+
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_party_game"
                             android:layout_width="0dp"
-                                android:paddingLeft="9dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
+                            android:layout_marginTop="6dp"
                             android:clipToPadding="false"
                             android:orientation="horizontal"
-                            android:paddingBottom="8dp"
+                            android:paddingLeft="8dp"
+                            android:paddingBottom="12dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -161,11 +125,10 @@
                     android:id="@+id/cv_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_games">
+                    app:layout_constraintTop_toBottomOf="@+id/iv_cover">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -173,55 +136,115 @@
 
                         android:paddingBottom="16dp">
 
+                        <TextView
+                            android:id="@+id/tv_title"
+                            style="@style/titleStyleWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+
+                            android:gravity="center"
+                            android:text="@{viewModel.party.title}"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="礦坑團" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_join"
+                            android:layout_width="55dp"
+
+                            android:layout_height="45dp"
+
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/bg_btn_purple"
+                            android:onClick="@{()->viewModel.joinParty()}"
+                            android:text="@string/join"
+                            android:textColor="@color/white_text_fffcff"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:visibility="@{ viewModel.isJoin()?View.GONE:View.VISIBLE }"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_out"
+                            android:layout_width="55dp"
+
+                            android:layout_height="45dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/btn_white"
+                            android:onClick="@{()->viewModel.leaveParty()}"
+                            android:text="@string/out"
+                            android:textColor="@color/purple_light_9148F9"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@id/tv_title_host"
-                            style="@style/titleStyleWhite2"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
+                            style="@style/titleStyle2"
+                            android:layout_marginTop="14dp"
+                            android:drawableLeft="@drawable/ic_person_28dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/host_"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+
+                            app:layout_constraintStart_toStartOf="@+id/tv_title"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
                         <TextView
                             android:id="@id/tv_host"
                             style="@style/textStyle1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:textStyle="bold"
+                            android:onClick="@{()->viewModel.navToUser(viewModel.party.hostId)}"
+                            android:background="@drawable/bg_ripple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:text="@{viewModel.party.host.name}"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_title_host"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
                             app:layout_constraintStart_toEndOf="@id/tv_title_host"
-                            app:layout_constraintTop_toTopOf="@id/tv_title_host"
+                            app:layout_constraintTop_toTopOf="@+id/tv_title_host"
                             tools:text="AKuan" />
 
                         <TextView
                             android:id="@id/tv_title_location"
-                            style="@style/titleStyleWhite2"
+                            style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="12dp"
+                            android:drawableLeft="@drawable/ic_location_28dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/location_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_host" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_host" />
 
                         <TextView
                             android:id="@id/tv_location"
-
                             style="@style/textStyle1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
+                            android:layout_marginEnd="16dp"
                             android:text="@{viewModel.party.location}"
                             app:layout_constraintBottom_toBottomOf="@id/tv_title_location"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_title_location"
                             app:layout_constraintTop_toTopOf="@id/tv_title_location"
                             tools:text="台北市-基隆路一段178號" />
 
                         <TextView
                             android:id="@id/tv_title_time"
-                            style="@style/titleStyleWhite2"
+                            style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="8dp"
+                            android:drawableLeft="@drawable/ic_date_28dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/time_"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_location" />
@@ -240,12 +263,14 @@
 
                         <TextView
                             android:id="@+id/tv_title_note"
-                            style="@style/titleStyleWhite2"
+                            style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="8dp"
+                            android:drawableLeft="@drawable/ic_note_28dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/note_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_time" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_player_qty" />
 
                         <TextView
                             android:id="@+id/tv_note"
@@ -255,19 +280,23 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="4dp"
                             android:layout_marginTop="2dp"
+                            android:layout_marginEnd="16dp"
                             android:text="@{viewModel.party.note}"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_title_note"
                             app:layout_constraintTop_toTopOf="@id/tv_title_note"
                             tools:text="提供提供兩箱啤酒兩箱提供兩箱啤酒提供兩箱啤酒啤酒提提供兩提供兩箱啤酒箱啤酒供兩箱啤酒" />
 
                         <TextView
                             android:id="@+id/tv_title_player_qty"
-                            style="@style/titleStyleWhite2"
+                            style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="14dp"
+                            android:layout_marginTop="8dp"
+                            android:drawableLeft="@drawable/ic_people_28dp"
+                            android:drawablePadding="3dp"
                             android:text="@string/peopleQty"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_note" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_title_time" />
 
                         <TextView
                             android:id="@+id/tv_player_qty"
@@ -295,7 +324,7 @@
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_info">
+                    app:layout_constraintTop_toBottomOf="@id/cv_games">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -310,7 +339,6 @@
                             android:layout_height="wrap_content"
                             android:background="?android:selectableItemBackground"
                             android:clickable="true"
-
                             android:focusable="true"
 
                             android:text="@string/join_players"
@@ -342,8 +370,8 @@
                     android:id="@+id/cv_msgs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-android:layout_marginBottom="120dp"
                     android:layout_marginTop="2dp"
+                    android:layout_marginBottom="120dp"
                     app:cardBackgroundColor="@color/white_bg_f7f7f7"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -358,7 +386,6 @@ android:layout_marginBottom="120dp"
                         android:padding="16dp">
 
                         <TextView
-
                             android:id="@+id/tv_title_msg"
                             style="@style/titleStyleWhite2"
                             android:text="@string/msg"
@@ -430,10 +457,10 @@ android:layout_marginBottom="120dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:layout_marginBottom="-200dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-android:layout_marginBottom="-200dp"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/anim_sea" />

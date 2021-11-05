@@ -19,7 +19,7 @@
     <string name="lets_party">來場聚會吧!</string>
     <string name="country">縣市</string>
     <string name="date">日期</string>
-    <string name="date_sample">2021/10/25</string>
+    <string name="date_sample">10/25 ~ 10/31</string>
     <string name="location">地點</string>
     <string name="time">時間</string>
     <string name="game">遊戲</string>
@@ -114,6 +114,8 @@
     <string name="rating_ok">評分成功!</string>
     <string name="remove_ok">移除成功</string>
     <string name="error">發生了不可預期的錯誤!</string>
+    <string name="add_friend">加好友</string>
+    <string name="near_party">附近聚會</string>
 
 
 </resources>
