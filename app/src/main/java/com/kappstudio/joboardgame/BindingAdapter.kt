@@ -26,7 +26,7 @@ fun bindTextViewGameTypes(tv: TextView, gameTypes: List<String>) {
 
 @BindingAdapter("date")
 fun bindTextViewDate(tv: TextView, time: Long) {
-    val formatter = SimpleDateFormat("yyyy.MM.dd hh:mm")
+    val formatter = SimpleDateFormat("yyyy年MM月dd日 hh:mm")
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = time
     tv.text = formatter.format(calendar.time)
@@ -43,7 +43,6 @@ fun bindImage(iv: ImageView, imgUrl: String?) {
             RequestOptions()
                 .placeholder(R.drawable.image_defult)
                 .error(R.drawable.image_defult)
-
         )
 
         .into(iv)

@@ -126,6 +126,11 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.kappstudio.joboardgame.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
 
     <dialog
         android:id="@+id/userDialog"
@@ -181,4 +186,7 @@
     <action
         android:id="@+id/nav_to_photo_fragment"
         app:destination="@id/photoFragment" />
+    <action
+        android:id="@+id/nav_to_map_fragment"
+        app:destination="@id/mapFragment" />
 </navigation>

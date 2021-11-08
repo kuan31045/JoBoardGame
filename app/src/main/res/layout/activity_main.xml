@@ -50,6 +50,7 @@
                     android:shadowColor="@color/transparent"
                     android:spinnerMode="dialog"
                     android:text="@string/country"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/layout_tool_bar_right"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,12 +92,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ripple"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_search" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -116,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="-220dp"
+            android:layout_marginTop="-160dp"
             android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.MY_PARTY ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +125,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="340dp"
             android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.MY_PARTY ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +138,7 @@
             android:id="@+id/nav_view"
             android:layout_width="0dp"
             android:layout_height="@dimen/design_bottom_navigation_height"
-            app:itemIconSize="27dp"
+            app:itemIconSize="25dp"
             android:background="@color/white_bg_f3f1f5"
             android:elevation="@dimen/elevation_4dp"
             app:labelVisibilityMode="labeled"

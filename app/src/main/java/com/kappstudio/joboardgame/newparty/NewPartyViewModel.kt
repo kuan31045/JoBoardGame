@@ -4,14 +4,10 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.data.*
 
-import com.kappstudio.joboardgame.data.Game
-import com.kappstudio.joboardgame.data.NewParty
-import com.kappstudio.joboardgame.data.UserManager
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
-import com.kappstudio.joboardgame.data.toGameMap
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
@@ -34,6 +30,10 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var requirePlayerQty = MutableLiveData("")
     var note = MutableLiveData("")
     var gameName = MutableLiveData("")
+
+    //LngLat
+    var lat = MutableLiveData(0.0)
+    var lng = MutableLiveData(0.0)
 
     val _games = MutableLiveData<MutableList<Game>>(mutableListOf())
     val games: LiveData<MutableList<Game>>
@@ -86,7 +86,11 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                     title = title.value ?: "",
                     cover = coverUrl.value ?: defaultCover,
                     partyTime = time.value ?: 0,
-                    location = location.value ?: "",
+                    location = Location(
+                        location.value ?: "",
+                        lat.value ?: 0.0,
+                        lng.value ?: 0.0
+                    ),
                     note = note.value ?: "",
                     requirePlayerQty = requirePlayerQty.value?.toIntOrNull() ?: 1,
                     gameList = gameMapList,
@@ -110,7 +114,6 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
 
     private suspend fun uploadCover() {
         photoUri.value?.let {
-
 
 
             _status.value = LoadApiStatus.LOADING

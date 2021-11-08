@@ -11,7 +11,6 @@ import com.kappstudio.joboardgame.databinding.FragmentPhotoBinding
 
 class PhotoFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,7 +21,6 @@ class PhotoFragment : Fragment() {
         val adapter = PhotoPagerAdapter(
             childFragmentManager,
             PhotoFragmentArgs.fromBundle(requireArguments()).photos
-
             )
 
         binding.viewPager.adapter = adapter
@@ -30,6 +28,4 @@ class PhotoFragment : Fragment() {
 
         return binding.root
     }
-
-
 }

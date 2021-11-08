@@ -125,6 +125,10 @@
     <string name="album">相簿</string>
     <string name="stop">停止</string>
     <string name="pause">暫停</string>
+    <string name="coming_party">近期聚會</string>
+    <string name="search">搜尋</string>
+    <string name="party_map">聚會地圖</string>
+    <string name="geting_location">正在取得目前位置...</string>
 
 
 </resources>

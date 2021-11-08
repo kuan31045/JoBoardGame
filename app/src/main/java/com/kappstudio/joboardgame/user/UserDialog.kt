@@ -33,9 +33,6 @@ class UserDialog : DialogFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.ivClose.setOnClickListener { dismiss() }
-
-
         return binding.root
     }
 }

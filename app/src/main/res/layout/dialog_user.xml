@@ -44,13 +44,7 @@
                     android:layout_height="match_parent"
                     android:paddingBottom="16dp">
 
-                    <ImageView
-                        android:id="@+id/iv_close"
-                        style="@style/toolbarBtn"
-                        android:layout_marginStart="4dp"
-                        android:src="@drawable/ic_close_24dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/lottie_star"

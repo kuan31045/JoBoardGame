@@ -63,8 +63,7 @@ object FirebaseService {
         suspendCoroutine { continuation ->
             Timber.d("-----Upload Photo------------------------------")
 
-            val formatter = SimpleDateFormat("yyyy_mm_dd_HH_mm_ss")
-            val uploadTime = formatter.format(Calendar.getInstance().timeInMillis)
+            val uploadTime = Calendar.getInstance().timeInMillis
             val fileName = UserManager.user["id"] + "-" + uploadTime
 
             val storageRef =

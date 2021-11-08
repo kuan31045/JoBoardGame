@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".game.GameFragment">
-
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_app_theme"
+        android:elevation="1dp"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:id="@+id/et_search"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -27,7 +27,7 @@ class PartyAdapter(private val viewModel: ViewModel) :
                 bindImage(ivCover, party.cover)
                 bindImage(ivHost, party.host.image)
                 tvTitle.text = party.title
-                tvLocation.text = party.location
+                tvLocation.text = party.location.address
                 tvTime.text = party.partyTime.toString()
                 tvHost.text = party.host.name
                 tvGame.text = ""

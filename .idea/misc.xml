@@ -33,7 +33,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_person_28dp.xml" value="0.3814814814814815" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_photo_album_28dp.xml" value="0.32314814814814813" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_record_28dp.xml" value="0.3814814814814815" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/activity_main.xml" value="0.21" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_rating.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_user.xml" value="0.4" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_album.xml" value="0.16066606660666066" />
@@ -41,9 +41,10 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_favorite.xml" value="0.16066606660666066" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game.xml" value="0.2" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.1" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_map.xml" value="0.2509057971014493" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_rating.xml" value="0.2671296296296296" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_new_party.xml" value="0.22" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_party.xml" value="0.25" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_party.xml" value="0.14" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_party_detail.xml" value="0.21" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_photo.xml" value="0.2821557971014493" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_photo_album.xml" value="0.16066606660666066" />
@@ -177,7 +178,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.21" />
+        <option name="scale" value="0.5" />
       </ProjectState>
     </option>
   </component>

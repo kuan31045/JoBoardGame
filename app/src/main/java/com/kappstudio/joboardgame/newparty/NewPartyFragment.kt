@@ -68,8 +68,8 @@ class NewPartyFragment : Fragment() {
             }
         })
 
-        viewModel.status.observe(viewLifecycleOwner,{
-            when(it){
+        viewModel.status.observe(viewLifecycleOwner, {
+            when (it) {
                 LoadApiStatus.DONE -> findNavController().popBackStack()
 
             }
@@ -115,6 +115,7 @@ class NewPartyFragment : Fragment() {
 
         // Start the autocomplete intent.
         val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+
             .setTypeFilter(TypeFilter.ADDRESS)
             .build(activity)
 
@@ -124,6 +125,9 @@ class NewPartyFragment : Fragment() {
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(it)
                         binding.etLocation.setText(place.address)
+                        viewModel.lat.value = place.latLng.latitude
+                        viewModel.lng.value = place.latLng.longitude
+
                         Timber.d("Place: ${place.name}, ${place.id}")
                     }
                 }
