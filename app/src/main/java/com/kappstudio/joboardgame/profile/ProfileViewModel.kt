@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kappstudio.joboardgame.album.NavToAlbumInterFace
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.User
@@ -13,7 +14,8 @@ import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 
-class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface {
+class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface,
+    NavToAlbumInterFace {
     val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
     private var _user = MutableLiveData<User>()
@@ -33,7 +35,9 @@ class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetai
     private val _navToGameDetail = MutableLiveData<String?>()
     val navToGameDetail: LiveData<String?>
         get() = _navToGameDetail
-
+    private val _navToAlbum = MutableLiveData<List<String>?>()
+    val navToAlbum: LiveData<List<String>?>
+        get() = _navToAlbum
     init {
         getUserInfo()
     }
@@ -67,6 +71,16 @@ class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetai
 
         }
 
+    }
+
+
+
+    override fun navToAlbum(photo: List<String>) {
+        _navToAlbum.value = photo
+    }
+
+    override fun onNavToAlbum() {
+        _navToAlbum.value = null
     }
 
 }

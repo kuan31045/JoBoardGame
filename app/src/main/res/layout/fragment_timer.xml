@@ -56,12 +56,12 @@
             android:id="@+id/cpb_timer"
             android:layout_width="180dp"
             android:layout_height="180dp"
-        app:cpb_progress_max="30"
-            app:cpb_progress="30"
-
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="5dp"
+
+            app:cpb_progress="30"
             app:cpb_progress_direction="to_right"
+            app:cpb_progress_max="30"
             app:cpb_progressbar_color="@color/purple_light_9148F9"
             app:cpb_progressbar_width="10dp"
             app:cpb_round_border="false"
@@ -77,14 +77,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
+            android:text="30"
             android:textColor="@color/purple_dark_782be9"
             android:textSize="50sp"
-            android:text="30"
             app:layout_constraintBottom_toBottomOf="@id/cpb_timer"
             app:layout_constraintEnd_toEndOf="@id/cpb_timer"
             app:layout_constraintStart_toStartOf="@id/cpb_timer"
             app:layout_constraintTop_toTopOf="@id/cpb_timer" />
-
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -92,12 +91,37 @@
 
             style="@style/toolsBtn"
 
+            android:textColor="@color/white_text_fffcff"
+android:backgroundTint="@color/purple_light_9148F9"
+            android:layout_marginBottom="120dp"
             android:text="@string/start"
-            android:layout_marginBottom="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_pause"
+android:visibility="gone"
+            style="@style/toolsBtn"
+            android:layout_marginEnd="8dp"
+            android:text="@string/pause"
+            app:layout_constraintEnd_toStartOf="@+id/btn_stop"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_stop" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_stop"
+            android:visibility="gone"
+
+            style="@style/toolsBtn"
+            android:layout_marginStart="8dp"
+android:layout_marginTop="16dp"
+            android:text="@string/stop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_pause"
+            app:layout_constraintTop_toBottomOf="@+id/btn_start" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

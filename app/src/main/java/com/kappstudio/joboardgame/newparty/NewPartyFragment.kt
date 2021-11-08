@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
 import com.kappstudio.joboardgame.favorite.FavoriteFragmentDirections
 import com.dylanc.activityresult.launcher.StartActivityLauncher
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
@@ -21,6 +23,8 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.kappstudio.joboardgame.R
 
 import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class NewPartyFragment : Fragment() {
@@ -41,6 +45,15 @@ class NewPartyFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        binding.btnAddCover.setOnClickListener {
+            pickImage()
+        }
+        binding.etTime.setOnClickListener {
+            showTimePicker()
+        }
+        binding.etLocation.setOnClickListener {
+            startAutoCompleteIntent()
+        }
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
@@ -55,13 +68,43 @@ class NewPartyFragment : Fragment() {
             }
         })
 
-        binding.etTime.setOnClickListener {
-            showTimePicker()
-        }
-        binding.etLocation.setOnClickListener {
-            startAutoCompleteIntent()
-        }
+        viewModel.status.observe(viewLifecycleOwner,{
+            when(it){
+                LoadApiStatus.DONE -> findNavController().popBackStack()
+
+            }
+        })
+
         return binding.root
+    }
+
+    private fun pickImage() {
+        ImagePicker.with(this)
+            .crop(
+                2f,
+                1f
+            )                    //Crop image(Optional), Check Customization for more option
+            .compress(1024)            //Final image size will be less than 1 MB(Optional)
+            .maxResultSize(
+                1080,
+                540
+            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            .createIntent { intent ->
+                startActivityLauncher.launch(intent) { resultCode, data ->
+                    when (resultCode) {
+                        Activity.RESULT_OK -> {
+                            data?.let {
+                                val fileUri = data.data
+                                binding.ivCover.setImageURI(fileUri)
+                                viewModel.photoUri.value = fileUri
+                            }
+                        }
+                        ImagePicker.RESULT_ERROR -> {
+                            ToastUtil.show(ImagePicker.getError(data))
+                        }
+                    }
+                }
+            }
     }
 
     private fun startAutoCompleteIntent() {
@@ -85,14 +128,10 @@ class NewPartyFragment : Fragment() {
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
-                    // TODO: Handle the error.
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
                         Timber.d(status.statusMessage)
                     }
-                }
-                Activity.RESULT_CANCELED -> {
-                    // The user canceled the operation.
                 }
             }
         }

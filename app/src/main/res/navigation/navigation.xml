@@ -103,6 +103,30 @@
         android:name="com.kappstudio.joboardgame.myrating.MyRatingFragment"
         android:label="fragment_my_rating"
         tools:layout="@layout/fragment_my_rating" />
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.kappstudio.joboardgame.album.AlbumFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_album" >
+        <argument
+            android:name="photos"
+            app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.kappstudio.joboardgame.album.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" >
+        <argument
+            android:name="photos"
+            app:argType="string[]" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
+
+
     <dialog
         android:id="@+id/userDialog"
         android:name="com.kappstudio.joboardgame.user.UserDialog"
@@ -151,5 +175,10 @@
     <action
         android:id="@+id/nav_to_ratingDialog"
         app:destination="@id/ratingDialog" />
-
+    <action
+        android:id="@+id/nav_to_album_fragment"
+        app:destination="@id/albumFragment" />
+    <action
+        android:id="@+id/nav_to_photo_fragment"
+        app:destination="@id/photoFragment" />
 </navigation>

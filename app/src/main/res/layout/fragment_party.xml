@@ -29,7 +29,7 @@
                 android:background="@drawable/bg_ripple"
                 android:clickable="true"
                 android:layout_marginStart="16dp"
-                android:drawableLeft="@drawable/ic_date_28dp"
+                android:drawableLeft="@drawable/ic_date_24dp"
                 android:drawablePadding="4dp"
                 android:focusable="true"
                 android:gravity="center|left"

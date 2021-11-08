@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.databinding.FragmentProfileBinding
 import com.kappstudio.joboardgame.game.GameAdapter
+import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
 import com.kappstudio.joboardgame.util.closeKeyBoard
 import timber.log.Timber
 
@@ -53,7 +55,10 @@ class ProfileFragment : Fragment() {
             val input = EditText(context)
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             input.setHint(getString(R.string.i_think))
+            input.gravity=0
+
             input.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
+            input.minLines=3
             builder.setView(input)
 
             // Set up the buttons
@@ -101,6 +106,12 @@ class ProfileFragment : Fragment() {
             it?.let {
                 findNavController().navigate(ProfileFragmentDirections.navToGameDetailFragment(it))
                 viewModel.onNavToGameDetail()
+            }
+        })
+        viewModel.navToAlbum.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(ProfileFragmentDirections.navToAlbumFragment(it.toTypedArray()))
+                viewModel.onNavToAlbum()
             }
         })
 

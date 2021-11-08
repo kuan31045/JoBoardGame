@@ -200,22 +200,23 @@
                 app:layout_constraintTop_toBottomOf="@id/cv_user" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_my_msg"
+                android:id="@+id/btn_my_photos"
                 style="@style/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
-                android:drawableLeft="@drawable/ic_msg_28dp"
+                android:onClick="@{()->viewModel.navToAlbum(viewModel.user.photos)}"
+                android:drawableLeft="@drawable/ic_photo_album_28dp"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
                 android:backgroundTint="@color/white"
 
-                android:text="@string/my_msg"
+                android:text="@string/my_photos"
                 app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
                 app:layout_constraintStart_toStartOf="@+id/btn_my_rating"
-                app:layout_constraintTop_toBottomOf="@id/btn_my_rating" />
+                app:layout_constraintTop_toBottomOf="@id/btn_my_favorite" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_my_favorite"
@@ -234,7 +235,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
                 app:layout_constraintStart_toStartOf="@+id/btn_my_rating"
-                app:layout_constraintTop_toBottomOf="@id/btn_my_msg" />
+                app:layout_constraintTop_toBottomOf="@id/btn_my_rating" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_my_party"
@@ -248,7 +249,7 @@
                 android:gravity="center"
                 android:paddingTop="22dp"
                 android:text="@string/my_party"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_my_favorite"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_my_photos"
                 app:layout_constraintEnd_toEndOf="@+id/cv_user"
                 app:layout_constraintStart_toStartOf="@id/guideline_mid"
                 app:layout_constraintTop_toTopOf="@id/btn_my_rating" />
@@ -271,7 +272,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/cv_user"
                 app:layout_constraintStart_toStartOf="@+id/cv_user"
-                app:layout_constraintTop_toBottomOf="@id/btn_my_favorite">
+                app:layout_constraintTop_toBottomOf="@id/btn_my_photos">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

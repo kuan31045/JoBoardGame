@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
         <import type="android.view.View" />
 
         <variable
@@ -34,6 +35,7 @@
 
                 <ImageView
                     android:id="@+id/iv_cover"
+                    app:imgUrl="@{viewModel.party.cover}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
@@ -74,52 +76,6 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_games"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:minHeight="220dp"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_info">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-
-                            android:id="@+id/tv_title_game_list"
-                            style="@style/titleStyleWhite2"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:drawableLeft="@drawable/ic_game_24dp"
-                            android:drawablePadding="3dp"
-                            android:text="@string/play_list"
-
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_party_game"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:clipToPadding="false"
-                            android:orientation="horizontal"
-                            android:paddingLeft="8dp"
-                            android:paddingBottom="12dp"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_title_game_list"
-                            tools:itemCount="5"
-                            tools:listitem="@layout/item_game_simple" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_info"
@@ -189,8 +145,9 @@
                             android:id="@id/tv_title_host"
                             style="@style/titleStyle2"
                             android:layout_marginTop="14dp"
-                            android:drawableLeft="@drawable/ic_person_28dp"
-                            android:drawablePadding="3dp"
+
+                            android:drawableLeft="@drawable/ic_person_24dp"
+                            android:drawablePadding="6dp"
                             android:text="@string/host_"
 
                             app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -206,7 +163,7 @@
                             android:background="@drawable/bg_ripple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="6dp"
                             android:text="@{viewModel.party.host.name}"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
                             app:layout_constraintStart_toEndOf="@id/tv_title_host"
@@ -218,8 +175,8 @@
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="12dp"
-                            android:drawableLeft="@drawable/ic_location_28dp"
-                            android:drawablePadding="3dp"
+                            android:drawableLeft="@drawable/ic_location_24dp2"
+                            android:drawablePadding="6dp"
                             android:text="@string/location_"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_host" />
@@ -229,7 +186,7 @@
                             style="@style/textStyle1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="6dp"
                             android:layout_marginEnd="16dp"
                             android:text="@{viewModel.party.location}"
                             app:layout_constraintBottom_toBottomOf="@id/tv_title_location"
@@ -243,8 +200,8 @@
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:drawableLeft="@drawable/ic_date_28dp"
-                            android:drawablePadding="3dp"
+                            android:drawableLeft="@drawable/ic_date_24dp"
+                            android:drawablePadding="6dp"
                             android:text="@string/time_"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_location" />
@@ -254,7 +211,7 @@
                             style="@style/textStyle1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="6dp"
                             app:date="@{viewModel.party.partyTime}"
                             app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
                             app:layout_constraintStart_toEndOf="@id/tv_title_time"
@@ -266,8 +223,8 @@
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:drawableLeft="@drawable/ic_note_28dp"
-                            android:drawablePadding="3dp"
+                            android:drawableLeft="@drawable/ic_note_24dp"
+                            android:drawablePadding="6dp"
                             android:text="@string/note_"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_player_qty" />
@@ -278,7 +235,7 @@
                             android:layout_width="0dp"
 
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="6dp"
                             android:layout_marginTop="2dp"
                             android:layout_marginEnd="16dp"
                             android:text="@{viewModel.party.note}"
@@ -292,8 +249,8 @@
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:drawableLeft="@drawable/ic_people_28dp"
-                            android:drawablePadding="3dp"
+                            android:drawableLeft="@drawable/ic_people_24dp"
+                            android:drawablePadding="6dp"
                             android:text="@string/peopleQty"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_title_time" />
@@ -304,7 +261,7 @@
                             android:layout_width="0dp"
 
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="6dp"
                             android:layout_marginTop="2dp"
                             android:text="@{viewModel.playerQtyStatus}"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -315,6 +272,55 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_games"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="220dp"
+                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_info">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:id="@+id/tv_title_game_list"
+                            style="@style/titleStyleWhite2"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:drawableLeft="@drawable/ic_game_24dp"
+                            android:drawablePadding="6dp"
+                            android:text="@string/play_list"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_party_game"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal"
+                            android:paddingLeft="8dp"
+                            android:paddingBottom="12dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_game_list"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/item_game_simple" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_players"
@@ -365,6 +371,102 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_photos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="2dp"
+                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_players">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:id="@+id/tv_title_photos"
+                            style="@style/titleStyleWhite2"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:drawableLeft="@drawable/ic_photo_24dp"
+                            android:drawablePadding="6dp"
+                            android:text="@string/photo"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        <ImageButton
+                            android:id="@+id/btn_add_photo"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_ripple"
+                            android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
+
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_title_photos"
+                            app:layout_constraintStart_toEndOf="@id/tv_title_photos"
+                            app:layout_constraintTop_toTopOf="@+id/tv_title_photos"
+                            app:srcCompat="@drawable/ic_24px_add03" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_text_424244"
+                            android:text="@string/see_all"
+                            android:layout_marginEnd="8dp"
+                            android:clickable="true"
+                            style="@style/fontSpaceColor"
+                            android:visibility="@{viewModel.party.photos.empty ? View.GONE : View.VISIBLE }"
+                            android:textSize="15sp"
+                            android:onClick="@{()->viewModel.navToAlbum(viewModel.party.photos)}"
+                            android:textStyle="bold"
+                            android:focusable="true"
+                            android:background="@drawable/bg_ripple"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_title_photos"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_photo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:clipToPadding="false"
+                            android:orientation="horizontal"
+                            android:paddingLeft="16dp"
+                            android:paddingTop="16dp"
+                            app:photos="@{viewModel.party.photos}"
+                            android:paddingBottom="16dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_title_photos"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/item_photo" />
+
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lottie_loading"
+                            android:layout_width="0dp"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true"
+                            android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.7"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            android:elevation="50dp"
+                            app:lottie_rawRes="@raw/anim_loading" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_msgs"
@@ -376,7 +478,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cv_players"
+                    app:layout_constraintTop_toBottomOf="@id/cv_photos"
                     app:layout_constraintVertical_bias="0.0">
 
                     <androidx.constraintlayout.widget.ConstraintLayout

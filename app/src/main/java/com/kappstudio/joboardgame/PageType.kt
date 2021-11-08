@@ -16,6 +16,7 @@ enum class PageType(val title: String) {
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
     MY_RATING(appInstance.getString(R.string.my_rating)),
     RATING(""),
+    ALBUM(appInstance.getString(R.string.album)),
 
 
     OTHER("")

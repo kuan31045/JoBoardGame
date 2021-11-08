@@ -2,8 +2,11 @@ package com.kappstudio.joboardgame
 
 import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.kappstudio.joboardgame.album.AlbumAdapter
+import com.kappstudio.joboardgame.party.PhotoAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,17 +38,31 @@ fun bindImage(iv: ImageView, imgUrl: String?) {
 
     Glide.with(iv.context)
         .load(imgUrl)
+
         .apply(
             RequestOptions()
                 .placeholder(R.drawable.image_defult)
                 .error(R.drawable.image_defult)
+
         )
+
         .into(iv)
+
 }
 
 
+@BindingAdapter("photos")
+fun bindRecyclerViewPhotos(rv: RecyclerView, photos: List<String>?) {
+    photos?.let{
 
-@BindingAdapter("imageBtnEnable")
-fun imageBtnEnable(btn: ImageButton, enabled: Boolean) {
-    btn.isEnabled = enabled
+
+    rv.adapter?.apply {
+        when (this) {
+            is PhotoAdapter -> submitList(photos.sortedByDescending { it })
+            is AlbumAdapter -> submitList(photos.sortedByDescending { it })
+
+        }
+    }}
 }
+
+

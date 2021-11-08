@@ -15,6 +15,7 @@ class TimerFragment : Fragment() {
     private lateinit var timer: CountDownTimer
     var isTiming: Boolean = false
     var time = 30f
+    var isPause = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,47 +43,68 @@ class TimerFragment : Fragment() {
             stopTimeing()
         }
         binding.btnStart.setOnClickListener {
+            isPause = false
             timing()
+
+        }
+        binding.btnStop.setOnClickListener {
+             setTime()
+            stopTimeing()
+        }
+        binding.btnPause.setOnClickListener {
+            binding.btnStart.visibility = View.VISIBLE
+
+            isPause = true
         }
         return binding.root
     }
 
     private fun timing() {
         stopTimeing()
-        isTiming=true
+        isTiming = true
         setTime()
 
-        timer = object : CountDownTimer(time.toLong()*1000L, 10) {
+        binding.btnStart.visibility = View.INVISIBLE
+        binding.btnStop.visibility = View.VISIBLE
+        binding.btnPause.visibility = View.VISIBLE
+
+        timer = object : CountDownTimer(time.toLong() * 1000L, 10) {
 
             override fun onFinish() {
                 binding.tvTime.text = "0"
                 binding.cpbTimer.progress = 0f
-                isTiming=false
+                isTiming = false
 
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                binding.tvTime.text = "${millisUntilFinished / 1000}"
-                binding.cpbTimer.progress = millisUntilFinished / 1000.toFloat()
+                if (!isPause){
+                    binding.tvTime.text = "${millisUntilFinished / 1000}"
+                    binding.cpbTimer.progress = millisUntilFinished / 1000.toFloat()
+                }
+
+
             }
         }.start()
     }
 
 
     private fun stopTimeing() {
-        if(isTiming){
+        if (isTiming) {
             timer.cancel()
-            isTiming=false
+            isTiming = false
 
-
+            binding.btnStart.visibility = View.VISIBLE
+            binding.btnStop.visibility = View.GONE
+            binding.btnPause.visibility = View.GONE
         }
     }
 
-    private fun setTime(){
+    private fun setTime() {
         binding.cpbTimer.progress = time
         binding.cpbTimer.progressMax = time
 
-        binding.tvTime.text =time.toInt().toString()
+        binding.tvTime.text = time.toInt().toString()
     }
 
 

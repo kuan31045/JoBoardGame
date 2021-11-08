@@ -111,6 +111,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.diceFragment ->PageType.DICE
                     R.id.timerFragment ->PageType.TIMER
                     R.id.bottleFragment ->PageType.BOTTLE
+                    R.id.albumFragment ->PageType.ALBUM
+                    R.id.photoFragment ->PageType.ALBUM
 
 
 

@@ -5,12 +5,16 @@
     tools:context=".newparty.NewPartyFragment">
 
     <data>
+        <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
             type="com.kappstudio.joboardgame.newparty.NewPartyViewModel" />
 
     </data>
+
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,6 +26,7 @@
             android:padding="16dp"
             tools:background="@drawable/bg_app_theme">
 
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_mid"
                 android:layout_width="wrap_content"
@@ -29,17 +34,70 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
 
+            <TextView
+                android:id="@+id/tv_title_cover_image"
+
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="8dp"
+                android:text="@string/cover_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageButton
+                android:id="@+id/btn_add_cover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_ripple"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_cover_image"
+                app:layout_constraintStart_toEndOf="@id/tv_title_cover_image"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_cover_image"
+                app:srcCompat="@drawable/ic_24px_add03" />
+
+            <ImageButton
+                android:id="@+id/btn_renew_cover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:elevation="4dp"
+                android:visibility="invisible"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/iv_cover"
+                app:layout_constraintTop_toTopOf="@+id/iv_cover"
+                app:srcCompat="@drawable/ic_autorenew_36dp" />
+
+            <ImageView
+                android:id="@+id/iv_cover"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cover1"
+                app:layout_constraintDimensionRatio="1:0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_cover_image"
+                app:shapeAppearanceOverlay="@style/bottomCorner" />
+            <TextView
+                android:id="@+id/tv_title_info"
+
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="24dp"
+                android:text="@string/basic_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_cover" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
+                android:layout_marginTop="8dp"
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_info">
 
                 <EditText
                     android:id="@+id/et_title"
@@ -54,7 +112,7 @@
                 android:id="@+id/tl_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxCollapsedPaddingTop="2dp"
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
@@ -71,12 +129,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-           <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_location"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 app:boxCollapsedPaddingTop="2dp"
-                android:layout_marginTop="16dp"
 
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
@@ -87,8 +145,8 @@
                 <EditText
                     android:id="@+id/et_location"
                     style="@style/EdittextUser"
-                    android:hint="@string/location"
                     android:focusable="false"
+                    android:hint="@string/location"
 
                     android:inputType="text"
                     android:text="@={ viewModel.location }" />
@@ -99,7 +157,7 @@
                 android:id="@+id/tl_require_player_qty"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:boxCollapsedPaddingTop="2dp"
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
@@ -117,37 +175,28 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tl_note"
+            <EditText
+                android:id="@+id/et_notes"
+                android:minLines="3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/purple_dark_782be9"
-                app:boxStrokeWidth="0.7dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tl_require_player_qty">
-
-                <EditText
-                    android:id="@+id/et_note"
-                    style="@style/EdittextUser"
-                    android:hint="@string/note"
-                    android:inputType="text"
-
-                    android:text="@={ viewModel.note }" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/note"
+                android:layout_marginTop="24dp"
+                android:inputType="textMultiLine"
+                android:background="@color/gray_bg_eaeaea"
+                android:text="@={ viewModel.note }"
+                app:layout_constraintEnd_toEndOf="@+id/tl_require_player_qty"
+                app:layout_constraintStart_toStartOf="@+id/tl_require_player_qty"
+                app:layout_constraintTop_toBottomOf="@+id/tl_require_player_qty" />
 
             <TextView
-                android:layout_marginTop="8dp"
-
                 android:id="@+id/tv_title_game_list"
-                app:layout_constraintStart_toStartOf="parent"
+
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="24dp"
                 android:text="@string/play_list"
-                app:layout_constraintTop_toBottomOf="@id/tl_note"
-                style="@style/titleStyleWhite2"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_notes" />
 
             <androidx.recyclerview.widget.RecyclerView
 
@@ -162,6 +211,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_title_game_list"
                 tools:itemCount="5"
+                android:layout_marginTop="1dp"
 
                 tools:listitem="@layout/item_game_add" />
 
@@ -170,9 +220,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="16dp"
-                app:boxCollapsedPaddingTop="2dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/gray_bg_eaeaea"
+                app:boxCollapsedPaddingTop="2dp"
                 app:boxStrokeColor="@color/purple_dark_782be9"
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,14 +240,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <ImageButton
                 android:id="@+id/btn_add"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_card_item"
                 android:backgroundTint="@color/gray_bg_eaeaea"
-                android:scaleType="centerCrop"
                 android:onClick="@{()->viewModel.addGame()}"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@id/tl_add_game"
                 app:layout_constraintEnd_toEndOf="@+id/tl_add_game"
                 app:layout_constraintTop_toTopOf="@id/tl_add_game"
@@ -205,21 +256,40 @@
 
 
 
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btn_56dp"
-                android:layout_marginTop="50dp"
-                android:letterSpacing="0.25"
-                android:textColor="@color/white_text_fffcff"
+                android:enabled="@{viewModel.status != LoadApiStatus.LOADING }"
+
+                android:layout_marginTop="40dp"
                 android:background="@drawable/bg_btn_purple"
+                android:letterSpacing="0.25"
                 android:onClick="@{ ()-> viewModel.createParty()}"
                 android:text="@string/create"
+                android:textColor="@color/white_text_fffcff"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tl_add_game" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_loading"
+                android:layout_width="0dp"
+                android:layout_height="500dp"
+                android:layout_centerInParent="true"
+                android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/btn_create"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:elevation="50dp"
+                app:lottie_rawRes="@raw/anim_loading" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

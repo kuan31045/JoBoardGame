@@ -25,6 +25,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
 
+android:visibility="gone"
 
                 android:drawableRight="@drawable/ic_baseline_local_fire_department_24"
                 android:text="@string/hots"
@@ -40,6 +41,7 @@
                 android:layout_marginEnd="16dp"
                 android:drawableRight="@drawable/ic_rank_24dp"
                 android:text="@string/bgg_rank"
+                android:visibility="gone"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"

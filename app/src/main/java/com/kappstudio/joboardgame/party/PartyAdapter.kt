@@ -15,35 +15,36 @@ import com.kappstudio.joboardgame.databinding.ItemPartyBinding
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import com.kappstudio.joboardgame.util.setBlurView
 
-class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
+class PartyAdapter(private val viewModel: ViewModel) :
+    ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
-   inner class PartyViewHolder(private var binding: ItemPartyBinding) :
+    inner class PartyViewHolder(private var binding: ItemPartyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(party: Party) {
 
             binding.apply {
+                bindImage(ivCover, party.cover)
                 bindImage(ivHost, party.host.image)
                 tvTitle.text = party.title
                 tvLocation.text = party.location
                 tvTime.text = party.partyTime.toString()
                 tvHost.text = party.host.name
-                tvGame.text=""
-                bindTextViewDate(tvTime,party.partyTime)
+                tvGame.text = ""
+                bindTextViewDate(tvTime, party.partyTime)
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
                 party.gameList.forEach {
                     tvGame.text = "${tvGame.text}${it.name}, "
                 }
-                if (UserManager.user["id"] in party.playerIdList){
+                if (UserManager.user["id"] in party.playerIdList) {
                     tvAlreadyJoin.visibility = View.VISIBLE
-                }else{
+                } else {
                     tvAlreadyJoin.visibility = View.GONE
                 }
 
                 clParty.setOnClickListener {
-                    when(viewModel){
-                        is NavToPartyDetailInterface->viewModel.navToPartyDetail(party.id)
-
+                    when (viewModel) {
+                        is NavToPartyDetailInterface -> viewModel.navToPartyDetail(party.id)
                     }
                 }
 
@@ -73,6 +74,6 @@ class PartyAdapter(private val viewModel: ViewModel) : ListAdapter<Party, PartyA
     }
 
     override fun onBindViewHolder(holder: PartyViewHolder, position: Int) {
-        holder.bind(getItem(position) )
+        holder.bind(getItem(position))
     }
 }
