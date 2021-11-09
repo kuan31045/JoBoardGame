@@ -3,7 +3,6 @@ package com.kappstudio.joboardgame.party
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.map.NavToMapInterface
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
 

@@ -19,7 +19,7 @@ fun statusBarUtil(activity: AppCompatActivity, isTransparent: Boolean) {
     } else {
         (activity).apply {
             // 退出沉浸式佈局
-            window.statusBarColor= appInstance.getColor(R.color.white_bg_f3f1f5)
+            window.statusBarColor= appInstance.getColor(R.color.white )
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
     }

@@ -1,34 +1,64 @@
 package com.kappstudio.joboardgame.map
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.Marker
+import com.kappstudio.joboardgame.bindImage
+import com.kappstudio.joboardgame.bindTextViewDate
+import com.kappstudio.joboardgame.databinding.InfoWindowBinding
+import com.kappstudio.joboardgame.party.PartyViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import tech.gujin.toast.ToastUtil
+import timber.log.Timber
+import java.text.SimpleDateFormat
 
-class MyInfoWindowAdapter() : GoogleMap.InfoWindowAdapter {
+class MyInfoWindowAdapter(private val context: Context, private val viewModel: PartyViewModel) :
+    GoogleMap.InfoWindowAdapter {
 
-    //指定自定義資訊視窗，顯示佈局的樣式
-    var mWindow: View = (context as Activity).layoutInflater.inflate(R.layout.info_window, null)
+    private fun render(marker: Marker, binding: InfoWindowBinding) {
+        val party = viewModel.parties.value?.filter {
+            it.id == marker.snippet
+        }?.get(0)
 
-    private fun render(marker: Marker, view: View) {
 
-        val tvName = view.findViewById<TextView>(R.id.tv_name)
-        val tvAdultAmount = view.findViewById<TextView>(R.id.tv_adult_amount)
-        val tvChildAmount = view.findViewById<TextView>(R.id.tv_child_amount)
+        if (party != null) {
+            binding.apply {
 
-        //透過 marker.snippet 傳遞口罩數量，將資料拆解後，指定到對應的 UI 欄位上顯示
-        val mask = marker.snippet.toString().split(",")
 
-        //藥局名稱
-        tvName.text = marker.title
+                tvTitle.text = party.title
+                tvLocation.text = party.location.address
+                bindTextViewDate(tvTime, party.partyTime)
+                tvPeople.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
 
-        //成人口罩數量
-        tvAdultAmount.text = mask[0]
 
-        //小孩口罩數量
-        tvChildAmount.text = mask[1]
+                party.gameList.forEach {
+                    tvGame.text = "${tvGame.text}${it.name}"
+
+                    if (it != party.gameList.last()) {
+                        tvGame.text = "${tvGame.text}, "
+
+                    }
+                }
+
+
+            }
+
+        }
+
+
     }
 
     override fun getInfoContents(marker: Marker): View {
-        render(marker, mWindow)
-        return mWindow
+        val layoutInflater = LayoutInflater.from(context)
+        val binding = InfoWindowBinding.inflate(layoutInflater)
+
+        render(marker, binding)
+
+        return binding.root
     }
 
     override fun getInfoWindow(marker: Marker): View? {

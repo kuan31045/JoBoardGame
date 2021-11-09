@@ -1,21 +1,17 @@
 package com.kappstudio.joboardgame.map
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.location.LocationManager
 import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.dylanc.activityresult.launcher.EnableLocationLauncher
-import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -27,22 +23,16 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.data.Party
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 
-class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
-    GoogleMap.OnMapClickListener {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     lateinit var partyViewModel: PartyViewModel
     lateinit var binding: FragmentMapBinding
@@ -73,7 +63,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         enableLocationLauncher = EnableLocationLauncher(this)
 
 
-        mLocationProviderClient = LocationServices.getFusedLocationProviderClient(appInstance)
+        mLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(context ?: appInstance)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -113,20 +104,22 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private fun checkGPS() {
 
         val locationManager =
-            appInstance.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertDialog.Builder(appInstance)
-                .setTitle("GPS尚未開啟")
-                .setMessage("使用定位功能需要開啟GPS")
-                .setPositiveButton("前往開啟") { _, _ ->
-                    enableLocationLauncher.launch { enabled ->
-                        if (enabled) {
-                            checkGPS()
+            context?.let {
+                AlertDialog.Builder(it)
+                    .setTitle("GPS尚未開啟")
+                    .setMessage("使用定位功能需要開啟GPS")
+                    .setPositiveButton("前往開啟") { _, _ ->
+                        enableLocationLauncher.launch { enabled ->
+                            if (enabled) {
+                                checkGPS()
+                            }
                         }
                     }
-                }
-                .setNegativeButton("取消", null)
-                .show()
+                    .setNegativeButton("取消", null)
+                    .show()
+            }
         } else {
             getNowLocation()
         }
@@ -176,7 +169,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                                     )
                                 )
 
-
                             }
                         }
                     },
@@ -195,89 +187,79 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onMapReady(googleMap: GoogleMap) {
         //鏡頭移到點擊的藥局
         mMap = googleMap
-        addPartiesMark()
 
+        val selectedPartyId: String? = MapFragmentArgs.fromBundle(requireArguments()).partyId
+        if (selectedPartyId == null) {
+            addPartiesMark()
 
-        val defaultLocation = LatLng(
-            25.0426166, //緯度
-            121.5651808  //經度
-        )
+            moveToLocation(
+                LatLng(
+                    25.0426166, //緯度
+                    121.5651808  //經度
+                )
+            )
 
+        } else {
+            val party = partyViewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
+            if (party != null) {
+                addMark(party)
+                moveToLocation(
+                    LatLng(
+                        party.location.lat, //緯度
+                        party.location.lng  //經度
+                    )
+                )
+            }
+        }
 
-        mMap.setOnMarkerClickListener(this)
-        mMap.setOnMapClickListener(this)
+        mMap.setInfoWindowAdapter(context?.let { MyInfoWindowAdapter(it, partyViewModel) })
+        mMap.setOnInfoWindowClickListener(this)
 
+    }
 
+    private fun moveToLocation(latLng: LatLng) {
         mMap.moveCamera(
             CameraUpdateFactory.newLatLngZoom(
-                defaultLocation, 15f
+                latLng, 15f
             )
         )
-
-        mMap?.setInfoWindowAdapter(MyInfoWindowAdapter(appInstance))
-
-
-        // setInfoLayout()
-        //  moveToPharmacy()
-
     }
 
     private fun addPartiesMark() {
-        val formatter = SimpleDateFormat("yyyy年MM月dd日 hh:mm")
 
+        partyViewModel.parties.value?.forEach { party ->
+            addMark(party)
+        }
+
+    }
+
+    private fun addMark(party: Party) {
         GlobalScope.launch {
-            partyViewModel.parties.value?.let {
-                partyViewModel.parties.value?.forEach {
-                    val partyLocation = LatLng(
-                        it.location.lat, //緯度
-                        it.location.lng  //經度
-                    )
 
-                    activity?.runOnUiThread {
-                        mMap?.addMarker(
-                            MarkerOptions()
-                                .position(partyLocation)
-                                .title(it.title)
-
-                                .snippet("聚會時間: ${formatter.format(it.partyTime)}")
-
-
-                        ).apply {
-                            showInfoWindow()
-
-
-                        }
-                    }
+            val partyLocation = LatLng(
+                party.location.lat, //緯度
+                party.location.lng  //經度
+            )
+            activity?.runOnUiThread {
+                mMap?.addMarker(
+                    MarkerOptions()
+                        .position(partyLocation)
+                        .title(party.title)
+                        .snippet(party.id)
+                ).apply {
+                    showInfoWindow()
                 }
-
             }
-
         }
     }
 
-
-    override fun onMarkerClick(marker: Marker): Boolean {
-//        marker?.title?.let { title ->
-//            val filterData = pharmacyInfo?.features?.filter {
-//                it.property.name == (title) &&
-//                        it.geometry.coordinates[1] == marker?.position.latitude
-//                        &&
-//                        it.geometry.coordinates[0] == marker?.position.longitude
-//            }
-//            if (filterData?.size!! > 0) {
-//                selectData = filterData.first()
-//                setInfoLayout()
-//            } else {
-//                Log.d(TAG, "查無資料")
-//            }
-//
-//        }
-        return false
-
-    }
-
-    override fun onMapClick(p0: LatLng) {
-        Timber.d("onMapClick")
+    override fun onInfoWindowClick(p0: Marker) {
+        ToastUtil.show("click")
+        findNavController().navigate(
+            MapFragmentDirections.navToPartyDetailFragment(
+                p0.snippet
+            )
+        )
     }
 
 

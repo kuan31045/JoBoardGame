@@ -25,7 +25,7 @@ class PartyDetailFragment : Fragment() {
     val viewModel: PartyDetailViewModel by viewModels {
         VMFactory {
             PartyDetailViewModel(
-                PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId,
+                PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId
             )
         }
     }
@@ -92,7 +92,12 @@ class PartyDetailFragment : Fragment() {
                 viewModel.onNavToAlbum()
             }
         })
-
+        viewModel.navToMap.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(it))
+                viewModel.onNavToMap()
+            }
+        })
         return binding.root
     }
 

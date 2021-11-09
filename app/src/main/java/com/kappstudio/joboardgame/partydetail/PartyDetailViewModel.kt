@@ -41,6 +41,10 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val navToAlbum: LiveData<List<String>?>
         get() = _navToAlbum
 
+    private val _navToMap = MutableLiveData<String?>()
+    val navToMap: LiveData<String?>
+        get() = _navToMap
+
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
 
         it?.playerIdList?.contains(UserManager.user["id"])
@@ -154,5 +158,13 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
 
     override fun onNavToAlbum() {
         _navToAlbum.value = null
+    }
+
+    fun navToMap() {
+        _navToMap.value = partyId
+    }
+
+    fun onNavToMap() {
+        _navToMap.value = null
     }
 }

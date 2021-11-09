@@ -2,12 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
+        <import type="android.view.View" />
 
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.tools.timer.TimerViewModel" />
 
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,6 +37,7 @@
             android:fontFamily="@font/noto_sans"
             android:letterSpacing="0.15"
             android:text="60s"
+
             app:layout_constraintEnd_toStartOf="@+id/btn_90s"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_30s"
@@ -46,6 +50,7 @@
             android:fontFamily="@font/noto_sans"
             android:letterSpacing="0.15"
             android:text="90s"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_60s"
@@ -59,9 +64,10 @@
             app:cpb_background_progressbar_color="#b6bbd8"
             app:cpb_background_progressbar_width="5dp"
 
-            app:cpb_progress="30"
+            app:cProgress="@{viewModel.progress}"
+
+
             app:cpb_progress_direction="to_right"
-            app:cpb_progress_max="30"
             app:cpb_progressbar_color="@color/purple_light_9148F9"
             app:cpb_progressbar_width="10dp"
             app:cpb_round_border="false"
@@ -77,7 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
-            android:text="30"
+            android:text="@{String.valueOf(viewModel.sec)}"
+
             android:textColor="@color/purple_dark_782be9"
             android:textSize="50sp"
             app:layout_constraintBottom_toBottomOf="@id/cpb_timer"
@@ -90,19 +97,20 @@
             android:id="@+id/btn_start"
 
             style="@style/toolsBtn"
-
             android:textColor="@color/white_text_fffcff"
 android:backgroundTint="@color/purple_light_9148F9"
             android:layout_marginBottom="120dp"
             android:text="@string/start"
+            android:visibility="@{viewModel.isTiming() ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_pause"
-android:visibility="gone"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
             style="@style/toolsBtn"
+
             android:layout_marginEnd="8dp"
             android:text="@string/pause"
             app:layout_constraintEnd_toStartOf="@+id/btn_stop"
@@ -112,7 +120,7 @@ android:visibility="gone"
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_stop"
-            android:visibility="gone"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
 
             style="@style/toolsBtn"
             android:layout_marginStart="8dp"

@@ -15,7 +15,6 @@
         android:focusable="true"
         android:padding="16dp"
         android:layout_marginBottom="2dp"
-        android:background="@color/white_bg_f3f1f5"
 
         android:foreground="@drawable/bg_ripple"
      >

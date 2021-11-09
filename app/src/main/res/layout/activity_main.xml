@@ -106,40 +106,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_star"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="-160dp"
-            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.MY_PARTY ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/anim_starfall" />
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_star2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="340dp"
-            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.MY_PARTY ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/anim_starfall" />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="0dp"
             android:layout_height="@dimen/design_bottom_navigation_height"
             app:itemIconSize="25dp"
-            android:background="@color/white_bg_f3f1f5"
+            android:background="@color/white"
             android:elevation="@dimen/elevation_4dp"
             app:labelVisibilityMode="labeled"
 

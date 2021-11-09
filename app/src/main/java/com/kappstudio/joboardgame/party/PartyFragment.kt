@@ -27,7 +27,7 @@ class PartyFragment : Fragment() {
         }
 
         binding.btnToMap.setOnClickListener {
-            findNavController().navigate(PartyFragmentDirections.navToMapFragment())
+            findNavController().navigate(PartyFragmentDirections.navToMapFragment(null))
         }
 
         viewModel.parties.observe(viewLifecycleOwner, {

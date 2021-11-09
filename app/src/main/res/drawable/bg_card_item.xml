@@ -5,7 +5,7 @@ android:color="@color/purple_light_9148F9">
 <item android:id="@android:id/background" >
     <shape>
         <corners android:radius="5dp" />
-        <solid android:color="@color/white" />
+        <solid android:color="@color/white_bg_f3f1f5" />
 
         <solid  android:background="?android:selectableItemBackground"/>
 

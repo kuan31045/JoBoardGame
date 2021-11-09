@@ -130,7 +130,13 @@
         android:id="@+id/mapFragment"
         android:name="com.kappstudio.joboardgame.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="partyId"
+            app:argType="string"
+            app:nullable="true"  />
+    </fragment>
+
 
     <dialog
         android:id="@+id/userDialog"
@@ -167,6 +173,8 @@
         android:id="@+id/nav_to_my_party_fragment"
         app:destination="@id/myPartyFragment" />
     <action
+        app:popUpTo="@id/partyDetailFragment"
+        app:popUpToInclusive="true"
         android:id="@+id/nav_to_party_detail_fragment"
         app:destination="@id/partyDetailFragment" />
 

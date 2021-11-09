@@ -34,7 +34,12 @@ class PartyAdapter(private val viewModel: ViewModel) :
                 bindTextViewDate(tvTime, party.partyTime)
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
                 party.gameList.forEach {
-                    tvGame.text = "${tvGame.text}${it.name}, "
+                    tvGame.text = "${tvGame.text}${it.name}"
+
+                    if (it!=party.gameList.last()){
+                        tvGame.text = "${tvGame.text}, "
+
+                    }
                 }
                 if (UserManager.user["id"] in party.playerIdList) {
                     tvAlreadyJoin.visibility = View.VISIBLE

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kappstudio.joboardgame.album.AlbumAdapter
 import com.kappstudio.joboardgame.party.PhotoAdapter
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,11 +28,15 @@ fun bindTextViewGameTypes(tv: TextView, gameTypes: List<String>) {
 @BindingAdapter("date")
 fun bindTextViewDate(tv: TextView, time: Long) {
     val formatter = SimpleDateFormat("yyyy年MM月dd日 hh:mm")
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = time
-    tv.text = formatter.format(calendar.time)
+    tv.text = formatter.format(time)
 
 }
+
+@BindingAdapter("cProgress")
+fun bindCircularProgressBar(cp: CircularProgressBar, cProgress: Float) {
+    cp.progress=cProgress
+}
+
 
 @BindingAdapter("imgUrl")
 fun bindImage(iv: ImageView, imgUrl: String?) {

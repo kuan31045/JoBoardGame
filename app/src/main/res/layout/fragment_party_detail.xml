@@ -6,6 +6,7 @@
     <data>
 
         <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
+
         <import type="android.view.View" />
 
         <variable
@@ -35,11 +36,11 @@
 
                 <ImageView
                     android:id="@+id/iv_cover"
-                    app:imgUrl="@{viewModel.party.cover}"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/cover1"
+                    app:imgUrl="@{viewModel.party.cover}"
                     app:layout_constraintDimensionRatio="1:0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +62,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="500dp"
-                    app:cardBackgroundColor="#f3f1f5"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -76,12 +77,11 @@
                 </androidx.cardview.widget.CardView>
 
 
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_cover">
@@ -95,16 +95,17 @@
                         <TextView
                             android:id="@+id/tv_title"
                             style="@style/titleStyleWhite"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@{viewModel.party.title}"
 
+                            app:layout_constraintEnd_toStartOf="@+id/btn_join"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:text="礦坑團" />
+                            tools:text="礦坑團礦坑團礦坑團礦坑團礦坑團礦坑團礦坑團礦坑團礦坑團" />
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btn_join"
@@ -156,22 +157,22 @@
                         <TextView
                             android:id="@id/tv_host"
                             style="@style/textStyle1"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:textStyle="bold"
-                            android:onClick="@{()->viewModel.navToUser(viewModel.party.hostId)}"
-                            android:background="@drawable/bg_ripple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
+                            android:background="@drawable/bg_ripple"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="@{()->viewModel.navToUser(viewModel.party.hostId)}"
                             android:text="@{viewModel.party.host.name}"
+                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
                             app:layout_constraintStart_toEndOf="@id/tv_title_host"
                             app:layout_constraintTop_toTopOf="@+id/tv_title_host"
                             tools:text="AKuan" />
 
                         <TextView
-                            android:id="@id/tv_title_location"
+                            android:id="@+id/tv_title_location"
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="12dp"
@@ -188,23 +189,27 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="16dp"
+                            android:background="@drawable/bg_ripple"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="@{()->viewModel.navToMap()}"
                             android:text="@{viewModel.party.location.address}"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_title_location"
+                            android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tv_title_location"
                             app:layout_constraintTop_toTopOf="@id/tv_title_location"
-                            tools:text="台北市-基隆路一段178號" />
+                            tools:text="台北市-基隆路一段1北市-基隆路一段1北市-基隆路一段1北市-基隆路一段178號" />
 
                         <TextView
                             android:id="@id/tv_title_time"
                             style="@style/titleStyle2"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
                             android:drawableLeft="@drawable/ic_date_24dp"
                             android:drawablePadding="6dp"
                             android:text="@string/time_"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_title_location" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
                         <TextView
                             android:id="@id/tv_time"
@@ -272,13 +277,14 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_games"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:minHeight="220dp"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_info">
@@ -320,14 +326,12 @@
                 </androidx.cardview.widget.CardView>
 
 
-
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_players"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_games">
@@ -377,7 +381,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:minHeight="2dp"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cv_players">
@@ -398,36 +402,36 @@
 
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
                         <ImageButton
                             android:id="@+id/btn_add_photo"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/bg_ripple"
-                            android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
-
                             android:scaleType="centerCrop"
+
+                            android:visibility="@{ viewModel.isJoin()?View.VISIBLE:View.GONE }"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title_photos"
                             app:layout_constraintStart_toEndOf="@id/tv_title_photos"
                             app:layout_constraintTop_toTopOf="@+id/tv_title_photos"
                             app:srcCompat="@drawable/ic_24px_add03" />
 
                         <TextView
+                            style="@style/fontSpaceColor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray_text_424244"
-                            android:text="@string/see_all"
                             android:layout_marginEnd="8dp"
-                            android:clickable="true"
-                            style="@style/fontSpaceColor"
-                            android:visibility="@{viewModel.party.photos.empty ? View.GONE : View.VISIBLE }"
-                            android:textSize="15sp"
-                            android:onClick="@{()->viewModel.navToAlbum(viewModel.party.photos)}"
-                            android:textStyle="bold"
-                            android:focusable="true"
                             android:background="@drawable/bg_ripple"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="@{()->viewModel.navToAlbum(viewModel.party.photos)}"
+                            android:text="@string/see_all"
+                            android:textColor="@color/gray_text_424244"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:visibility="@{viewModel.party.photos.empty ? View.GONE : View.VISIBLE }"
                             app:layout_constraintBottom_toBottomOf="@id/tv_title_photos"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            />
+                            app:layout_constraintEnd_toEndOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_photo"
@@ -438,12 +442,12 @@
                             android:orientation="horizontal"
                             android:paddingLeft="16dp"
                             android:paddingTop="16dp"
-                            app:photos="@{viewModel.party.photos}"
                             android:paddingBottom="16dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_title_photos"
+                            app:photos="@{viewModel.party.photos}"
                             tools:itemCount="5"
                             tools:listitem="@layout/item_photo" />
 
@@ -453,16 +457,16 @@
                             android:layout_width="0dp"
                             android:layout_height="150dp"
                             android:layout_centerInParent="true"
+                            android:elevation="50dp"
                             android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
 
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.7"
                             app:lottie_autoPlay="true"
                             app:lottie_loop="true"
-                            android:elevation="50dp"
                             app:lottie_rawRes="@raw/anim_loading" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -474,7 +478,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="120dp"
-                    app:cardBackgroundColor="@color/white_bg_f7f7f7"
+                    app:cardBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -511,7 +515,7 @@
                             <EditText
                                 android:id="@+id/et_msg"
                                 style="@style/EdittextUser"
-                                android:background="@color/white_bg_f7f7f7"
+                                android:background="@color/white"
                                 android:hint="@string/new_msg"
                                 android:inputType="textMultiLine"
                                 android:maxLines="200"

@@ -192,5 +192,20 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="grayText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_text_424244</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.06</item>
+    </style>
+
+    <style name="btnStyle">
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+        <item name="android:background">@drawable/bg_card_item</item>
+    </style>
+
 
 </resources>
