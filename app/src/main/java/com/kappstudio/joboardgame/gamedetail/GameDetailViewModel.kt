@@ -26,10 +26,6 @@ class GameDetailViewModel(
     val myRating: LiveData<Rating>
         get() = _myRating
 
-    // nav
-    private val _navToRating = MutableLiveData<Rating?>()
-    val navToRating: LiveData<Rating?>
-        get() = _navToRating
 
     val avgRating = MutableLiveData<Float>(0f)
 
@@ -88,13 +84,6 @@ class GameDetailViewModel(
         }
     }
 
-    override fun navToRating(rating: Rating) {
-        _navToRating.value = rating
-    }
-
-    override fun onNavToRating() {
-        _navToRating.value = null
-    }
 
     fun calAvgRating() {
         val avg =  (game.value?.totalRating?.toFloat()?.div(game.value?.ratingQty?:0))

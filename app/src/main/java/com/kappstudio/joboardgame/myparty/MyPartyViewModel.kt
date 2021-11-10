@@ -16,10 +16,7 @@ class MyPartyViewModel : ViewModel(), NavToPartyDetailInterface {
     val parties: LiveData<List<Party>>
         get() = _parties
 
-    // nav
-    private val _navToPartyDetail = MutableLiveData<String?>()
-    val navToPartyDetail: LiveData<String?>
-        get() = _navToPartyDetail
+
 
     init {
     }
@@ -28,13 +25,5 @@ class MyPartyViewModel : ViewModel(), NavToPartyDetailInterface {
         viewModelScope.launch {
             _parties.value = FirebaseService.getUserParties(UserManager.user["id"]?:"")
         }
-    }
-
-    override fun navToPartyDetail(partyId: String) {
-        _navToPartyDetail.value = partyId
-    }
-
-    override fun onNavToPartyDetail() {
-        _navToPartyDetail.value = null
     }
 }

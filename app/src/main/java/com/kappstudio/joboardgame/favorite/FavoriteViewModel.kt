@@ -11,36 +11,18 @@ import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 
-class FavoriteViewModel:ViewModel(), NavToGameDetailInterface {
+class FavoriteViewModel : ViewModel(), NavToGameDetailInterface {
 
     private var _games = FirebaseService.getLiveFavorites()
     val games: LiveData<List<Game>>
         get() = _games
 
-    // nav
-    private val _navToGameDetail = MutableLiveData<String?>()
-    val navToGameDetail: LiveData<String?>
-        get() = _navToGameDetail
 
-    override fun navToGameDetail(gameId: String) {
-        if (gameId != "notFound") {
-            _navToGameDetail.value = gameId
-        } else {
-            ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
-        }
-    }
-
-
-    override fun onNavToGameDetail() {
-        _navToGameDetail.value = null
-    }
-
-    fun removeFavorite(game: Game){
+    fun removeFavorite(game: Game) {
         viewModelScope.launch {
             FirebaseService.removeFavorite(toGameMap(game))
         }
     }
-
 
 
 }

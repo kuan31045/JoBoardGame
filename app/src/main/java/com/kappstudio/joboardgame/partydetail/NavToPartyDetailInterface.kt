@@ -1,6 +1,21 @@
 package com.kappstudio.joboardgame.partydetail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
 interface NavToPartyDetailInterface {
-    fun navToPartyDetail(partyId: String)
-    fun onNavToPartyDetail()
+    companion object {
+        private val _navToPartyDetail = MutableLiveData<String?>()
+    }
+
+    val navToPartyDetail: LiveData<String?>
+        get() = _navToPartyDetail
+
+    fun navToPartyDetail(partyId: String) {
+        _navToPartyDetail.value = partyId
+    }
+
+    fun onNavToPartyDetail() {
+        _navToPartyDetail.value = null
+    }
 }

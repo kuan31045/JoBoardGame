@@ -51,6 +51,13 @@ class PartyDetailFragment : Fragment() {
         binding.btnAddPhoto.setOnClickListener {
             pickImage()
         }
+
+binding.tvLocation.setOnClickListener {
+    findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id))
+
+} 
+
+
         viewModel.party.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it?.playerList)
@@ -60,7 +67,6 @@ class PartyDetailFragment : Fragment() {
             }
 
         })
-
         viewModel.partyMsgs.observe(viewLifecycleOwner, {
             binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {
                 submitList(it.sortedByDescending { it.createdTime })
@@ -90,12 +96,6 @@ class PartyDetailFragment : Fragment() {
             it?.let {
                 findNavController().navigate(PartyDetailFragmentDirections.navToAlbumFragment(it.toTypedArray()))
                 viewModel.onNavToAlbum()
-            }
-        })
-        viewModel.navToMap.observe(viewLifecycleOwner, {
-            it?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(it))
-                viewModel.onNavToMap()
             }
         })
         return binding.root

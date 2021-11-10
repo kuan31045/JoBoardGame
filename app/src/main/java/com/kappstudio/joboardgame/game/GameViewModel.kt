@@ -16,10 +16,6 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     val games: LiveData<List<Game>>
         get() = _games
 
-    // nav
-    private val _navToGameDetail = MutableLiveData<String?>()
-    val navToGameDetail: LiveData<String?>
-        get() = _navToGameDetail
 
     init {
         getGame()
@@ -31,18 +27,7 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
         }
     }
 
-    override fun navToGameDetail(gameId: String) {
-        if (gameId != "notFound") {
-            _navToGameDetail.value = gameId
-        } else {
-            ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
-        }
-    }
 
-
-    override fun onNavToGameDetail() {
-        _navToGameDetail.value = null
-    }
 
 
 

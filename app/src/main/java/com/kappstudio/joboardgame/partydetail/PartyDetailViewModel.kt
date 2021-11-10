@@ -9,14 +9,14 @@ import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
-import com.kappstudio.joboardgame.album.NavToAlbumInterFace
+import com.kappstudio.joboardgame.album.NavToAlbumInterface
 import com.kappstudio.joboardgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
-    NavToUserInterface, NavToAlbumInterFace {
+    NavToUserInterface, NavToAlbumInterface {
 
 
     private var _party: MutableLiveData<Party> = FirebaseService.getLivePartyById(partyId)
@@ -28,22 +28,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val partyMsgs: LiveData<List<PartyMsg>>
         get() = _partyMsgs
 
-    // nav
-    private val _navToGameDetail = MutableLiveData<String?>()
-    val navToGameDetail: LiveData<String?>
-        get() = _navToGameDetail
-
-    private val _navToUser = MutableLiveData<String?>()
-    val navToUser: LiveData<String?>
-        get() = _navToUser
-
-    private val _navToAlbum = MutableLiveData<List<String>?>()
-    val navToAlbum: LiveData<List<String>?>
-        get() = _navToAlbum
-
-    private val _navToMap = MutableLiveData<String?>()
-    val navToMap: LiveData<String?>
-        get() = _navToMap
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
 
@@ -132,39 +116,5 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         }
     }
 
-    override fun navToGameDetail(gameId: String) {
-        if (gameId != "notFound") {
-            _navToGameDetail.value = gameId
-        } else {
-            ToastUtil.show("資料庫內找不到這款遊戲，麻煩您自行去Google")
-        }
-    }
 
-    override fun onNavToGameDetail() {
-        _navToGameDetail.value = null
-    }
-
-    override fun navToUser(userId: String) {
-        _navToUser.value = userId
-    }
-
-    override fun onNavToUser() {
-        _navToUser.value = null
-    }
-
-    override fun navToAlbum(photo: List<String>) {
-        _navToAlbum.value = photo
-    }
-
-    override fun onNavToAlbum() {
-        _navToAlbum.value = null
-    }
-
-    fun navToMap() {
-        _navToMap.value = partyId
-    }
-
-    fun onNavToMap() {
-        _navToMap.value = null
-    }
 }
