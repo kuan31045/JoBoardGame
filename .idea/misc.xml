@@ -56,7 +56,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_favorite.xml" value="0.16066606660666066" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game.xml" value="0.2" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.1" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_map.xml" value="0.2509057971014493" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_map.xml" value="0.16" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_rating.xml" value="0.2671296296296296" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_new_party.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_party.xml" value="0.67" />
@@ -82,6 +82,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_alumb.xml" value="0.2821557971014493" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_user.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3861111111111111" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935185185185185" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_app_page.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_app_theme.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoTabletopGame/app/src/main/res/drawable/bg_btn_add.xml" value="0.39717925386715197" />

@@ -19,11 +19,8 @@ class PartyFragment : Fragment() {
         val binding = FragmentPartyBinding.inflate(inflater)
         val viewModel: PartyViewModel by viewModels()
 
-
-
         binding.btnNewParty.setOnClickListener {
             findNavController().navigate(PartyFragmentDirections.navToNewPartyFragment())
-
         }
 
         binding.btnToMap.setOnClickListener {

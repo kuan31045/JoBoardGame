@@ -29,7 +29,7 @@ class GameFragment : Fragment() {
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(GameFragmentDirections.navToGameDetailFragment(it))
+                findNavController().navigate(GameFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
         })

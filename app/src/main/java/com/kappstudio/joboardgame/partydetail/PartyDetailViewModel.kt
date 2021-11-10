@@ -9,14 +9,13 @@ import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
-import com.kappstudio.joboardgame.album.NavToAlbumInterface
 import com.kappstudio.joboardgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
-    NavToUserInterface, NavToAlbumInterface {
+    NavToUserInterface  {
 
 
     private var _party: MutableLiveData<Party> = FirebaseService.getLivePartyById(partyId)
@@ -27,7 +26,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         FirebaseService.getLivePartyMsgs(partyId)
     val partyMsgs: LiveData<List<PartyMsg>>
         get() = _partyMsgs
-
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
 

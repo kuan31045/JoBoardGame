@@ -1,16 +1,24 @@
 package com.kappstudio.joboardgame.partydetail
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.irozon.alertview.AlertActionStyle
+import com.irozon.alertview.AlertStyle
+import com.irozon.alertview.AlertView
+import com.irozon.alertview.objects.AlertAction
+import com.kappstudio.joboardgame.R
 
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.appInstance
@@ -20,7 +28,7 @@ import com.kappstudio.joboardgame.party.PhotoAdapter
 import tech.gujin.toast.ToastUtil
 
 class PartyDetailFragment : Fragment() {
-    lateinit var binding : FragmentPartyDetailBinding
+    lateinit var binding: FragmentPartyDetailBinding
     lateinit var startActivityLauncher: StartActivityLauncher
     val viewModel: PartyDetailViewModel by viewModels {
         VMFactory {
@@ -29,6 +37,7 @@ class PartyDetailFragment : Fragment() {
             )
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,10 +61,18 @@ class PartyDetailFragment : Fragment() {
             pickImage()
         }
 
-binding.tvLocation.setOnClickListener {
-    findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id))
+        binding.tvSeeAll.setOnClickListener {
+            viewModel.party.value?.photos?.let {
+                findNavController().navigate(PartyDetailFragmentDirections.navToAlbumFragment(it.toTypedArray()))
 
-} 
+            }
+        }
+
+
+        binding.tvLocation.setOnClickListener {
+            findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id))
+
+        }
 
 
         viewModel.party.observe(viewLifecycleOwner, {
@@ -76,11 +93,30 @@ binding.tvLocation.setOnClickListener {
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(
-                    PartyDetailFragmentDirections.navToGameDetailFragment(
-                        it
+                if (it.id == "notFound") {
+
+                    val alert = AlertView(getString(R.string.no_game)+it.name, "", AlertStyle.BOTTOM_SHEET)
+                    alert.addAction(AlertAction(getString(R.string.open_browser), AlertActionStyle.POSITIVE) { _ ->
+                        // Action 1 callback
+                        val uri = Uri.parse(getString(R.string.google_search) + it.name  )
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        activity?.startActivity(intent)
+                    })
+                    alert.addAction(AlertAction(getString(R.string.cancel), AlertActionStyle.DEFAULT) { _ ->
+                        // Action 2 callback
+                    })
+
+                    alert.show(activity as AppCompatActivity)
+
+
+
+                } else {
+                    findNavController().navigate(
+                        PartyDetailFragmentDirections.navToGameDetailFragment(
+                            it.id
+                        )
                     )
-                )
+                }
                 viewModel.onNavToGameDetail()
             }
         })
@@ -92,12 +128,6 @@ binding.tvLocation.setOnClickListener {
             }
         })
 
-        viewModel.navToAlbum.observe(viewLifecycleOwner, {
-            it?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToAlbumFragment(it.toTypedArray()))
-                viewModel.onNavToAlbum()
-            }
-        })
         return binding.root
     }
 

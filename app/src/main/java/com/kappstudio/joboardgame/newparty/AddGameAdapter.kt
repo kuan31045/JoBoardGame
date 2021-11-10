@@ -28,7 +28,7 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
                 }
 
                 clGame.setOnClickListener {
-                    viewModel.navToGameDetail(game.id)
+                    viewModel.navToGameDetail(game)
                 }
             }
         }

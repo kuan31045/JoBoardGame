@@ -29,7 +29,7 @@ class RatingAdapter(private val viewModel: MyRatingViewModel) :
                  }
 
                 clGame.setOnClickListener {
-                    viewModel.navToGameDetail(rating.game.id)
+                    viewModel.navToGameDetail(rating.game)
                 }
 
 

@@ -34,7 +34,7 @@ fun bindTextViewDate(tv: TextView, time: Long) {
 
 @BindingAdapter("cProgress")
 fun bindCircularProgressBar(cp: CircularProgressBar, cProgress: Float) {
-    cp.progress=cProgress
+    cp.progress = cProgress
 }
 
 
@@ -57,16 +57,17 @@ fun bindImage(iv: ImageView, imgUrl: String?) {
 
 @BindingAdapter("photos")
 fun bindRecyclerViewPhotos(rv: RecyclerView, photos: List<String>?) {
-    photos?.let{
+    photos?.let {
 
 
-    rv.adapter?.apply {
-        when (this) {
-            is PhotoAdapter -> submitList(photos.sortedByDescending { it })
-            is AlbumAdapter -> submitList(photos.sortedByDescending { it })
+        rv.adapter?.apply {
+            when (this) {
+                is PhotoAdapter -> submitList(photos.sortedByDescending { it })
+                is AlbumAdapter -> submitList(photos.sortedByDescending { it })
 
+            }
         }
-    }}
+    }
 }
 
 

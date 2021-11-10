@@ -28,7 +28,7 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel) :
                 }
 
                 clGame.setOnClickListener {
-                        viewModel.navToGameDetail(game.id)
+                        viewModel.navToGameDetail(game)
                 }
 
 

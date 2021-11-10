@@ -28,7 +28,7 @@ class MyRatingFragment : Fragment() {
         })
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(MyRatingFragmentDirections.navToGameDetailFragment(it))
+                findNavController().navigate(MyRatingFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
         })

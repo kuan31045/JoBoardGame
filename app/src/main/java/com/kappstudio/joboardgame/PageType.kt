@@ -17,6 +17,7 @@ enum class PageType(val title: String) {
     MY_RATING(appInstance.getString(R.string.my_rating)),
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
+    MAP(""),
 
 
     OTHER("")

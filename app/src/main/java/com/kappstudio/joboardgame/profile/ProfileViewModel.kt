@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kappstudio.joboardgame.album.NavToAlbumInterface
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.User
@@ -13,8 +12,7 @@ import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface,
-    NavToAlbumInterface {
+class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface  {
     val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
     private var _user = MutableLiveData<User>()

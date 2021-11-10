@@ -69,6 +69,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+binding.ivBack.setOnClickListener {
+    findNavController().popBackStack()
+}
 
         binding.btnGetLocation.setOnClickListener {
             getPermission()

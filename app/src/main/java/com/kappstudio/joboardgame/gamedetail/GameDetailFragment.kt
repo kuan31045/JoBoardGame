@@ -33,11 +33,13 @@ class GameDetailFragment : Fragment() {
 
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
-
         viewModel.game.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.d("game= $it")
                 bindImage(binding.ivGame, it.image)
+
+
+
                 bindTextViewGameTypes(binding.tvType, it.type)
 
                 viewModel.addViewedGame() //加入瀏覽紀錄

@@ -47,6 +47,17 @@ class ProfileFragment : Fragment() {
             bindImage(binding.ivProfile, it.image)
         })
 
+        binding.btnMyPhotos.setOnClickListener {
+            viewModel.user.value?.photos?.let {
+                findNavController().navigate(
+                    ProfileFragmentDirections.navToAlbumFragment(
+                        it.toTypedArray()
+                    )
+                )
+            }
+
+        }
+
         binding.etUserStatus.setOnClickListener {
             val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
             builder.setTitle(getString(R.string.my_status))
@@ -55,10 +66,10 @@ class ProfileFragment : Fragment() {
             val input = EditText(context)
             // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
             input.setHint(getString(R.string.i_think))
-            input.gravity=0
+            input.gravity = 0
 
             input.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            input.minLines=3
+            input.minLines = 3
             builder.setView(input)
 
             // Set up the buttons
@@ -104,16 +115,11 @@ class ProfileFragment : Fragment() {
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navToGameDetailFragment(it))
+                findNavController().navigate(ProfileFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
         })
-        viewModel.navToAlbum.observe(viewLifecycleOwner, {
-            it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navToAlbumFragment(it.toTypedArray()))
-                viewModel.onNavToAlbum()
-            }
-        })
+
 
         return binding.root
     }

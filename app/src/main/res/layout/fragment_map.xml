@@ -7,6 +7,7 @@
     tools:context=".map.MapFragment">
 
 
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -19,6 +20,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".MapActivity" />
 
+
+    <ImageView
+        android:id="@+id/iv_back"
+        style="@style/toolbarBtn"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_back_26dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/btn_get_location"
         android:layout_width="wrap_content"

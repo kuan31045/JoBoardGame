@@ -30,7 +30,7 @@ val avg = game.totalRating / game.ratingQty.toFloat()
 
                 clGame.setOnClickListener {
                     when (viewModel) {
-                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game.id)
+                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game)
                     }
                 }
             }

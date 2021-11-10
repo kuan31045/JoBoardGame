@@ -26,7 +26,7 @@ class GameAdapter(private val viewModel: ViewModel) :
 
                 clGame.setOnClickListener {
                     when(viewModel){
-                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game.id)
+                        is NavToGameDetailInterface -> viewModel.navToGameDetail(game)
                     }
                 }
 

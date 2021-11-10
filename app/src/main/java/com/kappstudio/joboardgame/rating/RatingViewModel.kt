@@ -27,7 +27,6 @@ class RatingViewModel(private val rating: Rating) : ViewModel() {
 
     fun sendRating() {
 
-
         var newRating = NewRating(
             id = rating.id,
             gameId = rating.gameId,

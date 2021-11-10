@@ -28,7 +28,7 @@
             android:layout_marginTop="8dp"
             android:elevation="4dp"
 
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

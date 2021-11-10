@@ -2,12 +2,14 @@ package com.kappstudio.joboardgame.newparty
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
@@ -20,6 +22,10 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.irozon.alertview.AlertActionStyle
+import com.irozon.alertview.AlertStyle
+import com.irozon.alertview.AlertView
+import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
 
 import com.kappstudio.joboardgame.appInstance
@@ -57,7 +63,32 @@ class NewPartyFragment : Fragment() {
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(FavoriteFragmentDirections.navToGameDetailFragment(it))
+
+
+                if (it.id == "notFound") {
+
+
+                    val alert = AlertView(getString(R.string.no_game)+it.name, "", AlertStyle.BOTTOM_SHEET)
+                    alert.addAction(AlertAction(getString(R.string.open_browser), AlertActionStyle.POSITIVE) { _ ->
+                        // Action 1 callback
+                        val uri = Uri.parse(getString(R.string.google_search) + it.name  )
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        activity?.startActivity(intent)
+                    })
+                    alert.addAction(AlertAction(getString(R.string.cancel), AlertActionStyle.DEFAULT) { _ ->
+                        // Action 2 callback
+                    })
+
+                    alert.show(activity as AppCompatActivity)
+
+
+
+
+                } else {
+                    findNavController().navigate(
+                        FavoriteFragmentDirections.navToGameDetailFragment(it.id)
+                    )
+                }
                 viewModel.onNavToGameDetail()
             }
         })
@@ -71,7 +102,6 @@ class NewPartyFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner, {
             when (it) {
                 LoadApiStatus.DONE -> findNavController().popBackStack()
-
             }
         })
 

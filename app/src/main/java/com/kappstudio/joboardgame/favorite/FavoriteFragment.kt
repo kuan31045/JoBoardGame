@@ -30,7 +30,7 @@ class FavoriteFragment : Fragment() {
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(FavoriteFragmentDirections.navToGameDetailFragment(it))
+                findNavController().navigate(FavoriteFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
         })
