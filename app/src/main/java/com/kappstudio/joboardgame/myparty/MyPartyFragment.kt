@@ -6,12 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.joboardgame.data.UserManager
 import com.kappstudio.joboardgame.databinding.FragmentMyPartyBinding
 import com.kappstudio.joboardgame.party.PartyAdapter
+import com.kappstudio.joboardgame.party.PartyViewModel
+import timber.log.Timber
 
 class MyPartyFragment : Fragment() {
-    val viewModel: MyPartyViewModel by viewModels()
+
+    lateinit var partyViewModel: PartyViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        partyViewModel = ViewModelProvider(requireParentFragment()).get(PartyViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,26 +29,31 @@ class MyPartyFragment : Fragment() {
     ): View? {
         val binding = FragmentMyPartyBinding.inflate(inflater)
 
-        viewModel.parties.observe(viewLifecycleOwner, {
-            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
-                submitList(
-                it.sortedByDescending { it.partyTime }
-            )
+        partyViewModel.openParties.observe(viewLifecycleOwner, {
+            Timber.d("completedData $it")
+            binding.rvParty.adapter = PartyAdapter(partyViewModel, true).apply {
+                submitList(it.filter {
+                    UserManager.user["id"] in it.playerIdList
+                })
+            }
+        })
+        partyViewModel.overParties.observe(viewLifecycleOwner, {
+            Timber.d("completedData $it")
+            binding.rvOverParty.adapter = PartyAdapter(partyViewModel, false).apply {
+                submitList(it.filter {
+                    UserManager.user["id"] in it.playerIdList
+                }.sortedByDescending { it.partyTime })
             }
         })
 
-        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+        partyViewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(MyPartyFragmentDirections.navToPartyDetailFragment(it))
-                viewModel.onNavToPartyDetail()
+                partyViewModel.onNavToPartyDetail()
             }
         })
 
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getMyParties()
-    }
 }

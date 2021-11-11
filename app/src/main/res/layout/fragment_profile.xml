@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white_bg_f3f1f5"
+                    android:backgroundTint="@color/white"
 
                     android:padding="10dp">
                     <com.google.android.material.imageview.ShapeableImageView
@@ -81,11 +82,12 @@
                         android:drawableRight="@drawable/ic_edit_24dp"
                         android:id="@+id/et_user_status"
                         android:layout_width="0dp"
+                        android:backgroundTint="@color/white"
+
                         android:layout_height="0dp"
                         android:textSize="14sp"
                         android:layout_marginStart="16dp"
-                        android:background="@color/white_bg_f3f1f5"
-                        android:focusable="false"
+                         android:focusable="false"
                         android:hint="@string/user_profile_status"
                         android:inputType="textMultiLine"
                         android:maxLength="50"
@@ -188,7 +190,7 @@
                 android:id="@+id/btn_my_rating"
                 style="@style/btnProfile"
                 android:layout_width="0dp"
-                android:backgroundTint="@color/white_bg_f3f1f5"
+                android:backgroundTint="@color/white"
 
                 android:layout_height="wrap_content"
                  android:layout_marginTop="12dp"
@@ -212,7 +214,7 @@
                  android:drawableLeft="@drawable/ic_photo_album_28dp"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
-                android:backgroundTint="@color/white_bg_f3f1f5"
+                android:backgroundTint="@color/white"
 
                 android:text="@string/my_photos"
                 app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
@@ -226,7 +228,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:backgroundTint="@color/white_bg_f3f1f5"
+                android:backgroundTint="@color/white"
 
                 android:layout_marginTop="12dp"
                 android:drawableLeft="@drawable/ic_heart_28dp"
@@ -245,7 +247,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="6dp"
-                android:backgroundTint="@color/white_bg_f3f1f5"
+                android:backgroundTint="@color/white"
 
                 android:drawableTop="@drawable/ic_party_90dp"
                 android:gravity="center"
@@ -280,6 +282,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white_bg_f3f1f5"
+                    android:backgroundTint="@color/white"
 
                     android:minHeight="230dp">
 

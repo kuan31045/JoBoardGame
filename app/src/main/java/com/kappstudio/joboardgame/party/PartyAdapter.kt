@@ -14,8 +14,9 @@ import com.kappstudio.joboardgame.data.UserManager
 import com.kappstudio.joboardgame.databinding.ItemPartyBinding
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import com.kappstudio.joboardgame.util.setBlurView
+import java.util.*
 
-class PartyAdapter(private val viewModel: ViewModel) :
+class PartyAdapter(private val viewModel: ViewModel, private val isOpen: Boolean) :
     ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
     inner class PartyViewHolder(private var binding: ItemPartyBinding) :
@@ -24,6 +25,10 @@ class PartyAdapter(private val viewModel: ViewModel) :
         fun bind(party: Party) {
 
             binding.apply {
+                if (!isOpen) {
+                    tvIsOver.visibility = View.VISIBLE
+                }
+
                 bindImage(ivCover, party.cover)
                 bindImage(ivHost, party.host.image)
                 tvTitle.text = party.title
@@ -36,7 +41,7 @@ class PartyAdapter(private val viewModel: ViewModel) :
                 party.gameList.forEach {
                     tvGame.text = "${tvGame.text}${it.name}"
 
-                    if (it!=party.gameList.last()){
+                    if (it != party.gameList.last()) {
                         tvGame.text = "${tvGame.text}, "
 
                     }

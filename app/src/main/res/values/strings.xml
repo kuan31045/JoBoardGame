@@ -133,6 +133,7 @@
     <string name="no_game">資料庫查無: </string>
     <string name="open_browser">開啟瀏覽器搜尋</string>
     <string name="google_search">https://www.google.com/search?q=</string>
+    <string name="is_over">已結束</string>
 
 
 </resources>

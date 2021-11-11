@@ -2,6 +2,7 @@ package com.kappstudio.joboardgame.partydetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,11 @@ init {
    inner class PlayerViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: User, viewModel: PartyDetailViewModel) {
+        fun bind(user: User, viewModel: PartyDetailViewModel, position: Int) {
+            if(position%2==0){
+                binding.clUser.marginTop.plus(100)
+
+            }
             Timber.d("bind")
             bindImage(binding.ivUser,user.image)
             binding.tvName.text = user.name
@@ -53,6 +58,6 @@ init {
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         Timber.d("BindViewHolde")
 
-        holder.bind(getItem(position),viewModel)
+        holder.bind(getItem(position),viewModel, position)
     }
 }

@@ -60,6 +60,21 @@ class PartyDetailFragment : Fragment() {
         binding.btnAddPhoto.setOnClickListener {
             pickImage()
         }
+        binding.btnMore.setOnClickListener {
+
+            val alert = AlertView("What's up?", "", AlertStyle.BOTTOM_SHEET)
+            if (viewModel.isJoin.value==true){
+                alert.addAction(AlertAction("我要退出!", AlertActionStyle.NEGATIVE) { _ ->
+                    viewModel.leaveParty()
+                })
+            }
+
+            alert.addAction(AlertAction("I'm fine.", AlertActionStyle.DEFAULT) { _ ->
+                // Action 2 callback
+            })
+
+            alert.show(activity as AppCompatActivity)
+        }
 
         binding.tvSeeAll.setOnClickListener {
             viewModel.party.value?.photos?.let {

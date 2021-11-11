@@ -2,6 +2,7 @@ package com.kappstudio.joboardgame
 
 import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -71,3 +72,14 @@ fun bindRecyclerViewPhotos(rv: RecyclerView, photos: List<String>?) {
 }
 
 
+@BindingAdapter("rvHeight")
+fun bindRecyclerViewHeight(rv: RecyclerView, rvHeight: Int) {
+    // 高度
+    rv.layoutParams.height = rvHeight
+    // 禁滾
+    rv.layoutManager = object : LinearLayoutManager(appInstance) {
+        override fun canScrollVertically(): Boolean {
+            return false
+        }
+    }
+}

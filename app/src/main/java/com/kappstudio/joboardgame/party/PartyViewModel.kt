@@ -5,23 +5,22 @@ import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
+import java.util.*
 
 class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
 
-    private var _parties = MutableLiveData<List<Party>>()
-    val parties: LiveData<List<Party>>
+    private var _parties = FirebaseService.getLiveParties()
+    val parties : LiveData<List<Party>>
         get() = _parties
 
-    init {
-        getParties()
+
+    val openParties: LiveData<List<Party>> = Transformations.map(parties) {
+        it.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
     }
 
-    private fun getParties() {
-        viewModelScope.launch {
-            _parties  = FirebaseService.getLiveParties()
-        }
+    val overParties: LiveData<List<Party>> = Transformations.map(parties) {
+        it.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
     }
-
 
 
 }

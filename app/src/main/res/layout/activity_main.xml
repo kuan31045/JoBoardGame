@@ -49,8 +49,7 @@
                     android:backgroundTint="@color/transparent"
                     android:shadowColor="@color/transparent"
                     android:spinnerMode="dialog"
-                    android:text="@string/country"
-                    android:visibility="gone"
+                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/layout_tool_bar_right"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +98,7 @@
 
                         android:background="@drawable/bg_ripple"
                         android:padding="10dp"
-                        android:src="@drawable/ic_notifications" />
+                        android:src="@drawable/ic_bell_24dp" />
 
 
                 </LinearLayout>

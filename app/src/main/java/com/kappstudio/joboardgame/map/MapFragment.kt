@@ -56,8 +56,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater)
-        partyViewModel.parties.observe(viewLifecycleOwner, {
-            Timber.d("${partyViewModel.parties.value}")
+        partyViewModel.openParties.observe(viewLifecycleOwner, {
+            Timber.d("${partyViewModel.openParties.value}")
 
         })
         enableLocationLauncher = EnableLocationLauncher(this)
@@ -230,7 +230,7 @@ binding.ivBack.setOnClickListener {
 
     private fun addPartiesMark() {
 
-        partyViewModel.parties.value?.forEach { party ->
+        partyViewModel.openParties.value?.forEach { party ->
             addMark(party)
         }
 

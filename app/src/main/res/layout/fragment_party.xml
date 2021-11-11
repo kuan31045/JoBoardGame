@@ -22,8 +22,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:elevation="4dp"
         android:layout_marginStart="16dp"
+        android:elevation="4dp"
         android:src="@drawable/ic_search_24"
         app:layout_constraintBottom_toBottomOf="@+id/et_search"
         app:layout_constraintStart_toStartOf="@+id/et_search"
@@ -53,10 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="42dp"
-                android:background="@drawable/bg_ripple"
-                android:clickable="true"
                 android:drawablePadding="4dp"
-                android:focusable="true"
                 android:gravity="center|left"
                 android:text="@string/coming_party"
                 android:textColor="@color/black_3f3a3a"
@@ -64,42 +61,66 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
                 android:id="@+id/btn_to_map"
-                android:paddingLeft="5dp"
-                android:paddingRight="10dp"
+                style="@style/btnStyle"
+
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="-1dp"
+                android:drawableLeft="@drawable/ic_location_24dp"
                 android:drawablePadding="3dp"
-android:layout_marginTop="-6dp"
-                android:layout_marginBottom="-6dp"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingTop="20dp"
+
+                android:paddingRight="10dp"
+                android:text="@string/party_map"
                 android:textStyle="bold"
 
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:layout_height="0dp"
-
-                android:drawableLeft="@drawable/ic_location_24dp2"
-                android:text="@string/party_map"
-                 app:layout_constraintBottom_toBottomOf="@id/tv_title_coming"
-
+                app:layout_constraintBottom_toBottomOf="@id/tv_title_coming"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_title_coming"
-                style="@style/btnStyle" />
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_party"
+                android:layout_width="0dp"
+                
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_coming"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_party" />
+
+            <TextView
+                android:id="@+id/tv_title_over"
+                style="@style/titleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawablePadding="4dp"
+                android:gravity="center|left"
+                android:text="@string/is_over"
+                android:textColor="@color/gray_text_424244"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_party" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_over_party"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/paddingBottom"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_coming"
-                tools:itemCount="6"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_over"
+                tools:itemCount="1"
                 tools:listitem="@layout/item_party" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -114,7 +135,6 @@ android:layout_marginTop="-6dp"
         app:layout_constraintEnd_toEndOf="parent" />
 
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_near_party"
         style="@style/pageTopBtn"
@@ -127,8 +147,6 @@ android:layout_marginTop="-6dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

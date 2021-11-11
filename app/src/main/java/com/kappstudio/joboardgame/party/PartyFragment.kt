@@ -27,10 +27,16 @@ class PartyFragment : Fragment() {
             findNavController().navigate(PartyFragmentDirections.navToMapFragment(null))
         }
 
-        viewModel.parties.observe(viewLifecycleOwner, {
+        viewModel.openParties.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
-            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
+            binding.rvParty.adapter = PartyAdapter(viewModel,true).apply {
                 submitList(it)
+            }
+        })
+        viewModel.overParties.observe(viewLifecycleOwner, {
+            Timber.d("completedData $it")
+            binding.rvOverParty.adapter = PartyAdapter(viewModel,false).apply {
+                submitList(it.sortedByDescending { it.partyTime })
             }
         })
 
@@ -43,5 +49,4 @@ class PartyFragment : Fragment() {
 
         return binding.root
     }
-
 }
