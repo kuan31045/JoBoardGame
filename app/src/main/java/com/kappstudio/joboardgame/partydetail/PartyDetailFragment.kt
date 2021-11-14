@@ -83,7 +83,6 @@ class PartyDetailFragment : Fragment() {
             }
         }
 
-
         binding.tvLocation.setOnClickListener {
             findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id))
 

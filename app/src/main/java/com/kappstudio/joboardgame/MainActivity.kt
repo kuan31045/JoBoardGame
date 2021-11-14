@@ -10,12 +10,14 @@ import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.libraries.places.api.Places
 import com.kappstudio.joboardgame.data.UserManager
 import com.kappstudio.joboardgame.databinding.ActivityMainBinding
+import com.kappstudio.joboardgame.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +41,23 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        binding.btnToMap.setOnClickListener {
+            this.findNavController(R.id.nav_host_fragment_activity_main)
+                .navigate(PartyFragmentDirections.navToMapFragment(null))
+        }
+
+        binding.btnToSearch.setOnClickListener {
+            this.findNavController(R.id.nav_host_fragment_activity_main).navigate(
+                NavigationDirections.navToSearchFragment(
+                    when (viewModel.page.value) {
+                        PageType.PARTY -> 0
+                        PageType.GAME -> 1
+                        PageType.PROFILE -> 2
+                        else -> 0
+                    }
+                )
+            )
+        }
 
         binding.spnUser.adapter = ArrayAdapter(
             appInstance,
@@ -101,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBarAttr() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-             viewModel.setBarStatus(
+            viewModel.setBarStatus(
                 when (destination.id) {
                     R.id.partyFragment -> PageType.PARTY
                     R.id.gameFragment -> PageType.GAME
@@ -121,6 +140,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.albumFragment -> PageType.ALBUM
                     R.id.photoFragment -> PageType.ALBUM
                     R.id.mapFragment -> PageType.MAP
+                    R.id.searchFragment -> PageType.SEARCH
 
                     else -> PageType.OTHER
                 }

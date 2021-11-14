@@ -66,6 +66,7 @@
     <string name="my_favorite">我的收藏</string>
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽遊戲</string>
+    <string name="user">用戶</string>
 
     <!--    New Party -->
     <string name="hint_title">標題</string>
@@ -134,6 +135,7 @@
     <string name="open_browser">開啟瀏覽器搜尋</string>
     <string name="google_search">https://www.google.com/search?q=</string>
     <string name="is_over">已結束</string>
+    <string name="searching">正在搜尋...</string>
 
 
 </resources>

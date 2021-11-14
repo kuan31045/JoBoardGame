@@ -29,20 +29,12 @@ class MyPartyFragment : Fragment() {
     ): View? {
         val binding = FragmentMyPartyBinding.inflate(inflater)
 
-        partyViewModel.openParties.observe(viewLifecycleOwner, {
+        partyViewModel.parties.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
-            binding.rvParty.adapter = PartyAdapter(partyViewModel, true).apply {
+            binding.rvParty.adapter = PartyAdapter(partyViewModel).apply {
                 submitList(it.filter {
                     UserManager.user["id"] in it.playerIdList
                 })
-            }
-        })
-        partyViewModel.overParties.observe(viewLifecycleOwner, {
-            Timber.d("completedData $it")
-            binding.rvOverParty.adapter = PartyAdapter(partyViewModel, false).apply {
-                submitList(it.filter {
-                    UserManager.user["id"] in it.playerIdList
-                }.sortedByDescending { it.partyTime })
             }
         })
 

@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
+import com.kappstudio.joboardgame.PageType
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
@@ -29,34 +30,57 @@ private const val FIELD_PLAYER_LIST = "playerList"
 private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
+    suspend fun searchGame(search: String): List<Game> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection(PATH_GAMES)
+                .orderBy("name")
+                .startAt(search)
+                .endAt("$search\uf8ff")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val game =
+                            task.result?.toObjects(Game::class.java) ?: mutableListOf()
+                        Timber.d("search count = ${game.size} ")
+
+                        continuation.resume(game)
+                    } else {
+                        task.exception?.let {
+                            Timber.w("[${this::class.simpleName}] Error . ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 
 
     suspend fun addPartyPhoto(partyId: String, photo: String): Result<String> =
         suspendCoroutine { continuation ->
-        Timber.d("-----Add Party Photo------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(PATH_PARTIES).document(partyId)
-            .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+            Timber.d("-----Add Party Photo------------------------------")
+            FirebaseFirestore.getInstance()
+                .collection(PATH_PARTIES).document(partyId)
+                .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
 
-                    FirebaseFirestore.getInstance()
-                        .collection(PATH_USERS).document(UserManager.user["id"]?:"")
-                        .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
+                        FirebaseFirestore.getInstance()
+                            .collection(PATH_USERS).document(UserManager.user["id"] ?: "")
+                            .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
 
-                    continuation.resume(Result.Success("success"))
-                } else {
-                    task.exception?.let {
-                        Timber.w("[${this::class.simpleName}] Error adding photo. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                        continuation.resume(Result.Success("success"))
+                    } else {
+                        task.exception?.let {
+                            Timber.w("[${this::class.simpleName}] Error adding photo. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(
+                            Result.Fail(appInstance.getString(R.string.nothing))
+                        )
                     }
-                    continuation.resume(
-                        Result.Fail(appInstance.getString(R.string.nothing))
-                    )
                 }
-            }
-    }
+        }
 
 
     suspend fun uploadPhoto(imgUri: Uri): Result<String> =
@@ -603,7 +627,33 @@ object FirebaseService {
                     return@addSnapshotListener
                 }
 
-                liveData.value = snapshot?.toObjects(Party::class.java) ?: mutableListOf()
+                val result = snapshot?.toObjects(Party::class.java) ?: mutableListOf()
+                val openParties =
+                    result.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
+                val overParties =
+                    result.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
+
+                liveData.value = openParties + overParties.sortedByDescending { it.partyTime }
+
+                    Timber.d("Current data: ${liveData.value}")
+            }
+        return liveData
+    }
+
+    fun getLiveUsers(): MutableLiveData<List<User>> {
+        Timber.d("-----Get All Live Users------------------------------")
+
+        val liveData = MutableLiveData<List<User>>()
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_USERS).orderBy("name", Query.Direction.ASCENDING)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                liveData.value = snapshot?.toObjects(User::class.java) ?: mutableListOf()
                 Timber.d("Current data: ${liveData.value}")
             }
         return liveData

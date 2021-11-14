@@ -18,10 +18,10 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
 
 
     init {
-        getGame()
+        getGames()
     }
 
-    private fun getGame() {
+    private fun getGames() {
         viewModelScope.launch {
             _games= FirebaseService.getLiveGames()
         }

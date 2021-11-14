@@ -30,6 +30,7 @@ import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
@@ -56,8 +57,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater)
-        partyViewModel.openParties.observe(viewLifecycleOwner, {
-            Timber.d("${partyViewModel.openParties.value}")
+        partyViewModel.parties.observe(viewLifecycleOwner, {
+            Timber.d("${partyViewModel.parties.value}")
 
         })
         enableLocationLauncher = EnableLocationLauncher(this)
@@ -69,9 +70,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-binding.ivBack.setOnClickListener {
-    findNavController().popBackStack()
-}
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.btnGetLocation.setOnClickListener {
             getPermission()
@@ -230,8 +231,11 @@ binding.ivBack.setOnClickListener {
 
     private fun addPartiesMark() {
 
-        partyViewModel.openParties.value?.forEach { party ->
-            addMark(party)
+        partyViewModel.parties.value?.forEach { party ->
+            if (party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis) {
+                addMark(party)
+            }
+
         }
 
     }

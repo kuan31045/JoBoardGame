@@ -1,36 +1,25 @@
-package com.kappstudio.joboardgame.partydetail
+package com.kappstudio.joboardgame.search
 
-import android.R.attr
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.databinding.ItemUserBinding
+import com.kappstudio.joboardgame.partydetail.PlayerAdapter
 import timber.log.Timber
-import android.R.attr.right
 
-import android.R.attr.left
-
-import android.widget.LinearLayout
-import com.kappstudio.joboardgame.databinding.ItemPlayerBinding
+class UserAdapter(private val viewModel: SearchViewModel) :
+    ListAdapter<User, UserAdapter.UserViewHolder>(UserAdapter) {
 
 
-class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
-    ListAdapter<User, PlayerAdapter.PlayerViewHolder>(DiffCallback) {
-    init {
-        Timber.d(" init")
-
-    }
-
-    inner class PlayerViewHolder(private val binding: ItemPlayerBinding) :
+    inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: User, viewModel: PartyDetailViewModel) {
+        fun bind(user: User, viewModel: SearchViewModel) {
 
-            Timber.d("bind")
             bindImage(binding.ivUser, user.image)
             binding.tvName.text = user.name
             binding.clUser.setOnClickListener {
@@ -49,10 +38,9 @@ class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        Timber.d("create")
-        return PlayerViewHolder(
-            ItemPlayerBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        return UserViewHolder(
+            ItemUserBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -60,8 +48,7 @@ class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
         )
     }
 
-    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        Timber.d("BindViewHolde")
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         holder.bind(getItem(position), viewModel)
     }

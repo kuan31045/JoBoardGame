@@ -16,7 +16,7 @@ import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import com.kappstudio.joboardgame.util.setBlurView
 import java.util.*
 
-class PartyAdapter(private val viewModel: ViewModel, private val isOpen: Boolean) :
+class PartyAdapter(private val viewModel: ViewModel) :
     ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
 
     inner class PartyViewHolder(private var binding: ItemPartyBinding) :
@@ -25,8 +25,11 @@ class PartyAdapter(private val viewModel: ViewModel, private val isOpen: Boolean
         fun bind(party: Party) {
 
             binding.apply {
-                if (!isOpen) {
-                    tvIsOver.visibility = View.VISIBLE
+                tvIsOver.visibility = when {
+                    party.partyTime + 3600000 < Calendar.getInstance().timeInMillis
+                    -> View.VISIBLE
+
+                    else -> View.GONE
                 }
 
                 bindImage(ivCover, party.cover)

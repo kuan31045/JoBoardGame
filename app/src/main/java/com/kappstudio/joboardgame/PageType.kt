@@ -1,7 +1,7 @@
 package com.kappstudio.joboardgame
 
 enum class PageType(val title: String) {
-    PARTY(""),
+    PARTY(appInstance.getString(R.string.lets_party)),
     GAME(appInstance.getString(R.string.game_viewed)),
     TOOLS(appInstance.getString(R.string.tools)),
     PROFILE(appInstance.getString(R.string.profile)),
@@ -18,6 +18,7 @@ enum class PageType(val title: String) {
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),
+    SEARCH(""),
 
 
     OTHER("")

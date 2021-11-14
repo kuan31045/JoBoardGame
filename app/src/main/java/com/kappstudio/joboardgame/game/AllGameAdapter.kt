@@ -12,7 +12,7 @@ import com.kappstudio.joboardgame.databinding.ItemGameAllBinding
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlin.math.roundToInt
 
-class AllGameAdapter(private val viewModel: GameViewModel) :
+class AllGameAdapter(private val viewModel: ViewModel) :
     ListAdapter<Game, AllGameAdapter.GameViewHolder>(DiffCallback) {
 
     class GameViewHolder(private var binding: ItemGameAllBinding) :
@@ -23,10 +23,22 @@ class AllGameAdapter(private val viewModel: GameViewModel) :
                 tvName.text = game.name
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
-val avg = game.totalRating / game.ratingQty.toFloat()
+                val avg = game.totalRating / game.ratingQty.toFloat()
 
                 tvRating.text = ((avg * 10.0).roundToInt() / 10.0).toString()
                 bindImage(ivGame, game.image)
+
+                game.type.forEach {
+                    tvType.text = "${ tvType.text}$it"
+
+                    if (it != game.type.last()) {
+                        tvType.text = "${tvType.text} | "
+
+                    }
+                }
+
+
+
 
                 clGame.setOnClickListener {
                     when (viewModel) {

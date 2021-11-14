@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_ripple"
-    android:padding="4dp"
+     android:padding="4dp"
 
     android:clickable="true"
     android:layout_marginEnd="24dp"
@@ -28,13 +28,13 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/textStyle1"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/elevation_4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/elevation_4dp"
-        android:textSize="14sp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_user"
-        app:layout_constraintStart_toEndOf="@+id/iv_user"
-        app:layout_constraintTop_toTopOf="@id/iv_user"
+        app:layout_constraintEnd_toEndOf="@+id/iv_user"
+
+        app:layout_constraintStart_toStartOf="@+id/iv_user"
+        app:layout_constraintTop_toBottomOf="@id/iv_user"
         tools:text="@string/sample_user_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
