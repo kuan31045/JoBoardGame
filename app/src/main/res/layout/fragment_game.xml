@@ -81,7 +81,7 @@ android:visibility="gone"
         android:background="@drawable/bg_card_item"
         android:drawableLeft="@drawable/ic_filter_28dp"
         android:drawablePadding="5dp"
-
+android:visibility="gone"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/sort_filter"

@@ -40,7 +40,6 @@ viewModel.getUserData(UserManager.userToken!!)
 
         binding.lifecycleOwner = this
         binding.vm = viewModel
-
         // Initialize the SDK
         Places.initialize(applicationContext, getString(R.string.place_api_key))
 

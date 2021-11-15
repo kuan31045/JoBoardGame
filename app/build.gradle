@@ -1,17 +1,15 @@
-
-
 plugins {
-   id 'com.android.application'
-
+    id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
-
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
+    
     compileSdk 30
 
     defaultConfig {
@@ -29,6 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        
         }
     }
     compileOptions {
@@ -44,7 +43,6 @@ android {
 
     }
 
-        
 
 }
 
@@ -133,6 +131,12 @@ dependencies {
     //login
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:28.3.1')
 
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
 }
 
