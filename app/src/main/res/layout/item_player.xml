@@ -20,6 +20,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1:1"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/circle"
@@ -28,13 +29,13 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/textStyle1"
-        android:textSize="14sp"
-        android:layout_marginTop="@dimen/elevation_4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/iv_user"
+        android:layout_marginTop="@dimen/elevation_4dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintStart_toStartOf="@+id/iv_user"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_user"
-        tools:text="@string/sample_user_name" />
+        tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
 </androidx.constraintlayout.widget.ConstraintLayout>

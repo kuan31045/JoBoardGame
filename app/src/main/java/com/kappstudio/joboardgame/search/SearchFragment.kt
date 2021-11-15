@@ -23,6 +23,10 @@ import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentSearchBinding
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.openKeyBoard
+import android.view.inputmethod.EditorInfo
+
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 
 
 class SearchFragment : Fragment() {
@@ -45,11 +49,25 @@ class SearchFragment : Fragment() {
         binding.tabsLayout.setupWithViewPager(binding.viewPager)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        activity?.let { openKeyBoard(binding.etSearch, it) }
-        binding.ivBack.setOnClickListener {
-findNavController().popBackStack()
+        if (viewModel.isInit) {
+            openKeyBoard(binding.etSearch)
+            viewModel.onInit()
         }
+
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.ivClear.setOnClickListener {
+            binding.etSearch.setText("")
+        }
+        binding.etSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.search()
+                closeSoftKeyboard(binding.etSearch)
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
 
         return binding.root

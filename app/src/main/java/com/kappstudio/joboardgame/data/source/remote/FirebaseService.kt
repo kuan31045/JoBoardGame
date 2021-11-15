@@ -7,13 +7,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
-import com.kappstudio.joboardgame.PageType
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
+import com.kappstudio.joboardgame.login.UserManager
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.coroutines.resume
@@ -30,6 +29,70 @@ private const val FIELD_PLAYER_LIST = "playerList"
 private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
+    suspend fun addUser(user: User): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            Timber.d("-----Add User------------------------------")
+
+            val query = FirebaseFirestore.getInstance()
+
+            FirebaseFirestore.getInstance().collection(PATH_USERS)
+                .whereEqualTo("id", user.id)
+                .get()
+                .addOnCompleteListener { userTask ->
+                    if (userTask.isSuccessful && userTask.result.isEmpty) {
+
+                        val postUser = query.collection(PATH_USERS).document(user.id)
+
+                        postUser.set(user)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    continuation.resume(Result.Success(true))
+                                } else {
+                                    task.exception?.let {
+                                        Timber.w(
+                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                                        )
+                                        continuation.resume(Result.Error(it))
+                                        return@addOnCompleteListener
+                                    }
+                                    continuation.resume(
+                                        Result.Fail(
+                                            appInstance.getString(
+                                                R.string.nothing
+                                            )
+                                        )
+                                    )
+                                }
+                            }
+                    } else {
+                        continuation.resume(Result.Success(true))
+                    }
+                }
+        }
+
+    fun getLiveUser(userId: String): MutableLiveData<User> {
+        Timber.d("-----Get Live User By Id------------------------------")
+
+        val user = MutableLiveData<User>()
+
+        FirebaseFirestore.getInstance().collection(PATH_USERS).document(userId)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    Timber.w("Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Timber.d("Current data: ${snapshot.data}")
+                    user.value = snapshot.toObject<User>()
+                } else {
+                    Timber.d("Current data: null")
+                }
+            }
+
+        return user
+    }
+
     suspend fun searchGame(search: String): List<Game> =
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
@@ -65,7 +128,7 @@ object FirebaseService {
                     if (task.isSuccessful) {
 
                         FirebaseFirestore.getInstance()
-                            .collection(PATH_USERS).document(UserManager.user["id"] ?: "")
+                            .collection(PATH_USERS).document(UserManager.user.value?.id ?: "")
                             .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
 
                         continuation.resume(Result.Success("success"))
@@ -88,11 +151,11 @@ object FirebaseService {
             Timber.d("-----Upload Photo------------------------------")
 
             val uploadTime = Calendar.getInstance().timeInMillis
-            val fileName = UserManager.user["id"] + "-" + uploadTime
+            val fileName = (UserManager.user.value?.id ?: "") + uploadTime
 
             val storageRef =
                 FirebaseStorage.getInstance().reference
-                    .child("$PATH_PHOTOS/${UserManager.user["id"]}/$fileName")
+                    .child("$PATH_PHOTOS/${UserManager.user.value?.id ?: ""}/$fileName")
 
             storageRef.putFile(imgUri)
                 .addOnCompleteListener { task ->
@@ -188,7 +251,7 @@ object FirebaseService {
 
             FirebaseFirestore.getInstance()
                 .collection(PATH_RATINGS)
-                .whereEqualTo("userId", UserManager.user["id"])
+                .whereEqualTo("userId", UserManager.user.value?.id ?: "")
                 .whereEqualTo("gameId", game.id)
                 .get()
                 .addOnCompleteListener { task ->
@@ -205,7 +268,7 @@ object FirebaseService {
                                 Rating(
                                     gameId = game.id,
                                     game = game,
-                                    userId = UserManager.user["id"] ?: ""
+                                    userId = UserManager.user.value?.id ?: ""
                                 )
                             )
                         }
@@ -241,40 +304,12 @@ object FirebaseService {
     }
 
 
-    fun getLiveFavorites(): MutableLiveData<List<Game>> {
-        Timber.d("-----Get Live Favorites------------------------------")
-
-        val games = MutableLiveData<List<Game>>()
-
-        FirebaseFirestore.getInstance().collection(PATH_USERS)
-            .document(UserManager.user["id"] ?: "")
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Timber.d("Current data: ${snapshot.data}")
-                    val user = snapshot.toObject<User>()
-                    if (user != null) {
-                        games.value = user.favoriteGames ?: mutableListOf()
-                    }
-                } else {
-                    Timber.d("Current data: null")
-                }
-            }
-
-        return games
-    }
-
-
     suspend fun checkFavorite(gameMap: HashMap<String, String>): Boolean =
         suspendCoroutine { continuation ->
             Timber.d("-----Check Favorite------------------------------")
             FirebaseFirestore.getInstance()
                 .collection(PATH_USERS)
-                .whereEqualTo("id", UserManager.user["id"])
+                .whereEqualTo("id", UserManager.user.value?.id ?: "")
                 .whereArrayContains("favoriteGames", gameMap)
                 .get()
                 .addOnCompleteListener { task ->
@@ -300,7 +335,7 @@ object FirebaseService {
     fun addToFavorite(gameMap: HashMap<String, String>) {
         Timber.d("-----Add To Favorite------------------------------")
         FirebaseFirestore.getInstance()
-            .collection(PATH_USERS).document(UserManager.user["id"] ?: "")
+            .collection(PATH_USERS).document(UserManager.user.value?.id ?: "")
             .update("favoriteGames", FieldValue.arrayUnion(gameMap))
 
         ToastUtil.show(appInstance.getString(R.string.favorite_in))
@@ -309,7 +344,7 @@ object FirebaseService {
     fun removeFavorite(gameMap: HashMap<String, String>) {
         Timber.d("-----Remove Favorite------------------------------")
         FirebaseFirestore.getInstance()
-            .collection(PATH_USERS).document(UserManager.user["id"] ?: "")
+            .collection(PATH_USERS).document(UserManager.user.value?.id ?: "")
             .update("favoriteGames", FieldValue.arrayRemove(gameMap))
 
 
@@ -368,7 +403,7 @@ object FirebaseService {
         Timber.d("-----Set User Status------------------------------")
 
         FirebaseFirestore.getInstance().collection(PATH_USERS)
-            .document(UserManager.user["id"] ?: "")
+            .document(UserManager.user.value?.id ?: "")
             .update("status", status)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -409,28 +444,6 @@ object FirebaseService {
                 }
         }
 
-    fun getLiveUserById(userId: String): MutableLiveData<User> {
-        Timber.d("-----Get Live User By Id------------------------------")
-
-        val user = MutableLiveData<User>()
-
-        FirebaseFirestore.getInstance().collection(PATH_USERS).document(userId)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Timber.d("Current data: ${snapshot.data}")
-                    user.value = snapshot.toObject<User>()
-                } else {
-                    Timber.d("Current data: null")
-                }
-            }
-
-        return user
-    }
 
     fun getLiveGameById(gameId: String): MutableLiveData<Game> {
         Timber.d("-----Get Live Game By Id------------------------------")
@@ -635,7 +648,7 @@ object FirebaseService {
 
                 liveData.value = openParties + overParties.sortedByDescending { it.partyTime }
 
-                    Timber.d("Current data: ${liveData.value}")
+                Timber.d("Current data: ${liveData.value}")
             }
         return liveData
     }
@@ -682,12 +695,12 @@ object FirebaseService {
         Timber.d("-----Leave Party------------------------------")
         FirebaseFirestore.getInstance()
             .collection(PATH_PARTIES).document(partyId)
-            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayRemove(UserManager.user["id"]))
+            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayRemove(UserManager.user.value?.id ?: ""))
         FirebaseFirestore.getInstance()
             .collection(PATH_PARTIES).document(partyId)
             .update(
                 FIELD_PLAYER_LIST, FieldValue.arrayRemove(
-                    UserManager.user
+                    toUserMap(UserManager.user.value ?: User())
                 )
             )
         ToastUtil.show(appInstance.getString(R.string.bye))
@@ -697,10 +710,14 @@ object FirebaseService {
         Timber.d("-----Join Party------------------------------")
         FirebaseFirestore.getInstance()
             .collection(PATH_PARTIES).document(partyId)
-            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayUnion(UserManager.user["id"]))
+            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayUnion(UserManager.user.value?.id ?: ""))
         FirebaseFirestore.getInstance()
             .collection(PATH_PARTIES).document(partyId)
-            .update(FIELD_PLAYER_LIST, FieldValue.arrayUnion(UserManager.user))
+            .update(
+                FIELD_PLAYER_LIST, FieldValue.arrayUnion(
+                    toUserMap(UserManager.user.value ?: User())
+                )
+            )
         ToastUtil.show(appInstance.getString(R.string.welcome))
     }
 
@@ -763,7 +780,7 @@ object FirebaseService {
 
             val data = hashMapOf(
                 "id" to doc.id,
-                "hostId" to UserManager.user["id"],
+                "hostId" to (UserManager.user.value?.id ?: ""),
                 "host" to UserManager.user,
                 "title" to "卡坦團${it + 1}",
                 "partyTime" to Calendar.getInstance().timeInMillis + 10000,

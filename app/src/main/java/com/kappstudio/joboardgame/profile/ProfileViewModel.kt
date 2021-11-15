@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.UserManager
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
@@ -15,9 +15,7 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface  {
     val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+     val user: LiveData<User> = UserManager.user
 
     private var _partyQty = MutableLiveData(0)
     val partyQty: LiveData<Int>
@@ -35,10 +33,9 @@ class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetai
 
     private fun getUserInfo() {
         viewModelScope.launch {
-            _user = FirebaseService.getLiveUserById(UserManager.user["id"] ?: "")
 
-            _partyQty.value = FirebaseService.getUserParties(UserManager.user["id"] ?: "").size
-            _hostQty.value = FirebaseService.getUserHosts(UserManager.user["id"] ?: "").size
+            _partyQty.value = FirebaseService.getUserParties(UserManager.user.value?.id ?: "").size
+            _hostQty.value = FirebaseService.getUserHosts(UserManager.user.value?.id ?: "").size
 
         }
     }

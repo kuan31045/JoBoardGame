@@ -89,6 +89,8 @@
     <string name="show_msg">顯示留言</string>
     <string name="to"> - </string>
     <string name="man">人</string>
+    <string name="mins">分鐘</string>
+
     <string name="host_x">主辦x</string>
     <string name="party_x">聚會x</string>
     <string name="my_status">個人狀態</string>
@@ -136,6 +138,15 @@
     <string name="google_search">https://www.google.com/search?q=</string>
     <string name="is_over">已結束</string>
     <string name="searching">正在搜尋...</string>
+    <string name="login_fail">登入失敗!</string>
+    <string name="logout">登出</string>
+    <string name="camp">陣營</string>
+    <string name="economy">經濟</string>
+    <string name="scheming">心機</string>
+    <string name="type_party">派對</string>
+    <string name="city_build">城市建設</string>
+    <string name="reset">重設</string>
+    <string name="plz_write">還有重要資訊沒有填寫喔!</string>
 
 
 </resources>

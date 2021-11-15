@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.data.UserManager
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.databinding.FragmentMyPartyBinding
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyViewModel
@@ -33,7 +32,7 @@ class MyPartyFragment : Fragment() {
             Timber.d("completedData $it")
             binding.rvParty.adapter = PartyAdapter(partyViewModel).apply {
                 submitList(it.filter {
-                    UserManager.user["id"] in it.playerIdList
+                    UserManager.user.value?.id?:"" in it.playerIdList
                 })
             }
         })

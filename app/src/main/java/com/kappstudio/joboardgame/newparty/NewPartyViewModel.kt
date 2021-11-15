@@ -46,7 +46,10 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     private val coverUrl: LiveData<String>
         get() = _coverUrl
 
-
+    // Handle the error for edittext
+    private val _invalidPublish = MutableLiveData<InvalidInput?>()
+    val invalidPublish: LiveData<InvalidInput?>
+        get() = _invalidPublish
 
     private val _status = MutableLiveData<LoadApiStatus>()
     val status: LiveData<LoadApiStatus>
@@ -92,7 +95,6 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                     requirePlayerQty = requirePlayerQty.value?.toIntOrNull() ?: 1,
                     gameList = gameMapList,
                 )
-
             )
 
             if (res) {
@@ -122,6 +124,28 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                 }
             }
 
+        }
+    }
+
+    fun prepareCreate() {
+        _invalidPublish.value =    when {
+            title.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                 InvalidInput.TITLE_EMPTY
+            time.value == 0L ->
+               InvalidInput.TIME_EMPTY
+            location.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                InvalidInput.LOCATION_EMPTY
+           requirePlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+               InvalidInput.QTY_EMPTY
+            note.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                InvalidInput.DESC_EMPTY
+            games.value==null || games.value!!.size==0 ->
+                InvalidInput.GAMES_EMPTY
+            else -> {
+                createParty()
+                null
+
+            }
         }
     }
 

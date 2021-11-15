@@ -3,6 +3,8 @@ package com.kappstudio.joboardgame
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kappstudio.joboardgame.data.source.remote.FirebaseService
+import com.kappstudio.joboardgame.login.UserManager
 import timber.log.Timber
 
 class MainViewModel : ViewModel() {
@@ -18,7 +20,9 @@ class MainViewModel : ViewModel() {
     private val _isImmersion = MutableLiveData(false)
     val isImmersion: LiveData<Boolean>
         get() = _isImmersion
-
+    fun getUserData(userId: String) {
+        UserManager.user = FirebaseService.getLiveUser(userId)
+    }
     fun setBarStatus(status: PageType) {
         Timber.d("Status: $status")
         _page.value = status

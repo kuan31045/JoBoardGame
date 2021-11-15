@@ -29,37 +29,33 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:elevation="40dp"
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:afterTextChanged="@{() -> viewModel.search()}"
-            android:background="@color/transparent"
-            android:hint="@string/search"
+             android:hint="@string/search"
             android:imeOptions="actionSearch"
-            android:focusableInTouchMode="true"
-            android:focusable="true"
-
+android:background="@color/transparent"
             android:inputType="text"
             android:paddingLeft="16dp"
             android:text="@={viewModel.search}"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_clear"
             app:layout_constraintStart_toEndOf="@+id/iv_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_close"
+        <ImageButton
+            android:id="@+id/iv_clear"
             style="@style/toolbarBtn"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_marginEnd="16dp"
+android:visibility="@{viewModel.search.empty  ?  View.GONE:View.VISIBLE}"
+            android:layout_width="20dp"
+             android:elevation="@dimen/elevation_4dp"
+            android:layout_height="20dp"
             android:backgroundTint="@color/transparentWhite"
             android:src="@drawable/ic_close_24dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/et_search"
-            app:layout_constraintEnd_toEndOf="@id/et_search"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/et_search" />
 
 
@@ -72,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search"
-            app:tabSelectedTextColor="@color/black_3f3a3a"
+            app:tabSelectedTextColor="@color/purple_dark_782be9"
             app:tabTextColor="@color/warm_grey_two" />
 
 

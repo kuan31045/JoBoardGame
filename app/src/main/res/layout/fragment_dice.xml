@@ -22,6 +22,7 @@
         tools:context=".tools.dice.DiceFragment">
 
         <TextView
+            android:layout_marginTop="16dp"
             android:id="@+id/tv_title_total"
             style="@style/titleStyle"
             android:layout_width="wrap_content"

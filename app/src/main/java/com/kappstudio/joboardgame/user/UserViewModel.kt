@@ -28,7 +28,7 @@ class UserViewModel(private val userId: String):ViewModel() {
     }
     private fun getUserInfo() {
         viewModelScope.launch {
-            _user = FirebaseService.getLiveUserById(userId)
+            _user = FirebaseService.getLiveUser(userId)
 
             _partyQty.value = FirebaseService.getUserParties(userId).size
             _hostQty.value = FirebaseService.getUserHosts(userId).size

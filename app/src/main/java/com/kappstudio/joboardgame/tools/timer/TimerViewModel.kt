@@ -10,6 +10,10 @@ import androidx.lifecycle.ViewModel
 class TimerViewModel : ViewModel() {
     private lateinit var timer: CountDownTimer
 
+    private val _totalTime = MutableLiveData(30f)
+    val totalTime: LiveData<Float>
+        get() = _totalTime
+
     private val _time = MutableLiveData(30f)
     val time: LiveData<Float>
         get() = _time
@@ -21,6 +25,10 @@ class TimerViewModel : ViewModel() {
     val sec: LiveData<Int> = Transformations.map(progress) {
         it.toInt()
     }
+
+    private val _showLottie = MutableLiveData(false)
+    val showLottie: LiveData<Boolean>
+        get() = _showLottie
 
     private val _isTiming = MutableLiveData(false)
     val isTiming: LiveData<Boolean>
@@ -35,16 +43,25 @@ class TimerViewModel : ViewModel() {
         stopTiming()
         _time.value = t
         _progress.value=_time.value
+        setTotalTime(t)
+    }
+
+    private fun setTotalTime(t: Float) {
+
+         _totalTime.value = t
 
     }
 
     fun pause(){
         _isPause.value = true
+        stopTiming()
+        _time.value  = sec.value?.toFloat()
     }
 
 
 
     fun startTiming() {
+        _isPause.value = false
 
             _isTiming.value = true
 
@@ -54,7 +71,7 @@ class TimerViewModel : ViewModel() {
                     _progress.value = 0f
                     _isTiming.value = false
                     _isPause.value = false
-
+_showLottie.value = true
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
@@ -74,6 +91,10 @@ class TimerViewModel : ViewModel() {
             timer.cancel()
             _isTiming.value = false
         }
+    }
+
+    fun stopLottie() {
+        _showLottie.value = false
     }
 
 }

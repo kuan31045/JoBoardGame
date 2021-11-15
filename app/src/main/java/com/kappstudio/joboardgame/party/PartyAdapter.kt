@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.data.UserManager
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.databinding.ItemPartyBinding
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
-import com.kappstudio.joboardgame.util.setBlurView
 import java.util.*
 
 class PartyAdapter(private val viewModel: ViewModel) :
@@ -49,7 +48,7 @@ class PartyAdapter(private val viewModel: ViewModel) :
 
                     }
                 }
-                if (UserManager.user["id"] in party.playerIdList) {
+                if (UserManager.user.value?.id?:"" in party.playerIdList) {
                     tvAlreadyJoin.visibility = View.VISIBLE
                 } else {
                     tvAlreadyJoin.visibility = View.GONE

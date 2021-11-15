@@ -1,21 +1,20 @@
 package com.kappstudio.joboardgame.favorite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.view.animation.Transformation
+import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.toGameMap
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
+import com.kappstudio.joboardgame.login.UserManager
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 
 class FavoriteViewModel : ViewModel(), NavToGameDetailInterface {
 
-    private var _games = FirebaseService.getLiveFavorites()
-    val games: LiveData<List<Game>>
-        get() = _games
+    val games: LiveData<List<Game>> = Transformations.map(UserManager.user){
+        it.favoriteGames
+    }
 
 
     fun removeFavorite(game: Game) {

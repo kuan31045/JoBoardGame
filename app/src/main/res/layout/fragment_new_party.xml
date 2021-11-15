@@ -7,6 +7,7 @@
     <data>
         <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
         <import type="android.view.View" />
+        <import type="com.kappstudio.joboardgame.newparty.InvalidInput"/>
 
         <variable
             name="viewModel"
@@ -93,8 +94,7 @@
                 android:layout_height="wrap_content"
                 app:boxCollapsedPaddingTop="2dp"
                 android:layout_marginTop="8dp"
-                app:boxStrokeColor="@color/purple_dark_782be9"
-                app:boxStrokeWidth="0.7dp"
+                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_info">
@@ -103,7 +103,8 @@
                     android:id="@+id/et_title"
                     style="@style/EdittextUser"
                     android:hint="@string/hint_title"
-                    android:inputType="text"
+
+                     android:inputType="text"
                     android:text="@={ viewModel.title }" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:boxCollapsedPaddingTop="2dp"
-                app:boxStrokeColor="@color/purple_dark_782be9"
+
+
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -123,6 +125,7 @@
                 <EditText
                     android:id="@+id/et_time"
                     style="@style/EdittextUser"
+
                     android:focusable="false"
                     android:hint="@string/data_time"
                     android:inputType="date" />
@@ -265,7 +268,7 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/bg_btn_purple"
                 android:letterSpacing="0.25"
-                android:onClick="@{ ()-> viewModel.createParty()}"
+                android:onClick="@{ ()-> viewModel.prepareCreate()}"
                 android:text="@string/create"
                 android:textColor="@color/white_text_fffcff"
                 android:textSize="20sp"

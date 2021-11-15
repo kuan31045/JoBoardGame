@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-        <data>
+    <data>
 
-            <import type="android.view.View" />
+        <import type="android.view.View" />
 
-            <variable
-                name="viewModel"
-                type="com.kappstudio.joboardgame.profile.ProfileViewModel" />
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.profile.ProfileViewModel" />
 
-        </data>
+    </data>
 
 
     <androidx.core.widget.NestedScrollView
@@ -42,25 +42,26 @@
                     android:backgroundTint="@color/white"
 
                     android:padding="10dp">
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/iv_profile_bg"
-                        android:background="@color/white"
                         android:layout_width="0dp"
                         android:layout_height="72dp"
+                        android:background="@color/white"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearanceOverlay="@style/circle"
-                        />
+                        app:shapeAppearanceOverlay="@style/circle" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/iv_profile"
-                        android:backgroundTint="@color/white"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
+                        android:backgroundTint="@color/white"
                         android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_bg"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="@id/iv_profile_bg"
-                        app:layout_constraintBottom_toBottomOf="@id/iv_profile_bg"
 
                         app:layout_constraintStart_toStartOf="@id/iv_profile_bg"
                         app:layout_constraintTop_toTopOf="@id/iv_profile_bg"
@@ -79,25 +80,35 @@
                         app:layout_constraintVertical_bias="0.25" />
 
                     <EditText
-                        android:drawableRight="@drawable/ic_edit_24dp"
                         android:id="@+id/et_user_status"
                         android:layout_width="0dp"
-                        android:backgroundTint="@color/white"
-
                         android:layout_height="0dp"
-                        android:textSize="14sp"
                         android:layout_marginStart="16dp"
-                         android:focusable="false"
+
+                        android:backgroundTint="@color/white"
+                        android:drawableRight="@drawable/ic_edit_24dp"
+                        android:focusable="false"
                         android:hint="@string/user_profile_status"
                         android:inputType="textMultiLine"
                         android:maxLength="50"
-                        android:textColor="@color/gray_text_424244"
                         android:paddingStart="8dp"
                         android:text="@{viewModel.user.status}"
+                        android:textColor="@color/gray_text_424244"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@id/iv_profile"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/iv_profile"
                         app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+                    <TextView
+                        android:id="@+id/tv_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/logout"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
+                        app:layout_constraintStart_toEndOf="@+id/tv_user_name" />
 
                     <View
                         android:id="@+id/view_bg_exp"
@@ -190,11 +201,11 @@
                 android:id="@+id/btn_my_rating"
                 style="@style/btnProfile"
                 android:layout_width="0dp"
-                android:backgroundTint="@color/white"
-
                 android:layout_height="wrap_content"
-                 android:layout_marginTop="12dp"
+
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/ic_star_28dp"
 
                 android:drawablePadding="10dp"
@@ -211,10 +222,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
-                 android:drawableLeft="@drawable/ic_photo_album_28dp"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_photo_album_28dp"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
-                android:backgroundTint="@color/white"
 
                 android:text="@string/my_photos"
                 app:layout_constraintEnd_toEndOf="@+id/btn_my_rating"
@@ -227,10 +238,10 @@
                 style="@style/btnProfile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:backgroundTint="@color/white"
-
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="6dp"
+
+                android:backgroundTint="@color/white"
                 android:drawableLeft="@drawable/ic_heart_28dp"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
@@ -304,10 +315,10 @@
                         android:id="@+id/rv_recently_viewed_game"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingStart="4dp"
                         android:layout_marginTop="8dp"
                         android:clipToPadding="false"
                         android:orientation="horizontal"
+                        android:paddingStart="4dp"
                         android:paddingBottom="10dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"

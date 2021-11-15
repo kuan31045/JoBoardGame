@@ -25,9 +25,11 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="@dimen/toolbar_height"
-            android:layout_marginTop="8dp"
+            android:background="@color/white"
             android:elevation="4dp"
-
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -40,20 +42,6 @@
                 android:layout_height="match_parent">
 
 
-                <Spinner
-                    android:id="@+id/spn_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:background="@color/transparent"
-                    android:backgroundTint="@color/transparent"
-                    android:shadowColor="@color/transparent"
-                    android:spinnerMode="dialog"
-                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/layout_tool_bar_right"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
                 <ImageView
                     android:id="@+id/iv_logo"
                     android:layout_width="120dp"
@@ -61,11 +49,12 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:scaleType="fitStart"
-                    android:src="@drawable/title"
+                    android:src="@drawable/logo"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tv_title"
                     style="@style/fontSpaceColor"
@@ -92,20 +81,22 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
+                        android:id="@+id/btn_to_search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_to_search"
 
                         android:background="@drawable/bg_ripple"
                         android:padding="10dp"
                         android:src="@drawable/ic_search_24dp" />
+
                     <ImageButton
+                        android:id="@+id/btn_to_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_to_map"
                         android:background="@drawable/bg_ripple"
                         android:padding="10dp"
                         android:src="@drawable/ic_map_24dp" />
+
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -125,18 +116,17 @@
             android:id="@+id/nav_view"
             android:layout_width="0dp"
             android:layout_height="@dimen/design_bottom_navigation_height"
-            app:itemIconSize="25dp"
             android:background="@color/white"
             android:elevation="@dimen/elevation_4dp"
-            app:labelVisibilityMode="labeled"
-
             android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOLS || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+            app:itemIconSize="25dp"
+
             app:itemIconTint="@drawable/bottom_nav_item_selector"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu" />
-
 
 
         <fragment

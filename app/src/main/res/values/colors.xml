@@ -8,8 +8,8 @@
     <!-- Bg Gray-->
     <color name="gray_bg_eaeaea">#eaeaea</color>
     <!-- Btn-->
-    <color name="purple_dark_782be9">#782be9</color>
-    <color name="purple_light_9148F9">#9148F9</color>
+    <color name="purple_dark_782be9">#3a3a3a</color>
+    <color name="purple_light_9148F9">#3a3a3a</color>
     <!-- Text-->
     <color name="black_text_191919">#191919</color>
     <!-- Text in btn-->
@@ -18,7 +18,8 @@
     <color name="gray_text_424244">#424244</color>
     <color name="transparentPurple">#559148F9</color>
 
-
+    <color name="red_d0021b">#ffd0021b</color>
+    <color name="gray">#FF757575</color>
 
     <color name="transparent">#00ffffff</color>
     <color name="black">#FF000000</color>

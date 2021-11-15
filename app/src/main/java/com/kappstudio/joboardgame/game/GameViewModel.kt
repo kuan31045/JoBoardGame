@@ -1,5 +1,6 @@
 package com.kappstudio.joboardgame.game
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,8 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     private var _games = MutableLiveData<List<Game>>()
     val games: LiveData<List<Game>>
         get() = _games
+    private  var isDismiss= false
+
 
 
     init {
@@ -23,14 +26,26 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
 
     private fun getGames() {
         viewModelScope.launch {
-            _games= FirebaseService.getLiveGames()
+            if (!isDismiss){
+                _games= FirebaseService.getLiveGames()
+
+            }
         }
     }
 
+    fun addFilter(type: String) {
+       val list = games.value?.filter {
+            it.type.contains(type)
+        }
+        _games.value = list!!
+    }
 
-
-
-
+    fun filter() {
+        isDismiss = true
+        Handler().postDelayed({
+isDismiss=false
+                              }, 2300)
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.kappstudio.joboardgame.profile
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import androidx.fragment.app.Fragment
@@ -9,15 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.firebase.auth.FirebaseAuth
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.databinding.FragmentProfileBinding
 import com.kappstudio.joboardgame.game.GameAdapter
+import com.kappstudio.joboardgame.login.LoginActivity
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
 import com.kappstudio.joboardgame.util.closeKeyBoard
 import timber.log.Timber
@@ -46,6 +51,15 @@ class ProfileFragment : Fragment() {
         viewModel.user.observe(viewLifecycleOwner, {
             bindImage(binding.ivProfile, it.image)
         })
+
+        binding.tvLogout.setOnClickListener {
+            UserManager.clear()
+            FirebaseAuth.getInstance().signOut()
+
+            val intent = Intent(appInstance, LoginActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
 
         binding.btnMyPhotos.setOnClickListener {
             viewModel.user.value?.photos?.let {

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.kappstudio.joboardgame">
-
+    package="com.kappstudio.joboardgame" >
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,8 +16,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.JoBoardGame">
+        android:theme="@style/Theme.JoBoardGame" >
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait"
 
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -27,7 +30,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-      android:windowSoftInputMode="adjustPan" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +45,7 @@
             android:authorities="com.kappstudio.joboardgame.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
-            tools:replace="android:authorities">
+            tools:replace="android:authorities" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

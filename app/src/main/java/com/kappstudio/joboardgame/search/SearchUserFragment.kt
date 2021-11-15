@@ -32,7 +32,6 @@ class SearchUserFragment : Fragment() {
                 binding.rvSearchResult.adapter = UserAdapter(viewModel).apply {  submitList(
                     it
                 )}
-
         })
         viewModel.navToUser.observe(viewLifecycleOwner, {
             it?.let {

@@ -11,6 +11,7 @@
             type="com.kappstudio.joboardgame.tools.timer.TimerViewModel" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,7 @@
 
         <Button
             android:id="@+id/btn_30s"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:letterSpacing="0.15"
@@ -29,15 +30,30 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_bug"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/anim_bug" />
+
 
         <Button
             android:id="@+id/btn_60s"
-            android:layout_width="wrap_content"
+
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:letterSpacing="0.15"
-            android:text="60s"
 
+            android:text="60s"
             app:layout_constraintEnd_toStartOf="@+id/btn_90s"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_30s"
@@ -45,12 +61,12 @@
 
         <Button
             android:id="@+id/btn_90s"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:letterSpacing="0.15"
-            android:text="90s"
 
+            android:text="90s"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_60s"
@@ -61,10 +77,10 @@
             android:id="@+id/cpb_timer"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            app:cpb_background_progressbar_color="#b6bbd8"
-            app:cpb_background_progressbar_width="5dp"
-
             app:cProgress="@{viewModel.progress}"
+            app:cpb_background_progressbar_color="#b6bbd8"
+
+            app:cpb_background_progressbar_width="5dp"
 
 
             app:cpb_progress_direction="to_right"
@@ -97,10 +113,10 @@
             android:id="@+id/btn_start"
 
             style="@style/toolsBtn"
-            android:textColor="@color/white_text_fffcff"
-android:backgroundTint="@color/purple_light_9148F9"
             android:layout_marginBottom="120dp"
+            android:backgroundTint="@color/purple_light_9148F9"
             android:text="@string/start"
+            android:textColor="@color/white_text_fffcff"
             android:visibility="@{viewModel.isTiming() ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,11 +124,11 @@ android:backgroundTint="@color/purple_light_9148F9"
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_pause"
-            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
             style="@style/toolsBtn"
-
             android:layout_marginEnd="8dp"
+
             android:text="@string/pause"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/btn_stop"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,12 +136,12 @@ android:backgroundTint="@color/purple_light_9148F9"
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_stop"
-            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
-
             style="@style/toolsBtn"
+
             android:layout_marginStart="8dp"
-android:layout_marginTop="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/stop"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_pause"

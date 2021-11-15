@@ -30,7 +30,9 @@ class GameDetailFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
+binding.tvDesc.setOnClickListener {
+    binding.tvDesc.maxLines=999
+}
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
         viewModel.game.observe(viewLifecycleOwner, {

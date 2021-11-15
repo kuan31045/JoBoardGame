@@ -25,6 +25,7 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.party.PhotoAdapter
+import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 
 class PartyDetailFragment : Fragment() {
@@ -62,16 +63,14 @@ class PartyDetailFragment : Fragment() {
         }
         binding.btnMore.setOnClickListener {
 
-            val alert = AlertView("What's up?", "", AlertStyle.BOTTOM_SHEET)
-            if (viewModel.isJoin.value==true){
+            val alert = AlertView("", "", AlertStyle.BOTTOM_SHEET)
+            if (viewModel.isJoin.value == true) {
                 alert.addAction(AlertAction("我要退出!", AlertActionStyle.NEGATIVE) { _ ->
                     viewModel.leaveParty()
                 })
             }
 
-            alert.addAction(AlertAction("I'm fine.", AlertActionStyle.DEFAULT) { _ ->
-                // Action 2 callback
-            })
+
 
             alert.show(activity as AppCompatActivity)
         }
@@ -88,6 +87,9 @@ class PartyDetailFragment : Fragment() {
 
         }
 
+        viewModel.isSend.observe(viewLifecycleOwner, {
+            closeSoftKeyboard(binding.etMsg)
+        })
 
         viewModel.party.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
@@ -96,7 +98,6 @@ class PartyDetailFragment : Fragment() {
             binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
                 submitList(it?.gameList)
             }
-
         })
         viewModel.partyMsgs.observe(viewLifecycleOwner, {
             binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {
@@ -109,19 +110,30 @@ class PartyDetailFragment : Fragment() {
             it?.let {
                 if (it.id == "notFound") {
 
-                    val alert = AlertView(getString(R.string.no_game)+it.name, "", AlertStyle.BOTTOM_SHEET)
-                    alert.addAction(AlertAction(getString(R.string.open_browser), AlertActionStyle.POSITIVE) { _ ->
-                        // Action 1 callback
-                        val uri = Uri.parse(getString(R.string.google_search) + it.name  )
-                        val intent = Intent(Intent.ACTION_VIEW, uri)
-                        activity?.startActivity(intent)
-                    })
-                    alert.addAction(AlertAction(getString(R.string.cancel), AlertActionStyle.DEFAULT) { _ ->
-                        // Action 2 callback
-                    })
+                    val alert = AlertView(
+                        getString(R.string.no_game) + it.name,
+                        "",
+                        AlertStyle.BOTTOM_SHEET
+                    )
+                    alert.addAction(
+                        AlertAction(
+                            getString(R.string.open_browser),
+                            AlertActionStyle.POSITIVE
+                        ) { _ ->
+                            // Action 1 callback
+                            val uri = Uri.parse(getString(R.string.google_search) + it.name)
+                            val intent = Intent(Intent.ACTION_VIEW, uri)
+                            activity?.startActivity(intent)
+                        })
+                    alert.addAction(
+                        AlertAction(
+                            getString(R.string.cancel),
+                            AlertActionStyle.DEFAULT
+                        ) { _ ->
+                            // Action 2 callback
+                        })
 
                     alert.show(activity as AppCompatActivity)
-
 
 
                 } else {

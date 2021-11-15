@@ -17,7 +17,6 @@
 
     </fragment>
 
-
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.kappstudio.joboardgame.game.GameFragment"
@@ -167,6 +166,10 @@
             android:name="rating"
             app:argType="com.kappstudio.joboardgame.data.Rating" />
     </dialog>
+    <dialog
+        android:id="@+id/filterDialog"
+        android:name="com.kappstudio.joboardgame.filter.FilterDialog"
+        android:label="FilterDialog"/>
 
 
     <action
@@ -210,4 +213,7 @@
     <action
         android:id="@+id/nav_to_search_fragment"
         app:destination="@id/searchFragment" />
+    <action
+        android:id="@+id/nav_to_filterDialog"
+        app:destination="@id/filterDialog" />
 </navigation>

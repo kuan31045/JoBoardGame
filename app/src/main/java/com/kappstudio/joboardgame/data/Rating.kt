@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.data
 
 import android.os.Parcelable
+import com.kappstudio.joboardgame.login.UserManager
 import kotlinx.parcelize.Parcelize
 import java.util.*
 import kotlin.collections.HashMap
@@ -10,7 +11,7 @@ data class Rating(
     val id: String = "",
     val gameId: String = "",
     val game: Game = Game(),
-    val userId: String = UserManager.user["id"]?:"",
+    val userId: String = UserManager.user.value?.id?:"",
     val score: Int = 0,
     val createdTime: Long = 0
 ) : Parcelable
@@ -24,7 +25,7 @@ data class NewRating(
         "name" to "",
         "image" to ""
     ),
-    val userId: String = UserManager.user["id"]?:"",
+    val userId: String = UserManager.user.value?.id?:"",
     val score: Int = 0,
     val createdTime: Long = Calendar.getInstance().timeInMillis
 ) : Parcelable

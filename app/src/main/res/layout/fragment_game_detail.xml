@@ -14,9 +14,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nsv_main"
-        android:background="@color/white_bg_f7f7f7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white_bg_f7f7f7"
         android:paddingBottom="16dp">
 
 
@@ -25,7 +25,6 @@
             android:layout_height="match_parent"
 
             tools:context=".gamedetail.GameDetailFragment">
-
 
 
             <ImageView
@@ -123,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@{viewModel.game.minPlayerQty + @string/to + viewModel.game.maxPlayerQty}"
+                android:text="@{viewModel.game.minPlayerQty + @string/to + viewModel.game.maxPlayerQty + @string/man}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_player_qty"
                 app:layout_constraintStart_toEndOf="@id/tv_title_player_qty"
                 app:layout_constraintTop_toTopOf="@id/tv_title_player_qty"
@@ -154,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@{String.valueOf(viewModel.game.time)}"
+                android:text="@{String.valueOf(viewModel.game.time) + @string/mins}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_title_time"
                 app:layout_constraintStart_toEndOf="@id/tv_title_time"
                 app:layout_constraintTop_toTopOf="@id/tv_title_time"
@@ -183,9 +182,10 @@
                 style="@style/textStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="5"
-
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="left"
+                android:maxLines="5"
                 android:text="@{viewModel.game.desc}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
@@ -207,11 +207,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textSize="16sp"
-                android:drawablePadding="4dp"
                 android:drawableTop="@drawable/ic_star_28dp"
+                android:drawablePadding="4dp"
                 android:gravity="center"
                 android:text="@{String.valueOf(viewModel.avgRating)}"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_your_rating"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -223,17 +223,17 @@
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="4dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:background="?android:selectableItemBackground"
-                android:onClick="@{()->viewModel.navToRating(viewModel.myRating)}"
+                android:clickable="true"
                 android:drawableTop="@{ viewModel.myRating.id.empty == true ? @drawable/ic_star_empty_28dp  : @drawable/ic_star_has_rating_28dp }"
+                android:drawablePadding="4dp"
+                android:focusable="true"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.navToRating(viewModel.myRating)}"
+                android:text="@{ viewModel.myRating.id.empty == true ? @string/dash : String.valueOf(viewModel.myRating.score) }"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/cb_favorite"
                 app:layout_constraintHorizontal_bias="0.5"
-                android:textSize="16sp"
-                android:text="@{ viewModel.myRating.id.empty == true ? @string/dash : String.valueOf(viewModel.myRating.score) }"
                 app:layout_constraintStart_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toTopOf="@+id/tv_avg_rating"
                 tools:text="8" />
@@ -253,8 +253,8 @@
                 android:id="@+id/tv_rating_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@{String.valueOf(viewModel.game.ratingQty)+ @string/man }"
-            android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintStart_toStartOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toBottomOf="@+id/tv_avg_rating"

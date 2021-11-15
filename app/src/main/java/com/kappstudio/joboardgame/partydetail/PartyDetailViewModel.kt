@@ -9,14 +9,18 @@ import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
-    NavToUserInterface  {
+    NavToUserInterface {
 
+    private val _isSend = MutableLiveData<Boolean>(false)
+    val isSend: LiveData<Boolean>
+        get() = _isSend
 
     private var _party: MutableLiveData<Party> = FirebaseService.getLivePartyById(partyId)
     val party: LiveData<Party>
@@ -29,7 +33,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
 
-        it?.playerIdList?.contains(UserManager.user["id"])
+        it?.playerIdList?.contains(UserManager.user.value?.id ?: "")
     }
 
     val playerQtyStatus: LiveData<String> = Transformations.map(party) {
@@ -67,10 +71,10 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
                 )
 
                 if (res) {
+                    _isSend.value = true
                     ToastUtil.show(appInstance.getString(R.string.send_ok))
                     newMsg.value = ""
                 }
-
             }
         } else {
             ToastUtil.show("請填寫內容!")
