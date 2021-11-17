@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,12 +17,14 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.libraries.places.api.Places
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.databinding.ActivityMainBinding
+import com.kappstudio.joboardgame.game.GameViewModel
 import com.kappstudio.joboardgame.login.LoginActivity
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels()
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
@@ -34,8 +37,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }else{
-viewModel.getUserData(UserManager.userToken!!)
+        } else {
+            viewModel.getUserData(UserManager.userToken!!)
         }
 
         binding.lifecycleOwner = this
@@ -116,6 +119,7 @@ viewModel.getUserData(UserManager.userToken!!)
                     R.id.photoFragment -> PageType.ALBUM
                     R.id.mapFragment -> PageType.MAP
                     R.id.searchFragment -> PageType.SEARCH
+                    R.id.selectGameFragment -> PageType.SELECT_GAME
 
                     else -> PageType.OTHER
                 }

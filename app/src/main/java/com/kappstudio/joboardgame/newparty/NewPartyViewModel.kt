@@ -12,8 +12,6 @@ import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.HashMap
 
 private const val defaultCover =
@@ -35,7 +33,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var lat = MutableLiveData(0.0)
     var lng = MutableLiveData(0.0)
 
-    val _games = MutableLiveData<MutableList<Game>>(mutableListOf())
+    private val _games = MutableLiveData<MutableList<Game>>(mutableListOf())
     val games: LiveData<MutableList<Game>>
         get() = _games
 
@@ -73,11 +71,11 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     }
 
 
-    fun createParty() {
+    private fun createParty() {
 
         viewModelScope.launch {
             uploadCover()
-            val gameMapList = mutableListOf<HashMap<String, String>>()
+            val gameMapList = mutableListOf<HashMap<String, Any>>()
             games.value?.forEach {
                 gameMapList.add(toGameMap(it))
             }
@@ -101,10 +99,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                 ToastUtil.show(appInstance.getString(R.string.creat_ok))
                 _status.value = LoadApiStatus.DONE
             }
-
         }
-
-
     }
 
     fun removeGame(game: Game) {
@@ -128,18 +123,18 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     }
 
     fun prepareCreate() {
-        _invalidPublish.value =    when {
+        _invalidPublish.value = when {
             title.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-                 InvalidInput.TITLE_EMPTY
+                InvalidInput.TITLE_EMPTY
             time.value == 0L ->
-               InvalidInput.TIME_EMPTY
+                InvalidInput.TIME_EMPTY
             location.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
                 InvalidInput.LOCATION_EMPTY
-           requirePlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-               InvalidInput.QTY_EMPTY
+            requirePlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                InvalidInput.QTY_EMPTY
             note.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
                 InvalidInput.DESC_EMPTY
-            games.value==null || games.value!!.size==0 ->
+            games.value == null || games.value!!.size == 0 ->
                 InvalidInput.GAMES_EMPTY
             else -> {
                 createParty()
@@ -149,6 +144,15 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
         }
     }
 
+    fun addGameFromFavorite(selectedGames: MutableList<Game>) {
+         _games.value =
+            (_games.value?.plus(selectedGames))?.distinctBy { it.name } as MutableList<Game>
+
+    }
+
+    fun refreshGame() {
+        _games.value = _games.value
+    }
 
 
 }

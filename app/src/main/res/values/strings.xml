@@ -147,6 +147,11 @@
     <string name="city_build">城市建設</string>
     <string name="reset">重設</string>
     <string name="plz_write">還有重要資訊沒有填寫喔!</string>
+    <string name="from_favorite">從收藏中選取</string>
+    <string name="add">加入</string>
+    <string name="clear">清除</string>
+    <string name="selected">以選取</string>
+    <string name="num">個</string>
 
 
 </resources>

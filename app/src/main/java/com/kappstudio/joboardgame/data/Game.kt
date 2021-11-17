@@ -18,7 +18,7 @@ data class Game(
     var name: String = "",
     val image: String = "",
     val type: MutableList<String> = mutableListOf(""),
-    val time: Long = 0,
+    val time: Int = 0,
 
     @ColumnInfo(name = "min_player_qty")
     val minPlayerQty: Int = 0,
@@ -42,10 +42,13 @@ data class Game(
 
 ) : Parcelable
 
-fun toGameMap(game:Game):HashMap<String, String>{
+fun toGameMap(game:Game):HashMap<String, Any>{
     return hashMapOf(
         "id" to game.id,
         "name" to game.name,
-        "image" to game.image
+        "image" to game.image,
+        "minPlayerQty" to game.minPlayerQty,
+        "maxPlayerQty" to game.maxPlayerQty,
+        "time" to game.time
     )
 }

@@ -19,6 +19,7 @@ enum class PageType(val title: String) {
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),
     SEARCH(""),
+    SELECT_GAME(""),
 
 
     OTHER("")

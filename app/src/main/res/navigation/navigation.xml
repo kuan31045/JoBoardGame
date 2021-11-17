@@ -170,7 +170,10 @@
         android:id="@+id/filterDialog"
         android:name="com.kappstudio.joboardgame.filter.FilterDialog"
         android:label="FilterDialog"/>
-
+    <fragment
+        android:id="@+id/selectGameFragment"
+        android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
+        android:label="SelectGameFragment"/>
 
     <action
         android:id="@+id/nav_to_dice_fragment"
@@ -216,4 +219,7 @@
     <action
         android:id="@+id/nav_to_filterDialog"
         app:destination="@id/filterDialog" />
+    <action
+        android:id="@+id/nav_to_select_game_fragment"
+        app:destination="@id/selectGameFragment" />
 </navigation>

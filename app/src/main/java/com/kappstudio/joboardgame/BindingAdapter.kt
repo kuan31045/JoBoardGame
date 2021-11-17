@@ -1,5 +1,6 @@
 package com.kappstudio.joboardgame
 
+import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,8 @@ import com.kappstudio.joboardgame.party.PhotoAdapter
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import java.text.SimpleDateFormat
 import java.util.*
+
+
 
 @BindingAdapter("gameTypes")
 fun bindTextViewGameTypes(tv: TextView, gameTypes: List<String>) {

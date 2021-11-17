@@ -3,8 +3,8 @@
 
     <item
         android:drawable="@drawable/ic_back"
-        android:width="26dp"
-        android:height="26dp"
+        android:width="24dp"
+        android:height="24dp"
         />
 
 </layer-list >

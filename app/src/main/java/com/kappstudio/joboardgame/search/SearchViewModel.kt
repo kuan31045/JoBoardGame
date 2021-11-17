@@ -97,7 +97,12 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
         val filteredList = mutableListOf<Game>()
         games.value?.forEach { game ->
             val name = game.name.lowercase(Locale.ROOT)
-            if (name.contains(query)) {
+            var type = ""
+            game.type.forEach {
+                type+=it
+            }
+
+            if (name.contains(query) || type.contains(query)) {
                 filteredList.add(game)
             }
         }

@@ -55,7 +55,7 @@
         style="@style/titleStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_btn_56dp"
-        android:background="@drawable/bg_btn_purple"
+        android:background="@drawable/bg_btn_black3a3a3a"
         android:text="篩選"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -6,6 +6,7 @@ import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.toGameMap
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.rating.NavToRatingInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -74,8 +75,8 @@ class GameDetailViewModel(
 
     fun checkFavorite() {
         viewModelScope.launch {
-            isFavorite.value = FirebaseService.checkFavorite(toGameMap(game.value ?: Game()))
-        }
+            isFavorite.value = UserManager.user.value?.favoriteGames?.contains(game.value)
+         }
     }
 
     fun checkRating() {

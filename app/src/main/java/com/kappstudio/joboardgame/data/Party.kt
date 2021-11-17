@@ -3,6 +3,7 @@ package com.kappstudio.joboardgame.data
 import android.os.Parcelable
 import com.kappstudio.joboardgame.login.UserManager
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class Party(
@@ -22,7 +23,7 @@ data class Party(
 
     ) : Parcelable
 
-@Parcelize
+ @Parcelize
 data class NewParty(
 
     var id: String = "",
@@ -34,7 +35,7 @@ data class NewParty(
     var location:  Location =  Location(),
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameList: MutableList<HashMap<String, String>> = mutableListOf(),
+    var gameList: @RawValue  MutableList<HashMap<String, Any>> = mutableListOf(),
     var playerIdList: MutableList<String> = mutableListOf(UserManager.user.value?.id?:""),
     var playerList: MutableList<HashMap<String, String>> = mutableListOf(
         toUserMap(UserManager.user.value?:User())

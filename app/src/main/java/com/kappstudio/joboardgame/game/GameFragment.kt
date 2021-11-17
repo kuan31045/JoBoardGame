@@ -23,15 +23,17 @@ class GameFragment : Fragment() {
         val binding = FragmentGameBinding.inflate(inflater)
         val viewModel: GameViewModel by viewModels()
 
+        val adapter = AllGameAdapter(viewModel)
+        binding.rvAllGame.adapter = adapter
+
+
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(GameFragmentDirections.navToFilterDialog())
 
         }
 
         viewModel.games.observe(viewLifecycleOwner, {
-            binding.rvAllGame.adapter = AllGameAdapter(viewModel).apply {
-                submitList(it)
-            }
+            adapter.submitList(it)
         })
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {

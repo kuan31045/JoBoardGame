@@ -332,7 +332,7 @@ object FirebaseService {
                 }
         }
 
-    fun addToFavorite(gameMap: HashMap<String, String>) {
+    fun addToFavorite(gameMap: HashMap<String, Any>) {
         Timber.d("-----Add To Favorite------------------------------")
         FirebaseFirestore.getInstance()
             .collection(PATH_USERS).document(UserManager.user.value?.id ?: "")
@@ -341,7 +341,7 @@ object FirebaseService {
         ToastUtil.show(appInstance.getString(R.string.favorite_in))
     }
 
-    fun removeFavorite(gameMap: HashMap<String, String>) {
+    fun removeFavorite(gameMap: HashMap<String, Any>) {
         Timber.d("-----Remove Favorite------------------------------")
         FirebaseFirestore.getInstance()
             .collection(PATH_USERS).document(UserManager.user.value?.id ?: "")

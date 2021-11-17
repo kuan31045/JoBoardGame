@@ -32,7 +32,7 @@ class MyPartyFragment : Fragment() {
             Timber.d("completedData $it")
             binding.rvParty.adapter = PartyAdapter(partyViewModel).apply {
                 submitList(it.filter {
-                    UserManager.user.value?.id?:"" in it.playerIdList
+                    UserManager.user.value?.id ?: "" in it.playerIdList
                 })
             }
         })

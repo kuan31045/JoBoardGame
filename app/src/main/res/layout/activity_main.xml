@@ -30,7 +30,7 @@
             android:gravity="center"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:visibility="@{vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm.page == PageType.SELECT_GAME ||  vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,13 +57,9 @@
 
                 <TextView
                     android:id="@+id/tv_title"
-                    style="@style/fontSpaceColor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    style="@style/toolbarTitleStyle"
                     android:text="@{vm.title}"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
 

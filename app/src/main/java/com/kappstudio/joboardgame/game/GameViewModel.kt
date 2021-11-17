@@ -16,8 +16,7 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     private var _games = MutableLiveData<List<Game>>()
     val games: LiveData<List<Game>>
         get() = _games
-    private  var isDismiss= false
-
+    private var isDismiss = false
 
 
     init {
@@ -26,15 +25,15 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
 
     private fun getGames() {
         viewModelScope.launch {
-            if (!isDismiss){
-                _games= FirebaseService.getLiveGames()
+            if (!isDismiss) {
+                _games = FirebaseService.getLiveGames()
 
             }
         }
     }
 
     fun addFilter(type: String) {
-       val list = games.value?.filter {
+        val list = games.value?.filter {
             it.type.contains(type)
         }
         _games.value = list!!
@@ -43,8 +42,8 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     fun filter() {
         isDismiss = true
         Handler().postDelayed({
-isDismiss=false
-                              }, 2300)
+            isDismiss = false
+        }, 2300)
     }
 
 

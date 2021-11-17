@@ -103,7 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_btn_purple"
+            android:background="@drawable/bg_btn_black3a3a3a"
             android:gravity="center"
             android:letterSpacing="0.25"
             android:text="@string/rating"

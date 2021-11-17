@@ -4,15 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
 import com.kappstudio.joboardgame.favorite.FavoriteFragmentDirections
@@ -32,26 +32,38 @@ import com.kappstudio.joboardgame.R
 
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
-import com.kappstudio.joboardgame.util.closeKeyBoard
+import com.kappstudio.joboardgame.game.GameViewModel
+import com.kappstudio.joboardgame.myrating.MyRatingViewModel
+import com.kappstudio.joboardgame.party.PartyViewModel
+import com.kappstudio.joboardgame.profile.ProfileViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class NewPartyFragment : Fragment() {
-
     lateinit var binding: FragmentNewPartyBinding
-    val viewModel: NewPartyViewModel by viewModels()
+    lateinit var viewModel: NewPartyViewModel
 
     lateinit var startActivityLauncher: StartActivityLauncher
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[NewPartyViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNewPartyBinding.inflate(inflater)
+
+        val gameViewModel: GameViewModel by viewModels()
+
         startActivityLauncher = StartActivityLauncher(this)
+
+
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -59,7 +71,9 @@ class NewPartyFragment : Fragment() {
         binding.btnAddCover.setOnClickListener {
             pickImage()
         }
-
+        binding.tvAddGame.setOnClickListener {
+            findNavController().navigate(NewPartyFragmentDirections.navToSelectGameFragment())
+        }
 
         var isPickingTime = false
 
@@ -69,7 +83,7 @@ class NewPartyFragment : Fragment() {
             .backgroundColor(appInstance.getColor(R.color.white))
             .mainColor(appInstance.getColor(R.color.blue_8187ff))
             .titleTextColor(appInstance.getColor(R.color.blue_8187ff))
-            .displayListener {  }
+            .displayListener { }
             .displayListener {
                 isPickingTime = true
             }
@@ -91,10 +105,10 @@ class NewPartyFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                     if (isPickingTime){
+                    if (isPickingTime) {
                         r.close()
                         isPickingTime = false
-                    }else{
+                    } else {
                         findNavController().popBackStack()
                     }
 
@@ -108,13 +122,13 @@ class NewPartyFragment : Fragment() {
 
         viewModel.invalidPublish.observe(viewLifecycleOwner, {
             it?.let {
-                when(it){
-                    InvalidInput.TITLE_EMPTY ->ToastUtil.show("請填寫標題!")
-                    InvalidInput.TIME_EMPTY ->ToastUtil.show("請選擇時間!")
-                    InvalidInput.LOCATION_EMPTY ->ToastUtil.show("請填寫地點!")
-                    InvalidInput.QTY_EMPTY ->ToastUtil.show("請填寫徵求人數!")
-                    InvalidInput.DESC_EMPTY ->ToastUtil.show("請填寫說明!")
-                    InvalidInput.GAMES_EMPTY ->ToastUtil.show("請加入遊戲!")
+                when (it) {
+                    InvalidInput.TITLE_EMPTY -> ToastUtil.show("請填寫標題!")
+                    InvalidInput.TIME_EMPTY -> ToastUtil.show("請選擇時間!")
+                    InvalidInput.LOCATION_EMPTY -> ToastUtil.show("請填寫地點!")
+                    InvalidInput.QTY_EMPTY -> ToastUtil.show("請填寫徵求人數!")
+                    InvalidInput.DESC_EMPTY -> ToastUtil.show("請填寫說明!")
+                    InvalidInput.GAMES_EMPTY -> ToastUtil.show("請加入遊戲!")
                 }
             }
         })
@@ -241,8 +255,13 @@ class NewPartyFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshGame()
+    }
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        getActivity()?.getViewModelStore()?.clear();
+    }
 }

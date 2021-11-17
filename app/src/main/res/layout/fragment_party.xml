@@ -7,10 +7,8 @@
     tools:context=".party.PartyFragment">
 
 
-
-
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nsv_home"
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,18 +19,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/btn_to_map"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/bg_ripple"
                 android:padding="10dp"
-                android:src="@drawable/ic_map_24dp" />
+                android:src="@drawable/ic_map_24dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_party"

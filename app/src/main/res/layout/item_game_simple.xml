@@ -25,16 +25,17 @@
 android:foreground="@drawable/bg_ripple"
             android:clickable="true"
             android:id="@+id/cl_game"
+            android:backgroundTint="@color/white_two"
 
             android:focusable="true">
 
             <ImageView
                 android:clickable="false"
                 android:focusable="false"
-
+                 android:scaleType="centerCrop"
                 android:id="@+id/iv_game"
                 android:layout_width="@dimen/game_item_image"
-                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintDimensionRatio="1:1.1"
                 android:layout_height="0dp"
                 android:src="@drawable/sample_game"
                 app:layout_constraintEnd_toEndOf="parent"
