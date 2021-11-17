@@ -1,6 +1,6 @@
 package com.kappstudio.joboardgame.newparty
 
-import android.net.Uri
+import android. net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
@@ -58,7 +58,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             viewModelScope.launch {
                 val game = FirebaseService.getGameByName(gameName.value ?: "")
                 gameName.value = ""
-                if (_games.value?.contains(game) == true) {
+                if (_games.value?.filter { it.name==game.name }?.isNotEmpty() == true) {
                     ToastUtil.show(game.name + appInstance.getString(R.string.already_in_list))
                 } else {
                     _games.value = _games.value?.plus(game) as MutableList<Game>?

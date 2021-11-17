@@ -26,7 +26,8 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
                 tvRemove.setOnClickListener {
                     viewModel.removeGame(game)
                 }
-
+                tvTime.text = game.time.toString()
+                tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
                 clGame.setOnClickListener {
                     viewModel.navToGameDetail(game)
                 }

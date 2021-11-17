@@ -152,6 +152,8 @@
     <string name="clear">清除</string>
     <string name="selected">以選取</string>
     <string name="num">個</string>
+    <string name="input_game">輸入遊戲名</string>
+    <string name="game_tools">遊戲工具</string>
 
 
 </resources>

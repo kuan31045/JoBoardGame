@@ -21,6 +21,5 @@ enum class PageType(val title: String) {
     SEARCH(""),
     SELECT_GAME(""),
 
-
     OTHER("")
 }

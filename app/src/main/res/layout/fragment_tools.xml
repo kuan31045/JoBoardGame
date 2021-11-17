@@ -137,7 +137,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/image_spin"
+                android:src="@drawable/ic_bottle_28dp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

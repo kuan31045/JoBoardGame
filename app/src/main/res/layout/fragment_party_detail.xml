@@ -504,6 +504,8 @@
                             app:boxCollapsedPaddingTop="2dp"
                             app:boxStrokeColor="@color/purple_dark_782be9"
                             app:boxStrokeWidth="0.7dp"
+                            android:isScrollContainer="true"
+
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/tv_title_msg"
                             app:layout_constraintTop_toBottomOf="@id/tv_title_msg">
@@ -514,6 +516,7 @@
                                 android:background="@color/white"
                                 android:hint="@string/new_msg"
                                 android:inputType="textMultiLine"
+                                android:isScrollContainer="true"
                                 android:maxLines="200"
                                 android:paddingEnd="32dp"
                                 android:text="@={ viewModel.newMsg }"

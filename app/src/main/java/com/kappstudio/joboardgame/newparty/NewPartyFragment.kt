@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
 import com.kappstudio.joboardgame.favorite.FavoriteFragmentDirections
 import com.dylanc.activityresult.launcher.StartActivityLauncher
@@ -39,6 +43,10 @@ import com.kappstudio.joboardgame.profile.ProfileViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
+import android.widget.AdapterView
+
+import android.widget.AdapterView.OnItemClickListener
+
 
 class NewPartyFragment : Fragment() {
     lateinit var binding: FragmentNewPartyBinding
@@ -68,12 +76,33 @@ class NewPartyFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+
         binding.btnAddCover.setOnClickListener {
             pickImage()
         }
         binding.tvAddGame.setOnClickListener {
             findNavController().navigate(NewPartyFragmentDirections.navToSelectGameFragment())
         }
+        binding.actAddGame.setOnItemClickListener { _, _, _, _ ->
+            viewModel.addGame()
+        }
+
+
+        gameViewModel.games.observe(viewLifecycleOwner, {
+            var query = arrayListOf<String>()
+            for (game in it) {
+                query.add(game.name)
+            }
+            val arraryAdapter = context?.let { it1 ->
+                ArrayAdapter(
+                    it1,
+                    android.R.layout.simple_list_item_1,
+                    query
+                )
+            }
+            binding.actAddGame.setAdapter(arraryAdapter)
+
+        })
 
         var isPickingTime = false
 
@@ -94,6 +123,11 @@ class NewPartyFragment : Fragment() {
                 isPickingTime = false
 
             }
+        binding.rvGame.addItemDecoration(
+            DividerItemDecoration(
+                appInstance, DividerItemDecoration.VERTICAL
+            )
+        )
 
 
         binding.etTime.setOnClickListener {
@@ -179,7 +213,7 @@ class NewPartyFragment : Fragment() {
         viewModel.games.observe(viewLifecycleOwner, {
             Timber.d("games: $it")
             binding.rvGame.adapter = AddGameAdapter(viewModel).apply {
-                submitList(it.reversed())
+                submitList(it)
             }
         })
 
@@ -262,6 +296,6 @@ class NewPartyFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        getActivity()?.getViewModelStore()?.clear();
+        activity?.viewModelStore?.clear();
     }
 }
