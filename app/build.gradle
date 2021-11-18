@@ -16,7 +16,7 @@ android {
         applicationId "com.kappstudio.joboardgame"
         minSdk 26
         targetSdk 30
-        versionCode 5
+        versionCode 6
         versionName "1.0"
         renderscriptTargetApi 28 //must match target sdk and build tools
         renderscriptSupportModeEnabled true
@@ -138,5 +138,7 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
+
+
 }
 

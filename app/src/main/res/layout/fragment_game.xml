@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".game.GameFragment">
+
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
         android:id="@+id/scrollview"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,9 +26,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
 
-android:visibility="gone"
                 android:drawableRight="@drawable/ic_baseline_local_fire_department_24"
                 android:text="@string/hots"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,14 +54,13 @@ android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/paddingBottom"
-                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-               app:layout_constraintTop_toBottomOf="@id/btn_hots"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_hots"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_game_all" />
-
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -72,6 +72,7 @@ android:visibility="gone"
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_filter"
         style="@style/fontSpaceColor"
@@ -82,12 +83,22 @@ android:visibility="gone"
         android:background="@drawable/bg_card_item"
         android:drawableLeft="@drawable/ic_filter_28dp"
         android:drawablePadding="5dp"
-android:visibility="gone"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/sort_filter"
         android:textColor="@color/black_text_191919"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_new_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

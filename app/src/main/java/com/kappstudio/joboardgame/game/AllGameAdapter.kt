@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.game
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
@@ -24,12 +25,16 @@ class AllGameAdapter(private val viewModel: ViewModel) :
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
                 val avg = game.totalRating / game.ratingQty.toFloat()
-
-                tvRating.text = ((avg * 10.0).roundToInt() / 10.0).toString()
+                if (game.ratingQty > 0) {
+                    tvRating.text = ((avg * 10.0).roundToInt() / 10.0).toString()
+                    tvRating.visibility = View.VISIBLE
+                } else {
+                    tvRating.visibility = View.GONE
+                }
                 bindImage(ivGame, game.image)
 
                 game.type.forEach {
-                    tvType.text = "${ tvType.text}$it"
+                    tvType.text = "${tvType.text}$it"
 
                     if (it != game.type.last()) {
                         tvType.text = "${tvType.text} | "

@@ -86,6 +86,19 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_playerQty"
                     tools:text="75分" />
 
+                <TextView
+                    android:id="@+id/tv_no_data"
+                    android:layout_width="0dp"
+
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_app_theme"
+                    android:gravity="start"
+                    android:text="@string/no_data"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_playerQty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_playerQty"
+                    app:layout_constraintTop_toTopOf="@id/tv_playerQty" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

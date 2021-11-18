@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.search
 
 import androidx.lifecycle.*
+import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
@@ -26,7 +27,7 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
     var search = MutableLiveData("")
 
     private var parties = MutableLiveData<List<Party>>()
-    private var games = MutableLiveData<List<Game>>()
+    private var games = allGames
     private var users = MutableLiveData<List<User>>()
 
     private var _newParties = MutableLiveData<List<Party>>()
@@ -44,8 +45,7 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
     init {
         viewModelScope.launch {
             parties = FirebaseService.getLiveParties()
-            games = FirebaseService.getLiveGames()
-            users = FirebaseService.getLiveUsers()
+             users = FirebaseService.getLiveUsers()
         }
     }
 
@@ -66,8 +66,8 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
             val location = party.location.address.lowercase(Locale.ROOT)
             val time = SimpleDateFormat("yyyy年MM月dd日 hh:mm").format(party.partyTime)
             var game = ""
-            party.gameList.forEach {
-                game += it.name
+            party.gameNameList.forEach {
+                game += it
             }
 
             if (title.contains(query)

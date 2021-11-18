@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -174,7 +175,7 @@
                 android:id="@+id/tv_title_desc"
                 style="@style/titleStyleWhite2"
                 android:layout_marginTop="12dp"
-                android:text="@string/game_desc"
+                android:text="@string/game_desc_"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_time"
                 app:layout_constraintTop_toBottomOf="@+id/view_line_time" />
 
@@ -186,24 +187,24 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="left"
-                android:maxLines="3"
-                android:text="@{viewModel.game.desc}"
-                app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_desc"
                 tools:text="自己Google不會很難" />
 
             <View
-                android:id="@+id/view_line_desc"
+                android:id="@+id/view_line_rating"
                 style="@style/view_line_white"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="17dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating_qty" />
 
             <TextView
+                android:visibility="@{viewModel.hasTools ? View.VISIBLE : View.GONE}"
                 android:id="@+id/tv_title_tools"
                 style="@style/titleStyleWhite2"
                 android:layout_marginTop="12dp"
@@ -211,83 +212,90 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
                 app:layout_constraintTop_toBottomOf="@+id/view_line_desc" />
 
+            <Button
+                android:id="@+id/btn_to_bottle"
+                style="@style/btnToToolsStyle"
+                android:layout_marginTop="12dp"
+app:toTools="@{viewModel.game.tools}"
+                android:drawableTop="@drawable/ic_bottle_28dp"
+                android:text="@string/spin_bottle"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_tools"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_tools" />
 
             <Button
                 android:id="@+id/btn_to_dice"
                 style="@style/btnToToolsStyle"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="12dp"
+                app:toTools="@{viewModel.game.tools}"
+
                 android:drawableTop="@drawable/ic_dice_28dp"
                 android:text="@string/dice"
-                app:layout_constraintEnd_toStartOf="@+id/btn_to_bottle"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_tools" />
+                app:layout_constraintStart_toEndOf="@+id/btn_to_bottle"
+                app:layout_constraintTop_toTopOf="@+id/btn_to_bottle" />
 
-            <Button
-                android:id="@+id/btn_to_bottle"
-                style="@style/btnToToolsStyle"
-                android:drawableTop="@drawable/ic_bottle_28dp"
-                android:visibility="gone"
-
-
-                android:text="@string/spin_bottle"
-                app:layout_constraintEnd_toStartOf="@+id/btn_to_timer"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_to_dice"
-                app:layout_constraintTop_toTopOf="@+id/btn_to_dice" />
 
             <Button
                 android:id="@+id/btn_to_timer"
                 style="@style/btnToToolsStyle"
+                app:toTools="@{viewModel.game.tools}"
+
                 android:drawableTop="@drawable/ic_timer_28dp"
                 android:text="@string/timer"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_to_bottle"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@+id/btn_to_dice"
                 app:layout_constraintTop_toTopOf="@+id/btn_to_dice" />
 
 
             <Button
                 android:id="@+id/btn_to_scoreboard"
                 style="@style/btnToToolsStyle"
-                android:layout_marginTop="16dp"
-                android:visibility=""
                 android:drawableTop="@drawable/ic_scoreboard_28dp"
                 android:text="@string/scoreboard"
-                app:layout_constraintEnd_toStartOf="@+id/btn_to_drawlots"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_to_dice" />
+                android:visibility="gone"
+                tools:layout_editor_absoluteX="51dp"
+                tools:layout_editor_absoluteY="828dp" />
 
             <Button
                 android:id="@+id/btn_to_drawlots"
                 style="@style/btnToToolsStyle"
                 android:drawableTop="@drawable/ic_drawlots_28dp"
                 android:text="@string/draw_lots"
-                app:layout_constraintEnd_toStartOf="@+id/btn_to_lie_test"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_to_scoreboard"
-                app:layout_constraintTop_toTopOf="@+id/btn_to_scoreboard" />
+                android:visibility="gone"
+
+                tools:layout_editor_absoluteX="187dp"
+                tools:layout_editor_absoluteY="832dp" />
 
             <Button
                 android:id="@+id/btn_to_lie_test"
                 style="@style/btnToToolsStyle"
                 android:drawableTop="@drawable/ic_lie_28dp"
                 android:text="@string/lie_test"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btn_to_drawlots"
-                app:layout_constraintTop_toTopOf="@+id/btn_to_scoreboard" />
+                android:visibility="gone"
+
+                tools:layout_editor_absoluteX="323dp"
+                tools:layout_editor_absoluteY="828dp" />
 
             <View
-                android:id="@+id/view_line_tools"
+                android:id="@+id/view_line_desc"
                 style="@style/view_line_white"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="17dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_goneMarginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_to_scoreboard" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+                app:layout_goneMarginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tv_title_rating"
+                style="@style/titleStyleWhite2"
+                android:layout_marginTop="12dp"
+                android:text="@string/rating_"
+                android:visibility="gone"
+
+                app:layout_constraintStart_toStartOf="@+id/tv_title_desc"
+                app:layout_constraintTop_toBottomOf="@+id/view_line_desc" />
 
 
             <TextView
@@ -295,7 +303,9 @@
                 style="@style/textStyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:visibility="gone"
+
+                android:layout_marginTop="12dp"
                 android:drawableTop="@drawable/ic_star_28dp"
                 android:drawablePadding="4dp"
                 android:gravity="center"
@@ -304,7 +314,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/tv_your_rating"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_line_tools"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_rating"
                 tools:text="8.5" />
 
             <TextView
@@ -313,6 +323,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?android:selectableItemBackground"
+                android:visibility="gone"
+
                 android:clickable="true"
                 android:drawableTop="@{ viewModel.myRating.id.empty == true ? @drawable/ic_star_empty_28dp  : @drawable/ic_star_has_rating_28dp }"
                 android:drawablePadding="4dp"
@@ -321,7 +333,7 @@
                 android:onClick="@{()->viewModel.navToRating(viewModel.myRating)}"
                 android:text="@{ viewModel.myRating.id.empty == true ? @string/dash : String.valueOf(viewModel.myRating.score) }"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/cb_favorite"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toTopOf="@+id/tv_avg_rating"
@@ -332,6 +344,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:visibility="gone"
 
                 android:text="@string/your_rating"
                 app:layout_constraintEnd_toEndOf="@+id/tv_your_rating"
@@ -343,37 +356,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:visibility="gone"
+
                 android:text="@{String.valueOf(viewModel.game.ratingQty)+ @string/man }"
                 app:layout_constraintEnd_toEndOf="@+id/tv_avg_rating"
                 app:layout_constraintStart_toStartOf="@+id/tv_avg_rating"
                 app:layout_constraintTop_toBottomOf="@+id/tv_avg_rating"
                 tools:text="300人" />
 
-            <TextView
-                android:id="@+id/tv_title_favorite"
-                style="@style/textStyle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="@string/favorite"
-                app:layout_constraintEnd_toEndOf="@+id/cb_favorite"
-                app:layout_constraintStart_toStartOf="@+id/cb_favorite"
-                app:layout_constraintTop_toBottomOf="@+id/cb_favorite" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
 
                 android:id="@+id/cb_favorite"
-                android:layout_width="28dp"
-                android:layout_height="36dp"
-                android:layout_marginTop="2dp"
+                 android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="16dp"
                 android:button="@drawable/checkbox_favorite"
                 android:checked="@{viewModel.isFavorite}"
-                android:gravity="top"
                 android:onClick="@{()->viewModel.updateCollect()}"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tv_your_rating"
-                app:layout_constraintTop_toTopOf="@id/tv_your_rating" />
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

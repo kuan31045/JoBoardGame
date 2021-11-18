@@ -84,7 +84,7 @@
                     android:layout_marginBottom="5dp"
                     android:drawableTop="@drawable/ic_star_18dp"
                     android:gravity="center"
-                    android:textColor="@color/black_3f3a3a"
+                    android:textColor="@color/black_3a3a3a"
                     android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

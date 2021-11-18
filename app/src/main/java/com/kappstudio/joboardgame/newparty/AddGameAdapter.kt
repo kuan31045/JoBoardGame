@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.newparty
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -26,8 +27,16 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
                 tvRemove.setOnClickListener {
                     viewModel.removeGame(game)
                 }
-                tvTime.text = game.time.toString()
-                tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
+
+                if (game.time != 0) {
+                    tvTime.text = game.time.toString()
+                    tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
+                    tvNoData.visibility= View.GONE
+
+                } else {
+                    tvNoData.visibility= View.VISIBLE
+                }
+
                 clGame.setOnClickListener {
                     viewModel.navToGameDetail(game)
                 }
@@ -59,6 +68,6 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         Timber.d("BindViewHolder")
 
-        holder.bind(getItem(position),viewModel)
+        holder.bind(getItem(position), viewModel)
     }
 }

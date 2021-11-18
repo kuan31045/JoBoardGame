@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.kappstudio.joboardgame.data.source.local.JoConverters
 import kotlinx.parcelize.Parcelize
+import java.util.*
+import kotlin.collections.HashMap
 
 @Entity(tableName = "jo_game_table")
 @TypeConverters(JoConverters::class)
@@ -14,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 
 data class Game(
     @PrimaryKey
-    val id: String = "notFound",
+    var id: String = "notFound",
     var name: String = "",
     val image: String = "",
     val type: MutableList<String> = mutableListOf(""),
@@ -36,7 +38,7 @@ data class Game(
     var ratingQty: Long = 0,
 
     @ColumnInfo(name = "created_time")
-    var createdTime: Long = 0,
+    var createdTime: Long = Calendar.getInstance().timeInMillis,
 
     @ColumnInfo(name = "viewed_time")
     var viewedTime: Long = 0

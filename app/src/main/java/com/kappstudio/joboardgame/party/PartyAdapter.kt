@@ -40,10 +40,10 @@ class PartyAdapter(private val viewModel: ViewModel) :
                 tvGame.text = ""
                 bindTextViewDate(tvTime, party.partyTime)
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
-                party.gameList.forEach {
-                    tvGame.text = "${tvGame.text}${it.name}"
+                party.gameNameList.forEach {
+                    tvGame.text = "${tvGame.text}$it"
 
-                    if (it != party.gameList.last()) {
+                    if (it != party.gameNameList.last()) {
                         tvGame.text = "${tvGame.text}, "
 
                     }

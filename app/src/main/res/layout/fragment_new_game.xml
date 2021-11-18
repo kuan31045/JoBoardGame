@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".newgame.NewGameFragment">
+
+    <data>
+
+        <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
+
+        <import type="android.view.View" />
+
+        <import type="com.kappstudio.joboardgame.newparty.PartyInvalidInput" />
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.newgame.NewGameViewModel" />
+
+    </data>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:background="@drawable/bg_app_theme">
+
+
+            <TextView
+                android:id="@+id/tv_title_game_image"
+                style="@style/titleStyleWhite2"
+                android:layout_marginStart="16dp"
+
+                android:layout_marginTop="16dp"
+                android:text="@string/game_image"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageButton
+                android:id="@+id/btn_add_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_ripple"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_game_image"
+                app:layout_constraintStart_toEndOf="@id/tv_title_game_image"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_game_image"
+                app:srcCompat="@drawable/ic_24px_add03" />
+
+
+            <ImageView
+
+                android:id="@+id/iv_cover"
+                android:layout_width="200dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:visibility="@{viewModel.imageUri!=null ? View.VISIBLE : View.GONE}"
+                android:scaleType="centerCrop"
+                android:src="@color/gray_bg_eaeaea"
+                app:layout_constraintDimensionRatio="1:1.1"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_game_image"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_game_image"
+                app:shapeAppearanceOverlay="@style/bottomCorner" />
+
+            <TextView
+                android:id="@+id/tv_title_info"
+                style="@style/titleStyleWhite2"
+
+                android:layout_marginTop="24dp"
+                android:text="@string/basic_info"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_game_image"
+                app:layout_constraintTop_toBottomOf="@id/iv_cover" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeWidth="0.7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_info">
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/EdittextUser"
+                    android:hint="@string/game_name"
+android:text="@={viewModel.name}"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                style="@style/titleStyle2"
+                android:layout_marginTop="16dp"
+                android:text="@string/type"
+                android:id="@+id/tv_title_type"
+                android:textColor="@color/gray_text_424244"
+                app:layout_constraintStart_toStartOf="@id/tl_name"
+                app:layout_constraintTop_toBottomOf="@id/tl_name" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_check_box"
+                tools:itemCount="8"
+                android:id="@+id/rv_type"
+                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_type"
+                app:layout_constraintStart_toStartOf="@id/tv_title_type"
+                app:layout_constraintEnd_toEndOf="@id/tl_name"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_min_player_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeWidth="0.7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                app:layout_constraintTop_toBottomOf="@+id/rv_type">
+
+                <EditText
+                    android:id="@+id/et_min_player_qty"
+                    style="@style/EdittextUser"
+                    android:hint="@string/min_player_qty"
+                    android:text="@={viewModel.minPlayerQty}"
+
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_max_player_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeWidth="0.7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                app:layout_constraintTop_toBottomOf="@+id/tl_min_player_qty">
+
+                <EditText
+                    android:id="@+id/et_max_player_qty"
+                    style="@style/EdittextUser"
+                    android:hint="@string/max_player_qty"
+                    android:text="@={viewModel.maxPlayerQty}"
+
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:boxCollapsedPaddingTop="2dp"
+                app:boxStrokeWidth="0.7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                app:layout_constraintTop_toBottomOf="@+id/tl_max_player_qty">
+
+                <EditText
+                    android:id="@+id/et_time"
+                    style="@style/EdittextUser"
+                    android:hint="@string/play_time_mins"
+                    android:text="@={viewModel.time}"
+
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <EditText
+                    android:id="@+id/et_desc"
+                    android:textColorHint="@color/gray"
+                    android:paddingLeft="12dp"
+
+                     android:layout_marginTop="16dp"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:background="@color/gray_bg_eaeaea"
+                    android:text="@={viewModel.desc}"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/game_desc"
+                    app:layout_constraintEnd_toEndOf="@id/tl_time"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                    app:layout_constraintTop_toBottomOf="@+id/tl_time"
+                     />
+
+
+
+            <TextView
+                android:id="@+id/tv_title_tools"
+                style="@style/titleStyleWhite2"
+
+                android:layout_marginTop="24dp"
+                android:text="@string/game_tools"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_game_image"
+                app:layout_constraintTop_toBottomOf="@id/et_desc" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_check_box"
+                tools:itemCount="5"
+                android:id="@+id/rv_tool"
+                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_tools"
+                app:layout_constraintStart_toStartOf="@id/tv_title_tools"
+                app:layout_constraintEnd_toEndOf="@id/tl_name"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_create"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_btn_56dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_btn_black3a3a3a"
+                android:enabled="@{viewModel.status != LoadApiStatus.LOADING }"
+                android:letterSpacing="0.25"
+                android:onClick="@{ ()-> viewModel.prepareCreate()}"
+                android:text="@string/add"
+                android:textColor="@color/white_text_fffcff"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_tool" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/transparentWhite"
+                android:elevation="40dp"
+                android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_loading"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                android:layout_centerInParent="true"
+                android:elevation="50dp"
+                android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/btn_create"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/anim_loading"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

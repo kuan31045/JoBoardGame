@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.databinding.FragmentGameBinding
+import com.kappstudio.joboardgame.party.PartyFragmentDirections
 
 class GameFragment : Fragment() {
 
@@ -29,9 +30,11 @@ class GameFragment : Fragment() {
 
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(GameFragmentDirections.navToFilterDialog())
-
         }
 
+        binding.btnNewGame.setOnClickListener {
+            findNavController().navigate(GameFragmentDirections.navToNewGameFragment(""))
+        }
         viewModel.games.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })

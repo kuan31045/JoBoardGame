@@ -1,8 +1,9 @@
 package com.kappstudio.joboardgame.newparty
 
-import android. net.Uri
+import android.net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
 
@@ -20,7 +21,7 @@ private const val defaultCover =
 class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
 
 
-    var time = MutableLiveData<Long>(0)
+    var partyTime = MutableLiveData<Long>(0)
 
     // EditText
     var title = MutableLiveData("")
@@ -33,9 +34,13 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var lat = MutableLiveData(0.0)
     var lng = MutableLiveData(0.0)
 
-    private val _games = MutableLiveData<MutableList<Game>>(mutableListOf())
-    val games: LiveData<MutableList<Game>>
-        get() = _games
+    private val _gameNameList = MutableLiveData<MutableList<String>>(mutableListOf())
+    val gameNameList: LiveData<MutableList<String>>
+        get() = _gameNameList
+
+    private var _partyGames = MutableLiveData<List<Game>>(mutableListOf())
+    val partyGames: LiveData<List<Game>>
+        get() = _partyGames
 
     //Cover
     var photoUri = MutableLiveData<Uri>()
@@ -45,8 +50,8 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
         get() = _coverUrl
 
     // Handle the error for edittext
-    private val _invalidPublish = MutableLiveData<InvalidInput?>()
-    val invalidPublish: LiveData<InvalidInput?>
+    private val _invalidPublish = MutableLiveData<PartyInvalidInput?>()
+    val invalidPublish: LiveData<PartyInvalidInput?>
         get() = _invalidPublish
 
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -55,15 +60,15 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
 
     fun addGame() {
         if (gameName.value?.replace("\\s".toRegex(), "") != "") {
-            viewModelScope.launch {
-                val game = FirebaseService.getGameByName(gameName.value ?: "")
+
+            if (gameNameList.value?.contains(gameName.value ?: "") == true) {
+                ToastUtil.show(gameName.value + appInstance.getString(R.string.already_in_list))
+            } else {
+                _gameNameList.value =
+                    _gameNameList.value?.plus(gameName.value) as MutableList<String>?
                 gameName.value = ""
-                if (_games.value?.filter { it.name==game.name }?.isNotEmpty() == true) {
-                    ToastUtil.show(game.name + appInstance.getString(R.string.already_in_list))
-                } else {
-                    _games.value = _games.value?.plus(game) as MutableList<Game>?
-                }
             }
+
         } else {
             ToastUtil.show("請輸入遊戲名")
         }
@@ -75,15 +80,11 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
 
         viewModelScope.launch {
             uploadCover()
-            val gameMapList = mutableListOf<HashMap<String, Any>>()
-            games.value?.forEach {
-                gameMapList.add(toGameMap(it))
-            }
             val res = FirebaseService.createParty(
                 NewParty(
                     title = title.value ?: "",
                     cover = coverUrl.value ?: defaultCover,
-                    partyTime = time.value ?: 0,
+                    partyTime = partyTime.value ?: 0,
                     location = Location(
                         location.value ?: "",
                         lat.value ?: 0.0,
@@ -91,7 +92,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                     ),
                     note = note.value ?: "",
                     requirePlayerQty = requirePlayerQty.value?.toIntOrNull() ?: 1,
-                    gameList = gameMapList,
+                    gameNameList = gameNameList.value ?: mutableListOf(),
                 )
             )
 
@@ -103,7 +104,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     }
 
     fun removeGame(game: Game) {
-        _games.value = _games.value?.minus(game) as MutableList<Game>
+        _gameNameList.value = _gameNameList.value?.minus(game.name) as MutableList<String>?
     }
 
     private suspend fun uploadCover() {
@@ -125,17 +126,17 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     fun prepareCreate() {
         _invalidPublish.value = when {
             title.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-                InvalidInput.TITLE_EMPTY
-            time.value == 0L ->
-                InvalidInput.TIME_EMPTY
+                PartyInvalidInput.TITLE_EMPTY
+            partyTime.value == 0L ->
+                PartyInvalidInput.TIME_EMPTY
             location.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-                InvalidInput.LOCATION_EMPTY
+                PartyInvalidInput.LOCATION_EMPTY
             requirePlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-                InvalidInput.QTY_EMPTY
+                PartyInvalidInput.QTY_EMPTY
             note.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
-                InvalidInput.DESC_EMPTY
-            games.value == null || games.value!!.size == 0 ->
-                InvalidInput.GAMES_EMPTY
+                PartyInvalidInput.DESC_EMPTY
+            gameNameList.value == null || gameNameList.value!!.size == 0 ->
+                PartyInvalidInput.GAMES_EMPTY
             else -> {
                 createParty()
                 null
@@ -145,13 +146,36 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     }
 
     fun addGameFromFavorite(selectedGames: MutableList<Game>) {
-         _games.value =
-            (_games.value?.plus(selectedGames))?.distinctBy { it.name } as MutableList<Game>
-
+        val list = mutableListOf<String>()
+        selectedGames.forEach {
+            list.add(it.name)
+        }
+        _gameNameList.value =
+            (_gameNameList.value?.plus(list))?.distinctBy {it} as MutableList<String>
     }
 
     fun refreshGame() {
-        _games.value = _games.value
+        _gameNameList.value = _gameNameList.value
+    }
+
+    fun setGame() {
+        val list = mutableListOf<Game>()
+        gameNameList.value?.forEach { name ->
+            val query = allGames.value?.filter { game ->
+                game.name == name
+            }
+            if (query != null && query.isNotEmpty()) {
+                list.add(query.first())
+            } else {
+                list.add(
+                    Game(
+                        id = "notFound",
+                        name = name
+                    )
+                )
+            }
+        }
+        _partyGames.value = list
     }
 
 

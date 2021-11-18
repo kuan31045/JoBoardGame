@@ -96,7 +96,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn_black3a3a3a"
             android:letterSpacing="0.25"
-            android:text="@string/add"
+            android:text="@string/in"
             android:textColor="@color/white_text_fffcff"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

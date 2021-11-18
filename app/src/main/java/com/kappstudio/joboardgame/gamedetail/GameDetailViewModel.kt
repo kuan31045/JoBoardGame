@@ -22,6 +22,9 @@ class GameDetailViewModel(
         get() = _game
 
     val isFavorite = MutableLiveData(false)
+    val hasTools:LiveData<Boolean> = Transformations.map(game){
+        it.tools.isNotEmpty()
+    }
 
     private var _myRating = MutableLiveData<Rating>()
     val myRating: LiveData<Rating>
@@ -75,8 +78,12 @@ class GameDetailViewModel(
 
     fun checkFavorite() {
         viewModelScope.launch {
-            isFavorite.value = UserManager.user.value?.favoriteGames?.contains(game.value)
-         }
+            UserManager.user.value?.favoriteGames?.forEach {
+                if (it.id == game.value?.id ?: "") {
+                    isFavorite.value = true
+                }
+            }
+        }
     }
 
     fun checkRating() {
@@ -87,14 +94,16 @@ class GameDetailViewModel(
 
 
     fun calAvgRating() {
-        val avg =  (game.value?.totalRating?.toFloat()?.div(game.value?.ratingQty?:0))
-        if (avg != null) {
-            avgRating.value = ((avg * 10.0).roundToInt() / 10.0).toFloat()
+        if(game.value?.ratingQty?:0 > 0)  {
+            val avg = (game.value?.totalRating?.toFloat()?.div(game.value?.ratingQty ?: 0))
+            if (avg != null) {
+                avgRating.value = ((avg * 10.0).roundToInt() / 10.0).toFloat()
+            }
         }
 
 
-    }
 
+    }
 
 
 }

@@ -18,7 +18,7 @@ import com.kappstudio.joboardgame.party.PartyViewModel
 import com.kappstudio.joboardgame.screenHeight
 import kotlin.reflect.jvm.internal.impl.descriptors.annotations.BuiltInAnnotationDescriptor
 
-class FilterDialog :  BottomSheetDialogFragment() {
+class FilterDialog : BottomSheetDialogFragment() {
     lateinit var viewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +27,24 @@ class FilterDialog :  BottomSheetDialogFragment() {
         viewModel = ViewModelProvider(requireParentFragment()).get(GameViewModel::class.java)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       val binding = DialogFilterBinding.inflate(inflater)
-        val list = listOf("陣營","派對","心機","經濟","協商","城市建設","動作反應","耕種","推理")
-binding.rvFilter.adapter= FilterAdapter(viewModel).apply {
-    submitList(list)
-}
+        val binding = DialogFilterBinding.inflate(inflater)
+        val list = resources.getStringArray(R.array.game_type_list) as List<String>
+
+        binding.rvFilter.adapter = FilterAdapter(viewModel).apply {
+            submitList(list)
+        }
         binding.btnFilter.setOnClickListener {
             dismiss()
-            viewModel.filter()
+            //viewModel.filter()
         }
         return binding.root
     }
+
     override fun onStart() {
         super.onStart()
         //拿到系统的 bottom_sheet

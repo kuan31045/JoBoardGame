@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<!--    val list = listOf("陣營","派對","心機","經濟","協商","城市建設","反應","推理")-->
 
-    <string-array name="user_list">
-        <item>user1</item>
-        <item>user2</item>
-        <item>user3</item>
-        <item>user4</item>
+    <string-array name="game_type_list">
+        <item>陣營</item>
+        <item>派對</item>
+        <item>心機</item>
+        <item>經濟</item>
+        <item>協商</item>
+        <item>推理</item>
+        <item>城市建設</item>
+        <item>動作反應</item>
+    </string-array>
+
+    <string-array name="tool_list">
+        <item>骰子</item>
+        <item>轉瓶</item>
+        <item>計時器</item>
     </string-array>
 </resources>

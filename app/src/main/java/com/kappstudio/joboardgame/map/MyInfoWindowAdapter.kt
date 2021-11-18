@@ -35,10 +35,10 @@ class MyInfoWindowAdapter(private val context: Context, private val viewModel: P
                 tvPeople.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
 
 
-                party.gameList.forEach {
-                    tvGame.text = "${tvGame.text}${it.name}"
+                party.gameNameList.forEach {
+                    tvGame.text = "${tvGame.text}${it}"
 
-                    if (it != party.gameList.last()) {
+                    if (it != party.gameNameList.last()) {
                         tvGame.text = "${tvGame.text}, "
 
                     }

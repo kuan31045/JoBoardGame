@@ -21,9 +21,11 @@ import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
 
 import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
+import com.kappstudio.joboardgame.game.GameFragmentDirections
 import com.kappstudio.joboardgame.party.PhotoAdapter
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
@@ -95,10 +97,19 @@ class PartyDetailFragment : Fragment() {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it?.playerList)
             }
+            viewModel.setGame()
+        })
+
+        allGames.observe(viewLifecycleOwner, {
+            viewModel.setGame()
+        })
+
+        viewModel.partyGames.observe(viewLifecycleOwner, {
             binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
-                submitList(it?.gameList)
+                submitList(it)
             }
         })
+
         viewModel.partyMsgs.observe(viewLifecycleOwner, {
             binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {
                 submitList(it.sortedByDescending { it.createdTime })
@@ -115,15 +126,17 @@ class PartyDetailFragment : Fragment() {
                         "",
                         AlertStyle.BOTTOM_SHEET
                     )
+
                     alert.addAction(
                         AlertAction(
-                            getString(R.string.open_browser),
+                            getString(R.string.add_game_data),
                             AlertActionStyle.POSITIVE
                         ) { _ ->
-                            // Action 1 callback
-                            val uri = Uri.parse(getString(R.string.google_search) + it.name)
-                            val intent = Intent(Intent.ACTION_VIEW, uri)
-                            activity?.startActivity(intent)
+                            findNavController().navigate(
+                                GameFragmentDirections.navToNewGameFragment(
+                                    it.name
+                                )
+                            )
                         })
                     alert.addAction(
                         AlertAction(

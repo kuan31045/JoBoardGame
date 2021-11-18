@@ -1,25 +1,27 @@
-package com.kappstudio.joboardgame.filter
+package com.kappstudio.joboardgame.newgame
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.databinding.ItemCheckBoxBinding
-import com.kappstudio.joboardgame.game.GameViewModel
 
-class FilterAdapter(private val viewModel: GameViewModel) :
-    ListAdapter<String, FilterAdapter.FilterViewHolder>(FilterAdapter) {
+class ToolAdapter(private val viewModel: NewGameViewModel) :
+    ListAdapter<String, ToolAdapter.ToolViewHolder>(ToolAdapter) {
 
 
-    inner class FilterViewHolder(private val binding: ItemCheckBoxBinding) :
+    inner class ToolViewHolder(private val binding: ItemCheckBoxBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(type: String, viewModel: GameViewModel) {
-            binding.cb.text = type
-            binding.cb.setOnClickListener {
-               // viewModel.addFilter(type)
+        fun bind(tool: String, viewModel: NewGameViewModel) {
+            binding.cb.text = tool
+            binding.cb.setOnCheckedChangeListener { _, isChecked ->
+                when (isChecked) {
+                    true -> viewModel.addTool(tool)
+
+                    false -> viewModel.removeTool(tool)
+                }
             }
 
 
@@ -28,7 +30,7 @@ class FilterAdapter(private val viewModel: GameViewModel) :
 
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+            return oldItem === newItem
         }
 
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
@@ -36,8 +38,8 @@ class FilterAdapter(private val viewModel: GameViewModel) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
-        return FilterViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToolViewHolder {
+        return ToolViewHolder(
             ItemCheckBoxBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -46,7 +48,7 @@ class FilterAdapter(private val viewModel: GameViewModel) :
         )
     }
 
-    override fun onBindViewHolder(holder: FilterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ToolViewHolder, position: Int) {
 
         holder.bind(getItem(position), viewModel)
     }

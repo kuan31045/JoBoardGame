@@ -120,7 +120,9 @@ class MainActivity : AppCompatActivity() {
                     R.id.mapFragment -> PageType.MAP
                     R.id.searchFragment -> PageType.SEARCH
                     R.id.selectGameFragment -> PageType.SELECT_GAME
-                     else -> PageType.OTHER
+                    R.id.newGameFragment -> PageType.NEW_GAME
+
+                    else -> PageType.OTHER
                 }
             )
         }

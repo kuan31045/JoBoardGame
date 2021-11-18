@@ -11,9 +11,18 @@ import com.kappstudio.joboardgame.album.AlbumAdapter
 import com.kappstudio.joboardgame.party.PhotoAdapter
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import java.text.SimpleDateFormat
-import java.util.*
 
 
+@BindingAdapter("toTools")
+fun bindToToolsBtn(btn: Button, tools: List<String>?) {
+    if (tools != null) {
+        btn.visibility = when (tools.contains(btn.text)) {
+            true -> View.VISIBLE
+            else -> View.GONE
+        }
+    }
+
+}
 
 @BindingAdapter("gameTypes")
 fun bindTextViewGameTypes(tv: TextView, gameTypes: List<String>) {

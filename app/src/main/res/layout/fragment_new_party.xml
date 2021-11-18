@@ -10,7 +10,7 @@
 
         <import type="android.view.View" />
 
-        <import type="com.kappstudio.joboardgame.newparty.InvalidInput" />
+        <import type="com.kappstudio.joboardgame.newparty.PartyInvalidInput" />
 
         <variable
             name="viewModel"
@@ -43,7 +43,7 @@
                 android:textStyle="bold"
 
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/cover_image"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -99,7 +99,7 @@
                 android:id="@+id/tl_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 app:boxCollapsedPaddingTop="2dp"
                 app:boxStrokeWidth="0.7dp"
                 app:layout_constraintEnd_toEndOf="@+id/iv_cover"
@@ -191,8 +191,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@color/gray_bg_eaeaea"
+                android:paddingLeft="12dp"
+
                 android:hint="@string/note"
                 android:inputType="textMultiLine"
+                android:textColorHint="@color/gray"
                 android:minLines="3"
                 android:text="@={ viewModel.note }"
                 app:layout_constraintEnd_toEndOf="@+id/tl_require_player_qty"

@@ -4,6 +4,7 @@ package com.kappstudio.joboardgame.partydetail
 import android.net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
@@ -18,7 +19,14 @@ import timber.log.Timber
 class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
-    private val _isSend = MutableLiveData<Boolean>(false)
+    val game: LiveData<List<Game>>
+        get() = allGames
+
+    private var _partyGames = MutableLiveData<List<Game>>(mutableListOf())
+    val partyGames: LiveData<List<Game>>
+        get() = _partyGames
+
+    private val _isSend = MutableLiveData(false)
     val isSend: LiveData<Boolean>
         get() = _isSend
 
@@ -32,7 +40,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         get() = _partyMsgs
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
-
         it?.playerIdList?.contains(UserManager.user.value?.id ?: "")
     }
 
@@ -57,6 +64,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
 
     fun leaveParty() {
         FirebaseService.leaveParty(partyId)
+
     }
 
 
@@ -118,5 +126,23 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         }
     }
 
-
+    fun setGame() {
+        val list = mutableListOf<Game>()
+        party.value?.gameNameList?.forEach { name ->
+            val query = allGames.value?.filter { game ->
+                game.name == name
+            }
+            if (query != null && query.isNotEmpty()) {
+                list.add(query.first())
+            } else {
+                list.add(
+                    Game(
+                        id = "notFound",
+                        name = name
+                    )
+                )
+            }
+        }
+        _partyGames.value = list
+    }
 }

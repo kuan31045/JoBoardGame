@@ -17,8 +17,6 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:paddingTop="16dp"
-
-
         >
 
 
@@ -60,7 +58,14 @@
                         app:lottie_loop="true"
                         app:lottie_rawRes="@raw/anim_starfall" />
 
-
+                    <Button
+                        android:id="@+id/btn_add_friend"
+                        android:text="@string/add_friend"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        style="@style/friendStyle" />
 
                     <TextView
                         android:id="@+id/tv_title_party"
@@ -122,13 +127,13 @@
                     <TextView
                         android:id="@+id/tv_host_qty"
                         style="@style/titleStyle"
-                        android:layout_marginTop="130dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:text="@{String.valueOf(viewModel.hostQty)}"
                         app:layout_constraintEnd_toStartOf="@+id/view_line_host"
                         app:layout_constraintStart_toEndOf="@+id/view_line_party"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_add_friend"
                         tools:text="33" />
 
                     <View
@@ -155,6 +160,7 @@
                         tools:text="77" />
 
                     <TextView
+                        android:padding="16dp"
                         android:id="@+id/tv_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

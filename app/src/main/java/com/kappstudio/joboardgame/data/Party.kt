@@ -16,7 +16,7 @@ data class Party(
     var location:  Location =  Location(),
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameList: MutableList<Game> = mutableListOf(),
+    var gameNameList: MutableList<String> = mutableListOf(),
     var playerIdList: MutableList<String> = mutableListOf(),
     var playerList: MutableList<User>? = null,
     var photos: MutableList<String> = mutableListOf(),
@@ -35,7 +35,7 @@ data class NewParty(
     var location:  Location =  Location(),
     var note: String = "",
     var requirePlayerQty: Int = 0,
-    var gameList: @RawValue  MutableList<HashMap<String, Any>> = mutableListOf(),
+    var gameNameList: MutableList<String> = mutableListOf(),
     var playerIdList: MutableList<String> = mutableListOf(UserManager.user.value?.id?:""),
     var playerList: MutableList<HashMap<String, String>> = mutableListOf(
         toUserMap(UserManager.user.value?:User())

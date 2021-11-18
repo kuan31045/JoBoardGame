@@ -20,6 +20,7 @@ enum class PageType(val title: String) {
     MAP(""),
     SEARCH(""),
     SELECT_GAME(""),
+    NEW_GAME(appInstance.getString(R.string.add_game)),
 
     OTHER("")
 }

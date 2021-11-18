@@ -29,6 +29,32 @@ private const val FIELD_PLAYER_LIST = "playerList"
 private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
+    suspend fun createGame(game: Game): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Create Game------------------------------")
+
+        val games = FirebaseFirestore.getInstance().collection(PATH_GAMES)
+        val document = games.document()
+
+        game.id = document.id
+
+        document
+            .set(game)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Create Game Successful: $game")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
     suspend fun addUser(user: User): Result<Boolean> =
         suspendCoroutine { continuation ->
             Timber.d("-----Add User------------------------------")
@@ -678,7 +704,7 @@ object FirebaseService {
         val liveData = MutableLiveData<List<Game>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_GAMES).orderBy("createdTime", Query.Direction.ASCENDING)
+            .collection(PATH_GAMES).orderBy("createdTime", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Timber.w("Listen failed.", e)
@@ -840,6 +866,8 @@ object FirebaseService {
                 .set(data)
         }
     }
+
+
 
 
 }

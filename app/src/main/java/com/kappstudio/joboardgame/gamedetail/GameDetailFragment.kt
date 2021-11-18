@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
+import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
 import timber.log.Timber
 
 
@@ -30,11 +31,21 @@ class GameDetailFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-binding.tvDesc.setOnClickListener {
-    binding.tvDesc.maxLines=999
-}
+        binding.tvDesc.setOnClickListener {
+            binding.tvDesc.text  = viewModel.game.value?.desc ?: ""
+        }
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        binding.btnToBottle.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToBottleFragment())
+        }
+        binding.btnToDice.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToDiceFragment())
+        }
+        binding.btnToTimer.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToTimerFragment())
+        }
         viewModel.game.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.d("game= $it")
@@ -43,6 +54,11 @@ binding.tvDesc.setOnClickListener {
 
 
                 bindTextViewGameTypes(binding.tvType, it.type)
+                if (it.desc.length>50){
+                    binding.tvDesc.text  = it.desc.substring(0..50) + "···"
+                }else  {
+                    binding.tvDesc.text  = it.desc
+                }
 
                 viewModel.addViewedGame() //加入瀏覽紀錄
                 viewModel.checkFavorite()
@@ -60,7 +76,11 @@ binding.tvDesc.setOnClickListener {
                 viewModel.onNavToRating()
             }
         })
+        viewModel.isFavorite.observe(viewLifecycleOwner, {
 
+            Timber.d("isFavorite: $it")
+            binding.cbFavorite.isChecked = it
+        })
 
 
         return binding.root
@@ -70,7 +90,7 @@ binding.tvDesc.setOnClickListener {
 
         super.onResume()
         Timber.d("onResume")
-     }
+    }
 
 
 }

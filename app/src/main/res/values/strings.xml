@@ -82,8 +82,8 @@
     <string name="player_qty">遊戲人數:</string>
     <string name="play_time">遊戲時間:</string>
     <string name="type">類型:</string>
-    <string name="game_desc">遊戲簡介:</string>
-    <string name="your_rating">您的評分</string>
+    <string name="game_desc_">遊戲簡介:</string>
+    <string name="your_rating">我的評分</string>
     <string name="go_to_msg">前往留言板</string>
     <string name="favorite">收藏</string>
     <string name="show_msg">顯示留言</string>
@@ -148,12 +148,24 @@
     <string name="reset">重設</string>
     <string name="plz_write">還有重要資訊沒有填寫喔!</string>
     <string name="from_favorite">從收藏中選取</string>
-    <string name="add">加入</string>
+    <string name="in">加入</string>
     <string name="clear">清除</string>
     <string name="selected">以選取</string>
     <string name="num">個</string>
     <string name="input_game">輸入遊戲名</string>
-    <string name="game_tools">遊戲工具</string>
+    <string name="game_tools">遊戲工具:</string>
+    <string name="rating_">遊戲評分:</string>
+    <string name="add_game">新增遊戲</string>
+    <string name="game_image">遊戲圖片</string>
+    <string name="game_name">遊戲名稱</string>
+    <string name="min_player_qty">最小遊玩人數</string>
+    <string name="max_player_qty">最大遊玩人數</string>
+    <string name="play_time_mins">遊戲時間（分鐘）</string>
+    <string name="game_desc">遊戲簡介</string>
+    <string name="add">新增</string>
+    <string name="add_game_data">新增遊戲資料到資料庫</string>
+    <string name="no_data">查無資料</string>
+    <string name="add_ok">創增成功!</string>
 
 
 </resources>
