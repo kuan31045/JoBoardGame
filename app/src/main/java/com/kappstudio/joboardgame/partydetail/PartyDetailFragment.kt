@@ -94,14 +94,19 @@ class PartyDetailFragment : Fragment() {
         })
 
         viewModel.party.observe(viewLifecycleOwner, {
+            viewModel.setHost()
+            viewModel.setGames()
+            viewModel.setUsers()
+        })
+
+        viewModel.partyUsers.observe(viewLifecycleOwner,{
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
-                submitList(it?.playerList)
+                submitList(it)
             }
-            viewModel.setGame()
         })
 
         allGames.observe(viewLifecycleOwner, {
-            viewModel.setGame()
+            viewModel.setGames()
         })
 
         viewModel.partyGames.observe(viewLifecycleOwner, {

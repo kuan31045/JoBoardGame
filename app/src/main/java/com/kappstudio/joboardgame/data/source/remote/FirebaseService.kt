@@ -399,7 +399,7 @@ object FirebaseService {
         return liveData
     }
 
-    suspend fun sendPartyMsg(msg: NewPartyMsg): Boolean = suspendCoroutine { continuation ->
+    suspend fun sendPartyMsg(msg: PartyMsg): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Send Party Msg------------------------------")
 
         val msgs = FirebaseFirestore.getInstance().collection("partyMsgs")
@@ -519,7 +519,7 @@ object FirebaseService {
                 }
         }
 
-    suspend fun createParty(party: NewParty): Boolean = suspendCoroutine { continuation ->
+    suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
 
         val parties = FirebaseFirestore.getInstance().collection(PATH_PARTIES)
@@ -631,7 +631,7 @@ object FirebaseService {
 
 
     fun getLivePartyById(partyId: String): MutableLiveData<Party> {
-        Timber.d("-----Get Live Party By Id------------------------------")
+        Timber.d("-------------------------------")
 
         val party = MutableLiveData<Party>()
 

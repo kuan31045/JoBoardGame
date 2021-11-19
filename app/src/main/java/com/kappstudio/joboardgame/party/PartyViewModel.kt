@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.party
 
 import androidx.lifecycle.*
+import com.kappstudio.joboardgame.allParties
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Result

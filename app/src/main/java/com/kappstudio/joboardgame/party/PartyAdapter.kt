@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kappstudio.joboardgame.allUsers
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.data.Party
@@ -23,7 +24,14 @@ class PartyAdapter(private val viewModel: ViewModel) :
 
         fun bind(party: Party) {
 
+
             binding.apply {
+               allUsers.value?.first { it.id == party.hostId }?.let{host->
+                   tvHost.text = host.name
+                   bindImage(ivHost, host.image)
+               }
+
+
                 tvIsOver.visibility = when {
                     party.partyTime + 3600000 < Calendar.getInstance().timeInMillis
                     -> View.VISIBLE
@@ -32,11 +40,11 @@ class PartyAdapter(private val viewModel: ViewModel) :
                 }
 
                 bindImage(ivCover, party.cover)
-                bindImage(ivHost, party.host.image)
+
+
                 tvTitle.text = party.title
                 tvLocation.text = party.location.address
                 tvTime.text = party.partyTime.toString()
-                tvHost.text = party.host.name
                 tvGame.text = ""
                 bindTextViewDate(tvTime, party.partyTime)
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"

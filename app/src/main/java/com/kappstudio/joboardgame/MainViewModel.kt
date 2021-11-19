@@ -5,19 +5,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Game
+import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.login.UserManager
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-
-lateinit var allGames:LiveData<List<Game>>
+lateinit var allGames: LiveData<List<Game>>
+lateinit var allParties: LiveData<List<Party>>
+lateinit var allUsers: LiveData<List<User>>
 
 class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
             allGames = FirebaseService.getLiveGames()
+        }
+        viewModelScope.launch {
+            allParties = FirebaseService.getLiveParties()
+        }
+        viewModelScope.launch {
+            allUsers = FirebaseService.getLiveUsers()
         }
     }
 

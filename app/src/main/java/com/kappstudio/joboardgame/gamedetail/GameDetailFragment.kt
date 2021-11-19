@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
 import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
+import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 
@@ -32,7 +33,7 @@ class GameDetailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.tvDesc.setOnClickListener {
-            binding.tvDesc.text  = viewModel.game.value?.desc ?: ""
+            binding.tvDesc.text = viewModel.game.value?.desc ?: ""
         }
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
@@ -46,6 +47,7 @@ class GameDetailFragment : Fragment() {
         binding.btnToTimer.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.navToTimerFragment())
         }
+
         viewModel.game.observe(viewLifecycleOwner, {
             it?.let {
                 Timber.d("game= $it")
@@ -54,10 +56,10 @@ class GameDetailFragment : Fragment() {
 
 
                 bindTextViewGameTypes(binding.tvType, it.type)
-                if (it.desc.length>50){
-                    binding.tvDesc.text  = it.desc.substring(0..50) + "···"
-                }else  {
-                    binding.tvDesc.text  = it.desc
+                if (it.desc.length > 100) {
+                    binding.tvDesc.text = it.desc.substring(0..100) + "···"
+                } else {
+                    binding.tvDesc.text = it.desc
                 }
 
                 viewModel.addViewedGame() //加入瀏覽紀錄
@@ -65,6 +67,12 @@ class GameDetailFragment : Fragment() {
                 viewModel.checkRating()
                 viewModel.calAvgRating()
 
+                if (it.tools.isNotEmpty()) {
+                    binding.tvTitleTools.visibility = View.VISIBLE
+                } else {
+                    binding.tvTitleTools.visibility = View.GONE
+
+                }
             }
         })
 

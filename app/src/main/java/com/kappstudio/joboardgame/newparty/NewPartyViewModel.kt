@@ -81,7 +81,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
         viewModelScope.launch {
             uploadCover()
             val res = FirebaseService.createParty(
-                NewParty(
+                Party(
                     title = title.value ?: "",
                     cover = coverUrl.value ?: defaultCover,
                     partyTime = partyTime.value ?: 0,

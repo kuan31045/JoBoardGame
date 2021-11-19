@@ -15,6 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+
         tools:context=".search.SearchFragment">
 
         <ImageView
@@ -29,6 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:afterTextChanged="@{()->viewModel.search()}"
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -75,6 +78,8 @@ android:visibility="@{viewModel.search.empty  ?  View.GONE:View.VISIBLE}"
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="0dp"
+            android:background="@drawable/bg_app_theme"
+
             android:layout_height="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"

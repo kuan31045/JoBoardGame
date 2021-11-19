@@ -2,6 +2,9 @@ package com.kappstudio.joboardgame.search
 
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.allGames
+import com.kappstudio.joboardgame.allParties
+import com.kappstudio.joboardgame.allUsers
+import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
@@ -26,9 +29,9 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
     // EditText
     var search = MutableLiveData("")
 
-    private var parties = MutableLiveData<List<Party>>()
+    private var parties = allParties
     private var games = allGames
-    private var users = MutableLiveData<List<User>>()
+    private var users = allUsers
 
     private var _newParties = MutableLiveData<List<Party>>()
     val newParties: LiveData<List<Party>>
@@ -42,12 +45,7 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
     val newUsers: LiveData<List<User>>
         get() = _newUsers
 
-    init {
-        viewModelScope.launch {
-            parties = FirebaseService.getLiveParties()
-             users = FirebaseService.getLiveUsers()
-        }
-    }
+
 
     fun search() {
         val query = search.value?.replace("\\s".toRegex(), "")?.lowercase(Locale.ROOT) ?: ""
@@ -62,7 +60,10 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
         val filteredList = mutableListOf<Party>()
         parties.value?.forEach { party ->
             val title = party.title.lowercase(Locale.ROOT)
-            val host = party.host.name.lowercase(Locale.ROOT)
+
+            var host = allUsers.value?.first { it.id == party.hostId }?.name?.lowercase(Locale.ROOT)
+
+
             val location = party.location.address.lowercase(Locale.ROOT)
             val time = SimpleDateFormat("yyyy年MM月dd日 hh:mm").format(party.partyTime)
             var game = ""
@@ -70,13 +71,15 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
                 game += it
             }
 
-            if (title.contains(query)
-                || host.contains(query)
-                || location.contains(query)
-                || time.contains(query)
-                || game.contains(query)
-            ) {
-                filteredList.add(party)
+            if (host != null) {
+                if (title.contains(query)
+                    || host.contains(query)
+                    || location.contains(query)
+                    || time.contains(query)
+                    || game.contains(query)
+                ) {
+                    filteredList.add(party)
+                }
             }
         }
         _newParties.value = filteredList

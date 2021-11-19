@@ -3,9 +3,7 @@ package com.kappstudio.joboardgame.partydetail
 
 import android.net.Uri
 import androidx.lifecycle.*
-import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.allGames
-import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
@@ -19,12 +17,17 @@ import timber.log.Timber
 class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
-    val game: LiveData<List<Game>>
-        get() = allGames
+    private var _host = MutableLiveData<User>()
+    val host: LiveData<User>
+        get() = _host
 
     private var _partyGames = MutableLiveData<List<Game>>(mutableListOf())
     val partyGames: LiveData<List<Game>>
         get() = _partyGames
+
+    private var _partyUsers = MutableLiveData<List<User>>(mutableListOf())
+    val partyUsers: LiveData<List<User>>
+        get() = _partyUsers
 
     private val _isSend = MutableLiveData(false)
     val isSend: LiveData<Boolean>
@@ -72,7 +75,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         if (newMsg.value?.replace("\\s".toRegex(), "") != "") {
             viewModelScope.launch {
                 val res = FirebaseService.sendPartyMsg(
-                    NewPartyMsg(
+                    PartyMsg(
                         partyId = partyId,
                         msg = newMsg.value ?: ""
                     )
@@ -126,7 +129,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         }
     }
 
-    fun setGame() {
+    fun setGames() {
         val list = mutableListOf<Game>()
         party.value?.gameNameList?.forEach { name ->
             val query = allGames.value?.filter { game ->
@@ -144,5 +147,20 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
             }
         }
         _partyGames.value = list
+    }
+
+    fun setUsers() {
+
+        _partyUsers.value = allUsers.value?.filter { party.value?.playerIdList?.contains(it.id) ==true }
+
+
+    }
+
+    fun setHost() {
+        allUsers.value?.first { it.id == party.value?.hostId ?: "" }?.let {
+            _host.value = it
+        }
+
+
     }
 }

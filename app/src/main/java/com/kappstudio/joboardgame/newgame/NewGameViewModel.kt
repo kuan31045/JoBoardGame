@@ -44,7 +44,6 @@ class NewGameViewModel : ViewModel() {
     private var types = mutableListOf<String>()
     private var tools = mutableListOf<String>()
 
-
     fun addType(type: String) {
         types.add(type)
     }
@@ -91,8 +90,6 @@ class NewGameViewModel : ViewModel() {
                     GameInvalidInput.DESC_EMPTY
 
                 else -> {
-
-
                     createGame()
 
                     null

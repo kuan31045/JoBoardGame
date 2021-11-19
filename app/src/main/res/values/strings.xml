@@ -163,7 +163,7 @@
     <string name="play_time_mins">遊戲時間（分鐘）</string>
     <string name="game_desc">遊戲簡介</string>
     <string name="add">新增</string>
-    <string name="add_game_data">新增遊戲資料到資料庫</string>
+    <string name="add_game_data">新增遊戲資料</string>
     <string name="no_data">查無資料</string>
     <string name="add_ok">創增成功!</string>
 

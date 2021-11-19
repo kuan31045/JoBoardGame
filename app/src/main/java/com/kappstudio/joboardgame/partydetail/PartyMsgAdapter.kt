@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kappstudio.joboardgame.allUsers
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.PartyMsg
 import com.kappstudio.joboardgame.databinding.ItemPartyMsgBinding
@@ -19,17 +20,25 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(msg: PartyMsg, viewModel: PartyDetailViewModel) {
-            Timber.d("bind")
-            binding.apply {
-                bindImage(ivUser, msg.user.image)
-                tvName.text = msg.user.name
+             binding.apply {
+
+            allUsers.value?.first { it.id == msg.userId }?.let{ user->
+                bindImage(ivUser, user.image)
+                tvName.text = user.name
+                ivUser.setOnClickListener {
+                    viewModel.navToUser(user.id)
+                }
+            }
+
+
+
+
+
                 tvMsg.text = msg.msg
 
-                tvTime.text= timeUtil(msg.createdTime)
+                tvTime.text = timeUtil(msg.createdTime)
 
-                ivUser.setOnClickListener {
-                    viewModel.navToUser(msg.user.id)
-                }
+
             }
 
         }
@@ -46,8 +55,7 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MsgViewHolder {
-        Timber.d("create")
-        return MsgViewHolder(
+         return MsgViewHolder(
             ItemPartyMsgBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -57,7 +65,6 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
     }
 
     override fun onBindViewHolder(holder: MsgViewHolder, position: Int) {
-        Timber.d("BindViewHolder")
 
         holder.bind(getItem(position), viewModel)
     }

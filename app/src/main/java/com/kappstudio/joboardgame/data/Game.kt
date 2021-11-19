@@ -21,7 +21,7 @@ data class Game(
     val image: String = "",
     val type: MutableList<String> = mutableListOf(""),
     val time: Int = 0,
-    val tools: List<String> = listOf(""),
+    val tools: List<String> = listOf(),
 
     @ColumnInfo(name = "min_player_qty")
     val minPlayerQty: Int = 0,

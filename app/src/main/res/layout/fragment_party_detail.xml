@@ -141,7 +141,7 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:onClick="@{()->viewModel.navToUser(viewModel.party.hostId)}"
-                            android:text="@{viewModel.party.host.name}"
+                            android:text="@{viewModel.host.name}"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
                             app:layout_constraintStart_toEndOf="@id/tv_title_host"
@@ -473,7 +473,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="120dp"
+                    android:layout_marginBottom="36dp"
                     app:cardBackgroundColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -559,18 +559,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_sea"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginBottom="-200dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/anim_sea" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
