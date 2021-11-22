@@ -24,9 +24,7 @@ class RatingAdapter(private val viewModel: MyRatingViewModel) :
                 tvRating.text = rating.score.toString()
                 bindImage(ivGame, rating.game.image)
 
-                tvRating.setOnClickListener {
-                    viewModel.navToRating(rating)
-                 }
+
 
                 clGame.setOnClickListener {
                     viewModel.navToGameDetail(rating.game)

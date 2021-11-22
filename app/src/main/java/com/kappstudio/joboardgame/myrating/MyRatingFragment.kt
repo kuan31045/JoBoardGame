@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.databinding.FragmentMyRatingBinding
+import com.kappstudio.joboardgame.favorite.FavoriteFragmentArgs
 import com.kappstudio.joboardgame.gamedetail.GameDetailFragmentDirections
+import com.kappstudio.joboardgame.user.UserViewModel
 
 class MyRatingFragment : Fragment() {
 
@@ -17,7 +20,14 @@ class MyRatingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMyRatingBinding.inflate(inflater)
-        val viewModel: MyRatingViewModel by viewModels()
+
+        val viewModel: MyRatingViewModel by viewModels {
+            VMFactory {
+                MyRatingViewModel(
+                    MyRatingFragmentArgs.fromBundle(requireArguments()).userId,
+                )
+            }
+        }
 
         viewModel.games.observe(viewLifecycleOwner, {
             binding.rvGame.adapter = RatingAdapter(viewModel).apply{
@@ -30,12 +40,6 @@ class MyRatingFragment : Fragment() {
             it?.let {
                 findNavController().navigate(MyRatingFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
-            }
-        })
-        viewModel.navToRating.observe(viewLifecycleOwner, {
-            it?.let {
-                findNavController().navigate(GameDetailFragmentDirections.navToRatingDialog(it))
-                viewModel.onNavToRating()
             }
         })
         return binding.root

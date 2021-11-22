@@ -10,9 +10,7 @@ import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
 
 class UserViewModel(private val userId: String) : ViewModel(),
-    NavToPartyDetailInterface
-//    ,NavToMyPartyInterface,NavToMyHostInterface,
-//    NavToMyFavoriteInterface,NavToMyRatingInterface,NavToMyFriendInterface
+    NavToPartyDetailInterface,NavToUserInterface
 {
     private var _user = MutableLiveData<User>()
     val user: LiveData<User>
@@ -33,10 +31,9 @@ class UserViewModel(private val userId: String) : ViewModel(),
         get() = _friendStatus
 
 
-
     fun checkFriendStatus() {
         _friendStatus.value = when {
-            userId == me.value?.id->FriendStatus.IS_ME
+            userId == me.value?.id -> FriendStatus.IS_ME
 
             user.value?.friendList?.contains(me.value?.id) == true -> FriendStatus.IS_FRIEND
 
@@ -60,7 +57,6 @@ class UserViewModel(private val userId: String) : ViewModel(),
         viewModelScope.launch {
             _status.value = LoadApiStatus.LOADING
             _user = FirebaseService.getLiveUser(userId)
-
             _parties.value = FirebaseService.getUserParties(userId)
             _hostParties.value = FirebaseService.getUserHosts(userId)
             _status.value = LoadApiStatus.DONE
@@ -82,9 +78,5 @@ class UserViewModel(private val userId: String) : ViewModel(),
     fun refuseRequest() {
         FirebaseService.refuseRequest(userId)
     }
-
-
-
-
 
 }

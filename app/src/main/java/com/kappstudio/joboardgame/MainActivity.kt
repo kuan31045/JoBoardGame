@@ -121,6 +121,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.searchFragment -> PageType.SEARCH
                     R.id.selectGameFragment -> PageType.SELECT_GAME
                     R.id.newGameFragment -> PageType.NEW_GAME
+                    R.id.friendFragment -> PageType.FRIEND_LIST
+                    R.id.myHostFragment -> PageType.MY_HOST
 
                     else -> PageType.OTHER
                 }

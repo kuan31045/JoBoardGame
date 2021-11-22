@@ -71,8 +71,20 @@
         android:id="@+id/myPartyFragment"
         android:name="com.kappstudio.joboardgame.myparty.MyPartyFragment"
         android:label="fragment_my_party"
-        tools:layout="@layout/fragment_my_party" />
-
+        tools:layout="@layout/fragment_my_party">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myHostFragment"
+        android:name="com.kappstudio.joboardgame.myhost.MyHostFragment"
+        android:label="fragment_my_host"
+        tools:layout="@layout/fragment_my_host">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/gameDetailFragment"
@@ -104,7 +116,12 @@
         android:id="@+id/myRatingFragment"
         android:name="com.kappstudio.joboardgame.myrating.MyRatingFragment"
         android:label="fragment_my_rating"
-        tools:layout="@layout/fragment_my_rating" />
+        tools:layout="@layout/fragment_my_rating">
+
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/albumFragment"
@@ -216,6 +233,9 @@
     <action
         android:id="@+id/nav_to_my_party_fragment"
         app:destination="@id/myPartyFragment" />
+    <action
+        android:id="@+id/nav_to_my_host_fragment"
+        app:destination="@id/myHostFragment" />
     <action
         android:id="@+id/nav_to_party_detail_fragment"
         app:destination="@id/partyDetailFragment" />

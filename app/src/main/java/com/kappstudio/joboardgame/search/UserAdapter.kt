@@ -2,6 +2,7 @@ package com.kappstudio.joboardgame.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,21 +10,25 @@ import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ItemUserBinding
 import com.kappstudio.joboardgame.partydetail.PlayerAdapter
+import com.kappstudio.joboardgame.user.NavToUserInterface
 import timber.log.Timber
 
-class UserAdapter(private val viewModel: SearchViewModel) :
+class UserAdapter(private val viewModel: ViewModel) :
     ListAdapter<User, UserAdapter.UserViewHolder>(UserAdapter) {
 
 
     inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: User, viewModel: SearchViewModel) {
+        fun bind(user: User, viewModel: ViewModel) {
 
             bindImage(binding.ivUser, user.image)
             binding.tvName.text = user.name
             binding.clUser.setOnClickListener {
-                viewModel.navToUser(user.id)
+                when (viewModel) {
+                    is NavToUserInterface -> viewModel.navToUser(user.id)
+                }
+
             }
         }
     }

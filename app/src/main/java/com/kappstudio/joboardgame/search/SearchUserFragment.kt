@@ -35,7 +35,7 @@ class SearchUserFragment : Fragment() {
         })
         viewModel.navToUser.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToUserFragment(it))
+                findNavController().navigate(SearchFragmentDirections.navToUserFragment(it))
                 viewModel.onNavToUser()
             }
         })

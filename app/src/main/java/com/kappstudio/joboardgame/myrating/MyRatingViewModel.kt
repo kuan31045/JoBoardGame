@@ -6,11 +6,10 @@ import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
-import com.kappstudio.joboardgame.rating.NavToRatingInterface
 
-class MyRatingViewModel : ViewModel(),NavToGameDetailInterface,NavToRatingInterface {
+class MyRatingViewModel(private val userId: String) : ViewModel(),NavToGameDetailInterface {
 
-    private var _games = FirebaseService.getLiveRatings(UserManager.user.value?.id?:"")
+    private var _games = FirebaseService.getLiveRatings(userId)
     val games: LiveData<List<Rating>>
         get() = _games
 

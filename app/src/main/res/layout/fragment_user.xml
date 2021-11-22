@@ -5,7 +5,6 @@
 
     <data>
 
-
         <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
 
         <import type="com.kappstudio.joboardgame.user.FriendStatus" />
@@ -15,10 +14,10 @@
         <variable
             name="viewModel"
             type="com.kappstudio.joboardgame.user.UserViewModel" />
-
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_bg_eaeaea">
@@ -106,10 +105,10 @@
                         android:id="@+id/tv_location"
                         style="@style/fontSpace"
                         android:layout_width="wrap_content"
-android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="@{viewModel.user.county}"
+                        android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_name"
@@ -121,11 +120,11 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:visibility="@{viewModel.user.status.empty ? View.GONE : View.VISIBLE}"
-
                         android:gravity="center"
+
                         android:maxLength="100"
                         android:text="@{viewModel.user.status}"
+                        android:visibility="@{viewModel.user.status.empty ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_location"
@@ -141,9 +140,9 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_status">
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_edit"
-                            tools:visibility="visible"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/theme_blue"
@@ -151,13 +150,14 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                             android:elevation="@dimen/elevation_4dp"
                             android:minWidth="150dp"
                             android:text="@string/edit_profile"
-
                             android:textColor="@color/white"
+
                             android:visibility="@{viewModel.friendStatus == FriendStatus.IS_ME ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp" />
+                            app:cornerRadius="99dp"
+                            tools:visibility="visible" />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_friend"
-                            tools:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/theme_blue"
@@ -166,19 +166,20 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                             android:minWidth="150dp"
                             android:onClick="@{()->viewModel.sendFriendRequest()}"
                             android:text="@string/add_friend"
-
                             android:textColor="@color/white"
+
                             android:visibility="@{viewModel.friendStatus == FriendStatus.CAN_SEND ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp" />
+                            app:cornerRadius="99dp"
+                            tools:visibility="gone" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_is_send"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:backgroundTint="@color/theme_blue"
+                            android:clickable="false"
                             android:drawableLeft="@drawable/ic_send_request_24dp"
                             android:elevation="@dimen/elevation_4dp"
-                            android:clickable="false"
                             android:focusable="false"
                             android:minWidth="150dp"
                             android:text="交友邀請已送出"
@@ -191,53 +192,54 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                             android:id="@+id/btn_is_friend"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
-                            tools:visibility="gone"
-
                             android:backgroundTint="@color/gray_bg_eaeaea"
+
+                            android:clickable="false"
                             android:drawableLeft="@drawable/ic_friends_24dp"
                             android:elevation="@dimen/elevation_4dp"
                             android:focusable="false"
-                            android:clickable="false"
                             android:minWidth="150dp"
                             android:text="朋友"
                             android:textColor="@color/black"
                             android:visibility="@{viewModel.friendStatus == FriendStatus.IS_FRIEND ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp" />
+                            app:cornerRadius="99dp"
+                            tools:visibility="gone" />
 
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_accept"
-                            android:layout_marginEnd="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
+                            android:layout_marginEnd="8dp"
                             android:backgroundTint="@color/theme_blue"
                             android:drawableLeft="@drawable/ic_accept_24dp"
                             android:elevation="@dimen/elevation_4dp"
-                            android:onClick="@{() -> viewModel.acceptRequest()}"
                             android:focusable="false"
                             android:minWidth="150dp"
+                            android:onClick="@{() -> viewModel.acceptRequest()}"
                             android:text="接受交友邀請"
-                            tools:visibility="gone"
                             android:textColor="@color/white"
                             android:visibility="@{viewModel.friendStatus == FriendStatus.SEND_TO_ME ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp" />
+                            app:cornerRadius="99dp"
+                            tools:visibility="gone" />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_refuse"
                             android:layout_width="120dp"
                             android:layout_height="50dp"
                             android:layout_marginStart="8dp"
-                            android:onClick="@{()->viewModel.refuseRequest()}"
-                            tools:visibility="gone"
-
                             android:backgroundTint="@color/gray_bg_eaeaea"
                             android:drawableLeft="@drawable/ic_refuse_24dp"
+
                             android:elevation="@dimen/elevation_4dp"
                             android:focusable="false"
                             android:minWidth="150dp"
+                            android:onClick="@{()->viewModel.refuseRequest()}"
                             android:text="拒絕"
                             android:textColor="@color/black"
                             android:visibility="@{viewModel.friendStatus == FriendStatus.SEND_TO_ME ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp" />
+                            app:cornerRadius="99dp"
+                            tools:visibility="gone" />
 
                     </LinearLayout>
 
@@ -246,8 +248,8 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         style="@style/fontSpace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/party"
                         android:layout_marginTop="-24dp"
+                        android:text="@string/party"
 
                         app:layout_constraintEnd_toEndOf="@+id/tv_party_qty"
                         app:layout_constraintStart_toStartOf="@+id/tv_party_qty"
@@ -258,8 +260,8 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                         style="@style/fontSpace"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/host"
                         android:layout_marginTop="-24dp"
+                        android:text="@string/host"
 
                         app:layout_constraintEnd_toEndOf="@+id/tv_host_qty"
                         app:layout_constraintStart_toStartOf="@+id/tv_host_qty"
@@ -268,10 +270,10 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                     <TextView
                         android:id="@+id/tv_title_friend"
                         style="@style/fontSpace"
-                        android:layout_marginTop="-24dp"
-
                         android:layout_width="wrap_content"
+
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="-24dp"
                         android:text="@string/friend"
                         app:layout_constraintEnd_toEndOf="@+id/tv_friend_qty"
                         app:layout_constraintStart_toStartOf="@+id/tv_friend_qty"
@@ -280,16 +282,16 @@ android:visibility="@{viewModel.user.county.empty ? View.GONE : View.VISIBLE}"
                     <TextView
                         android:id="@+id/tv_party_qty"
                         style="@style/titleStyle"
-android:minWidth="55dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingBottom="24dp"
                         android:gravity="center"
 
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:minWidth="55dp"
+                        android:paddingBottom="24dp"
                         android:text="@{String.valueOf(viewModel.parties.size)}"
                         app:layout_constraintEnd_toStartOf="@+id/view_line_party"
 
@@ -312,16 +314,16 @@ android:minWidth="55dp"
                     <TextView
                         android:id="@+id/tv_host_qty"
                         style="@style/titleStyle"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:minWidth="55dp"
-                        android:gravity="center"
-
-                        android:paddingBottom="24dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+
+                        android:focusable="true"
+                        android:gravity="center"
+                        android:minWidth="55dp"
+                        android:paddingBottom="24dp"
                         android:text="@{String.valueOf(viewModel.hostParties.size)}"
                         app:layout_constraintEnd_toStartOf="@+id/view_line_host"
                         app:layout_constraintStart_toEndOf="@+id/view_line_party"
@@ -343,21 +345,19 @@ android:minWidth="55dp"
                     <TextView
                         android:id="@+id/tv_friend_qty"
                         style="@style/titleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:minWidth="55dp"
                         android:gravity="center"
+                        android:minWidth="55dp"
                         android:paddingBottom="24dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="@{String.valueOf(viewModel.user.friendList.size)}"
                         app:layout_constraintEnd_toEndOf="parent"
-
                         app:layout_constraintStart_toEndOf="@+id/view_line_host"
                         app:layout_constraintTop_toTopOf="@+id/tv_host_qty"
                         tools:text="77" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

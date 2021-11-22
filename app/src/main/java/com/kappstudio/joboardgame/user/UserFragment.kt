@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.databinding.FragmentUserBinding
+import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
+import com.kappstudio.joboardgame.profile.ProfileFragmentDirections
 import java.util.*
 
 
@@ -35,6 +37,15 @@ class UserFragment : Fragment() {
 
         //Nav
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
+
+
+
+        binding.tvPartyQty.setOnClickListener {
+            findNavController().navigate(UserFragmentDirections.navToMyPartyFragment(userId))
+        }
+        binding.tvHostQty.setOnClickListener {
+          findNavController().navigate(MyHostFragmentDirections.navToMyHostFragment(userId))
+        }
         binding.tvFriendQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToFriendFragment(userId))
         }
@@ -42,8 +53,20 @@ class UserFragment : Fragment() {
             findNavController().navigate(UserFragmentDirections.navToFavoriteFragment(userId))
         }
         binding.tvRating.setOnClickListener {
-            findNavController().navigate(UserFragmentDirections.navToMyRatingFragment())
+            findNavController().navigate(UserFragmentDirections.navToMyRatingFragment(userId))
         }
+        binding.tvPhoto.setOnClickListener {
+            viewModel.user.value?.photos?.let {
+                findNavController().navigate(
+                    ProfileFragmentDirections.navToAlbumFragment(
+                        it.toTypedArray()
+                    )
+                )
+            }
+        }
+
+
+
 
 
 

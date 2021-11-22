@@ -105,11 +105,12 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_album.xml" value="0.16066606660666066" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_dice.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_favorite.xml" value="0.16066606660666066" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_friend.xml" value="0.34601449275362317" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_friend.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.4" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_info.xml" value="0.18766876687668768" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_map.xml" value="0.25" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_host.xml" value="0.29393115942028986" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_party.xml" value="0.18766876687668768" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_rating.xml" value="0.2671296296296296" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_new_game.xml" value="0.264" />
@@ -263,12 +264,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.4" />
-      </ProjectState>
-    </option>
   </component>
 </project>

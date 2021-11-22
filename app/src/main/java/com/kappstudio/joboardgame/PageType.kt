@@ -8,19 +8,23 @@ enum class PageType(val title: String) {
     PARTY_DETAIL(""),
     NEW_PARTY(appInstance.getString(R.string.new_party)),
     GAME_DETAIL(""),
-    MY_PARTY(appInstance.getString(R.string.my_party)),
     USER(""),
-    FAVORITE("史丹利的遊戲收藏"),
     DICE(appInstance.getString(R.string.dice)),
     TIMER(appInstance.getString(R.string.timer)),
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
-    MY_RATING("史丹利的遊戲評分"),
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),
     SEARCH(""),
     SELECT_GAME(""),
     NEW_GAME(appInstance.getString(R.string.add_game)),
+
+    //TODO Show the user's name
+    FAVORITE("遊戲收藏"),
+    FRIEND_LIST("好友名單"),
+    MY_RATING("遊戲評分"),
+    MY_PARTY("參加的聚會"),
+    MY_HOST("主辦的聚會"),
 
     OTHER("")
 }

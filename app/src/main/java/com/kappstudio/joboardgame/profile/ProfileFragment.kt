@@ -45,8 +45,7 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.btnMyParty.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.navToMyPartyFragment())
-        }
+         }
 
         viewModel.user.observe(viewLifecycleOwner, {
             bindImage(binding.ivProfile, it.image)
@@ -61,16 +60,7 @@ class ProfileFragment : Fragment() {
             activity?.finish()
         }
 
-        binding.btnMyPhotos.setOnClickListener {
-            viewModel.user.value?.photos?.let {
-                findNavController().navigate(
-                    ProfileFragmentDirections.navToAlbumFragment(
-                        it.toTypedArray()
-                    )
-                )
-            }
 
-        }
 
         binding.etUserStatus.setOnClickListener {
             val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
@@ -107,9 +97,6 @@ class ProfileFragment : Fragment() {
                 })
 
             builder.show()
-        }
-        binding.btnMyRating.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.navToMyRatingFragment())
         }
 
 
