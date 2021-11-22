@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.search.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+
+        tools:context=".search.SearchFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            style="@style/toolbarBtn"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/transparentWhite"
+            android:src="@drawable/ic_back_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/et_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:afterTextChanged="@{()->viewModel.search()}"
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+             android:hint="@string/search"
+            android:imeOptions="actionSearch"
+android:background="@color/transparent"
+            android:inputType="text"
+            android:paddingLeft="16dp"
+            android:text="@={viewModel.search}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/iv_clear"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/iv_clear"
+            style="@style/toolbarBtn"
+            android:layout_marginEnd="16dp"
+android:visibility="@{viewModel.search.empty  ?  View.GONE:View.VISIBLE}"
+            android:layout_width="20dp"
+             android:elevation="@dimen/elevation_4dp"
+            android:layout_height="20dp"
+            android:backgroundTint="@color/transparentWhite"
+            android:src="@drawable/ic_close_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/et_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_search" />
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_layout"
+            android:layout_width="0dp"
+
+            android:layout_height="48dp"
+            android:background="@drawable/bg_tab_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search"
+            app:tabSelectedTextColor="@color/purple_dark_782be9"
+            app:tabTextColor="@color/warm_grey_two" />
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_app_theme"
+
+            android:layout_height="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabs_layout">
+
+        </androidx.viewpager.widget.ViewPager>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

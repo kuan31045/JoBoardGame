@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ripple"
+    android:padding="8dp"
+
+    android:clickable="true"
+    android:layout_marginEnd="24dp"
+    android:id="@+id/cl_user"
+    android:focusable="true">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user"
+
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/circle"
+        tools:src="@drawable/defult_profile" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/textStyle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_4dp"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_user"
+        app:layout_constraintStart_toEndOf="@+id/iv_user"
+        app:layout_constraintTop_toTopOf="@id/iv_user"
+        tools:text="@string/sample_user_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

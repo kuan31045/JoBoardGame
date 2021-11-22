@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <variable name="game" type="com.kappstudio.joboardgame.data.Game"/>
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameViewModel" />
+    </data>
+
+
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_game"
+
+                android:padding ="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                 android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/iv_game"
+                    android:layout_width="90dp"
+                     android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1.2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/sample_game" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/titleStyleWhite2"
+                    android:textSize="17sp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_playerQty"
+                    app:layout_constraintStart_toStartOf="@+id/tv_playerQty"
+                    tools:text="卡坦島" />
+
+                <TextView
+                    android:id="@+id/tv_remove"
+                    style="@style/tvClearStyle"
+                     android:text="@string/remove"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_playerQty"
+                    style="@style/fontSpaceColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:drawableLeft="@drawable/ic_people_18"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_game"
+                    app:layout_constraintStart_toEndOf="@+id/iv_game"
+                    app:layout_constraintTop_toTopOf="@+id/iv_game"
+                    app:layout_constraintVertical_bias="0.55"
+                    tools:text="3-4人" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_marginStart="16dp"
+                    style="@style/fontSpaceColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_time_18"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_playerQty"
+                    app:layout_constraintStart_toEndOf="@+id/tv_playerQty"
+                    app:layout_constraintTop_toTopOf="@+id/tv_playerQty"
+                    tools:text="75分" />
+
+                <TextView
+                    android:id="@+id/tv_no_data"
+                    android:layout_width="0dp"
+
+                    android:layout_height="0dp"
+                    android:background="@drawable/bg_app_theme"
+                    android:gravity="start"
+                    android:text="@string/no_data"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_playerQty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_playerQty"
+                    app:layout_constraintTop_toTopOf="@id/tv_playerQty" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

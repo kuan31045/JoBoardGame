@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+
+
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.tools.timer.TimerViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".tools.timer.TimerFragment">
+
+        <Button
+            android:id="@+id/btn_30s"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:letterSpacing="0.15"
+            android:text="30s"
+            app:layout_constraintBottom_toTopOf="@+id/cpb_timer"
+            app:layout_constraintEnd_toStartOf="@+id/btn_60s"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_bug"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/anim_bug" />
+
+
+        <Button
+            android:id="@+id/btn_60s"
+
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:letterSpacing="0.15"
+
+            android:text="60s"
+            app:layout_constraintEnd_toStartOf="@+id/btn_90s"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_30s"
+            app:layout_constraintTop_toTopOf="@+id/btn_30s" />
+
+        <Button
+            android:id="@+id/btn_90s"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:letterSpacing="0.15"
+
+            android:text="90s"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_60s"
+            app:layout_constraintTop_toTopOf="@+id/btn_30s" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+
+            android:id="@+id/cpb_timer"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:cProgress="@{viewModel.progress}"
+            app:cpb_background_progressbar_color="#b6bbd8"
+
+            app:cpb_background_progressbar_width="5dp"
+
+
+            app:cpb_progress_direction="to_right"
+            app:cpb_progressbar_color="@color/purple_light_9148F9"
+            app:cpb_progressbar_width="10dp"
+            app:cpb_round_border="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@{String.valueOf(viewModel.sec)}"
+
+            android:textColor="@color/purple_dark_782be9"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="@id/cpb_timer"
+            app:layout_constraintEnd_toEndOf="@id/cpb_timer"
+            app:layout_constraintStart_toStartOf="@id/cpb_timer"
+            app:layout_constraintTop_toTopOf="@id/cpb_timer" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_start"
+
+            style="@style/toolsBtn"
+            android:layout_marginBottom="120dp"
+            android:backgroundTint="@color/purple_light_9148F9"
+            android:text="@string/start"
+            android:textColor="@color/white_text_fffcff"
+            android:visibility="@{viewModel.isTiming() ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_pause"
+            style="@style/toolsBtn"
+            android:layout_marginEnd="8dp"
+
+            android:text="@string/pause"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_stop"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_stop" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_stop"
+            style="@style/toolsBtn"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/stop"
+            android:visibility="@{viewModel.isTiming() ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_pause"
+            app:layout_constraintTop_toBottomOf="@+id/btn_start" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

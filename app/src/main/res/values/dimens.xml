@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="elevation_4dp">4dp</dimen>
+    <dimen name="game_item_image">132dp</dimen>
+    <dimen name="user_item_image">36dp</dimen>
+    <dimen name="spn_height">40dp</dimen>
+    <dimen name="height_btn_56dp">56dp</dimen>
+    <dimen name="height_btn_40dp">40dp</dimen>
+
+    <dimen name="toolbar_height">46dp</dimen>
+    <dimen name="paddingBottom">96dp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">56dp</dimen>
+
+</resources>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/partyFragment">
+
+    <fragment
+        android:id="@+id/partyFragment"
+        android:name="com.kappstudio.joboardgame.party.PartyFragment"
+        android:label="fragment_party"
+        tools:layout="@layout/fragment_party">
+
+        <action
+            android:id="@+id/nav_to_new_party_fragment"
+            app:destination="@id/newPartyFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.kappstudio.joboardgame.game.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" />
+
+    <fragment
+        android:id="@+id/toolsFragment"
+        android:name="com.kappstudio.joboardgame.tools.ToolsFragment"
+        android:label="fragment_tools"
+        tools:layout="@layout/fragment_tools" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kappstudio.joboardgame.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/partyDetailFragment"
+        android:name="com.kappstudio.joboardgame.partydetail.PartyDetailFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="clickedPartyId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newPartyFragment"
+        android:name="com.kappstudio.joboardgame.newparty.NewPartyFragment"
+        android:label="fragment_new_party"
+        tools:layout="@layout/fragment_new_party">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newGameFragment"
+        android:name="com.kappstudio.joboardgame.newgame.NewGameFragment"
+        android:label="fragment_new_game"
+        tools:layout="@layout/fragment_new_game">
+        <argument
+            android:name="gameName"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPartyFragment"
+        android:name="com.kappstudio.joboardgame.myparty.MyPartyFragment"
+        android:label="fragment_my_party"
+        tools:layout="@layout/fragment_my_party">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myHostFragment"
+        android:name="com.kappstudio.joboardgame.myhost.MyHostFragment"
+        android:label="fragment_my_host"
+        tools:layout="@layout/fragment_my_host">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameDetailFragment"
+        android:name="com.kappstudio.joboardgame.gamedetail.GameDetailFragment"
+        android:label="fragment_game_detail"
+        tools:layout="@layout/fragment_game_detail">
+        <argument
+            android:name="clickedGameId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diceFragment"
+        android:name="com.kappstudio.joboardgame.tools.dice.DiceFragment"
+        android:label="fragment_dice"
+        tools:layout="@layout/fragment_dice" />
+    <fragment
+        android:id="@+id/bottleFragment"
+        android:name="com.kappstudio.joboardgame.tools.bottle.BottleFragment"
+        android:label="fragment_bottle"
+        tools:layout="@layout/fragment_bottle" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.kappstudio.joboardgame.tools.timer.TimerFragment"
+        android:label="fragment_timer"
+        tools:layout="@layout/fragment_timer" />
+
+    <fragment
+        android:id="@+id/myRatingFragment"
+        android:name="com.kappstudio.joboardgame.myrating.MyRatingFragment"
+        android:label="fragment_my_rating"
+        tools:layout="@layout/fragment_my_rating">
+
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.kappstudio.joboardgame.album.AlbumFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_album">
+        <argument
+            android:name="photos"
+            app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="com.kappstudio.joboardgame.album.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo">
+        <argument
+            android:name="photos"
+            app:argType="string[]" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.kappstudio.joboardgame.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="partyId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.kappstudio.joboardgame.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
+
+
+    <dialog
+        android:id="@+id/ratingDialog"
+        android:name="com.kappstudio.joboardgame.rating.RatingDialog"
+        android:label="RatingDialog">
+
+        <argument
+            android:name="rating"
+            app:argType="com.kappstudio.joboardgame.data.Rating" />
+    </dialog>
+    <dialog
+        android:id="@+id/filterDialog"
+        android:name="com.kappstudio.joboardgame.filter.FilterDialog"
+        android:label="FilterDialog" />
+    <fragment
+        android:id="@+id/selectGameFragment"
+        android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
+        android:label="SelectGameFragment" />
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.kappstudio.joboardgame.user.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user">
+
+        <argument
+            android:name="clickedUserId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.kappstudio.joboardgame.friend.FriendFragment"
+        android:label="FriendFragment"
+        tools:layout="@layout/fragment_friend">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.kappstudio.joboardgame.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.kappstudio.joboardgame.notification.NotificationFragment"
+        android:label="fragment_dice"
+        tools:layout="@layout/fragment_notification" />
+
+
+    <action
+        android:id="@+id/nav_to_notification_fragment"
+        app:destination="@id/notificationFragment" />
+    <action
+        android:id="@+id/nav_to_friend_fragment"
+        app:destination="@id/friendFragment" />
+
+    <action
+        android:id="@+id/nav_to_dice_fragment"
+        app:destination="@id/diceFragment" />
+    <action
+        android:id="@+id/nav_to_timer_fragment"
+        app:destination="@id/timerFragment" />
+    <action
+        android:id="@+id/nav_to_bottle_fragment"
+        app:destination="@id/bottleFragment" />
+
+    <action
+        android:id="@+id/nav_to_my_party_fragment"
+        app:destination="@id/myPartyFragment" />
+    <action
+        android:id="@+id/nav_to_my_host_fragment"
+        app:destination="@id/myHostFragment" />
+    <action
+        android:id="@+id/nav_to_party_detail_fragment"
+        app:destination="@id/partyDetailFragment" />
+
+    <action
+        android:id="@+id/nav_to_game_detail_fragment"
+        app:destination="@id/gameDetailFragment" />
+    <action
+        android:id="@+id/nav_to_favorite_fragment"
+        app:destination="@id/favoriteFragment" />
+    <action
+        android:id="@+id/nav_to_my_rating_fragment"
+        app:destination="@id/myRatingFragment" />
+
+    <action
+        android:id="@+id/nav_to_ratingDialog"
+        app:destination="@id/ratingDialog" />
+    <action
+        android:id="@+id/nav_to_album_fragment"
+        app:destination="@id/albumFragment" />
+    <action
+        android:id="@+id/nav_to_photo_fragment"
+        app:destination="@id/photoFragment" />
+    <action
+        android:id="@+id/nav_to_map_fragment"
+        app:destination="@id/mapFragment" />
+    <action
+        android:id="@+id/nav_to_search_fragment"
+        app:destination="@id/searchFragment" />
+    <action
+        android:id="@+id/nav_to_filterDialog"
+        app:destination="@id/filterDialog" />
+    <action
+        android:id="@+id/nav_to_select_game_fragment"
+        app:destination="@id/selectGameFragment" />
+    <action
+        android:id="@+id/nav_to_new_game_fragment"
+        app:destination="@id/newGameFragment" />
+    <action
+        android:id="@+id/nav_to_user_fragment"
+        app:destination="@id/userFragment" />
+</navigation>

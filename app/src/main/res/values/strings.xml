@@ -1,3 +1,183 @@
 <resources>
-    <string name="app_name">Jo Tabletop Game</string>
+    <string name="app_name">Jo 桌遊</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dash">-</string>
+
+    <!--    Bottom Nav-->
+    <string name="party">聚會</string>
+    <string name="game_viewed">遊戲總覽</string>
+    <string name="tools">小工具</string>
+    <string name="profile">個人</string>
+    <string name="new_party">舉辦聚會</string>
+
+    <!--    Party -->
+    <string name="my_party_2">我的聚會 》</string>
+    <string name="see_all">看全部 》</string>
+    <string name="already_join">✓已加入</string>
+    <string name="host">主辦</string>
+    <string name="lets_party">來場聚會吧!</string>
+    <string name="country">縣市</string>
+    <string name="date">日期</string>
+    <string name="date_sample">11/8 ~ 11/14</string>
+    <string name="location">地點</string>
+    <string name="time">時間</string>
+    <string name="game">遊戲</string>
+
+    <!--    Party Detail -->
+    <string name="play_list">遊玩清單</string>
+    <string name="host_">主辦:</string>
+    <string name="location_">地點:</string>
+    <string name="time_">時間:</string>
+    <string name="note_">說明:</string>
+    <string name="msg">留言</string>
+    <string name="join">參加</string>
+    <string name="out">退出</string>
+    <string name="require_player_qty">徵求人數</string>
+    <string name="join_players">參加者</string>
+    <string name="welcome">Welcome!</string>
+    <string name="bye">"Bye~"</string>
+    <string name="peopleQty">人數:</string>
+    <string name="lack"> (缺)</string>
+
+
+    <!--Game-->
+    <string name="sample_game_name">卡坦島</string>
+    <string name="sample_game_name2">富饒之城</string>
+    <string name="all">全部</string>
+    <string name="hots">熱門</string>
+    <string name="bgg_rank">BGG排行榜</string>
+    <string name="top_rating">評分最高</string>
+    <string name="sort_filter">排序與篩選</string>
+    <string name="more_info">更多資訊</string>
+
+    <!--    Tool-->
+    <string name="dice">骰子</string>
+    <string name="timer">計時器</string>
+    <string name="spin_bottle">轉瓶</string>
+    <string name="lie_test">測謊機</string>
+    <string name="scoreboard">計分板</string>
+
+    <!--    Profile-->
+    <string name="sample_user_name">AKuan</string>
+    <string name="user_profile_status">動態...</string>
+    <string name="my_rating">我的評分</string>
+    <string name="my_photos">我的相片</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_party">我的聚會</string>
+    <string name="recently_viewed">最近瀏覽遊戲</string>
+    <string name="no_recently_viewed">無最近瀏覽遊戲</string>
+
+    <string name="user">用戶</string>
+
+    <!--    New Party -->
+    <string name="hint_title">標題</string>
+    <string name="hint_date">日期</string>
+    <string name="hint_time">時間</string>
+    <string name="note">活動說明</string>
+    <string name="hint_add_game">加入遊戲</string>
+    <string name="create">創建</string>
+    <string name="data_time"><![CDATA[日期 & 時間]]></string>
+
+    <!--    Game Detail-->
+    <string name="people_qty">人數</string>
+    <string name="player_qty">遊戲人數:</string>
+    <string name="play_time">遊戲時間:</string>
+    <string name="type">類型:</string>
+    <string name="game_desc_">遊戲簡介:</string>
+    <string name="your_rating">我的評分</string>
+    <string name="go_to_msg">前往留言板</string>
+    <string name="favorite">收藏</string>
+    <string name="show_msg">顯示留言</string>
+    <string name="to"> - </string>
+    <string name="man">人</string>
+    <string name="mins">分鐘</string>
+
+    <string name="host_x">主辦x</string>
+    <string name="party_x">聚會x</string>
+    <string name="my_status">個人狀態</string>
+    <string name="send">送出</string>
+    <string name="cancel">取消</string>
+    <string name="i_think">我想...</string>
+    <string name="draw_lots">抽籤</string>
+    <string name="dice_qty">骰子數量</string>
+    <string name="total">總和</string>
+    <string name="roll">Roll</string>
+    <string name="new_msg">新增留言...</string>
+    <string name="send_ok">發送成功!</string>
+    <string name="creat_ok">創建成功!</string>
+    <string name="favorite_in">已加入收藏!</string>
+    <string name="favorite_out">已移出收藏!</string>
+    <string name="remove">移除</string>
+    <string name="spin">SPIN</string>
+    <string name="start">start</string>
+    <string name="already_in_list">已經在清單中了</string>
+    <string name="ask_rating">您將如何評分</string>
+    <string name="rating">評分</string>
+    <string name="remove_rating">移除評分</string>
+    <string name="q">？</string>
+    <string name="rating_ok">評分成功!</string>
+    <string name="remove_ok">移除成功</string>
+    <string name="error">發生了不可預期的錯誤!</string>
+    <string name="add_friend">加朋友</string>
+    <string name="near_party">附近聚會</string>
+    <string name="cover_image">封面圖片</string>
+    <string name="basic_info">基本資訊</string>
+    <string name="nothing">nothing</string>
+    <string name="photo">相片</string>
+    <string name="upload_ok">上傳成功</string>
+    <string name="upload_fail">上傳失敗</string>
+    <string name="album">相簿</string>
+    <string name="stop">停止</string>
+    <string name="pause">暫停</string>
+    <string name="coming_party">近期聚會</string>
+    <string name="no_coming_party">無近期聚會</string>
+
+    <string name="search">搜尋</string>
+    <string name="party_map">聚會地圖</string>
+    <string name="geting_location">正在取得目前位置...</string>
+    <string name="maps">地圖</string>
+    <string name="no_game">資料庫查無: </string>
+    <string name="open_browser">開啟瀏覽器搜尋</string>
+    <string name="google_search">https://www.google.com/search?q=</string>
+    <string name="is_over">已結束</string>
+    <string name="searching">正在搜尋...</string>
+    <string name="login_fail">登入失敗!</string>
+    <string name="logout">登出</string>
+    <string name="camp">陣營</string>
+    <string name="economy">經濟</string>
+    <string name="scheming">心機</string>
+    <string name="type_party">派對</string>
+    <string name="city_build">城市建設</string>
+    <string name="reset">重設</string>
+    <string name="plz_write">還有重要資訊沒有填寫喔!</string>
+    <string name="from_favorite">從收藏中選取</string>
+    <string name="in">加入</string>
+    <string name="clear">清除</string>
+    <string name="selected">以選取</string>
+    <string name="num">個</string>
+    <string name="input_game">輸入遊戲名</string>
+    <string name="game_tools">遊戲工具:</string>
+    <string name="rating_">遊戲評分:</string>
+    <string name="add_game">新增遊戲</string>
+    <string name="game_image">遊戲圖片</string>
+    <string name="game_name">遊戲名稱</string>
+    <string name="min_player_qty">最小遊玩人數</string>
+    <string name="max_player_qty">最大遊玩人數</string>
+    <string name="play_time_mins">遊戲時間（分鐘）</string>
+    <string name="game_desc">遊戲簡介</string>
+    <string name="add">新增</string>
+    <string name="add_game_data">新增遊戲資料</string>
+    <string name="no_data">查無資料</string>
+    <string name="add_ok">創增成功!</string>
+    <string name="friend">朋友</string>
+    <string name="see_friend">朋友》</string>
+    <string name="see_photo">相片》</string>
+    <string name="see_favorite">收藏》</string>
+    <string name="see_rating">評分 》</string>
+    <string name="send_request_ok">已發送交友邀請!</string>
+    <string name="edit_profile">編輯個人檔案</string>
+    <string name="notification">通知</string>
+
+
 </resources>

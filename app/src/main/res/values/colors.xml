@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+
+    <color name="theme_blue">#6b79ff</color>
+
+    <color name="gray_ripple">#e0e0e0</color>
+
+    <!-- Bg-->
+    <color name="white_bg_f3f1f5">#f3f1f5</color>
+
+    <color name="white_bg_f7f7f7">#f7f7f7</color>
+    <!-- Bg Gray-->
+    <color name="gray_bg_eaeaea">#eaeaea</color>
+    <!-- Btn-->
+    <color name="purple_dark_782be9">#6b79ff</color>
+    <color name="purple_light_9148F9">#6b79ff</color>
+    <!-- Text-->
+    <color name="black_text_191919">#191919</color>
+    <!-- Text in btn-->
+    <color name="white_text_fffcff">#fffcff</color>
+    <!-- Text gray-->
+    <color name="gray_text_424244">#424244</color>
+    <color name="transparentPurple">#559148F9</color>
+
+    <color name="red_d0021b">#ffd0021b</color>
+    <color name="gray">#FF757575</color>
+
+    <color name="transparent">#00ffffff</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray_icon_a5aab0">#a5aab0</color>
+
+
+
+    <color name="primaryColor">#ffcc80</color>
+    <color name="primaryLightColor">#ffffb0</color>
+    <color name="primaryDarkColor">#ca9b52</color>
+    <color name="secondaryColor">#6d4c41</color>
+    <color name="secondaryLightColor">#9c786c</color>
+    <color name="secondaryDarkColor">#40241a</color>
+    <color name="primaryTextColor">#5d4037</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="themeColor">#F9DFB7</color>
+    <color name="transparentWhite">#99FFFFFF</color>
+    <color name="blue_8187ff">#8187ff</color>
+    <color name="black_3a3a3a">#3a3a3a</color>
+    <color name="green_29AA36">#66AA36</color>
+    <color name="windows_blue">#33a4cc</color>
+    <color name="warm_grey_two">#888888</color>
+    <color name="red_scarlet">#d0021b</color>
+    <color name="red_ff7275">#99ff0000</color>
+    <color name="brownish_grey">#646464</color>
+    <color name="denim_blue">#3b5998</color>
+    <color name="pinkish_grey">#cccccc</color>
+    <color name="white_one">#f0f0f0</color>
+    <color name="warm_grey">#999999</color>
+    <color name="white_two">#f5f5f5</color>
+    <color name="warm_grey_three">#d8d8d8</color>
+    <color name="light_blue_600">#FF039Bff</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#99000000</color>
+    <color name="black_bb000000">#bb000000</color>
+    <color name="badge">#8b4513</color>
+    <color name="gray_8a000000">#8a000000</color>
+    <color name="black_de00000">#de000000</color>
+
 </resources>

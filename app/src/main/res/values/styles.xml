@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fontSpace">
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+    </style>
+
+    <style name="fontSpaceColor" parent="fontSpace">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="titleStyle" parent="fontSpaceColor">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="clickableText">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+    </style>
+
+    <style name="party_item_detail">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+    </style>
+
+    <style name="viewSpLine">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:background">@color/purple_light_9148F9</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <!--圓形imageview-->
+    <style name="circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!--圓角imageview-->
+    <style name="corner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
+    <style name="title2Style" parent="fontSpaceColor">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="btnProfile" parent="title2Style">
+        <item name="android:background">@drawable/btn_btn_gray</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="titleStyleWhite">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:shadowColor">@color/gray_text_424244</item>
+        <item name="android:shadowDx">0.5</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:shadowRadius">0.5</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="titleStyleWhite2" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:shadowColor">@color/gray_text_424244</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="titleStyle2" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:shadowColor">@color/gray_text_424244</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="textStyle1" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="alreadyJoin">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textColor">@color/green_29AA36</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="view_line_white">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0.7dp</item>
+        <item name="android:background">@color/gray_bg_eaeaea</item>
+        <item name="android:elevation">1dp</item>
+    </style>
+
+    <style name="textStyle14sp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="EdittextUser">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--底盤圓角-->
+    <style name="bottomCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">45dp</item>
+        <item name="cornerSizeBottomRight">45dp</item>
+
+    </style>
+
+    <style name="toolbarBtn">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/bg_ripple</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="DialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="pageTopBtn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:background">@drawable/bg_btn_black3a3a3a</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textColor">@color/white_text_fffcff</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="toolsBtn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_btn_56dp</item>
+        <item name="android:background">@drawable/btn_white</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.5</item>
+        <item name="android:textColor">@color/purple_dark_782be9</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <!--实现BottomSheetDialog圆角效果 且无背景阴影-->
+    <style name="BottomSheetDialogBg" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="grayText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_text_424244</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.06</item>
+    </style>
+
+    <style name="btnStyle">
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textColor">@color/black_text_191919</item>
+        <item name="android:background">@drawable/bg_card_item</item>
+    </style>
+
+    <style name="checkBoxStyle2" parent="titleStyle2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="toolbarTitleStyle" parent="fontSpaceColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">21dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="viewLine">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0.7dp</item>
+        <item name="android:background">@color/brownish_grey</item>
+    </style>
+
+    <style name="tvClearStyle" parent="fontSpaceColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:paddingLeft">16dp</item>
+
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="btnToToolsStyle" parent="fontSpaceColor">
+        <item name="android:layout_width">85dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:backgroundTint">@color/white</item>
+          <item name="android:textSize">14dp</item>
+     </style>
+
+
+
+    <style name="TopCustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_top_corners</item>
+    </style>
+    <style name="ShapeAppearanceOverlay_card_top_corners" parent="">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_top_corners</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="BottomCustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_bottom_corners</item>
+    </style>
+    <style name="ShapeAppearanceOverlay_card_bottom_corners" parent="">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_bottom_corners</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+    </style>
+
+    <style name="textClickBlue" parent="textStyle1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+
+        <item name="android:textSize">13dp</item>
+
+        <item name="android:textColor">@color/windows_blue</item>
+    </style>
+
+
+</resources>
