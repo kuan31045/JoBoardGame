@@ -120,7 +120,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_photo.xml" value="0.2821557971014493" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_photo_album.xml" value="0.16066606660666066" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_photo_item.xml" value="0.2199074074074074" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_profile.xml" value="0.16" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_search.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_search_game.xml" value="0.2341485507246377" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_search_party.xml" value="0.2341485507246377" />
@@ -130,7 +130,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_select_game.xml" value="0.30480072463768115" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_timer.xml" value="0.5" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_tools.xml" value="0.33" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_user.xml" value="0.22" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_user.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/info_window.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_check_box.xml" value="0.1699402220324509" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_dice.xml" value="0.2101851851851852" />
@@ -264,5 +264,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.16" />
+      </ProjectState>
+    </option>
   </component>
 </project>

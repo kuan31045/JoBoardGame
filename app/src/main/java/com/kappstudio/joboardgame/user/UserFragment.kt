@@ -78,16 +78,15 @@ class UserFragment : Fragment() {
             viewModel.checkFriendStatus()
         })
 
-        viewModel.parties.observe(viewLifecycleOwner,
+        viewModel.comingParties.observe(viewLifecycleOwner,
             {
                 binding.rvParty.adapter = PartyAdapter(viewModel).apply {
                     submitList(
-                        it.filter {
-                            it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
-                        }
+                        it
                     )
                 }
             })
+
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(PartyFragmentDirections.navToPartyDetailFragment(it))

@@ -23,34 +23,35 @@ import com.kappstudio.joboardgame.databinding.FragmentProfileBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.login.LoginActivity
 import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
+import com.kappstudio.joboardgame.party.PartyAdapter
+import com.kappstudio.joboardgame.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
+import com.kappstudio.joboardgame.user.UserFragmentDirections
 import com.kappstudio.joboardgame.util.closeKeyBoard
 import timber.log.Timber
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
-
+    val viewModel: ProfileViewModel by viewModels {
+        VMFactory {
+            ProfileViewModel(
+                appInstance.provideJoRepository()
+            )
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProfileBinding.inflate(inflater)
-        val viewModel: ProfileViewModel by viewModels {
-            VMFactory {
-                ProfileViewModel(
-                    appInstance.provideJoRepository()
-                )
-            }
-        }
+
+        val userId = UserManager.user.value?.id ?: ""
+
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.btnMyParty.setOnClickListener {
-         }
-
-        viewModel.user.observe(viewLifecycleOwner, {
-            bindImage(binding.ivProfile, it.image)
-        })
-
         binding.tvLogout.setOnClickListener {
             UserManager.clear()
             FirebaseAuth.getInstance().signOut()
@@ -62,43 +63,30 @@ class ProfileFragment : Fragment() {
 
 
 
-        binding.etUserStatus.setOnClickListener {
-            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-            builder.setTitle(getString(R.string.my_status))
-
-            // Set up the input
-            val input = EditText(context)
-            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setHint(getString(R.string.i_think))
-            input.gravity = 0
-
-            input.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
-            input.minLines = 3
-            builder.setView(input)
-
-            // Set up the buttons
-            builder.setPositiveButton(
-                getString(R.string.send),
-                DialogInterface.OnClickListener { dialog, which ->
-                    // Here you get get input text from the Edittext
-                    viewModel.setStatus(
-                        input.text.toString()
-                    )
-                    activity?.let { it1 -> closeKeyBoard(it1) }
-
-
-                })
-
-            builder.setNegativeButton(
-                getString(R.string.cancel),
-                DialogInterface.OnClickListener { dialog, which ->
-                    dialog.cancel()
-                    activity?.let { it1 -> closeKeyBoard(it1) }
-                })
-
-            builder.show()
+        binding.tvPartyQty.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToMyPartyFragment(userId))
         }
-
+        binding.tvHostQty.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToMyHostFragment(userId))
+        }
+        binding.tvFriendQty.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToFriendFragment(userId))
+        }
+        binding.tvFavorite.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToFavoriteFragment(userId))
+        }
+        binding.tvRating.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.navToMyRatingFragment(userId))
+        }
+        binding.tvPhoto.setOnClickListener {
+            viewModel.me.value?.photos?.let {
+                findNavController().navigate(
+                    ProfileFragmentDirections.navToAlbumFragment(
+                        it.toTypedArray()
+                    )
+                )
+            }
+        }
 
         viewModel.viewedGames.observe(viewLifecycleOwner, {
             val list = if (it.size > 20) {
@@ -107,11 +95,10 @@ class ProfileFragment : Fragment() {
                 it
             }
             Timber.d("Set viewed games:$list")
-            binding.rvRecentlyViewedGame.adapter = GameAdapter(viewModel).apply {
+            binding.rvGame.adapter = GameAdapter(viewModel).apply {
                 submitList(list)
             }
         })
-
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(ProfileFragmentDirections.navToGameDetailFragment(it.id))
@@ -119,10 +106,30 @@ class ProfileFragment : Fragment() {
             }
         })
 
+        viewModel.comingParties.observe(viewLifecycleOwner,
+            {
+                binding.rvParty.adapter = PartyAdapter(viewModel).apply {
+                    submitList(
+                        it
+                    )
+                }
+            })
+        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                findNavController().navigate(PartyFragmentDirections.navToPartyDetailFragment(it))
+                viewModel.onNavToPartyDetail()
+            }
+        })
+
+
 
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+       viewModel.getUserInfo()
+    }
 
 }
 

@@ -8,6 +8,7 @@ import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
+import java.util.*
 
 class UserViewModel(private val userId: String) : ViewModel(),
     NavToPartyDetailInterface,NavToUserInterface
@@ -21,6 +22,12 @@ class UserViewModel(private val userId: String) : ViewModel(),
     private var _parties = MutableLiveData<List<Party>>(mutableListOf())
     val parties: LiveData<List<Party>>
         get() = _parties
+
+    val comingParties:LiveData<List<Party>> = Transformations.map(parties){
+        it.filter {
+            it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
+        }
+    }
 
     private var _hostParties = MutableLiveData<List<Party>>(mutableListOf())
     val hostParties: LiveData<List<Party>>

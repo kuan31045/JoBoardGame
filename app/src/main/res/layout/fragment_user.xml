@@ -445,7 +445,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/coming_party" />
+                    tools:textColor="@color/gray"
+                    tools:text="@string/no_coming_party"
+                    android:textColor="@{viewModel.comingParties.empty ? @color/gray : @color/black}"
+
+                    android:text="@{viewModel.comingParties.empty ? @string/no_coming_party : @string/coming_party}"
+            />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_party"

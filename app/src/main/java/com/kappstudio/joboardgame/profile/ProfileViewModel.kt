@@ -1,56 +1,59 @@
 package com.kappstudio.joboardgame.profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Game
+import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.data.source.JoRepository
+import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
+import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
+import com.kappstudio.joboardgame.user.FriendStatus
+import com.kappstudio.joboardgame.user.NavToUserInterface
 import kotlinx.coroutines.launch
+import tech.gujin.toast.ToastUtil
+import java.util.*
 
-class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface  {
+class ProfileViewModel(joRepository: JoRepository) : ViewModel(), NavToGameDetailInterface,
+    NavToPartyDetailInterface, NavToUserInterface {
     val viewedGames: LiveData<List<Game>> = joRepository.getAllViewedGames()
 
-     val user: LiveData<User> = UserManager.user
+    val me: LiveData<User> = UserManager.user
 
-    private var _partyQty = MutableLiveData(0)
-    val partyQty: LiveData<Int>
-        get() = _partyQty
+    private var _parties = MutableLiveData<List<Party>>(mutableListOf())
+    val parties: LiveData<List<Party>>
+        get() = _parties
+    val comingParties:LiveData<List<Party>> = Transformations.map(parties){
+        it.filter {
+            it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
+        }
+    }
+    private var _hostParties = MutableLiveData<List<Party>>(mutableListOf())
+    val hostParties: LiveData<List<Party>>
+        get() = _hostParties
 
-    private var _hostQty = MutableLiveData(0)
-    val hostQty: LiveData<Int>
-        get() = _hostQty
 
-
+    private val _status = MutableLiveData<LoadApiStatus>()
+    val status: LiveData<LoadApiStatus>
+        get() = _status
 
     init {
         getUserInfo()
     }
 
-    private fun getUserInfo() {
+     fun getUserInfo() {
         viewModelScope.launch {
+            _status.value = LoadApiStatus.LOADING
 
-            _partyQty.value = FirebaseService.getUserParties(UserManager.user.value?.id ?: "").size
-            _hostQty.value = FirebaseService.getUserHosts(UserManager.user.value?.id ?: "").size
+            me.value?.let {
+                _parties.value = FirebaseService.getUserParties(it.id)
+                _hostParties.value = FirebaseService.getUserHosts(it.id)
+            }
 
-        }
+            _status.value = LoadApiStatus.DONE
+         }
     }
-
-
-
-    fun setStatus(status: String) {
-        viewModelScope.launch {
-            FirebaseService.setUserStatus(status)
-
-        }
-
-    }
-
-
-
 
 }
