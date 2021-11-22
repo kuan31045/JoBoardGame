@@ -21,9 +21,9 @@ enum class PageType(val title: String) {
     NOTIFICATION(appInstance.getString(R.string.notification)),
 
     //TODO Show the user's name
-    FAVORITE("遊戲收藏"),
+    FAVORITE("收藏"),
     FRIEND_LIST("好友名單"),
-    MY_RATING("遊戲評分"),
+    MY_RATING("評分"),
     MY_PARTY("參加的聚會"),
     MY_HOST("主辦的聚會"),
 

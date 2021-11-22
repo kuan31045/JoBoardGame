@@ -89,10 +89,6 @@
                 android:id="@+id/tv_title_info"
                 android:textStyle="bold"
 
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?selectableItemBackground"
-                android:onClick="@{()->viewModel.addMockData()}"
 
                 style="@style/titleStyleWhite2"
                 android:layout_marginTop="24dp"

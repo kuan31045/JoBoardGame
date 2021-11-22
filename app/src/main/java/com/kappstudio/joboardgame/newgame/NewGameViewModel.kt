@@ -28,14 +28,6 @@ class NewGameViewModel : ViewModel() {
     var time = MutableLiveData("")
     var desc = MutableLiveData("")
 
-    fun addMockData() {
-      name.value = "三國殺"
-       minPlayerQty.value  = "2"
-      maxPlayerQty.value  = "10"
-      time.value  = "45"
-       desc.value  = "三國殺是一個以三國時代為背景，集角色扮演、戰鬥、偽裝等要素于一體的多人卡片遊戲。玩家可以通過在遊戲裡扮演不同身份的角色，隱藏自己，尋找同伴，並運用各是不同的技能擊敗敵對勢力，得到最後的勝利，創造一個屬於自己的三國傳奇。三國殺是主要流行於中國大陸、港澳和台灣的桌上紙牌遊戲/網上遊戲。該紙牌遊戲以殺人紙牌（Bang!）為原型，以華夏的三國時代及演義文學為背景，擁有不同類型的身份牌、武將牌、體力牌、遊戲牌（包括基本牌、錦囊牌、裝備牌）等。遊戲玩家數量為2-10人。三國殺遊戲由游卡桌遊（Yoka Games）開發，於2008年9月18日在北京、上海和廈門三個城市同步上市。三國殺遊戲的核心為三國殺標準版[1]，可以配合各種擴展包以增加遊戲性。"
-     }
-
     private val _imageUrl = MutableLiveData<String>()
     private val imageUrl: LiveData<String>
         get() = _imageUrl

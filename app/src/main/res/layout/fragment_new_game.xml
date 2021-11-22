@@ -72,10 +72,6 @@
                 android:id="@+id/tv_title_info"
                 style="@style/titleStyleWhite2"
 
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?selectableItemBackground"
-                android:onClick="@{()->viewModel.addMockData()}"
 
                 android:layout_marginTop="24dp"
                 android:text="@string/basic_info"

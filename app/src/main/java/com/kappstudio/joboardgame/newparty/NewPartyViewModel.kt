@@ -29,16 +29,6 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var requirePlayerQty = MutableLiveData("")
     var note = MutableLiveData("")
     var gameName = MutableLiveData("")
-
-    fun addMockData() {
-        title.value = "School Demo趴"
-        location.value = "台北市基隆路178號"
-        lat.value = 25.0424437
-        lng.value = 121.5627006
-        requirePlayerQty.value = "8"
-        note.value = "提供三色豆吃到飽!"
-    }
-
     //LngLat
     var lat = MutableLiveData(0.0)
     var lng = MutableLiveData(0.0)
