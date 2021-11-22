@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.joboardgame.allParties
+import com.kappstudio.joboardgame.allUsers
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
 import timber.log.Timber
 
@@ -24,10 +26,11 @@ class PartyFragment : Fragment() {
         }
 
 
-
         viewModel.parties.observe(viewLifecycleOwner, {
-            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
-                submitList(it)
+            it?.let{
+                binding.rvParty.adapter = PartyAdapter(viewModel).apply {
+                    submitList(it)
+                }
             }
         })
 

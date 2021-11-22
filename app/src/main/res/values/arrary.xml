@@ -6,7 +6,7 @@
     <string-array name="game_type_list">
         <item>陣營</item>
         <item>派對</item>
-        <item>心機</item>
+        <item>策略</item>
         <item>經濟</item>
         <item>協商</item>
         <item>推理</item>

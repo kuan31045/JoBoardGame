@@ -9,14 +9,11 @@ data class User(
     var name: String = "",
     var image: String = "",
     var status: String = "",
+
+    var county: String = "",
+    var friendList: MutableList<String> = mutableListOf(),
+    var requestList: MutableList<String> = mutableListOf(),
+
     var favoriteGames: MutableList<Game> = mutableListOf(),
     var photos: MutableList<String> = mutableListOf(),
 ): Parcelable
-
-fun toUserMap(user:User):HashMap<String, String>{
-    return hashMapOf(
-        "id" to user.id,
-        "name" to user.name,
-        "image" to user.image
-    )
-}

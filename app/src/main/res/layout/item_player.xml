@@ -8,7 +8,7 @@
      android:padding="4dp"
 
     android:clickable="true"
-    android:layout_marginEnd="24dp"
+    android:layout_marginEnd="16dp"
     android:id="@+id/cl_user"
     android:focusable="true">
 
@@ -31,11 +31,11 @@
         style="@style/textStyle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/elevation_4dp"
+        android:layout_marginTop="8dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_user"
-        tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+        tools:text="aaaaaa" />
 </androidx.constraintlayout.widget.ConstraintLayout>

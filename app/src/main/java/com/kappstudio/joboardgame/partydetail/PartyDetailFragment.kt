@@ -167,7 +167,7 @@ class PartyDetailFragment : Fragment() {
 
         viewModel.navToUser.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToUserDialog(it))
+                findNavController().navigate(PartyDetailFragmentDirections.navToUserFragment(it))
                 viewModel.onNavToUser()
             }
         })

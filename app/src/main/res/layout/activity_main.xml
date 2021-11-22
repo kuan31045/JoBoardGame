@@ -24,13 +24,12 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="0dp"
-            android:layout_height="@dimen/toolbar_height"
+            android:layout_height="51dp"
             android:background="@color/white"
             android:elevation="4dp"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:visibility="@{vm.page == PageType.SELECT_GAME ||  vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
+            android:gravity="top"
+
+             android:visibility="@{vm.page == PageType.SELECT_GAME ||  vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +113,7 @@
             android:layout_height="@dimen/design_bottom_navigation_height"
             android:background="@color/white"
             android:elevation="@dimen/elevation_4dp"
-            android:visibility="@{vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOLS || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
+            android:visibility="@{vm.page == PageType.USER ||vm.page == PageType.PARTY_DETAIL ||vm.page == PageType.PARTY || vm.page == PageType.GAME || vm.page == PageType.TOOLS || vm.page == PageType.PROFILE ? View.VISIBLE : View.GONE}"
             app:itemIconSize="25dp"
 
             app:itemIconTint="@drawable/bottom_nav_item_selector"

@@ -165,7 +165,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
-        android:visibility="gone"
 
         android:layout_marginEnd="6dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
@@ -216,7 +215,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
-        android:visibility="gone"
 
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -263,8 +261,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
+         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView4"

@@ -70,6 +70,7 @@ class NewPartyFragment : Fragment() {
         binding.viewModel = viewModel
 
 
+
         binding.btnAddCover.setOnClickListener {
             pickImage()
         }

@@ -62,7 +62,7 @@
     <string name="sample_user_name">AKuan</string>
     <string name="user_profile_status">動態...</string>
     <string name="my_rating">我的評分</string>
-    <string name="my_photos">我的相簿</string>
+    <string name="my_photos">我的相片</string>
     <string name="my_favorite">我的收藏</string>
     <string name="my_party">我的聚會</string>
     <string name="recently_viewed">最近瀏覽遊戲</string>
@@ -117,7 +117,7 @@
     <string name="rating_ok">評分成功!</string>
     <string name="remove_ok">移除成功</string>
     <string name="error">發生了不可預期的錯誤!</string>
-    <string name="add_friend">加好友</string>
+    <string name="add_friend">加朋友</string>
     <string name="near_party">附近聚會</string>
     <string name="cover_image">封面圖片</string>
     <string name="basic_info">基本資訊</string>
@@ -166,6 +166,13 @@
     <string name="add_game_data">新增遊戲資料</string>
     <string name="no_data">查無資料</string>
     <string name="add_ok">創增成功!</string>
+    <string name="friend">朋友</string>
+    <string name="see_friend">朋友》</string>
+    <string name="see_photo">相片》</string>
+    <string name="see_favorite">收藏》</string>
+    <string name="see_rating">評分 》</string>
+    <string name="send_request_ok">已發送交友邀請!</string>
+    <string name="edit_profile">編輯個人檔案</string>
 
 
 </resources>

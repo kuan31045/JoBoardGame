@@ -58,7 +58,7 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
 
     private fun searchParties(query: String) {
         val filteredList = mutableListOf<Party>()
-        parties.value?.forEach { party ->
+        parties?.value?.forEach { party ->
             val title = party.title.lowercase(Locale.ROOT)
 
             var host = allUsers.value?.first { it.id == party.hostId }?.name?.lowercase(Locale.ROOT)
@@ -100,12 +100,8 @@ class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterfac
         val filteredList = mutableListOf<Game>()
         games.value?.forEach { game ->
             val name = game.name.lowercase(Locale.ROOT)
-            var type = ""
-            game.type.forEach {
-                type+=it
-            }
 
-            if (name.contains(query) || type.contains(query)) {
+            if (name.contains(query)) {
                 filteredList.add(game)
             }
         }

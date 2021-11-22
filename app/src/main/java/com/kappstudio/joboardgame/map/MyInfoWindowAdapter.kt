@@ -20,7 +20,7 @@ class MyInfoWindowAdapter(private val context: Context, private val viewModel: P
     GoogleMap.InfoWindowAdapter {
 
     private fun render(marker: Marker, binding: InfoWindowBinding) {
-        val party = viewModel.parties.value?.filter {
+        val party = viewModel.parties?.value?.filter {
             it.id == marker.snippet
         }?.get(0)
 

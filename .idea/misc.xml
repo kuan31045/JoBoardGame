@@ -7,19 +7,26 @@
         <entry key="..\:/Users/kuan31045/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/ratingbar_full_empty.xml" value="0.274537037037037" />
         <entry key="..\:/Users/kuan31045/AppData/Local/Android/Sdk/platforms/android-30/data/res/drawable/ratingbar_full_filled.xml" value="0.274537037037037" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_app_theme.xml" value="0.37962962962962965" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_btn_add.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_btn_purple.xml" value="0.2675925925925926" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_card_item.xml" value="0.37962962962962965" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_card_item_stroke.xml" value="0.3486111111111111" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_circlebtn.xml" value="0.3648148148148148" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_corners_4dp.xml" value="0.3648148148148148" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_corners_8dp.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_ripple.xml" value="0.2564814814814815" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_spn.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_tab_layout.xml" value="0.39717925386715197" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bg_top_coner.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/bottom_nav_item_selector.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/btn_btn_gray.xml" value="0.37962962962962965" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/btn_white.xml" value="0.2675925925925926" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/checkbox_favorite.xml" value="0.41388888888888886" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_accept_24dp.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_add_24dp.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_add_friend_24dp.xml" value="0.37661777394305435" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_autorenew_36dp.xml" value="0.3814814814814815" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_back_24dp.xml" value="0.3828947368421053" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2773148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_baseline_local_fire_department_24.xml" value="0.2773148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.37962962962962965" />
@@ -28,8 +35,10 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.2564814814814815" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_baseline_send_28.xml" value="0.2773148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_bell_24dp.xml" value="0.2773148148148148" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_block_24dp.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_bottle_24dp.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_bottle_28dp.xml" value="0.37661777394305435" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_chat_28dp.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_close_24dp.xml" value="0.2773148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_crown_24dp.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_date_13dp.xml" value="0.39717925386715197" />
@@ -41,8 +50,10 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_drawlots_28dp.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_edit_24dp.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_filter_28dp.xml" value="0.37962962962962965" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_friends_24dp.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_game_10dp.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_game_16dp.xml" value="0.39717925386715197" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_game_18dp.xml" value="0.3648148148148148" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_game_24dp.xml" value="0.37962962962962965" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_google_36dp.xml" value="0.34258416742493175" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_heart_28dp.xml" value="0.41388888888888886" />
@@ -72,10 +83,13 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_photo_24dp.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_photo_album_28dp.xml" value="0.32314814814814813" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_record_28dp.xml" value="0.3814814814814815" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_refuse_24dp.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_score_board.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_search.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_search_24.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_search_24dp.xml" value="0.39717925386715197" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_send_request.xml" value="0.3921875" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_send_request_24dp.xml" value="0.3921875" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_spinbottle_24dp.xml" value="0.41759259259259257" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_star_28dp.xml" value="0.39717925386715197" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/drawable/ic_time_18.xml" value="0.39717925386715197" />
@@ -86,13 +100,14 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_rating.xml" value="0.16" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_select_favorite.xml" value="0.264" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_select_game.xml" value="0.32653985507246375" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_user.xml" value="0.4" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/dialog_user.xml" value="0.12" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_add_game.xml" value="0.30480072463768115" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_album.xml" value="0.16066606660666066" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_dice.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_favorite.xml" value="0.16066606660666066" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_friend.xml" value="0.34601449275362317" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game.xml" value="0.25" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.264" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_game_detail.xml" value="0.4" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_info.xml" value="0.18766876687668768" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_map.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_my_party.xml" value="0.18766876687668768" />
@@ -113,7 +128,8 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_search_user.xml" value="0.2341485507246377" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_select_game.xml" value="0.30480072463768115" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_timer.xml" value="0.5" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_tools.xml" value="0.21" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_tools.xml" value="0.33" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_user.xml" value="0.22" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/info_window.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_check_box.xml" value="0.1699402220324509" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_dice.xml" value="0.2101851851851852" />
@@ -123,14 +139,19 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_favorite.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_info.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_rating.xml" value="0.2101851851851852" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_rating_read.xml" value="0.5" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_selected.xml" value="0.12" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_simple.xml" value="0.2101851851851852" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_simple.xml" value="0.9" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_party.xml" value="0.264" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_party_msg.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo.xml" value="0.25" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_50dp.xml" value="0.27853260869565216" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_alumb.xml" value="0.2821557971014493" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_player.xml" value="0.25" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_rating_read.xml" value="0.27853260869565216" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_user.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_user_2.xml" value="0.32563405797101447" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_user_grid.xml" value="0.27853260869565216" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3861111111111111" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935185185185185" />
@@ -246,7 +267,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.18" />
+        <option name="scale" value="0.4" />
       </ProjectState>
     </option>
   </component>

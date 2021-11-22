@@ -30,6 +30,15 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var note = MutableLiveData("")
     var gameName = MutableLiveData("")
 
+    fun addMockData() {
+        title.value = "School Demo趴"
+        location.value = "台北市基隆路178號"
+        lat.value = 25.0424437
+        lng.value = 121.5627006
+        requirePlayerQty.value = "8"
+        note.value = "提供三色豆吃到飽!"
+    }
+
     //LngLat
     var lat = MutableLiveData(0.0)
     var lng = MutableLiveData(0.0)
@@ -57,6 +66,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     private val _status = MutableLiveData<LoadApiStatus>()
     val status: LiveData<LoadApiStatus>
         get() = _status
+
 
     fun addGame() {
         if (gameName.value?.replace("\\s".toRegex(), "") != "") {
@@ -151,7 +161,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             list.add(it.name)
         }
         _gameNameList.value =
-            (_gameNameList.value?.plus(list))?.distinctBy {it} as MutableList<String>
+            (_gameNameList.value?.plus(list))?.distinctBy { it } as MutableList<String>
     }
 
     fun refreshGame() {

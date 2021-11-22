@@ -111,9 +111,7 @@ class ProfileFragment : Fragment() {
         binding.btnMyRating.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.navToMyRatingFragment())
         }
-        binding.btnMyFavorite.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.navToFavoriteFragment())
-        }
+
 
         viewModel.viewedGames.observe(viewLifecycleOwner, {
             val list = if (it.size > 20) {

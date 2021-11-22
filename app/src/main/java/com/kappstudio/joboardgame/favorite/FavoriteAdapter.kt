@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.favorite
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,7 @@ import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.databinding.ItemGameFavoriteBinding
 import timber.log.Timber
 
-class FavoriteAdapter(private val viewModel: FavoriteViewModel) :
+class FavoriteAdapter(private val viewModel: FavoriteViewModel,private val canEdit:Boolean) :
     ListAdapter<Game, FavoriteAdapter.FavoriteViewHolder>(DiffCallback) {
 
     inner class FavoriteViewHolder(private val binding: ItemGameFavoriteBinding) :
@@ -23,15 +24,17 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel) :
                 tvName.text = game.name
                 bindImage(ivGame, game.image)
 
+                if (canEdit){
+                    tvRemove.visibility = View.VISIBLE
+                }else{
+                    tvRemove.visibility = View.GONE
+                }
                 tvRemove.setOnClickListener {
                     viewModel.removeFavorite(game)
                 }
-
                 clGame.setOnClickListener {
                         viewModel.navToGameDetail(game)
                 }
-
-
             }
         }
     }

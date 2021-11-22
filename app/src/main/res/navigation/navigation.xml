@@ -34,12 +34,7 @@
         android:name="com.kappstudio.joboardgame.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/nav_to_favorite_fragment"
-            app:destination="@id/favoriteFragment" />
-        <action
-            android:id="@+id/nav_to_my_rating_fragment"
-            app:destination="@id/myRatingFragment" />
+
     </fragment>
 
 
@@ -65,7 +60,7 @@
         android:id="@+id/newGameFragment"
         android:name="com.kappstudio.joboardgame.newgame.NewGameFragment"
         android:label="fragment_new_game"
-        tools:layout="@layout/fragment_new_game" >
+        tools:layout="@layout/fragment_new_game">
         <argument
             android:name="gameName"
             app:argType="string" />
@@ -104,11 +99,7 @@
         android:name="com.kappstudio.joboardgame.tools.timer.TimerFragment"
         android:label="fragment_timer"
         tools:layout="@layout/fragment_timer" />
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.kappstudio.joboardgame.favorite.FavoriteFragment"
-        android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+
     <fragment
         android:id="@+id/myRatingFragment"
         android:name="com.kappstudio.joboardgame.myrating.MyRatingFragment"
@@ -160,16 +151,6 @@
 
 
     <dialog
-        android:id="@+id/userDialog"
-        android:name="com.kappstudio.joboardgame.user.UserDialog"
-        android:label="UserDialog">
-
-        <argument
-            android:name="clickedUserId"
-            app:argType="string" />
-    </dialog>
-
-    <dialog
         android:id="@+id/ratingDialog"
         android:name="com.kappstudio.joboardgame.rating.RatingDialog"
         android:label="RatingDialog">
@@ -187,6 +168,41 @@
         android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
         android:label="SelectGameFragment" />
 
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.kappstudio.joboardgame.user.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user">
+
+        <argument
+            android:name="clickedUserId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.kappstudio.joboardgame.friend.FriendFragment"
+        android:label="FriendFragment"
+        tools:layout="@layout/fragment_friend">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.kappstudio.joboardgame.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+
+    <action
+        android:id="@+id/nav_to_friend_fragment"
+        app:destination="@id/friendFragment" />
+
     <action
         android:id="@+id/nav_to_dice_fragment"
         app:destination="@id/diceFragment" />
@@ -202,17 +218,18 @@
         app:destination="@id/myPartyFragment" />
     <action
         android:id="@+id/nav_to_party_detail_fragment"
-        app:destination="@id/partyDetailFragment"
-        app:popUpTo="@id/partyDetailFragment"
-        app:popUpToInclusive="true" />
+        app:destination="@id/partyDetailFragment" />
 
     <action
         android:id="@+id/nav_to_game_detail_fragment"
         app:destination="@id/gameDetailFragment" />
-
     <action
-        android:id="@+id/nav_to_userDialog"
-        app:destination="@id/userDialog" />
+        android:id="@+id/nav_to_favorite_fragment"
+        app:destination="@id/favoriteFragment" />
+    <action
+        android:id="@+id/nav_to_my_rating_fragment"
+        app:destination="@id/myRatingFragment" />
+
     <action
         android:id="@+id/nav_to_ratingDialog"
         app:destination="@id/ratingDialog" />
@@ -237,4 +254,7 @@
     <action
         android:id="@+id/nav_to_new_game_fragment"
         app:destination="@id/newGameFragment" />
+    <action
+        android:id="@+id/nav_to_user_fragment"
+        app:destination="@id/userFragment" />
 </navigation>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="fontSpaceColor">
+    <style name="fontSpace">
         <item name="android:fontFamily">@font/noto_sans</item>
         <item name="android:letterSpacing">0.15</item>
+    </style>
+
+    <style name="fontSpaceColor" parent="fontSpace">
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -246,11 +249,43 @@
           <item name="android:textSize">14dp</item>
      </style>
 
-    <style name="friendStyle">
-        <item name="android:backgroundTint">@color/theme_blue</item>
+
+
+    <style name="TopCustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_top_corners</item>
+    </style>
+    <style name="ShapeAppearanceOverlay_card_top_corners" parent="">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_top_corners</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="BottomCustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_bottom_corners</item>
+    </style>
+    <style name="ShapeAppearanceOverlay_card_bottom_corners" parent="">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_bottom_corners</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+    </style>
+
+    <style name="textClickBlue" parent="textStyle1">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:drawableLeft">@drawable/ic_add_friend_24dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+
+        <item name="android:textSize">13dp</item>
+
+        <item name="android:textColor">@color/windows_blue</item>
     </style>
 
 

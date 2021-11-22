@@ -17,16 +17,13 @@ lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
 class MainViewModel : ViewModel() {
+      init {
+        viewModelScope.launch {
 
-    init {
-        viewModelScope.launch {
             allGames = FirebaseService.getLiveGames()
-        }
-        viewModelScope.launch {
-            allParties = FirebaseService.getLiveParties()
-        }
-        viewModelScope.launch {
             allUsers = FirebaseService.getLiveUsers()
+            allParties = FirebaseService.getLiveParties()
+
         }
     }
 

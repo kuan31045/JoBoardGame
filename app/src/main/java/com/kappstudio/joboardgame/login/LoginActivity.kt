@@ -104,10 +104,7 @@ class LoginActivity : AppCompatActivity() {
             id = account.email ?: "",
             name = account.displayName ?: "",
             image = (account.photoUrl ?: "").toString(),
-            status = "",
-            favoriteGames = mutableListOf(),
-            photos = mutableListOf(),
-        )
+           )
         viewModel.addUser(user)
         viewModel.getUserData(account.email ?: "")
     }

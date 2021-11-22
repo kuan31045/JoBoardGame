@@ -28,7 +28,7 @@ class MyPartyFragment : Fragment() {
     ): View? {
         val binding = FragmentMyPartyBinding.inflate(inflater)
 
-        partyViewModel.parties.observe(viewLifecycleOwner, {
+        partyViewModel.parties?.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
             binding.rvParty.adapter = PartyAdapter(partyViewModel).apply {
                 submitList(it.filter {

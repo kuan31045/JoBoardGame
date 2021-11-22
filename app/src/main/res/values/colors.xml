@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="theme_blue">#afd8ff</color>
+    <color name="theme_blue">#6b79ff</color>
 
     <color name="gray_ripple">#e0e0e0</color>
 
@@ -12,8 +12,8 @@
     <!-- Bg Gray-->
     <color name="gray_bg_eaeaea">#eaeaea</color>
     <!-- Btn-->
-    <color name="purple_dark_782be9">#85abff</color>
-    <color name="purple_light_9148F9">#85abff</color>
+    <color name="purple_dark_782be9">#6b79ff</color>
+    <color name="purple_light_9148F9">#6b79ff</color>
     <!-- Text-->
     <color name="black_text_191919">#191919</color>
     <!-- Text in btn-->

@@ -57,8 +57,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMapBinding.inflate(inflater)
-        partyViewModel.parties.observe(viewLifecycleOwner, {
-            Timber.d("${partyViewModel.parties.value}")
+        partyViewModel.parties?.observe(viewLifecycleOwner, {
+            Timber.d("${partyViewModel.parties!!.value}")
 
         })
         enableLocationLauncher = EnableLocationLauncher(this)
@@ -204,7 +204,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
             )
 
         } else {
-            val party = partyViewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
+            val party = partyViewModel.parties?.value?.filter { it.id == selectedPartyId }?.get(0)
             if (party != null) {
                 addMark(party)
                 moveToLocation(
@@ -231,7 +231,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
     private fun addPartiesMark() {
 
-        partyViewModel.parties.value?.forEach { party ->
+        partyViewModel.parties?.value?.forEach { party ->
             if (party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis) {
                 addMark(party)
             }

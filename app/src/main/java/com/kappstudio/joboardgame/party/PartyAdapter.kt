@@ -1,5 +1,6 @@
 package com.kappstudio.joboardgame.party
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,12 @@ class PartyAdapter(private val viewModel: ViewModel) :
                    tvHost.text = host.name
                    bindImage(ivHost, host.image)
                }
-
+                Handler().postDelayed({
+                    allUsers.value?.first { it.id == party.hostId }?.let{host->
+                        tvHost.text = host.name
+                        bindImage(ivHost, host.image)
+                    }
+                }, 500)
 
                 tvIsOver.visibility = when {
                     party.partyTime + 3600000 < Calendar.getInstance().timeInMillis
