@@ -43,6 +43,10 @@ class FavoriteFragment : Fragment() {
         binding.rvGame.adapter = adapter
         userViewModel.user.observe(viewLifecycleOwner, {
            adapter.submitList(it.favoriteGames)
+            binding.lottieNotFound.visibility = when (it.favoriteGames.size) {
+                0 -> View.VISIBLE
+                else -> View.GONE
+            }
         })
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {

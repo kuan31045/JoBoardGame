@@ -37,6 +37,10 @@ class FriendFragment : Fragment() {
         viewModel.user.observe(viewLifecycleOwner, { user ->
             adapter.submitList(allUsers.value?.filter { user.friendList.contains(it.id) }
             )
+            binding.lottieNotFound.visibility = when (user.friendList.size) {
+                0 -> View.VISIBLE
+                else -> View.GONE
+            }
         })
         viewModel.navToUser.observe(viewLifecycleOwner, {
             it?.let {

@@ -95,7 +95,7 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+android:id="@+id/btn_to_notification"
                         android:background="@drawable/bg_ripple"
                         android:padding="10dp"
                         android:src="@drawable/ic_bell_24dp" />

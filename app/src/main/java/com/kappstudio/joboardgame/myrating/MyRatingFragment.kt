@@ -35,6 +35,10 @@ class MyRatingFragment : Fragment() {
                     it
                 )
             }
+            binding.lottieNotFound.visibility = when (it.size) {
+                0 -> View.VISIBLE
+                else -> View.GONE
+            }
         })
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {

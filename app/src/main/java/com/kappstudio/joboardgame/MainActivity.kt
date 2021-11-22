@@ -55,6 +55,12 @@ class MainActivity : AppCompatActivity() {
                 .navigate(PartyFragmentDirections.navToMapFragment(null))
         }
 
+        binding.btnToNotification.setOnClickListener {
+            this.findNavController(R.id.nav_host_fragment_activity_main)
+                .navigate(PartyFragmentDirections.navToNotificationFragment())
+        }
+
+
         binding.btnToSearch.setOnClickListener {
             this.findNavController(R.id.nav_host_fragment_activity_main).navigate(
                 NavigationDirections.navToSearchFragment(
@@ -123,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.newGameFragment -> PageType.NEW_GAME
                     R.id.friendFragment -> PageType.FRIEND_LIST
                     R.id.myHostFragment -> PageType.MY_HOST
+                    R.id.notificationFragment -> PageType.NOTIFICATION
 
                     else -> PageType.OTHER
                 }

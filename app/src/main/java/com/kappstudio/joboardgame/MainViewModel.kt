@@ -51,7 +51,7 @@ class MainViewModel : ViewModel() {
         _isImmersion.value =
             when (status) {
                 PageType.GAME_DETAIL -> true
-                PageType.PARTY_DETAIL -> true
+              //  PageType.PARTY_DETAIL -> true
                 PageType.USER -> true
 
                 else -> false

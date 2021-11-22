@@ -177,6 +177,7 @@
     <string name="see_rating">評分 》</string>
     <string name="send_request_ok">已發送交友邀請!</string>
     <string name="edit_profile">編輯個人檔案</string>
+    <string name="notification">通知</string>
 
 
 </resources>

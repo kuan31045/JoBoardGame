@@ -29,11 +29,18 @@ class MyHostFragment : Fragment() {
         val userId = MyHostFragmentArgs.fromBundle(requireArguments()).userId
         viewModel.parties?.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
-            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
-                submitList(it.filter {
-                    userId  == it.hostId
-                })
+            val list = it.filter {
+                userId == it.hostId
             }
+            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
+                submitList(list)
+            }
+
+            binding.lottieNotFound.visibility = when (list.size) {
+                0 -> View.VISIBLE
+                else -> View.GONE
+            }
+
         })
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {

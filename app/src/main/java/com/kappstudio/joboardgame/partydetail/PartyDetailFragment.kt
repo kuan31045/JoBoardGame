@@ -65,7 +65,7 @@ class PartyDetailFragment : Fragment() {
         }
         binding.btnMore.setOnClickListener {
 
-            val alert = AlertView("", "", AlertStyle.BOTTOM_SHEET)
+            val alert = AlertView("退出?", "", AlertStyle.BOTTOM_SHEET)
             if (viewModel.isJoin.value == true) {
                 alert.addAction(AlertAction("我要退出!", AlertActionStyle.NEGATIVE) { _ ->
                     viewModel.leaveParty()

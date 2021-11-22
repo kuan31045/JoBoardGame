@@ -216,6 +216,16 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.kappstudio.joboardgame.notification.NotificationFragment"
+        android:label="fragment_dice"
+        tools:layout="@layout/fragment_notification" />
+
+
+    <action
+        android:id="@+id/nav_to_notification_fragment"
+        app:destination="@id/notificationFragment" />
     <action
         android:id="@+id/nav_to_friend_fragment"
         app:destination="@id/friendFragment" />

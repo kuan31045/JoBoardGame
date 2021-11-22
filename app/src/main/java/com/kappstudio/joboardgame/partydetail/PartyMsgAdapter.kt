@@ -29,16 +29,8 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
                     viewModel.navToUser(user.id)
                 }
             }
-
-
-
-
-
                 tvMsg.text = msg.msg
-
                 tvTime.text = timeUtil(msg.createdTime)
-
-
             }
 
         }

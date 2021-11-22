@@ -18,6 +18,7 @@ enum class PageType(val title: String) {
     SEARCH(""),
     SELECT_GAME(""),
     NEW_GAME(appInstance.getString(R.string.add_game)),
+    NOTIFICATION(appInstance.getString(R.string.notification)),
 
     //TODO Show the user's name
     FAVORITE("遊戲收藏"),

@@ -33,6 +33,10 @@ class MyPartyFragment : Fragment() {
                     userId  in it.playerIdList
                 })
             }
+            binding.lottieNotFound.visibility = when (it.size) {
+                0 -> View.VISIBLE
+                else -> View.GONE
+            }
         })
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
