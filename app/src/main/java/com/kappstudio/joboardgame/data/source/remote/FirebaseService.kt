@@ -29,9 +29,29 @@ private const val PATH_USERS = "users"
 private const val PATH_RATINGS = "ratings"
 
 private const val FIELD_PLAYER_ID_LIST = "playerIdList"
- private const val FIELD_PHOTOS = "photos"
+private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
+
+     fun getLiveConnect(): MutableLiveData<Boolean> {
+        Timber.d("-----Get Live Settings------------------------------")
+        val connect = MutableLiveData<Boolean>()
+        try {
+            FirebaseFirestore.getInstance().collection("settings").document("connect")
+                .addSnapshotListener { snapshot, _ ->
+                    if (snapshot != null && snapshot.exists()) {
+                        Timber.d("Current data: ${snapshot.data}")
+                        connect.value = snapshot.data?.get("connect") as Boolean?
+                    } else {
+                        connect.value = true
+                    }
+                }
+        } catch (e: Exception) {
+            connect.value = true
+        }
+
+        return connect
+    }
 
     fun newFriend(userId: String) {
         Timber.d("-----New Friend------------------------------")
@@ -65,8 +85,6 @@ object FirebaseService {
 
         ToastUtil.show(appInstance.getString(R.string.send_request_ok))
     }
-
-
 
 
     suspend fun createGame(game: Game): Boolean = suspendCoroutine { continuation ->
@@ -549,8 +567,8 @@ object FirebaseService {
                         Timber.d("Current data: $list")
 
 
-                         val openParties =
-                             list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
+                        val openParties =
+                            list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
                         val overParties =
                             list.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
 
@@ -782,8 +800,6 @@ object FirebaseService {
 
         ToastUtil.show(appInstance.getString(R.string.welcome))
     }
-
-
 
 
 }

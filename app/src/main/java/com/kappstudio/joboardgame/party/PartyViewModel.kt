@@ -10,10 +10,14 @@ import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import java.util.*
 
+
 class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
 
     private var _parties = FirebaseService.getLiveParties()
     val parties: LiveData<List<Party>>
         get() = _parties
+
+  val   connect = FirebaseService.getLiveConnect()
+
 
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.databinding.FragmentUserBinding
+import com.kappstudio.joboardgame.isConnect
 import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
@@ -38,7 +39,10 @@ class UserFragment : Fragment() {
         //Nav
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-
+        binding.tvPhoto.visibility = when (isConnect.value) {
+            true -> View.VISIBLE
+            else -> View.GONE
+        }
 
         binding.tvPartyQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToMyPartyFragment(userId))

@@ -19,16 +19,13 @@ import com.irozon.alertview.AlertActionStyle
 import com.irozon.alertview.AlertStyle
 import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
-import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.*
 
-import com.kappstudio.joboardgame.VMFactory
-import com.kappstudio.joboardgame.allGames
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.game.GameFragmentDirections
 import com.kappstudio.joboardgame.party.PhotoAdapter
-import com.kappstudio.joboardgame.util.closeSoftKeyboard
+ import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 
 class PartyDetailFragment : Fragment() {
@@ -51,6 +48,15 @@ class PartyDetailFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        binding.cvMsgs.visibility = when (isConnect.value) {
+            true -> View.VISIBLE
+            else -> View.GONE
+        }
+        binding.cvPhotos.visibility = when (isConnect.value) {
+            true -> View.VISIBLE
+            else -> View.GONE
+        }
 
         binding.rvPhoto.adapter = PhotoAdapter(viewModel)
 

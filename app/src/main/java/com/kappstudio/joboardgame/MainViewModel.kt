@@ -16,12 +16,16 @@ lateinit var allGames: LiveData<List<Game>>
 lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
+
+lateinit var isConnect: LiveData<Boolean>
+
 class MainViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             allGames = FirebaseService.getLiveGames()
             allUsers = FirebaseService.getLiveUsers()
             allParties = FirebaseService.getLiveParties()
+            isConnect = FirebaseService.getLiveConnect()
         }
     }
 
