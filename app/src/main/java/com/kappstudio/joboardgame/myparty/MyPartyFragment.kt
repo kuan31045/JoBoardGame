@@ -24,16 +24,17 @@ class MyPartyFragment : Fragment() {
         val binding = FragmentMyPartyBinding.inflate(inflater)
         val viewModel: PartyViewModel by viewModels()
 
-        val userId =MyPartyFragmentArgs.fromBundle(requireArguments()).userId
+        val userId = MyPartyFragmentArgs.fromBundle(requireArguments()).userId
 
         viewModel.parties?.observe(viewLifecycleOwner, {
             Timber.d("completedData $it")
-            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
-                submitList(it.filter {
-                    userId  in it.playerIdList
-                })
+            val list = it.filter {
+                userId in it.playerIdList
             }
-            binding.lottieNotFound.visibility = when (it.size) {
+            binding.rvParty.adapter = PartyAdapter(viewModel).apply {
+                submitList(list)
+            }
+            binding.lottieNotFound.visibility = when (list.size) {
                 0 -> View.VISIBLE
                 else -> View.GONE
             }
