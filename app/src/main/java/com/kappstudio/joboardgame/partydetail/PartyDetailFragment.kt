@@ -49,9 +49,6 @@ class PartyDetailFragment : Fragment() {
         startActivityLauncher = StartActivityLauncher(this)
         binding = FragmentPartyDetailBinding.inflate(inflater)
 
-        //TODO Handle edittext keyboard bottom sheet
-        activity?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -102,7 +99,7 @@ class PartyDetailFragment : Fragment() {
             viewModel.setUsers()
         })
 
-        viewModel.partyUsers.observe(viewLifecycleOwner,{
+        viewModel.partyUsers.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it)
             }

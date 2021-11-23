@@ -17,7 +17,7 @@ lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
 class MainViewModel : ViewModel() {
-      init {
+    init {
         viewModelScope.launch {
 
             allGames = FirebaseService.getLiveGames()
@@ -51,7 +51,7 @@ class MainViewModel : ViewModel() {
         _isImmersion.value =
             when (status) {
                 PageType.GAME_DETAIL -> true
-               PageType.PARTY_DETAIL -> true
+                PageType.PARTY_DETAIL -> true
                 PageType.USER -> true
 
                 else -> false
