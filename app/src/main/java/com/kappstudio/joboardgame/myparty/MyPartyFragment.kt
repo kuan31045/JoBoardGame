@@ -34,9 +34,15 @@ class MyPartyFragment : Fragment() {
             binding.rvParty.adapter = PartyAdapter(viewModel).apply {
                 submitList(list)
             }
-            binding.lottieNotFound.visibility = when (list.size) {
-                0 -> View.VISIBLE
-                else -> View.GONE
+            when (list.size) {
+                0 -> {
+                    binding.tvNotFound.visibility = View.VISIBLE
+                    binding.lottieNotFound.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.tvNotFound.visibility = View.GONE
+                    binding.lottieNotFound.visibility = View.GONE
+                }
             }
         })
 

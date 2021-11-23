@@ -19,11 +19,9 @@ lateinit var allUsers: LiveData<List<User>>
 class MainViewModel : ViewModel() {
     init {
         viewModelScope.launch {
-
             allGames = FirebaseService.getLiveGames()
             allUsers = FirebaseService.getLiveUsers()
             allParties = FirebaseService.getLiveParties()
-
         }
     }
 

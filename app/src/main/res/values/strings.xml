@@ -178,6 +178,13 @@
     <string name="send_request_ok">已發送交友邀請!</string>
     <string name="edit_profile">編輯個人檔案</string>
     <string name="notification">通知</string>
+    <string name="no_photo">目前沒有相片</string>
+    <string name="no_notification">目前沒有通知</string>
+    <string name="no_rating">目前沒有已評分的遊戲</string>
+    <string name="no_party">目前沒有聚會紀錄</string>
+    <string name="no_host">目前沒有主辦紀錄</string>
+    <string name="no_friend">目前沒有朋友</string>
+    <string name="no_favorite">目前沒有收藏的遊戲</string>
 
 
 </resources>
