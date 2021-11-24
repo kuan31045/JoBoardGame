@@ -34,9 +34,6 @@ class GameFragment : Fragment() {
         binding.rvAllGame.adapter = adapter
 
 
-        binding.btnFilter.setOnClickListener {
-            findNavController().navigate(GameFragmentDirections.navToFilterDialog())
-        }
 
         binding.btnNewGame.setOnClickListener {
             findNavController().navigate(GameFragmentDirections.navToNewGameFragment(""))

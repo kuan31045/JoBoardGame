@@ -12,12 +12,7 @@ import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
-import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding
-import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
-import com.kappstudio.joboardgame.filter.FilterAdapter
-import com.kappstudio.joboardgame.game.GameViewModel
-import com.kappstudio.joboardgame.newparty.NewPartyViewModel
-import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentArgs
+import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding 
 import tech.gujin.toast.ToastUtil
 
 class NewGameFragment : Fragment() {

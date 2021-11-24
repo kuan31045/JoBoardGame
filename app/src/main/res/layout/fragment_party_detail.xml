@@ -279,6 +279,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/tv_to_draw_lots"
+                        style="@style/textClickBlue"
+                        android:layout_marginEnd="16dp"
+                        android:text="先玩哪款?"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_title_game_list"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_title_game_list" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_party_game"
                         android:layout_width="0dp"

@@ -185,6 +185,10 @@
     <string name="no_host">目前沒有主辦紀錄</string>
     <string name="no_friend">目前沒有朋友</string>
     <string name="no_favorite">目前沒有收藏的遊戲</string>
+    <string name="draw">抽!</string>
+    <string name="cant_empty">內容不能為空!</string>
+    <string name="plz_input_draw_item">請新增抽籤項目!</string>
+    <string name="decide_you">就決定是你了!</string>
 
 
 </resources>

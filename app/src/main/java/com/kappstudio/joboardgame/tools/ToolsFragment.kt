@@ -25,7 +25,9 @@ class ToolsFragment : Fragment() {
         binding.clSpin.setOnClickListener {
             findNavController().navigate(ToolsFragmentDirections.navToBottleFragment())
         }
-
+        binding.clDrawLots.setOnClickListener {
+            findNavController().navigate(ToolsFragmentDirections.navToDrawLotsFragment())
+        }
         return binding.root
     }
 }

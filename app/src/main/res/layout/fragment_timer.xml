@@ -114,10 +114,8 @@
 
             style="@style/toolsBtn"
             android:layout_marginBottom="120dp"
-            android:backgroundTint="@color/purple_light_9148F9"
-            android:text="@string/start"
-            android:textColor="@color/white_text_fffcff"
-            android:visibility="@{viewModel.isTiming() ? View.INVISIBLE : View.VISIBLE}"
+             android:text="@string/start"
+             android:visibility="@{viewModel.isTiming() ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

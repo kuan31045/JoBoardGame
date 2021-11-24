@@ -16,7 +16,6 @@ lateinit var allGames: LiveData<List<Game>>
 lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
-
 lateinit var isConnect: LiveData<Boolean>
 
 class MainViewModel : ViewModel() {
@@ -48,7 +47,10 @@ class MainViewModel : ViewModel() {
     fun setBarStatus(status: PageType) {
         Timber.d("Status: $status")
         _page.value = status
-        _title.value = status.title
+        if (status!=PageType.OTHER){
+            _title.value = status.title
+
+        }
 
         _isImmersion.value =
             when (status) {

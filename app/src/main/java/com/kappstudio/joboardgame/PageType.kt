@@ -12,6 +12,8 @@ enum class PageType(val title: String) {
     DICE(appInstance.getString(R.string.dice)),
     TIMER(appInstance.getString(R.string.timer)),
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
+    DRAW_LOTS(appInstance.getString(R.string.draw_lots)),
+
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),

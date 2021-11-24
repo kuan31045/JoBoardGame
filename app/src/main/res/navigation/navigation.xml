@@ -177,9 +177,15 @@
             app:argType="com.kappstudio.joboardgame.data.Rating" />
     </dialog>
     <dialog
-        android:id="@+id/filterDialog"
-        android:name="com.kappstudio.joboardgame.filter.FilterDialog"
-        android:label="FilterDialog" />
+        android:id="@+id/drawDialog"
+        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawDialog"
+        android:label="DrawDialog">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+    </dialog>
+
     <fragment
         android:id="@+id/selectGameFragment"
         android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
@@ -221,7 +227,17 @@
         android:name="com.kappstudio.joboardgame.notification.NotificationFragment"
         android:label="fragment_dice"
         tools:layout="@layout/fragment_notification" />
-
+    <fragment
+        android:id="@+id/drawLotsFragment"
+        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawLotsFragment"
+        android:label="fragment_draw_lots"
+        tools:layout="@layout/fragment_draw_lots" >
+        <argument
+            android:name="gameList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <action
         android:id="@+id/nav_to_notification_fragment"
@@ -275,9 +291,7 @@
     <action
         android:id="@+id/nav_to_search_fragment"
         app:destination="@id/searchFragment" />
-    <action
-        android:id="@+id/nav_to_filterDialog"
-        app:destination="@id/filterDialog" />
+   
     <action
         android:id="@+id/nav_to_select_game_fragment"
         app:destination="@id/selectGameFragment" />
@@ -287,4 +301,10 @@
     <action
         android:id="@+id/nav_to_user_fragment"
         app:destination="@id/userFragment" />
+    <action
+        android:id="@+id/nav_to_draw_lots_fragment"
+        app:destination="@id/drawLotsFragment" />
+    <action
+        android:id="@+id/nav_to_draw_dialog"
+        app:destination="@id/drawDialog" />
 </navigation>

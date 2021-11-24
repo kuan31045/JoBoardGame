@@ -225,6 +225,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
+            android:id="@+id/cl_draw_lots"
 
             android:focusable="true"
 

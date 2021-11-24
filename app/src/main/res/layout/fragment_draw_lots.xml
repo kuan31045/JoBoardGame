@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tools.drawlots.DrawLotsFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_draw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tl_input">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_title_items"
+                style="@style/titleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="抽籤項目:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_items"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_draw" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="4dp"
+        app:boxCollapsedPaddingTop="2dp"
+        app:boxStrokeWidth="0.7dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/et_add_item"
+
+            style="@style/EdittextUser"
+            android:backgroundTint="@color/transparent"
+            android:hint="新增抽籤項目"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/btn_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?selectableItemBackground"
+        android:elevation="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@id/tl_input"
+        app:layout_constraintEnd_toEndOf="@+id/tl_input"
+        app:layout_constraintTop_toTopOf="@id/tl_input"
+        app:srcCompat="@drawable/ic_24px_add03" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_draw"
+        style="@style/toolsBtn"
+        android:layout_margin="16dp"
+
+        android:layout_marginTop="24dp"
+        android:text="@string/draw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

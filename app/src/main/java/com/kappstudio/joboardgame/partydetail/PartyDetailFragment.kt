@@ -25,7 +25,8 @@ import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.game.GameFragmentDirections
 import com.kappstudio.joboardgame.party.PhotoAdapter
- import com.kappstudio.joboardgame.util.closeSoftKeyboard
+import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
+import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 
 class PartyDetailFragment : Fragment() {
@@ -61,6 +62,13 @@ class PartyDetailFragment : Fragment() {
         binding.rvPhoto.adapter = PhotoAdapter(viewModel)
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        binding.tvToDrawLots.setOnClickListener {
+            viewModel.party.value?.let {
+                findNavController().navigate(ToolsFragmentDirections.navToDrawLotsFragment(it.gameNameList.toTypedArray()))
+            }
+        }
+
         binding.rvMsg.addItemDecoration(
             DividerItemDecoration(
                 appInstance, DividerItemDecoration.VERTICAL
