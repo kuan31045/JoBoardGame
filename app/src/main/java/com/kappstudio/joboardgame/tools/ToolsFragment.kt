@@ -28,6 +28,9 @@ class ToolsFragment : Fragment() {
         binding.clDrawLots.setOnClickListener {
             findNavController().navigate(ToolsFragmentDirections.navToDrawLotsFragment())
         }
+        binding.clPolygraph.setOnClickListener {
+            findNavController().navigate(ToolsFragmentDirections.navToPolygraphFragment())
+        }
         return binding.root
     }
 }

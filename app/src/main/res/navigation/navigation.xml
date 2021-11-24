@@ -109,8 +109,7 @@
     <fragment
         android:id="@+id/timerFragment"
         android:name="com.kappstudio.joboardgame.tools.timer.TimerFragment"
-        android:label="fragment_timer"
-        tools:layout="@layout/fragment_timer" />
+        android:label="fragment_timer" />
 
     <fragment
         android:id="@+id/myRatingFragment"
@@ -238,7 +237,11 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
-
+    <fragment
+        android:id="@+id/polygraphFragment"
+        android:name="com.kappstudio.joboardgame.tools.polygraph.PolygraphFragment"
+        android:label="fragment_polygraph"
+        tools:layout="@layout/fragment_polygraph" />
     <action
         android:id="@+id/nav_to_notification_fragment"
         app:destination="@id/notificationFragment" />
@@ -307,4 +310,7 @@
     <action
         android:id="@+id/nav_to_draw_dialog"
         app:destination="@id/drawDialog" />
+    <action
+        android:id="@+id/nav_to_polygraph_fragment"
+        app:destination="@id/polygraphFragment" />
 </navigation>

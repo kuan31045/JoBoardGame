@@ -131,6 +131,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.myHostFragment -> PageType.MY_HOST
                     R.id.notificationFragment -> PageType.NOTIFICATION
                     R.id.drawLotsFragment -> PageType.DRAW_LOTS
+                    R.id.polygraphFragment -> PageType.POLYGRAPH
+
                     else -> PageType.OTHER
                 }
             )

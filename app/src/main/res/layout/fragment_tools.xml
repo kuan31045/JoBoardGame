@@ -275,7 +275,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-
+                                       android:id="@+id/cl_polygraph"
             android:focusable="true"
             android:padding="16dp">
 
@@ -299,7 +299,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity=""
                 android:layout_marginTop="16dp"
-                android:text="@string/lie_test"
+                android:text="@string/polygraph"
                 app:layout_constraintEnd_toEndOf="@+id/iv_lie"
                 app:layout_constraintStart_toStartOf="@+id/iv_lie"
                 app:layout_constraintTop_toBottomOf="@+id/iv_lie" />

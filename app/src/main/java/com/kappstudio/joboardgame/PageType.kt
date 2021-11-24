@@ -14,6 +14,8 @@ enum class PageType(val title: String) {
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
     DRAW_LOTS(appInstance.getString(R.string.draw_lots)),
 
+    POLYGRAPH(appInstance.getString(R.string.polygraph)),
+
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),

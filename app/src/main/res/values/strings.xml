@@ -55,7 +55,7 @@
     <string name="dice">骰子</string>
     <string name="timer">計時器</string>
     <string name="spin_bottle">轉瓶</string>
-    <string name="lie_test">測謊機</string>
+    <string name="polygraph">測謊機</string>
     <string name="scoreboard">計分板</string>
 
     <!--    Profile-->
@@ -111,6 +111,8 @@
     <string name="remove">移除</string>
     <string name="spin">SPIN</string>
     <string name="start">start</string>
+    <string name="start_test">開始測試</string>
+
     <string name="already_in_list">已經在清單中了</string>
     <string name="ask_rating">您將如何評分</string>
     <string name="rating">評分</string>
@@ -189,6 +191,8 @@
     <string name="cant_empty">內容不能為空!</string>
     <string name="plz_input_draw_item">請新增抽籤項目!</string>
     <string name="decide_you">就決定是你了!</string>
+    <string name="finish">結束</string>
+    <string name="timesup">時間到!</string>
 
 
 </resources>

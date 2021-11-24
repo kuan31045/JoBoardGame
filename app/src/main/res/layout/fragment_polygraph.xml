@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".tools.polygraph.PolygraphFragment">
+
+    <data>
+        <import type="android.view.View" />
+
+ 
+        <variable
+            name="viewModel"
+            type="com.kappstudio.joboardgame.tools.polygraph.PolygraphViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_desc"
+            android:visibility="@{viewModel.isTesting()?View.GONE:View.VISIBLE}"
+            android:layout_height="wrap_content"
+            style="@style/titleStyleWhite2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="受測者請持穩手機，並按下開始測試" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_start"
+
+            style="@style/toolsBtn"
+
+             android:onClick="@{() -> viewModel.start()}"
+            android:visibility="@{viewModel.isTesting()?View.GONE:View.VISIBLE}"
+
+            android:text="@string/start_test"
+            android:backgroundTint="@color/purple_light_9148F9"
+            android:textColor="@color/white_text_fffcff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_finish"
+            android:visibility="@{viewModel.isTesting()?View.VISIBLE:View.GONE}"
+
+            style="@style/toolsBtn"
+              android:onClick="@{() -> viewModel.stop()}"
+            android:text="@string/finish"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+ 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
