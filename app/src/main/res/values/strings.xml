@@ -193,6 +193,7 @@
     <string name="decide_you">就決定是你了!</string>
     <string name="finish">結束</string>
     <string name="timesup">時間到!</string>
+    <string name="polygraph_desc">受測者請持穩手機，並按下開始測試</string>
 
 
 </resources>

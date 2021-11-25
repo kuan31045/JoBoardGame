@@ -5,18 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
-import androidx.compose.animation.ExperimentalAnimationApi
+ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProviders
 import com.kappstudio.joboardgame.compose.theme.ComposeTimerTheme
- 
+import com.kappstudio.joboardgame.tools.drawlots.DrawLotsViewModel
+
 
 class TimerFragment : Fragment() {
 
-    private val viewModel: TimerViewModel by viewModels()
+    lateinit var viewModel: TimerViewModel 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[TimerViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+    }
 
     @ExperimentalAnimationApi
     override fun onCreateView(

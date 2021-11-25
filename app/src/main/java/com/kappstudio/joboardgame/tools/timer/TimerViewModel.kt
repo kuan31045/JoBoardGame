@@ -1,18 +1,14 @@
 package com.kappstudio.joboardgame.tools.timer
 
-import android.os.CountDownTimer
-import android.view.View
-import androidx.lifecycle.*
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
-import javax.inject.Inject
 
-@HiltViewModel
-class TimerViewModel @Inject constructor() : ViewModel() {
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
+
+class TimerViewModel  : ViewModel() {
 
     private var job: Job? = null
 
-     val startTime = MutableLiveData(0L)
+    private val startTime = MutableLiveData(0L)
     val timeState = MutableLiveData(0L)
     val alertState = MutableLiveData(false)
     val alertMessage = MutableLiveData(false)

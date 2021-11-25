@@ -184,7 +184,12 @@
             android:name="item"
             app:argType="string" />
     </dialog>
+    <dialog
+        android:id="@+id/lieDialog"
+        android:name="com.kappstudio.joboardgame.tools.polygraph.LieDialog"
+        android:label="LieDialog">
 
+    </dialog>
     <fragment
         android:id="@+id/selectGameFragment"
         android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
@@ -313,4 +318,7 @@
     <action
         android:id="@+id/nav_to_polygraph_fragment"
         app:destination="@id/polygraphFragment" />
+    <action
+        android:id="@+id/nav_to_lie_dialog"
+        app:destination="@id/lieDialog" />
 </navigation>

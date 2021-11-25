@@ -18,16 +18,13 @@ import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-
 private const val PATH_REQUEST_LIST = "requestList"
 private const val PATH_FRIEND_LIST = "friendList"
-
 private const val PATH_PHOTOS = "photos"
 private const val PATH_GAMES = "games"
 private const val PATH_PARTIES = "parties"
 private const val PATH_USERS = "users"
 private const val PATH_RATINGS = "ratings"
-
 private const val FIELD_PLAYER_ID_LIST = "playerIdList"
 private const val FIELD_PHOTOS = "photos"
 
@@ -435,7 +432,6 @@ object FirebaseService {
         ToastUtil.show(appInstance.getString(R.string.favorite_out))
     }
 
-
     fun getLivePartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
         Timber.d("-----Get Live Party Msgs------------------------------")
 
@@ -527,7 +523,6 @@ object FirebaseService {
                     }
                 }
         }
-
 
     fun getLiveGameById(gameId: String): MutableLiveData<Game> {
         Timber.d("-----Get Live Game By Id------------------------------")
