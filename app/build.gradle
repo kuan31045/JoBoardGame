@@ -10,13 +10,13 @@ plugins {
 
 android {
     
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.kappstudio.joboardgame"
         minSdk 26
         targetSdk 30
-        versionCode 10
+        versionCode 17
         versionName "1.0"
         renderscriptTargetApi 28 //must match target sdk and build tools
         renderscriptSupportModeEnabled true
@@ -34,13 +34,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
         dataBinding true
         viewBinding true
-
+        compose true
     }
 
 
@@ -139,6 +142,23 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
 
+    //constraintlayout
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02'
+
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+
+
+    implementation 'androidx.activity:activity-compose:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    implementation 'com.github.VaibhavLakhera:Circular-Progress-View:0.1.0'
 
 }
 

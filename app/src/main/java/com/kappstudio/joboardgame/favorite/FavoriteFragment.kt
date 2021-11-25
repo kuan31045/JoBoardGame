@@ -36,16 +36,23 @@ class FavoriteFragment : Fragment() {
 
         val viewModel: FavoriteViewModel by viewModels()
 
-        val adapter = FavoriteAdapter(viewModel,
-           FavoriteFragmentArgs.fromBundle(requireArguments()).userId==UserManager.user.value?.id?:"",
+        val adapter = FavoriteAdapter(
+            viewModel,
+            FavoriteFragmentArgs.fromBundle(requireArguments()).userId == UserManager.user.value?.id ?: "",
         )
 
         binding.rvGame.adapter = adapter
         userViewModel.user.observe(viewLifecycleOwner, {
-           adapter.submitList(it.favoriteGames)
-            binding.lottieNotFound.visibility = when (it.favoriteGames.size) {
-                0 -> View.VISIBLE
-                else -> View.GONE
+            adapter.submitList(it.favoriteGames)
+            when (it.favoriteGames.size) {
+                0 -> {
+                    binding.tvNotFound.visibility = View.VISIBLE
+                    binding.lottieNotFound.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.tvNotFound.visibility = View.GONE
+                    binding.lottieNotFound.visibility = View.GONE
+                }
             }
         })
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,15 +19,16 @@ import com.irozon.alertview.AlertActionStyle
 import com.irozon.alertview.AlertStyle
 import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
-import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.*
 
-import com.kappstudio.joboardgame.VMFactory
-import com.kappstudio.joboardgame.allGames
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.game.GameFragmentDirections
+import com.kappstudio.joboardgame.login.UserManager
+
+import com.kappstudio.joboardgame.login.UserManager.isTrash
 import com.kappstudio.joboardgame.party.PhotoAdapter
+import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 
@@ -48,13 +50,28 @@ class PartyDetailFragment : Fragment() {
         startActivityLauncher = StartActivityLauncher(this)
         binding = FragmentPartyDetailBinding.inflate(inflater)
 
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        binding.cvMsgs.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
+        binding.cvPhotos.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
 
         binding.rvPhoto.adapter = PhotoAdapter(viewModel)
 
         binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+        binding.tvToDrawLots.setOnClickListener {
+            viewModel.party.value?.let {
+                findNavController().navigate(ToolsFragmentDirections.navToDrawLotsFragment(it.gameNameList.toTypedArray()))
+            }
+        }
+
         binding.rvMsg.addItemDecoration(
             DividerItemDecoration(
                 appInstance, DividerItemDecoration.VERTICAL
@@ -99,7 +116,7 @@ class PartyDetailFragment : Fragment() {
             viewModel.setUsers()
         })
 
-        viewModel.partyUsers.observe(viewLifecycleOwner,{
+        viewModel.partyUsers.observe(viewLifecycleOwner, {
             binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
                 submitList(it)
             }

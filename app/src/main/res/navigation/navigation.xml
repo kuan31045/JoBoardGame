@@ -109,8 +109,7 @@
     <fragment
         android:id="@+id/timerFragment"
         android:name="com.kappstudio.joboardgame.tools.timer.TimerFragment"
-        android:label="fragment_timer"
-        tools:layout="@layout/fragment_timer" />
+        android:label="fragment_timer" />
 
     <fragment
         android:id="@+id/myRatingFragment"
@@ -177,9 +176,31 @@
             app:argType="com.kappstudio.joboardgame.data.Rating" />
     </dialog>
     <dialog
-        android:id="@+id/filterDialog"
-        android:name="com.kappstudio.joboardgame.filter.FilterDialog"
-        android:label="FilterDialog" />
+        android:id="@+id/drawDialog"
+        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawDialog"
+        android:label="DrawDialog">
+
+        <argument
+            android:name="item"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/lieDialog"
+        android:name="com.kappstudio.joboardgame.tools.polygraph.LieDialog"
+        android:label="LieDialog">
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/reportDialog"
+        android:name="com.kappstudio.joboardgame.report.ReportDialog"
+        android:label="ReportDialog">
+
+        <argument
+            android:name="user"
+            app:argType="com.kappstudio.joboardgame.data.User" />
+    </dialog>
+
     <fragment
         android:id="@+id/selectGameFragment"
         android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
@@ -221,8 +242,35 @@
         android:name="com.kappstudio.joboardgame.notification.NotificationFragment"
         android:label="fragment_dice"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/drawLotsFragment"
+        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawLotsFragment"
+        android:label="fragment_draw_lots"
+        tools:layout="@layout/fragment_draw_lots" >
+        <argument
+            android:name="gameList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/scoreboardFragment"
+        android:name="com.kappstudio.joboardgame.tools.scoreboard.ScoreboardFragment"
+        android:label="fragment_scoreboard"
+        tools:layout="@layout/fragment_scoreboard" >
+        <argument
+            android:name="playerList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/polygraphFragment"
+        android:name="com.kappstudio.joboardgame.tools.polygraph.PolygraphFragment"
+        android:label="fragment_polygraph"
+        tools:layout="@layout/fragment_polygraph" />
     <action
         android:id="@+id/nav_to_notification_fragment"
         app:destination="@id/notificationFragment" />
@@ -275,9 +323,7 @@
     <action
         android:id="@+id/nav_to_search_fragment"
         app:destination="@id/searchFragment" />
-    <action
-        android:id="@+id/nav_to_filterDialog"
-        app:destination="@id/filterDialog" />
+   
     <action
         android:id="@+id/nav_to_select_game_fragment"
         app:destination="@id/selectGameFragment" />
@@ -287,4 +333,22 @@
     <action
         android:id="@+id/nav_to_user_fragment"
         app:destination="@id/userFragment" />
+    <action
+        android:id="@+id/nav_to_draw_lots_fragment"
+        app:destination="@id/drawLotsFragment" />
+    <action
+        android:id="@+id/nav_to_draw_dialog"
+        app:destination="@id/drawDialog" />
+    <action
+        android:id="@+id/nav_to_polygraph_fragment"
+        app:destination="@id/polygraphFragment" />
+    <action
+        android:id="@+id/nav_to_lie_dialog"
+        app:destination="@id/lieDialog" />
+    <action
+        android:id="@+id/nav_to_scoreboard_fragment"
+        app:destination="@id/scoreboardFragment" />
+    <action
+        android:id="@+id/nav_to_report_dialog"
+        app:destination="@id/reportDialog" />
 </navigation>

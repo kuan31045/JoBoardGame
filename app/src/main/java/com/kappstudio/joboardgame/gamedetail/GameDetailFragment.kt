@@ -12,6 +12,12 @@ import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
 import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
+ 
+import android.R
+import androidx.transition.Fade
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 
 class GameDetailFragment : Fragment() {
@@ -32,6 +38,14 @@ class GameDetailFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        val transition: Transition = Fade()
+        transition.setDuration(600)
+        transition.addTarget(binding.ivGame)
+        if (container != null) {
+            TransitionManager.beginDelayedTransition(container, transition)
+        }
+
         binding.tvDesc.setOnClickListener {
             binding.tvDesc.text = viewModel.game.value?.desc ?: ""
         }

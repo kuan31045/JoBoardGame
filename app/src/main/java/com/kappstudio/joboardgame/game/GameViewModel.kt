@@ -12,7 +12,6 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
      val games: LiveData<List<Game>>
         get() = allGames
 
-    private var isDismiss = false
 
 
     init {
@@ -22,20 +21,6 @@ class GameViewModel : ViewModel(), NavToGameDetailInterface {
     private fun getGames() {
 
     }
-//
-//    fun addFilter(type: String) {
-//        val list = games.value?.filter {
-//            it.type.contains(type)
-//        }
-//        _games.value = list!!
-//    }
-//
-//    fun filter() {
-//        isDismiss = true
-//        Handler().postDelayed({
-//            isDismiss = false
-//        }, 2300)
-//    }
 
 
 }

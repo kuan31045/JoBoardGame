@@ -261,8 +261,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     }
 
     override fun onInfoWindowClick(p0: Marker) {
-        ToastUtil.show("click")
-        findNavController().navigate(
+         findNavController().navigate(
             MapFragmentDirections.navToPartyDetailFragment(
                 p0.snippet
             )

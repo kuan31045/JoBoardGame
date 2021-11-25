@@ -30,14 +30,20 @@ class MyRatingFragment : Fragment() {
         }
 
         viewModel.games.observe(viewLifecycleOwner, {
-            binding.rvGame.adapter = RatingAdapter(viewModel).apply{
+            binding.rvGame.adapter = RatingAdapter(viewModel).apply {
                 submitList(
                     it
                 )
             }
-            binding.lottieNotFound.visibility = when (it.size) {
-                0 -> View.VISIBLE
-                else -> View.GONE
+            when (it.size) {
+                0 -> {
+                    binding.tvNotFound.visibility = View.VISIBLE
+                    binding.lottieNotFound.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.tvNotFound.visibility = View.GONE
+                    binding.lottieNotFound.visibility = View.GONE
+                }
             }
         })
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {

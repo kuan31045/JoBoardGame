@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.VMFactory
 import com.kappstudio.joboardgame.databinding.FragmentUserBinding
+
+import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
@@ -38,7 +41,14 @@ class UserFragment : Fragment() {
         //Nav
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-
+        binding.tvPhoto.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
+        binding.btnEdit.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
 
         binding.tvPartyQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToMyPartyFragment(userId))
@@ -89,8 +99,15 @@ class UserFragment : Fragment() {
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {
-                findNavController().navigate(PartyFragmentDirections.navToPartyDetailFragment(it))
+                findNavController().navigate(UserFragmentDirections.navToPartyDetailFragment(it))
                 viewModel.onNavToPartyDetail()
+            }
+        })
+
+        viewModel.navToReport.observe(viewLifecycleOwner,{
+            it?.let {
+                findNavController().navigate(UserFragmentDirections.navToReportDialog(it))
+                viewModel.onNavToReport()
             }
         })
 

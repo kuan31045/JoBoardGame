@@ -1,73 +1,50 @@
 package com.kappstudio.joboardgame.tools.timer
 
+import android.content.Context
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import com.kappstudio.joboardgame.databinding.FragmentTimerBinding
-
+import com.kappstudio.joboardgame.compose.theme.ComposeTimerTheme
 
 class TimerFragment : Fragment() {
-
-    lateinit var binding: FragmentTimerBinding
-
+    @ExperimentalAnimationApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTimerBinding.inflate(inflater)
+
         val viewModel: TimerViewModel by viewModels()
 
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        viewModel.setupInitTime(10L)
 
-        binding.btn30s.setOnClickListener {
-            viewModel.stopLottie()
-
-            viewModel.setTime(30f)
-        }
-        binding.btn60s.setOnClickListener {
-            viewModel.stopLottie()
-            viewModel.setTime(60f)
-        }
-        binding.btn90s.setOnClickListener {
-            viewModel.stopLottie()
-            viewModel.setTime(90f)
-        }
-        binding.btnStart.setOnClickListener {
-            viewModel.stopLottie()
-            if (viewModel.isPause.value == false) {
-                viewModel.totalTime.value?.let { it1 -> viewModel.setTime(it1) }
-            }
-            viewModel.startTiming()
-        }
-        binding.btnStop.setOnClickListener {
-            viewModel.totalTime.value?.let { it1 -> viewModel.setTime(it1) }
-            viewModel.setTime(viewModel.time.value?.toFloat() ?: 30f)
-        }
-        binding.btnPause.setOnClickListener {
-            viewModel.pause()
-        }
-
-        viewModel.showLottie.observe(viewLifecycleOwner,{
-            if (it){
-                binding.lottieBug.visibility=View.VISIBLE
-
-            }else{
-                binding.lottieBug.visibility=View.GONE
-
+        viewModel.alertMessage.observe(viewLifecycleOwner, {
+            if (it) {
+                val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(
+                    (VibrationEffect.createOneShot(600, VibrationEffect.DEFAULT_AMPLITUDE))
+                )
             }
         })
 
-        viewModel.time.observe(viewLifecycleOwner, {
-            if (!viewModel.isPause.value!!) {
-                binding.cpbTimer.progressMax = it
+        return ComposeView(requireContext()).apply {
+            setContent {
+                ComposeTimerTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(color = MaterialTheme.colors.background) {
+                        TimerScreen(viewModel)
+                    }
+                }
             }
-        })
-
-        return binding.root
+        }
     }
 
 

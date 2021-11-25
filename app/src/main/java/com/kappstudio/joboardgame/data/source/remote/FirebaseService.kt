@@ -18,20 +18,66 @@ import kotlin.collections.HashMap
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-
 private const val PATH_REQUEST_LIST = "requestList"
 private const val PATH_FRIEND_LIST = "friendList"
+
+private const val PATH_REPORTS = "reports"
 
 private const val PATH_PHOTOS = "photos"
 private const val PATH_GAMES = "games"
 private const val PATH_PARTIES = "parties"
 private const val PATH_USERS = "users"
 private const val PATH_RATINGS = "ratings"
-
 private const val FIELD_PLAYER_ID_LIST = "playerIdList"
- private const val FIELD_PHOTOS = "photos"
+private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
+
+    suspend fun sendReport(report: Report): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Send Report------------------------------")
+
+        val reports = FirebaseFirestore.getInstance().collection(PATH_REPORTS)
+        val document = reports.document()
+
+        report.id = document.id
+
+        document
+            .set(report)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Create Party Successful: $report")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
+    fun getTrashUsers(): MutableLiveData<List<String>> {
+        Timber.d("-----Get Trash Users------------------------------")
+        val trash = MutableLiveData<List<String>>()
+
+        try {
+            FirebaseFirestore.getInstance().collection("settings").document("trashUsers")
+                .addSnapshotListener { snapshot, _ ->
+                    if (snapshot != null && snapshot.exists()) {
+                        Timber.d("Current data: ${snapshot.data}")
+                        val result = snapshot.data?.get("trashUsers") as List<String>?
+                        trash.value = result!!
+                    }
+                }
+        } catch (e: Exception) {
+
+        }
+
+        return trash
+    }
 
     fun newFriend(userId: String) {
         Timber.d("-----New Friend------------------------------")
@@ -65,8 +111,6 @@ object FirebaseService {
 
         ToastUtil.show(appInstance.getString(R.string.send_request_ok))
     }
-
-
 
 
     suspend fun createGame(game: Game): Boolean = suspendCoroutine { continuation ->
@@ -417,7 +461,6 @@ object FirebaseService {
         ToastUtil.show(appInstance.getString(R.string.favorite_out))
     }
 
-
     fun getLivePartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
         Timber.d("-----Get Live Party Msgs------------------------------")
 
@@ -510,7 +553,6 @@ object FirebaseService {
                 }
         }
 
-
     fun getLiveGameById(gameId: String): MutableLiveData<Game> {
         Timber.d("-----Get Live Game By Id------------------------------")
 
@@ -549,8 +591,8 @@ object FirebaseService {
                         Timber.d("Current data: $list")
 
 
-                         val openParties =
-                             list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
+                        val openParties =
+                            list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
                         val overParties =
                             list.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
 
@@ -782,8 +824,6 @@ object FirebaseService {
 
         ToastUtil.show(appInstance.getString(R.string.welcome))
     }
-
-
 
 
 }

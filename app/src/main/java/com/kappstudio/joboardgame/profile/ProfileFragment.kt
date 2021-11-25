@@ -15,10 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.firebase.auth.FirebaseAuth
-import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.VMFactory
-import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.bindImage
+import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentProfileBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.login.LoginActivity
@@ -26,7 +23,7 @@ import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
-import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
+ import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
 import com.kappstudio.joboardgame.user.UserFragmentDirections
 import com.kappstudio.joboardgame.util.closeKeyBoard
 import timber.log.Timber
@@ -49,9 +46,18 @@ class ProfileFragment : Fragment() {
 
         val userId = UserManager.user.value?.id ?: ""
 
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        binding.btnEdit.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
+        binding.tvPhoto.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
+
         binding.tvLogout.setOnClickListener {
             UserManager.clear()
             FirebaseAuth.getInstance().signOut()

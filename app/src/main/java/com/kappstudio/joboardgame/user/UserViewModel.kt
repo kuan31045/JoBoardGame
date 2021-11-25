@@ -1,5 +1,6 @@
 package com.kappstudio.joboardgame.user
 
+import android.view.View
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
@@ -19,6 +20,8 @@ class UserViewModel(private val userId: String) : ViewModel(),
 
     val me: LiveData<User> = UserManager.user
 
+    val amITrash = MutableLiveData<Boolean>(UserManager.isTrash())
+
     private var _parties = MutableLiveData<List<Party>>(mutableListOf())
     val parties: LiveData<List<Party>>
         get() = _parties
@@ -37,6 +40,9 @@ class UserViewModel(private val userId: String) : ViewModel(),
     val friendStatus: LiveData<FriendStatus>
         get() = _friendStatus
 
+    private var _navToReport = MutableLiveData<User?>()
+    val navToReport: LiveData<User?>
+        get() = _navToReport
 
     fun checkFriendStatus() {
         _friendStatus.value = when {
@@ -86,4 +92,10 @@ class UserViewModel(private val userId: String) : ViewModel(),
         FirebaseService.refuseRequest(userId)
     }
 
+    fun navToReport() {
+                      _navToReport.value=user.value
+    }
+    fun onNavToReport() {
+        _navToReport.value=null
+    }
 }

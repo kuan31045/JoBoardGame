@@ -79,7 +79,7 @@
                         style="@style/titleStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="43dp"
+                        android:layout_marginTop="60dp"
                         android:text="@{viewModel.me.name}"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +132,8 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_edit"
+                        android:layout_marginTop="16dp"
+
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:backgroundTint="@color/theme_blue"

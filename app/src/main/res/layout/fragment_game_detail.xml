@@ -274,10 +274,10 @@
                 tools:layout_editor_absoluteY="832dp" />
 
             <Button
-                android:id="@+id/btn_to_lie_test"
+                android:id="@+id/btn_to_polygraph"
                 style="@style/btnToToolsStyle"
                 android:drawableTop="@drawable/ic_lie_28dp"
-                android:text="@string/lie_test"
+                android:text="@string/polygraph"
                 android:visibility="gone"
 
                 tools:layout_editor_absoluteX="323dp"

@@ -130,6 +130,10 @@ class MainActivity : AppCompatActivity() {
                     R.id.friendFragment -> PageType.FRIEND_LIST
                     R.id.myHostFragment -> PageType.MY_HOST
                     R.id.notificationFragment -> PageType.NOTIFICATION
+                    R.id.drawLotsFragment -> PageType.DRAW_LOTS
+                    R.id.polygraphFragment -> PageType.POLYGRAPH
+                    R.id.scoreboardFragment -> PageType.SCOREBOARD
+                    R.id.reportDialog -> PageType.REPORT
 
                     else -> PageType.OTHER
                 }
