@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.album.PhotoFragmentArgs
 import com.kappstudio.joboardgame.databinding.FragmentDrawLotsBinding
+import com.kappstudio.joboardgame.util.openKeyBoard
 import tech.gujin.toast.ToastUtil
 
 class DrawLotsFragment : Fragment() {
@@ -33,8 +36,13 @@ class DrawLotsFragment : Fragment() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = FragmentDrawLotsBinding.inflate(inflater)
 
-         DrawLotsFragmentArgs.fromBundle(requireArguments()).gameList?.let {
+        DrawLotsFragmentArgs.fromBundle(requireArguments()).gameList?.let {
             viewModel.setItems(it.toList())
+        }
+
+        binding.etAddItem.setOnFocusChangeListener { v, hasFocus ->
+            binding.etAddItem.let { ContextCompat.getSystemService(it.context, InputMethodManager::class.java) }
+                ?.showSoftInput(binding.etAddItem, InputMethodManager.SHOW_IMPLICIT)
         }
 
         binding.btnAdd.setOnClickListener {
@@ -51,6 +59,7 @@ class DrawLotsFragment : Fragment() {
         binding.btnDraw.setOnClickListener {
             if (viewModel.items.value?.isEmpty() == true) {
                 ToastUtil.show(getString(R.string.plz_input_draw_item))
+                binding.etAddItem.requestFocus()
             } else {
                 viewModel.draw()
             }

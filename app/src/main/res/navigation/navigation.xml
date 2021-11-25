@@ -190,6 +190,17 @@
         android:label="LieDialog">
 
     </dialog>
+
+    <dialog
+        android:id="@+id/reportDialog"
+        android:name="com.kappstudio.joboardgame.report.ReportDialog"
+        android:label="ReportDialog">
+
+        <argument
+            android:name="user"
+            app:argType="com.kappstudio.joboardgame.data.User" />
+    </dialog>
+
     <fragment
         android:id="@+id/selectGameFragment"
         android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
@@ -242,6 +253,19 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
+    <fragment
+        android:id="@+id/scoreboardFragment"
+        android:name="com.kappstudio.joboardgame.tools.scoreboard.ScoreboardFragment"
+        android:label="fragment_scoreboard"
+        tools:layout="@layout/fragment_scoreboard" >
+        <argument
+            android:name="playerList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
     <fragment
         android:id="@+id/polygraphFragment"
         android:name="com.kappstudio.joboardgame.tools.polygraph.PolygraphFragment"
@@ -321,4 +345,10 @@
     <action
         android:id="@+id/nav_to_lie_dialog"
         app:destination="@id/lieDialog" />
+    <action
+        android:id="@+id/nav_to_scoreboard_fragment"
+        app:destination="@id/scoreboardFragment" />
+    <action
+        android:id="@+id/nav_to_report_dialog"
+        app:destination="@id/reportDialog" />
 </navigation>

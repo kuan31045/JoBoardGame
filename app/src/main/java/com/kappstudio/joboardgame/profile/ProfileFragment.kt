@@ -49,13 +49,13 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.btnEdit.visibility = when (isConnect.value) {
-            true -> View.VISIBLE
-            else -> View.GONE
+        binding.btnEdit.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
         }
-        binding.tvPhoto.visibility = when (isConnect.value) {
-            true -> View.VISIBLE
-            else -> View.GONE
+        binding.tvPhoto.visibility = when (UserManager.isTrash()) {
+            true -> View.GONE
+            else -> View.VISIBLE
         }
 
         binding.tvLogout.setOnClickListener {

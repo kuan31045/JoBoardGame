@@ -19,9 +19,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_dice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/cl_dice"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
             android:focusable="true"
@@ -70,11 +70,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_timer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:id="@+id/cl_timer"
 
             android:focusable="true"
             android:padding="16dp">
@@ -112,20 +112,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:cardCornerRadius="8dp"
-
         android:layout_marginEnd="6dp"
+
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintEnd_toStartOf="@+id/v_guideline"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_spin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:id="@+id/cl_spin"
 
             android:focusable="true"
 
@@ -164,19 +164,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        app:cardCornerRadius="8dp"
-
         android:layout_marginEnd="6dp"
+
+        app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_score_board"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-
             android:focusable="true"
 
             android:padding="16dp">
@@ -221,11 +221,11 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_draw_lots"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-            android:id="@+id/cl_draw_lots"
 
             android:focusable="true"
 
@@ -262,7 +262,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-         android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView4"
@@ -271,11 +271,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_polygraph"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:clickable="true"
-                                       android:id="@+id/cl_polygraph"
             android:focusable="true"
             android:padding="16dp">
 

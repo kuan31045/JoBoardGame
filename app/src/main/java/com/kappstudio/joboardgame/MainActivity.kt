@@ -132,6 +132,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.notificationFragment -> PageType.NOTIFICATION
                     R.id.drawLotsFragment -> PageType.DRAW_LOTS
                     R.id.polygraphFragment -> PageType.POLYGRAPH
+                    R.id.scoreboardFragment -> PageType.SCOREBOARD
+                    R.id.reportDialog -> PageType.REPORT
 
                     else -> PageType.OTHER
                 }

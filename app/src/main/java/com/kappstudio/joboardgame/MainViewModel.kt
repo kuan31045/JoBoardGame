@@ -16,7 +16,7 @@ lateinit var allGames: LiveData<List<Game>>
 lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
-lateinit var isConnect: LiveData<Boolean>
+ var allTrash: LiveData<List<String>>?=null
 
 class MainViewModel : ViewModel() {
     init {
@@ -24,7 +24,7 @@ class MainViewModel : ViewModel() {
             allGames = FirebaseService.getLiveGames()
             allUsers = FirebaseService.getLiveUsers()
             allParties = FirebaseService.getLiveParties()
-            isConnect = FirebaseService.getLiveConnect()
+            allTrash = FirebaseService.getTrashUsers()
         }
     }
 
@@ -49,7 +49,6 @@ class MainViewModel : ViewModel() {
         _page.value = status
         if (status!=PageType.OTHER){
             _title.value = status.title
-
         }
 
         _isImmersion.value =
@@ -57,7 +56,7 @@ class MainViewModel : ViewModel() {
                 PageType.GAME_DETAIL -> true
                 PageType.PARTY_DETAIL -> true
                 PageType.USER -> true
-
+                PageType.REPORT-> true
                 else -> false
 
             }

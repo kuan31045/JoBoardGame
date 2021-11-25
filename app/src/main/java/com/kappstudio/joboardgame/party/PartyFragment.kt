@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
+import com.kappstudio.joboardgame.login.UserManager
 
 class PartyFragment : Fragment() {
 
@@ -18,13 +19,15 @@ class PartyFragment : Fragment() {
         val binding = FragmentPartyBinding.inflate(inflater)
         val viewModel: PartyViewModel by viewModels()
 
-
-       viewModel.connect.observe(viewLifecycleOwner,{
-             binding.btnNewParty.visibility = when (it) {
-                 true -> View.VISIBLE
-                 else -> View.GONE
-             }
-         })
+        viewModel.allTrash.observe(viewLifecycleOwner, {
+            if (it.contains(UserManager.userToken)) {
+                binding.btnNewParty.isEnabled = false
+                binding.btnNewParty.visibility = View.GONE
+            } else {
+                binding.btnNewParty.isEnabled = true
+                binding.btnNewParty.visibility = View.VISIBLE
+            }
+        })
 
 
         binding.btnNewParty.setOnClickListener {
@@ -33,7 +36,7 @@ class PartyFragment : Fragment() {
 
 
         viewModel.parties.observe(viewLifecycleOwner, {
-            it?.let{
+            it?.let {
                 binding.rvParty.adapter = PartyAdapter(viewModel).apply {
                     submitList(it)
                 }

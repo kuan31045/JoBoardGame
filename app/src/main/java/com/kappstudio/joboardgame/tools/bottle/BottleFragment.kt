@@ -1,10 +1,12 @@
 package com.kappstudio.joboardgame.tools.bottle
 
+import android.animation.Animator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.RotateAnimation
 import com.kappstudio.joboardgame.databinding.FragmentBottleBinding
@@ -38,7 +40,25 @@ class BottleFragment : Fragment() {
             animSet.addAnimation(animation)
 
             this.binding.ivBottle.startAnimation(animSet)
+
+
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation) {
+                    binding.btnSpin.visibility = View.GONE
+                }
+
+                override fun onAnimationEnd(animation: Animation) {
+                    binding.btnSpin.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationRepeat(animation: Animation) {
+                }
+            })
+
+
         }
+
+
 
         return binding.root
     }

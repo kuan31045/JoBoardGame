@@ -194,6 +194,10 @@
     <string name="finish">結束</string>
     <string name="timesup">時間到!</string>
     <string name="polygraph_desc">受測者請持穩手機，並按下開始測試</string>
+    <string name="report_him">檢舉該用戶</string>
+    <string name="report">檢舉</string>
+    <string name="plz_input_thing">請輸入事由</string>
+    <string name="google_play_want_see_this">感謝您提出檢舉，我們會立即進行審查，如果這位使用者確實違反了 Jo桌遊 的《社群規範》，我們就會對他做出懲處，情節嚴重的話我們會移除該使用者帳號以及他所有已發布的內容。</string>
 
 
 </resources>

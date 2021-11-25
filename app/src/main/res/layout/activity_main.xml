@@ -29,7 +29,7 @@
             android:elevation="4dp"
             android:gravity="top"
 
-             android:visibility="@{vm.page == PageType.SELECT_GAME ||  vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
+             android:visibility="@{vm.page == PageType.REPORT ||vm.page == PageType.SELECT_GAME ||  vm.page == PageType.PARTY_DETAIL || vm.page == PageType.GAME_DETAIL || vm.page == PageType.USER || vm.page == PageType.RATING  || vm.page == PageType.MAP || vm.page == PageType.SEARCH ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

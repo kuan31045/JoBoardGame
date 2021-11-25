@@ -20,6 +20,9 @@ import kotlin.coroutines.suspendCoroutine
 
 private const val PATH_REQUEST_LIST = "requestList"
 private const val PATH_FRIEND_LIST = "friendList"
+
+private const val PATH_REPORTS = "reports"
+
 private const val PATH_PHOTOS = "photos"
 private const val PATH_GAMES = "games"
 private const val PATH_PARTIES = "parties"
@@ -30,24 +33,50 @@ private const val FIELD_PHOTOS = "photos"
 
 object FirebaseService {
 
-     fun getLiveConnect(): MutableLiveData<Boolean> {
-        Timber.d("-----Get Live Settings------------------------------")
-        val connect = MutableLiveData<Boolean>()
+    suspend fun sendReport(report: Report): Boolean = suspendCoroutine { continuation ->
+        Timber.d("-----Send Report------------------------------")
+
+        val reports = FirebaseFirestore.getInstance().collection(PATH_REPORTS)
+        val document = reports.document()
+
+        report.id = document.id
+
+        document
+            .set(report)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Timber.d("Create Party Successful: $report")
+                    continuation.resume(true)
+                } else {
+                    task.exception?.let {
+
+                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(false)
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(false)
+                }
+            }
+    }
+
+    fun getTrashUsers(): MutableLiveData<List<String>> {
+        Timber.d("-----Get Trash Users------------------------------")
+        val trash = MutableLiveData<List<String>>()
+
         try {
-            FirebaseFirestore.getInstance().collection("settings").document("connect")
+            FirebaseFirestore.getInstance().collection("settings").document("trashUsers")
                 .addSnapshotListener { snapshot, _ ->
                     if (snapshot != null && snapshot.exists()) {
                         Timber.d("Current data: ${snapshot.data}")
-                        connect.value = snapshot.data?.get("connect") as Boolean?
-                    } else {
-                        connect.value = true
+                        val result = snapshot.data?.get("trashUsers") as List<String>?
+                        trash.value = result!!
                     }
                 }
         } catch (e: Exception) {
-            connect.value = true
+
         }
 
-        return connect
+        return trash
     }
 
     fun newFriend(userId: String) {

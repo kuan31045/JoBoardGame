@@ -13,6 +13,8 @@ enum class PageType(val title: String) {
     TIMER(appInstance.getString(R.string.timer)),
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
     DRAW_LOTS(appInstance.getString(R.string.draw_lots)),
+    SCOREBOARD(appInstance.getString(R.string.scoreboard)),
+    REPORT(""),
 
     POLYGRAPH(appInstance.getString(R.string.polygraph)),
 
