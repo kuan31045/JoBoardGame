@@ -146,7 +146,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_tools.xml" value="0.33" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/fragment_user.xml" value="0.2" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/info_window.xml" value="0.33" />
-        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_check_box.xml" value="0.1699402220324509" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_check_box.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_dice.xml" value="0.2101851851851852" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_draw.xml" value="0.1" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_game_add.xml" value="0.33" />
@@ -163,6 +163,7 @@
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_50dp.xml" value="0.27853260869565216" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_alumb.xml" value="0.2821557971014493" />
+        <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_photo_small.xml" value="0.21039354187689202" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_player.xml" value="0.25" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_rating_read.xml" value="0.27853260869565216" />
         <entry key="..\:/myCode/AndroidStudioProjects/JoBoardGame/app/src/main/res/layout/item_user.xml" value="0.2101851851851852" />

@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.album
+package com.kappstudio.joboardgame.album.photo
 
 import android.content.Context
 import android.os.Bundle

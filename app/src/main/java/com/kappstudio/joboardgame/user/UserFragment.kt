@@ -41,14 +41,7 @@ class UserFragment : Fragment() {
         //Nav
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-        binding.tvPhoto.visibility = when (UserManager.isTrash()) {
-            true -> View.GONE
-            else -> View.VISIBLE
-        }
-        binding.btnEdit.visibility = when (UserManager.isTrash()) {
-            true -> View.GONE
-            else -> View.VISIBLE
-        }
+
 
         binding.tvPartyQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToMyPartyFragment(userId))

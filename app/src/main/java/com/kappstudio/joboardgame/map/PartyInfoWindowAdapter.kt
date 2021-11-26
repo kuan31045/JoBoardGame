@@ -16,7 +16,7 @@ import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import java.text.SimpleDateFormat
 
-class MyInfoWindowAdapter(private val context: Context, private val viewModel: PartyViewModel) :
+class PartyInfoWindowAdapter(private val context: Context, private val viewModel: PartyViewModel) :
     GoogleMap.InfoWindowAdapter {
 
     private fun render(marker: Marker, binding: InfoWindowBinding) {

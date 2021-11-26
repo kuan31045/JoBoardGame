@@ -24,10 +24,8 @@ import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.game.GameFragmentDirections
-import com.kappstudio.joboardgame.login.UserManager
 
-import com.kappstudio.joboardgame.login.UserManager.isTrash
-import com.kappstudio.joboardgame.party.PhotoAdapter
+ import com.kappstudio.joboardgame.party.PhotoAdapter
 import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
@@ -53,14 +51,7 @@ class PartyDetailFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.cvMsgs.visibility = when (UserManager.isTrash()) {
-            true -> View.GONE
-            else -> View.VISIBLE
-        }
-        binding.cvPhotos.visibility = when (UserManager.isTrash()) {
-            true -> View.GONE
-            else -> View.VISIBLE
-        }
+
 
         binding.rvPhoto.adapter = PhotoAdapter(viewModel)
 

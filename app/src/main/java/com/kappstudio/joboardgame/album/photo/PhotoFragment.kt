@@ -1,11 +1,10 @@
-package com.kappstudio.joboardgame.album
+package com.kappstudio.joboardgame.album.photo
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPhotoBinding
 
 

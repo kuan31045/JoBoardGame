@@ -16,7 +16,6 @@ lateinit var allGames: LiveData<List<Game>>
 lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
- var allTrash: LiveData<List<String>>?=null
 
 class MainViewModel : ViewModel() {
     init {
@@ -24,8 +23,7 @@ class MainViewModel : ViewModel() {
             allGames = FirebaseService.getLiveGames()
             allUsers = FirebaseService.getLiveUsers()
             allParties = FirebaseService.getLiveParties()
-            allTrash = FirebaseService.getTrashUsers()
-        }
+         }
     }
 
     private val _page = MutableLiveData<PageType>()

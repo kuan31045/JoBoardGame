@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.album.PhotoFragmentArgs
 import com.kappstudio.joboardgame.databinding.FragmentDrawLotsBinding
 import com.kappstudio.joboardgame.util.openKeyBoard
 import tech.gujin.toast.ToastUtil

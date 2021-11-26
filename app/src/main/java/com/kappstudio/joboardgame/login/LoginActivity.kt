@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.login
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,10 +31,20 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-// Initialize Firebase Auth
+
+        val mAlert = AlertDialog.Builder(this)
+        mAlert.setTitle("Jo桌遊使用條款")
+        mAlert.setMessage(getString(R.string.google_play_want_see_this2))
+        mAlert.setCancelable(false)
+        mAlert.setPositiveButton("接受"){_,_->
+        }
+        mAlert.setNegativeButton("拒絕"){_,_->
+            finishApp()
+        }
+      val  mAlertDialog = mAlert.create()
+        mAlertDialog.show()
         auth = Firebase.auth
         startActivityLauncher = StartActivityLauncher(this)
 
@@ -107,6 +118,10 @@ class LoginActivity : AppCompatActivity() {
            )
         viewModel.addUser(user)
         viewModel.getUserData(account.email ?: "")
+    }
+
+    private fun finishApp(){
+        finish()
     }
 
 }
