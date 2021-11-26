@@ -24,8 +24,8 @@ import com.kappstudio.joboardgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {
     val viewModel: MainViewModel by viewModels()
+    lateinit var binding: ActivityMainBinding
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,12 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.kappstudio.joboardgame.MainActivity
+import com.kappstudio.joboardgame.databinding.ActivityMainBinding
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.databinding.FragmentMyPartyBinding
 import com.kappstudio.joboardgame.party.PartyAdapter
 import com.kappstudio.joboardgame.party.PartyViewModel
 import com.kappstudio.joboardgame.user.UserFragmentArgs
 import timber.log.Timber
+import android.R
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+
 
 class MyPartyFragment : Fragment() {
 
@@ -24,9 +30,11 @@ class MyPartyFragment : Fragment() {
         val binding = FragmentMyPartyBinding.inflate(inflater)
         val viewModel: PartyViewModel by viewModels()
 
+
         val userId = MyPartyFragmentArgs.fromBundle(requireArguments()).userId
 
         viewModel.parties?.observe(viewLifecycleOwner, {
+
             Timber.d("completedData $it")
             val list = it.filter {
                 userId in it.playerIdList
