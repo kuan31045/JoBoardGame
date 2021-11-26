@@ -131,10 +131,15 @@ class PartyDetailFragment : Fragment() {
         })
 
         viewModel.reportOk.observe(viewLifecycleOwner,{
-            ToastUtil.show("檢舉已送出")
-            val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-            builder?.setMessage(getString(R.string.google_play_want_see_this3))
-            builder?.show()
+           it?.let{
+               ToastUtil.show("檢舉已送出")
+               val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
+               builder?.setMessage(getString(R.string.google_play_want_see_this3))
+               builder?.show()
+
+               viewModel.onReportOk()
+           }
+
         })
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {

@@ -42,8 +42,8 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val partyMsgs: LiveData<List<PartyMsg>>
         get() = _partyMsgs
 
-    private val _reportOk = MutableLiveData<Boolean>()
-    val reportOk: LiveData<Boolean>
+    private val _reportOk = MutableLiveData<Boolean?>()
+    val reportOk: LiveData<Boolean?>
         get() = _reportOk
 
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
@@ -180,5 +180,9 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
                 _reportOk.value = true
             }
         }
+    }
+
+    fun onReportOk() {
+        _reportOk.value =null
     }
 }
