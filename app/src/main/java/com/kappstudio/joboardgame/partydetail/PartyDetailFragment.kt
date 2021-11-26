@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -129,6 +130,12 @@ class PartyDetailFragment : Fragment() {
             }
         })
 
+        viewModel.reportOk.observe(viewLifecycleOwner,{
+            ToastUtil.show("檢舉已送出")
+            val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
+            builder?.setMessage(getString(R.string.google_play_want_see_this3))
+            builder?.show()
+        })
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {

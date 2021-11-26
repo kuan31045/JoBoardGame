@@ -42,6 +42,10 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val partyMsgs: LiveData<List<PartyMsg>>
         get() = _partyMsgs
 
+    private val _reportOk = MutableLiveData<Boolean>()
+    val reportOk: LiveData<Boolean>
+        get() = _reportOk
+
     val isJoin: LiveData<Boolean> = Transformations.map(party) {
         it?.playerIdList?.contains(UserManager.user.value?.id ?: "")
     }
@@ -151,7 +155,8 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
 
     fun setUsers() {
 
-        _partyUsers.value = allUsers.value?.filter { party.value?.playerIdList?.contains(it.id) ==true }
+        _partyUsers.value =
+            allUsers.value?.filter { party.value?.playerIdList?.contains(it.id) == true }
 
 
     }
@@ -162,5 +167,18 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         }
 
 
+    }
+
+    fun reportMsg(msg: PartyMsg) {
+        viewModelScope.launch {
+            val report = Report(
+                thing = "${msg.userId}: ${msg.msg}",
+                violationId = msg.id
+            )
+            val result = FirebaseService.sendReport(report)
+            if (result) {
+                _reportOk.value = true
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ class ReportViewModel(
         viewModelScope.launch {
             val report = Report(
                 thing = thing.value ?: "",
-                userId = user.value?.id ?: ""
+                violationId = user.value?.id ?: ""
             )
             val result = FirebaseService.sendReport(report)
             if (result) {

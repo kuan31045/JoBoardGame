@@ -198,6 +198,8 @@
     <string name="report">檢舉</string>
     <string name="plz_input_thing">請輸入事由</string>
     <string name="google_play_want_see_this">感謝您提出檢舉，我們會立即進行審查，如果這位使用者確實違反了 Jo桌遊 的《社群規範》，我們就會對他做出懲處，情節嚴重的話我們會移除該使用者帳號以及他所有已發布的內容。</string>
+    <string name="google_play_want_see_this3">感謝您提出檢舉，我們會立即進行審查，如果這則留言確實違反了 Jo桌遊 的《社群規範》，我們就會移除它，並對違規的使用者進行懲處，情節嚴重的話我們會移除該使用者帳號以及他所有已發布的內容。</string>
+
     <string name="google_play_want_see_this2">若您想要使用"Jo桌遊"，請您詳閱並接受以下使用條款:
 
 帳號終止規定:
@@ -215,6 +217,7 @@
 
 
 kuanappstudio@gmail.com</string>
+    <string name="report_bad">檢舉不當內容</string>
 
 
 </resources>
