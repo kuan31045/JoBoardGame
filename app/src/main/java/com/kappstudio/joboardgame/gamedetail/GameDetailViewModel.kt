@@ -16,11 +16,21 @@ class GameDetailViewModel(
     private val gameId: String,
     private val joRepository: JoRepository
 ) :
-    ViewModel(), NavToRatingInterface {
+    ViewModel() {
     private var _game = MutableLiveData<Game>()
     val game: LiveData<Game>
         get() = _game
+    private val _navToRating = MutableLiveData<Rating?>()
+    val navToRating: LiveData<Rating?>
+        get() =  _navToRating
 
+    fun navToRating(rating: Rating) {
+         _navToRating.value = rating
+    }
+
+    fun onNavToRating() {
+         _navToRating.value = null
+    }
     val isFavorite = MutableLiveData(false)
 
 

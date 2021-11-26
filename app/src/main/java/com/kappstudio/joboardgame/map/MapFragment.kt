@@ -216,7 +216,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
             }
         }
 
-        mMap.setInfoWindowAdapter(context?.let { MyInfoWindowAdapter(it, partyViewModel) })
+        mMap.setInfoWindowAdapter(context?.let { PartyInfoWindowAdapter(it, partyViewModel) })
         mMap.setOnInfoWindowClickListener(this)
 
     }

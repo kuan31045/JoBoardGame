@@ -9,14 +9,4 @@ interface NavToRatingInterface {
         private val _navToRating = MutableLiveData<Rating?>()
     }
 
-    val navToRating: LiveData<Rating?>
-        get() = _navToRating
-
-    fun navToRating(rating: Rating) {
-        _navToRating.value = rating
-    }
-
-    fun onNavToRating() {
-        _navToRating.value = null
-    }
 }

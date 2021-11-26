@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
-        android:name="com.kappstudio.joboardgame.album.PhotoFragment"
+        android:name="com.kappstudio.joboardgame.album.photo.PhotoFragment"
         android:label="fragment_photo"
         tools:layout="@layout/fragment_photo">
         <argument
