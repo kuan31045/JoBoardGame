@@ -100,7 +100,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
                 _status.value = LoadApiStatus.LOADING
 
                 when (val result = FirebaseService.uploadPhoto(it)) {
-                    is Result.Success -> {
+                    is Resource.Success -> {
                         val res = result.data
                         Timber.d("Photo: $res")
                         addPartyPhoto(res)
@@ -117,7 +117,7 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     private suspend fun addPartyPhoto(photo: String) {
         viewModelScope.launch {
             when (FirebaseService.addPartyPhoto(partyId, photo)) {
-                is Result.Success -> {
+                is Resource.Success -> {
                     ToastUtil.show(appInstance.getString(R.string.upload_ok))
                     _status.value = LoadApiStatus.DONE
                 }
