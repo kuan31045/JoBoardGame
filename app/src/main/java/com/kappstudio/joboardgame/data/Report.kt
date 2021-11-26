@@ -9,5 +9,5 @@ data class Report(
     var id: String = "",
     var reportTime: Long = Calendar.getInstance().timeInMillis,
     var thing: String = "",
-    var userId: String = ""
+    var violationId: String = ""
 ): Parcelable

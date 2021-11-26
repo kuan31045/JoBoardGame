@@ -13,7 +13,6 @@ import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
-import kotlin.collections.HashMap
 
 private const val defaultCover =
     "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/cover1.png?alt=media&token=f3144faf-1e81-4d84-b25e-46e32b64b8f1"
@@ -114,7 +113,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             _status.value = LoadApiStatus.LOADING
 
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is Result.Success -> {
+                is Resource.Success -> {
                     _coverUrl.value = result.data!!
                     Timber.d("Photo: ${coverUrl.value}")
                 }

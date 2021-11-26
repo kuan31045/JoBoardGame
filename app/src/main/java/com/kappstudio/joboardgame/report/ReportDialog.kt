@@ -44,10 +44,8 @@ class ReportDialog : DialogFragment() {
             dismiss()
             ToastUtil.show("檢舉已送出")
             val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-//呼叫setMessage方法設定顯示文字
-            builder?.setMessage(getString(R.string.google_play_want_see_this))
-//顯示對話框
-            builder?.show()
+             builder?.setMessage(getString(R.string.google_play_want_see_this))
+             builder?.show()
         })
 
         return binding.root

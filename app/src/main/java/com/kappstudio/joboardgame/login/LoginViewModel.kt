@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.data.Resource
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import kotlinx.coroutines.launch
@@ -23,9 +23,9 @@ class LoginViewModel : ViewModel() {
             val result = FirebaseService.addUser(user)
 
             _error.value = when (result) {
-                is Result.Success -> null
-                is Result.Fail -> result.error
-                is Result.Error -> result.exception.toString()
+                is Resource.Success -> null
+                is Resource.Fail -> result.error
+                is Resource.Error -> result.exception.toString()
                 else -> null
             }
             _navToMain.value = true

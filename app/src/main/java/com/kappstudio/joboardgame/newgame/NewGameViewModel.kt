@@ -11,7 +11,6 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
-import com.kappstudio.joboardgame.newparty.PartyInvalidInput
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
@@ -130,7 +129,7 @@ class NewGameViewModel : ViewModel() {
 
             _status.value = LoadApiStatus.LOADING
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is Result.Success -> {
+                is Resource.Success -> {
                     _imageUrl.value = result.data!!
                     Timber.d("image: ${imageUrl.value}")
                 }
