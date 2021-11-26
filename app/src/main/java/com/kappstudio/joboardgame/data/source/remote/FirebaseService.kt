@@ -59,26 +59,6 @@ object FirebaseService {
             }
     }
 
-    fun getTrashUsers(): MutableLiveData<List<String>> {
-        Timber.d("-----Get Trash Users------------------------------")
-        val trash = MutableLiveData<List<String>>()
-
-        try {
-            FirebaseFirestore.getInstance().collection("settings").document("trashUsers")
-                .addSnapshotListener { snapshot, _ ->
-                    if (snapshot != null && snapshot.exists()) {
-                        Timber.d("Current data: ${snapshot.data}")
-                        val result = snapshot.data?.get("trashUsers") as List<String>?
-                        trash.value = result!!
-                    }
-                }
-        } catch (e: Exception) {
-
-        }
-
-        return trash
-    }
-
     fun newFriend(userId: String) {
         Timber.d("-----New Friend------------------------------")
 

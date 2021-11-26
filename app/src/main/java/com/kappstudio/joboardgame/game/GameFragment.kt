@@ -25,10 +25,7 @@ class GameFragment : Fragment() {
         val binding = FragmentGameBinding.inflate(inflater)
         val viewModel: GameViewModel by viewModels()
 
-        binding.btnNewGame.visibility = when (UserManager.isTrash()) {
-            true -> View.GONE
-            else -> View.VISIBLE
-        }
+
 
         val adapter = AllGameAdapter(viewModel)
         binding.rvAllGame.adapter = adapter

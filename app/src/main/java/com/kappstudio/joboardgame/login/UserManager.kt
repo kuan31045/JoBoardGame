@@ -2,8 +2,7 @@ package com.kappstudio.joboardgame.login
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.kappstudio.joboardgame.allTrash
-import com.kappstudio.joboardgame.appInstance
+ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 
 object UserManager {
@@ -40,5 +39,4 @@ object UserManager {
         userToken = null
      }
 
-    fun isTrash() = userToken?.let { allTrash?.value?.contains(it) }
-}
+ }

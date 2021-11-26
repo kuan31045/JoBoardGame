@@ -152,7 +152,7 @@
                             android:text="@string/edit_profile"
                             android:textColor="@color/white"
 
-                            android:visibility="@{viewModel.friendStatus == FriendStatus.IS_ME &amp;&amp; !viewModel.amITrash ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{viewModel.friendStatus == FriendStatus.IS_ME  ? View.VISIBLE : View.GONE}"
                             app:cornerRadius="99dp"
                             tools:visibility="visible" />
 

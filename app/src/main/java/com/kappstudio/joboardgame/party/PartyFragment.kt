@@ -18,18 +18,7 @@ class PartyFragment : Fragment() {
     ): View? {
         val binding = FragmentPartyBinding.inflate(inflater)
         val viewModel: PartyViewModel by viewModels()
-
-        viewModel.allTrash.observe(viewLifecycleOwner, {
-            if (it.contains(UserManager.userToken)) {
-                binding.btnNewParty.isEnabled = false
-                binding.btnNewParty.visibility = View.GONE
-            } else {
-                binding.btnNewParty.isEnabled = true
-                binding.btnNewParty.visibility = View.VISIBLE
-            }
-        })
-
-
+        
         binding.btnNewParty.setOnClickListener {
             findNavController().navigate(PartyFragmentDirections.navToNewPartyFragment())
         }

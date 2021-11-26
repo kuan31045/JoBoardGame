@@ -17,7 +17,6 @@ class PartyViewModel : ViewModel(), NavToPartyDetailInterface {
     val parties: LiveData<List<Party>>
         get() = _parties
 
-    val  allTrash = FirebaseService.getTrashUsers()
 
 
 

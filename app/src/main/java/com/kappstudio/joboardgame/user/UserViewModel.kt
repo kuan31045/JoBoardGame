@@ -20,8 +20,6 @@ class UserViewModel(private val userId: String) : ViewModel(),
 
     val me: LiveData<User> = UserManager.user
 
-    val amITrash = MutableLiveData<Boolean>(UserManager.isTrash())
-
     private var _parties = MutableLiveData<List<Party>>(mutableListOf())
     val parties: LiveData<List<Party>>
         get() = _parties
