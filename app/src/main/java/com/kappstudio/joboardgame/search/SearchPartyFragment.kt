@@ -26,11 +26,14 @@ class SearchPartyFragment : Fragment() {
     ): View? {
         val binding = FragmentSearchPartyBinding.inflate(inflater)
 
-        viewModel.newParties.observe(viewLifecycleOwner,{
-            binding.rvSearchResult.adapter = PartyAdapter(viewModel).apply {  submitList(
-                it
-            )}
-        })
+//        viewModel.newParties.observe(viewLifecycleOwner,{
+//            binding.rvSearchResult.adapter = PartyAdapter(
+//                viewModel,
+//                appInstance.provideJoRepository()
+//            ).apply {  submitList(
+//                it
+//            )}
+//        })
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(SearchFragmentDirections.navToPartyDetailFragment(it))

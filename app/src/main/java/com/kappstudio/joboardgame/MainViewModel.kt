@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.login.UserManager
 import kotlinx.coroutines.launch
@@ -17,12 +18,12 @@ lateinit var allParties: LiveData<List<Party>>
 lateinit var allUsers: LiveData<List<User>>
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val repository: JoRepository) : ViewModel() {
     init {
         viewModelScope.launch {
-            allGames = FirebaseService.getLiveGames()
+            allGames = repository.getGames()
             allUsers = FirebaseService.getLiveUsers()
-            allParties = FirebaseService.getLiveParties()
+            allParties = repository.getParties()
          }
     }
 
@@ -38,8 +39,9 @@ class MainViewModel : ViewModel() {
     val isImmersion: LiveData<Boolean>
         get() = _isImmersion
 
+
     fun getUserData(userId: String) {
-        UserManager.user = FirebaseService.getLiveUser(userId)
+        UserManager.user = repository.getUser(userId)
     }
 
     fun setBarStatus(status: PageType) {

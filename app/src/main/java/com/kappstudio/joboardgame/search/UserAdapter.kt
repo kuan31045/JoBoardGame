@@ -28,7 +28,6 @@ class UserAdapter(private val viewModel: ViewModel) :
                 when (viewModel) {
                     is NavToUserInterface -> viewModel.navToUser(user.id)
                 }
-
             }
         }
     }

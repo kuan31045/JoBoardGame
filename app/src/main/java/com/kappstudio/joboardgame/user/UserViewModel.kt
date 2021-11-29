@@ -1,9 +1,9 @@
 package com.kappstudio.joboardgame.user
 
-import android.view.View
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.login.UserManager
@@ -11,20 +11,22 @@ import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
 import java.util.*
 
-class UserViewModel(private val userId: String) : ViewModel(),
-    NavToPartyDetailInterface,NavToUserInterface
-{
+class UserViewModel(private val userId: String, private val repository: JoRepository) :
+    ViewModel(),
+    NavToPartyDetailInterface, NavToUserInterface {
     private var _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
-
+    private var _hosts = MutableLiveData<List<User>>()
+    override val hosts: LiveData<List<User>>
+        get() = _hosts
     val me: LiveData<User> = UserManager.user
 
     private var _parties = MutableLiveData<List<Party>>(mutableListOf())
     val parties: LiveData<List<Party>>
         get() = _parties
 
-    val comingParties:LiveData<List<Party>> = Transformations.map(parties){
+    val comingParties: LiveData<List<Party>> = Transformations.map(parties) {
         it.filter {
             it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
@@ -67,9 +69,9 @@ class UserViewModel(private val userId: String) : ViewModel(),
     private fun getUserInfo() {
         viewModelScope.launch {
             _status.value = LoadApiStatus.LOADING
-            _user = FirebaseService.getLiveUser(userId)
-            _parties.value = FirebaseService.getUserParties(userId)
-            _hostParties.value = FirebaseService.getUserHosts(userId)
+            _user = repository.getUser(userId)
+            //  _parties.value = FirebaseService.getUserParties(userId)
+            // _hostParties.value = FirebaseServicegetUserHosts(userId)
             _status.value = LoadApiStatus.DONE
         }
     }
@@ -91,9 +93,10 @@ class UserViewModel(private val userId: String) : ViewModel(),
     }
 
     fun navToReport() {
-                      _navToReport.value=user.value
+        _navToReport.value = user.value
     }
+
     fun onNavToReport() {
-        _navToReport.value=null
+        _navToReport.value = null
     }
 }

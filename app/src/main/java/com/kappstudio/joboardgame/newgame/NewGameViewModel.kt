@@ -129,7 +129,7 @@ class NewGameViewModel : ViewModel() {
 
             _status.value = LoadApiStatus.LOADING
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is Resource.Success -> {
+                is com.kappstudio.joboardgame.data.Resource.Success -> {
                     _imageUrl.value = result.data!!
                     Timber.d("image: ${imageUrl.value}")
                 }

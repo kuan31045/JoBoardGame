@@ -24,7 +24,7 @@ class DiceFragment : Fragment() {
         viewModel.qty.observe(viewLifecycleOwner, {
             it?.let {
                 val amount = mutableListOf<Int>()
-                repeat(it){i->
+                repeat(it) { i ->
                     amount.add(i)
                 }
                 adapter.submitList(amount)

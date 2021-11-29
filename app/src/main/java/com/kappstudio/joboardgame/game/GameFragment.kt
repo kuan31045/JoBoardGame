@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentGameBinding
- import com.kappstudio.joboardgame.login.UserManager
-import com.kappstudio.joboardgame.party.PartyFragmentDirections
 
 class GameFragment : Fragment() {
 
+    val viewModel: GameViewModel by viewModels {
+        VMFactory {
+            GameViewModel(appInstance.provideJoRepository())
+        }
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,18 +26,14 @@ class GameFragment : Fragment() {
     ): View? {
 
         val binding = FragmentGameBinding.inflate(inflater)
-        val viewModel: GameViewModel by viewModels()
-
-
-
         val adapter = AllGameAdapter(viewModel)
+
         binding.rvAllGame.adapter = adapter
-
-
 
         binding.btnNewGame.setOnClickListener {
             findNavController().navigate(GameFragmentDirections.navToNewGameFragment(""))
         }
+
         viewModel.games.observe(viewLifecycleOwner, {
             adapter.submitList(it)
         })
@@ -45,6 +44,7 @@ class GameFragment : Fragment() {
                 viewModel.onNavToGameDetail()
             }
         })
+
         return binding.root
     }
 }

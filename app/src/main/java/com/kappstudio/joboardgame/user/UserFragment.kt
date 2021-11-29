@@ -7,19 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentUserBinding
 
-import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
-import com.kappstudio.joboardgame.party.PartyAdapter
-import com.kappstudio.joboardgame.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.profile.ProfileFragmentDirections
-import java.util.*
 
 
 class UserFragment : Fragment() {
+
+    val viewModel: UserViewModel by viewModels {
+        VMFactory {
+            UserViewModel(
+                UserFragmentArgs.fromBundle(requireArguments()).clickedUserId,
+                appInstance.provideJoRepository()
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +33,7 @@ class UserFragment : Fragment() {
         val binding = FragmentUserBinding.inflate(inflater, container, false)
         val userId = UserFragmentArgs.fromBundle(requireArguments()).clickedUserId
 
-        val viewModel: UserViewModel by viewModels {
-            VMFactory {
-                UserViewModel(
-                    UserFragmentArgs.fromBundle(requireArguments()).clickedUserId,
-                )
-            }
-        }
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -81,14 +80,14 @@ class UserFragment : Fragment() {
             viewModel.checkFriendStatus()
         })
 
-        viewModel.comingParties.observe(viewLifecycleOwner,
-            {
-                binding.rvParty.adapter = PartyAdapter(viewModel).apply {
-                    submitList(
-                        it
-                    )
-                }
-            })
+//        viewModel.comingParties.observe(viewLifecycleOwner,
+//            {
+//                binding.rvParty.adapter = PartyAdapter(viewModel, appInstance.provideJoRepository()).apply {
+//                    submitList(
+//                        it
+//                    )
+//                }
+//            })
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
             it?.let {

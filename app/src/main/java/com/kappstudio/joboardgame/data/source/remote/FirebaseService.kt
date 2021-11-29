@@ -346,25 +346,7 @@ object FirebaseService {
                 }
         }
 
-    fun getLiveRatings(id: String): MutableLiveData<List<Rating>> {
-        Timber.d("-----Get Live Ratings------------------------------")
 
-        val liveData = MutableLiveData<List<Rating>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_RATINGS).whereEqualTo("userId", id)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                liveData.value = snapshot?.toObjects(Rating::class.java) ?: mutableListOf()
-                Timber.d("Current data: ${liveData.value}")
-            }
-
-        return liveData
-    }
 
 
  
@@ -435,29 +417,6 @@ object FirebaseService {
             }
     }
 
-    suspend fun getUserHosts(userId: String): List<Party> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get User Hosts------------------------------")
-
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_PARTIES).whereEqualTo("hostId", userId)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
-                        Timber.d("Current data: $list")
-
-                        continuation.resume(list)
-                    } else {
-                        task.exception?.let {
-
-                            Timber.w("Error getting documents. ${it.message}")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
-
     fun getLiveGameById(gameId: String): MutableLiveData<Game> {
         Timber.d("-----Get Live Game By Id------------------------------")
 
@@ -483,36 +442,7 @@ object FirebaseService {
         return game
     }
 
-    suspend fun getUserParties(userId: String): List<Party> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get User Parties------------------------------")
 
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_PARTIES).whereArrayContains(FIELD_PLAYER_ID_LIST, userId)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
-                        Timber.d("Current data: $list")
-
-
-                        val openParties =
-                            list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
-                        val overParties =
-                            list.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
-
-                        continuation.resume(openParties + overParties.sortedByDescending { it.partyTime })
-
-
-                    } else {
-                        task.exception?.let {
-
-                            Timber.w("Error getting documents. ${it.message}")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
     suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
@@ -563,31 +493,6 @@ object FirebaseService {
         return party
     }
 
-    fun getLiveParties(): MutableLiveData<List<Party>> {
-        Timber.d("-----Get All Live Parties------------------------------")
-
-        val liveData = MutableLiveData<List<Party>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_PARTIES).orderBy("partyTime", Query.Direction.ASCENDING)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                val result = snapshot?.toObjects(Party::class.java) ?: mutableListOf()
-                val openParties =
-                    result.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
-                val overParties =
-                    result.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
-
-                liveData.value = openParties + overParties.sortedByDescending { it.partyTime }
-
-                Timber.d("Current data: ${liveData.value}")
-            }
-        return liveData
-    }
 
     fun getLiveUsers(): MutableLiveData<List<User>> {
         Timber.d("-----Get All Live Users------------------------------")
@@ -608,24 +513,7 @@ object FirebaseService {
         return liveData
     }
 
-    fun getLiveGames(): MutableLiveData<List<Game>> {
-        Timber.d("-----Get All Live Games------------------------------")
 
-        val liveData = MutableLiveData<List<Game>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_GAMES).orderBy("createdTime", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                liveData.value = snapshot?.toObjects(Game::class.java) ?: mutableListOf()
-                Timber.d("Current data: ${liveData.value}")
-            }
-        return liveData
-    }
 
     fun leaveParty(partyId: String) {
         Timber.d("-----Leave Party------------------------------")
@@ -647,8 +535,3 @@ object FirebaseService {
 
 
 }
-
-
-
-
-

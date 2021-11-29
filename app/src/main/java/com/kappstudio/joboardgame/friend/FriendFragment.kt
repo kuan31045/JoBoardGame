@@ -8,46 +8,43 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.VMFactory
-import com.kappstudio.joboardgame.allUsers
+import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.bindNotFoundLottie
 import com.kappstudio.joboardgame.databinding.FragmentFriendBinding
-import com.kappstudio.joboardgame.partydetail.PartyDetailFragmentDirections
 import com.kappstudio.joboardgame.search.UserAdapter
-import com.kappstudio.joboardgame.user.UserViewModel
 
 class FriendFragment : Fragment() {
 
+    val viewModel: FriendViewModel by viewModels {
+        VMFactory {
+            FriendViewModel(
+                FriendFragmentArgs.fromBundle(requireArguments()).userId,
+                appInstance.provideJoRepository(),
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentFriendBinding.inflate(inflater, container, false)
-
-        val viewModel: UserViewModel by viewModels {
-            VMFactory {
-                UserViewModel(
-                    FriendFragmentArgs.fromBundle(requireArguments()).userId,
-                )
-            }
-        }
-
         val adapter = UserAdapter(viewModel)
+
         binding.rvFriend.adapter = adapter
 
         viewModel.user.observe(viewLifecycleOwner, { user ->
-            adapter.submitList(allUsers.value?.filter { user.friendList.contains(it.id) }
-            )
-            when (user.friendList.size) {
-                0 -> {
-                    binding.tvNotFound.visibility = View.VISIBLE
-                    binding.lottieNotFound.visibility = View.VISIBLE
-                }
-                else -> {
-                    binding.tvNotFound.visibility = View.GONE
-                    binding.lottieNotFound.visibility = View.GONE
-                }
+            if (user.friendList.isNotEmpty()) {
+                viewModel.getFriends()
+
+                viewModel.friends.observe(viewLifecycleOwner, { friends ->
+                    adapter.submitList(friends)
+                })
             }
+            bindNotFoundLottie(binding.lottieNotFound, binding.tvNotFound, user.friendList)
         })
+
         viewModel.navToUser.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(FriendFragmentDirections.navToUserFragment(it))
@@ -57,6 +54,4 @@ class FriendFragment : Fragment() {
 
         return binding.root
     }
-
-
 }

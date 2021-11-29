@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.databinding.ItemGameFavoriteBinding
-import timber.log.Timber
 
-class FavoriteAdapter(private val viewModel: FavoriteViewModel,private val canEdit:Boolean) :
+class FavoriteAdapter(private val viewModel: FavoriteViewModel, private val canEdit: Boolean) :
     ListAdapter<Game, FavoriteAdapter.FavoriteViewHolder>(DiffCallback) {
 
     inner class FavoriteViewHolder(private val binding: ItemGameFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(game: Game, viewModel: FavoriteViewModel) {
 
@@ -24,16 +22,16 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel,private val canEd
                 tvName.text = game.name
                 bindImage(ivGame, game.image)
 
-                if (canEdit){
+                if (canEdit) {
                     tvRemove.visibility = View.VISIBLE
-                }else{
+                } else {
                     tvRemove.visibility = View.GONE
                 }
                 tvRemove.setOnClickListener {
                     viewModel.removeFavorite(game)
                 }
                 clGame.setOnClickListener {
-                        viewModel.navToGameDetail(game)
+                    viewModel.navToGameDetail(game)
                 }
             }
         }
@@ -50,7 +48,6 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel,private val canEd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        Timber.d("create")
         return FavoriteViewHolder(
             ItemGameFavoriteBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -61,8 +58,6 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel,private val canEd
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        Timber.d("BindViewHolder")
-
-        holder.bind(getItem(position),viewModel)
+        holder.bind(getItem(position), viewModel)
     }
 }

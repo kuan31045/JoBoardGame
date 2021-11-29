@@ -4,23 +4,23 @@ import androidx.lifecycle.*
 import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.allParties
 import com.kappstudio.joboardgame.allUsers
-import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.partydetail.NavToPartyDetailInterface
 import com.kappstudio.joboardgame.user.NavToUserInterface
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SearchViewModel : ViewModel(), NavToGameDetailInterface, NavToUserInterface,
+class SearchViewModel( ) : ViewModel(), NavToGameDetailInterface, NavToUserInterface,
     NavToPartyDetailInterface {
 
     var isInit = true
 
+    private var _hosts = MutableLiveData<List<User>>()
+    override val hosts: LiveData<List<User>>
+        get() = _hosts
 
     fun onInit() {
         isInit = false
