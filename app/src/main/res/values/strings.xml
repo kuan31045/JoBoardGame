@@ -218,6 +218,9 @@
 
 kuanappstudio@gmail.com</string>
     <string name="report_bad">檢舉不當內容</string>
+    <string name="ask_out">退出?</string>
+    <string name="i_out">我要退出!</string>
+    <string name="report_ok">檢舉已送出</string>
 
 
 </resources>

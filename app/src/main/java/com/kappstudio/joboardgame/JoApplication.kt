@@ -11,14 +11,15 @@ import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import kotlin.properties.Delegates
 
-private lateinit var _appInstance: MyApplication
-val appInstance: MyApplication
+private lateinit var _appInstance: JoApplication
+val appInstance: JoApplication
     get() = _appInstance
 
 private var _screenHeight by Delegates.notNull<Int>()
 val screenHeight: Int
     get() = _screenHeight
-class MyApplication : Application() {
+
+class JoApplication : Application() {
 
     private var joRepository: JoRepository? = null
 
@@ -34,6 +35,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         ToastUtil.initialize(this)
+
         // 獲取螢幕高度
         val displayMetrics = DisplayMetrics()
         val windowsManager = this.getSystemService(WINDOW_SERVICE) as WindowManager
@@ -42,7 +44,7 @@ class MyApplication : Application() {
         _appInstance = this
 
         //if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+        Timber.plant(Timber.DebugTree())
         //}
     }
 }

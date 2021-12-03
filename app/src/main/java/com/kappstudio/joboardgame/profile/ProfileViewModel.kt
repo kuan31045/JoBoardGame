@@ -41,7 +41,7 @@ class ProfileViewModel(private val repository: JoRepository) : ViewModel(),
     fun getHosts() {
         val hostIdList = comingParties.value?.map { it.hostId }?.distinctBy { it }
         hostIdList?.let {
-            _hosts = repository.getUsersById(it)
+            _hosts = repository.getUsersByIdList(it)
         }
     }
 }

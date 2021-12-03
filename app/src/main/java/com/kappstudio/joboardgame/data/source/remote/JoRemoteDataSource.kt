@@ -2,16 +2,18 @@ package com.kappstudio.joboardgame.data.source.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
-import com.kappstudio.joboardgame.data.Game
-import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.JoDataSource
+import com.kappstudio.joboardgame.login.UserManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
 import java.util.*
 
@@ -24,6 +26,7 @@ object JoRemoteDataSource : JoDataSource {
     private const val PATH_RATINGS = "ratings"
     private const val PATH_NOTIFICATIONS = "notifications"
     private const val PATH_REPORTS = "reports"
+    private const val KEY_PARTY_ID = "partyId"
     private const val KEY_HOST_ID = "hostId"
     private const val KEY_PLAYER_ID_LIST = "playerIdList"
     private const val KEY_PHOTOS = "photos"
@@ -69,6 +72,45 @@ object JoRemoteDataSource : JoDataSource {
         return liveData
     }
 
+    override fun getParty(id: String): MutableLiveData<Party> {
+        Timber.d("-----Get Party------------------------------")
+
+        val liveData = MutableLiveData<Party>()
+
+        FirebaseFirestore.getInstance().collection(PATH_PARTIES)
+            .document(id)
+            .addSnapshotListener { snapshot, exception ->
+
+                exception?.let {
+                    Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                liveData.value = snapshot?.toObject<Party>()
+            }
+
+        return liveData
+    }
+
+    override fun getPartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
+        Timber.d("-----Get Party Msgs------------------------------")
+
+        val liveData = MutableLiveData<List<PartyMsg>>()
+
+        FirebaseFirestore.getInstance().collection(PATH_PARTY_MSG)
+            .whereEqualTo(KEY_PARTY_ID, id)
+            .addSnapshotListener { snapshot, exception ->
+
+                exception?.let {
+                    Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                val list = snapshot?.toObjects(PartyMsg::class.java) ?: listOf()
+                liveData.value = list.sortedByDescending { it.createdTime }
+            }
+
+        return liveData
+    }
+
     override fun getGames(): MutableLiveData<List<Game>> {
         Timber.d("-----Get Games------------------------------")
 
@@ -89,7 +131,39 @@ object JoRemoteDataSource : JoDataSource {
         return liveData
     }
 
-    override fun getUsersById(idList: List<String>): MutableLiveData<List<User>> {
+    override fun getGamesByNames(names: List<String>): MutableLiveData<List<Game>> {
+        Timber.d("-----Get Games By Names------------------------------")
+
+        val liveData = MutableLiveData<List<Game>>()
+
+        FirebaseFirestore.getInstance().collection(PATH_GAMES)
+            .whereIn("name", names)
+            .addSnapshotListener { snapshot, exception ->
+
+                exception?.let {
+                    Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                val result = snapshot?.toObjects(Game::class.java) ?: listOf()
+
+                val list = mutableListOf<Game>()
+                names.forEach { name ->
+                    list.add(
+                        try {
+                            result.first { it.name == name }
+                        } catch (e: Exception) {
+                            Game(name = name)
+                        }
+                    )
+                }
+
+                liveData.value = list
+            }
+
+        return liveData
+    }
+
+    override fun getUsersByIdList(idList: List<String>): MutableLiveData<List<User>> {
         Timber.d("-----Get Users By Id------------------------------")
 
         val liveData = MutableLiveData<List<User>>()
@@ -188,13 +262,71 @@ object JoRemoteDataSource : JoDataSource {
         return liveData
     }
 
-    override suspend fun deleteFavorite(shopId: String): Flow<Result<Boolean>> =
+    override suspend fun joinParty(id: String): Flow<Resource<Boolean>> =
         flow {
-            val favorite = FirebaseFirestore.getInstance().collection(FAVORITE)
-            val document = favorite.document(shopId)
-            document.delete()
-            emit(Result.Success(true))
-        }.flowOn(Dispatchers.IO).catch { Result.Fail(it.message.toString()) }
+            Timber.d("-----Join Party------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection(PATH_PARTIES)
+                .document(id)
+                .update(
+                    KEY_PLAYER_ID_LIST,
+                    FieldValue.arrayUnion(UserManager.user.value?.id ?: "")
+                )
+
+            emit(Resource.Success(true))
+
+        }.flowOn(Dispatchers.IO).catch {
+            Resource.Fail(it.message.toString())
+        }
+
+    override suspend fun leaveParty(id: String): Flow<Resource<Boolean>> =
+        flow {
+            Timber.d("-----Leave Party------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection(PATH_PARTIES)
+                .document(id)
+                .update(
+                    KEY_PLAYER_ID_LIST,
+                    FieldValue.arrayRemove(UserManager.user.value?.id ?: "")
+                )
+
+            emit(Resource.Success(true))
+
+        }.flowOn(Dispatchers.IO).catch {
+            Resource.Fail(it.message.toString())
+        }
+
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> =
+        flow {
+            Timber.d("-----Insert Favorite------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection(PATH_USERS)
+                .document(UserManager.user.value?.id ?: "")
+                .update("favoriteGames", FieldValue.arrayUnion(gameMap))
+
+            emit(Resource.Success(true))
+
+        }.flowOn(Dispatchers.IO).catch {
+            Resource.Fail(it.message.toString())
+        }
+
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> =
+        flow {
+            Timber.d("-----Delete Favorite------------------------------")
+
+            FirebaseFirestore.getInstance()
+                .collection(PATH_USERS)
+                .document(UserManager.user.value?.id ?: "")
+                .update("favoriteGames", FieldValue.arrayRemove(gameMap))
+
+            emit(Resource.Success(true))
+
+        }.flowOn(Dispatchers.IO).catch {
+            Resource.Fail(it.message.toString())
+        }
 
     private fun sortParty(parties: List<Party>): List<Party> {
         val openParties =

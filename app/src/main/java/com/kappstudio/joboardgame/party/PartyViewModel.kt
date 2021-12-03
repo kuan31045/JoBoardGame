@@ -18,7 +18,7 @@ class PartyViewModel(private val repository: JoRepository) : ViewModel(),
     fun getHosts() {
         val hostIdList = parties.value?.map { it.hostId }?.distinctBy { it }
         hostIdList?.let {
-            _hosts = repository.getUsersById(it)
+            _hosts = repository.getUsersByIdList(it)
         }
     }
 }

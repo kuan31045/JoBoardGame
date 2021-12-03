@@ -17,6 +17,6 @@ class FriendViewModel(userId: String, private val repository: JoRepository) : Vi
         get() = _friends
 
     fun getFriends() {
-        _friends = repository.getUsersById(user.value?.friendList?: listOf())
+        _friends = repository.getUsersByIdList(user.value?.friendList?: listOf())
     }
 }

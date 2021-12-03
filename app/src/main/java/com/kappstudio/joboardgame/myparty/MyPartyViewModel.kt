@@ -20,7 +20,7 @@ class MyPartyViewModel(userId: String,private val repository: JoRepository) : Vi
     fun getHosts() {
         val hostIdList = parties.value?.map { it.hostId }?.distinctBy { it }
         hostIdList?.let {
-            _hosts = repository.getUsersById(it)
+            _hosts = repository.getUsersByIdList(it)
         }
     }
 }

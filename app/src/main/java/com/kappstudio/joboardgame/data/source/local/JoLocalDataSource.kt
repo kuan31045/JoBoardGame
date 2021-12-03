@@ -3,14 +3,13 @@ package com.kappstudio.joboardgame.data.source.local
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kappstudio.joboardgame.data.Game
-import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.JoDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.util.HashMap
 
 class JoLocalDataSource(
     val context: Context,
@@ -37,11 +36,23 @@ class JoLocalDataSource(
         TODO("Not yet implemented")
     }
 
+    override fun getParty(id: String): MutableLiveData<Party> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getPartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
+        TODO("Not yet implemented")
+    }
+
     override fun getGames(): MutableLiveData<List<Game>> {
         TODO("Not yet implemented")
     }
 
-    override fun getUsersById(idList: List<String>): MutableLiveData<List<User>> {
+    override fun getGamesByNames(names: List<String>): MutableLiveData<List<Game>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsersByIdList(idList: List<String>): MutableLiveData<List<User>> {
         TODO("Not yet implemented")
     }
 
@@ -58,6 +69,22 @@ class JoLocalDataSource(
     }
 
     override fun getUserRatings(id: String): MutableLiveData<List<Rating>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun joinParty(id: String): Flow<Resource<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun leaveParty(id: String): Flow<Resource<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> {
         TODO("Not yet implemented")
     }
 
