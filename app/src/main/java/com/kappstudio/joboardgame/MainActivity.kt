@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -20,12 +21,14 @@ import com.kappstudio.joboardgame.databinding.ActivityMainBinding
 import com.kappstudio.joboardgame.game.GameViewModel
 import com.kappstudio.joboardgame.login.LoginActivity
 import com.kappstudio.joboardgame.party.PartyFragmentDirections
+import com.kappstudio.joboardgame.party.PartyViewModel
 import com.kappstudio.joboardgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {
-    val viewModel: MainViewModel by viewModels()
-    lateinit var binding: ActivityMainBinding
-
+     lateinit var binding: ActivityMainBinding
+    val viewModel: MainViewModel by viewModels {
+        VMFactory { MainViewModel(appInstance.provideJoRepository()) }
+    }
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {

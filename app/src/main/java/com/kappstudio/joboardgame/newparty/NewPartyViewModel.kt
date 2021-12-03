@@ -113,7 +113,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             _status.value = LoadApiStatus.LOADING
 
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is Resource.Success -> {
+                is com.kappstudio.joboardgame.data.Resource.Success -> {
                     _coverUrl.value = result.data!!
                     Timber.d("Photo: ${coverUrl.value}")
                 }

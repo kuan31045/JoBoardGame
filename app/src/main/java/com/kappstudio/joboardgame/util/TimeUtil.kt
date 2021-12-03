@@ -13,9 +13,9 @@ fun timeUtil(s: Long): String {
 
         sec < 604800 -> (sec / 86400).toString() + "天前"
 
-        sec < 2592000 -> (sec / 604800).toString() + "周前"
+        sec < 2592000 -> (sec / 604800).toString() + "週前"
 
-        sec < 31536000 -> (sec / 2592000).toString() + "月前"
+        sec < 31536000 -> (sec / 2592000).toString() + "個月前"
 
         else -> (sec / 31536000).toString() + "年前"
     }

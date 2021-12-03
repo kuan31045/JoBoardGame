@@ -1,6 +1,5 @@
 package com.kappstudio.joboardgame.party
 
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kappstudio.joboardgame.allUsers
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.data.Party
@@ -24,58 +22,46 @@ class PartyAdapter(private val viewModel: ViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(party: Party) {
-
-
+            viewModel as NavToPartyDetailInterface
             binding.apply {
-               allUsers.value?.first { it.id == party.hostId }?.let{host->
-                   tvHost.text = host.name
-                   bindImage(ivHost, host.image)
-               }
-                Handler().postDelayed({
-                    allUsers.value?.first { it.id == party.hostId }?.let{host->
-                        tvHost.text = host.name
-                        bindImage(ivHost, host.image)
-                    }
-                }, 500)
 
-                tvIsOver.visibility = when {
-                    party.partyTime + 3600000 < Calendar.getInstance().timeInMillis
-                    -> View.VISIBLE
-
-                    else -> View.GONE
+                viewModel.hosts.value?.first { it.id == party.hostId }?.let { host ->
+                    tvHost.text = host.name
+                    bindImage(ivHost, host.image)
                 }
 
+                tvIsOver.visibility =
+                    if (party.partyTime + 3600000 < Calendar.getInstance().timeInMillis) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
+
                 bindImage(ivCover, party.cover)
-
-
                 tvTitle.text = party.title
                 tvLocation.text = party.location.address
                 tvTime.text = party.partyTime.toString()
                 tvGame.text = ""
                 bindTextViewDate(tvTime, party.partyTime)
                 tvPlayerQty.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
+
                 party.gameNameList.forEach {
                     tvGame.text = "${tvGame.text}$it"
-
                     if (it != party.gameNameList.last()) {
                         tvGame.text = "${tvGame.text}, "
-
                     }
                 }
-                if (UserManager.user.value?.id?:"" in party.playerIdList) {
+
+                if (UserManager.user.value?.id ?: "" in party.playerIdList) {
                     tvAlreadyJoin.visibility = View.VISIBLE
                 } else {
                     tvAlreadyJoin.visibility = View.GONE
                 }
 
                 clParty.setOnClickListener {
-                    when (viewModel) {
-                        is NavToPartyDetailInterface -> viewModel.navToPartyDetail(party.id)
-                    }
+                    viewModel.navToPartyDetail(party.id)
                 }
-
             }
-
         }
     }
 

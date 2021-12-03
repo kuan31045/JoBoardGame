@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.Lottie
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kappstudio.joboardgame.album.AlbumAdapter
@@ -34,7 +36,7 @@ fun bindTextViewGameTypes(tv: TextView, gameTypes: List<String>) {
 
 @BindingAdapter("date")
 fun bindTextViewDate(tv: TextView, time: Long) {
-    val formatter = SimpleDateFormat("yyyy年MM月dd日 hh:mm")
+    val formatter = SimpleDateFormat("yyyy年MM月dd日 HH:mm")
     tv.text = formatter.format(time)
 }
 
@@ -60,3 +62,18 @@ fun bindRecyclerViewPhotos(rv: RecyclerView, photos: List<String>?) {
         }
     }
 }
+
+fun bindNotFoundLottie(lottie: LottieAnimationView, tv: TextView, list: List<Any>) {
+    when (list.size) {
+        0 -> {
+            lottie.visibility = View.VISIBLE
+            tv.visibility = View.VISIBLE
+        }
+        else -> {
+            lottie.visibility = View.GONE
+            tv.visibility = View.GONE
+        }
+    }
+}
+
+

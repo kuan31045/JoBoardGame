@@ -9,11 +9,9 @@ data class User(
     var name: String = "",
     var image: String = "",
     var status: String = "",
-
     var county: String = "",
     var friendList: MutableList<String> = mutableListOf(),
     var requestList: MutableList<String> = mutableListOf(),
-
     var favoriteGames: MutableList<Game> = mutableListOf(),
     var photos: MutableList<String> = mutableListOf(),
 ): Parcelable

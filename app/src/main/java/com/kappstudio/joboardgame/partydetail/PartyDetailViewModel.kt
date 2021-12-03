@@ -5,42 +5,47 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.data.*
+import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.login.UserManager
 import com.kappstudio.joboardgame.user.NavToUserInterface
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
-class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGameDetailInterface,
+class PartyDetailViewModel(
+    private val partyId: String,
+    private val repository: JoRepository
+) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
+
+    val party: LiveData<Party> = repository.getParty(partyId)
+
 
     private var _host = MutableLiveData<User>()
     val host: LiveData<User>
         get() = _host
 
-    private var _partyGames = MutableLiveData<List<Game>>(mutableListOf())
-    val partyGames: LiveData<List<Game>>
-        get() = _partyGames
+    private var _games = MutableLiveData<List<Game>>()
+    val games: LiveData<List<Game>>
+        get() = _games
 
-    private var _partyUsers = MutableLiveData<List<User>>(mutableListOf())
-    val partyUsers: LiveData<List<User>>
-        get() = _partyUsers
+    private var _players = MutableLiveData<List<User>>()
+    val players: LiveData<List<User>>
+        get() = _players
 
     private val _isSend = MutableLiveData(false)
     val isSend: LiveData<Boolean>
         get() = _isSend
 
-    private var _party: MutableLiveData<Party> = FirebaseService.getLivePartyById(partyId)
-    val party: LiveData<Party>
-        get() = _party
 
-    private var _partyMsgs: MutableLiveData<List<PartyMsg>> =
-        FirebaseService.getLivePartyMsgs(partyId)
-    val partyMsgs: LiveData<List<PartyMsg>>
-        get() = _partyMsgs
+    val partyMsgs: LiveData<List<PartyMsg>> = repository.getPartyMsgs(partyId)
 
     private val _reportOk = MutableLiveData<Boolean?>()
     val reportOk: LiveData<Boolean?>
@@ -65,15 +70,33 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     val status: LiveData<LoadApiStatus>
         get() = _status
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     fun joinParty() {
-        FirebaseService.joinParty(partyId)
+        coroutineScope.launch {
+            repository.joinParty(partyId).collect {
+                if (it is Resource.Success) {
+                    ToastUtil.show(appInstance.getString(R.string.welcome))
+                }
+            }
+        }
     }
 
     fun leaveParty() {
-        FirebaseService.leaveParty(partyId)
-
+        coroutineScope.launch {
+            repository.leaveParty(partyId).collect {
+                if (it is Resource.Success) {
+                    ToastUtil.show(appInstance.getString(R.string.bye))
+                }
+            }
+        }
     }
-
 
     fun sendMsg() {
         if (newMsg.value?.replace("\\s".toRegex(), "") != "") {
@@ -133,40 +156,26 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
         }
     }
 
-    fun setGames() {
-        val list = mutableListOf<Game>()
-        party.value?.gameNameList?.forEach { name ->
-            val query = allGames.value?.filter { game ->
-                game.name == name
-            }
-            if (query != null && query.isNotEmpty()) {
-                list.add(query.first())
+    fun getHostUser() {
+        party.value?.let {
+            _host = repository.getUser(it.hostId)
+        }
+    }
+
+    fun getGames() {
+        party.value?.let {
+            _games = repository.getGamesByNames(it.gameNameList)
+        }
+    }
+
+    fun getPlayers() {
+        party.value?.let {
+            if (it.playerIdList.isNotEmpty()) {
+                _players = repository.getUsersByIdList(it.playerIdList)
             } else {
-                list.add(
-                    Game(
-                        id = "notFound",
-                        name = name
-                    )
-                )
+                _players.value = listOf()
             }
         }
-        _partyGames.value = list
-    }
-
-    fun setUsers() {
-
-        _partyUsers.value =
-            allUsers.value?.filter { party.value?.playerIdList?.contains(it.id) == true }
-
-
-    }
-
-    fun setHost() {
-        allUsers.value?.first { it.id == party.value?.hostId ?: "" }?.let {
-            _host.value = it
-        }
-
-
     }
 
     fun reportMsg(msg: PartyMsg) {
@@ -183,6 +192,6 @@ class PartyDetailViewModel(private val partyId: String) : ViewModel(), NavToGame
     }
 
     fun onReportOk() {
-        _reportOk.value =null
+        _reportOk.value = null
     }
 }

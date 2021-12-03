@@ -8,51 +8,43 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.bindNotFoundLottie
 import com.kappstudio.joboardgame.databinding.FragmentMyRatingBinding
-import com.kappstudio.joboardgame.favorite.FavoriteFragmentArgs
-import com.kappstudio.joboardgame.gamedetail.GameDetailFragmentDirections
-import com.kappstudio.joboardgame.user.UserViewModel
 
 class MyRatingFragment : Fragment() {
+
+    val viewModel: MyRatingViewModel by viewModels {
+        VMFactory {
+            MyRatingViewModel(
+                MyRatingFragmentArgs.fromBundle(requireArguments()).userId,
+                appInstance.provideJoRepository()
+            )
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentMyRatingBinding.inflate(inflater)
+        val adapter = RatingAdapter(viewModel)
 
-        val viewModel: MyRatingViewModel by viewModels {
-            VMFactory {
-                MyRatingViewModel(
-                    MyRatingFragmentArgs.fromBundle(requireArguments()).userId,
-                )
-            }
-        }
+        binding.rvGame.adapter = adapter
 
-        viewModel.games.observe(viewLifecycleOwner, {
-            binding.rvGame.adapter = RatingAdapter(viewModel).apply {
-                submitList(
-                    it
-                )
-            }
-            when (it.size) {
-                0 -> {
-                    binding.tvNotFound.visibility = View.VISIBLE
-                    binding.lottieNotFound.visibility = View.VISIBLE
-                }
-                else -> {
-                    binding.tvNotFound.visibility = View.GONE
-                    binding.lottieNotFound.visibility = View.GONE
-                }
-            }
+        viewModel.ratings.observe(viewLifecycleOwner, {
+             adapter.submitList(it)
+            bindNotFoundLottie(binding.lottieNotFound, binding.tvNotFound, it)
         })
+
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
             it?.let {
                 findNavController().navigate(MyRatingFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
         })
+
         return binding.root
     }
-
 }

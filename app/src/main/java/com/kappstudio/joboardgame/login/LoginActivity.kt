@@ -18,16 +18,22 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kappstudio.joboardgame.MainActivity
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
 import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+    lateinit var binding: ActivityLoginBinding
+    val viewModel: LoginViewModel by viewModels {
+        VMFactory {
+            LoginViewModel(appInstance.provideJoRepository())
+        }
+    }
     lateinit var startActivityLauncher: StartActivityLauncher
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +44,12 @@ class LoginActivity : AppCompatActivity() {
         mAlert.setTitle("Jo桌遊使用條款")
         mAlert.setMessage(getString(R.string.google_play_want_see_this2))
         mAlert.setCancelable(false)
-        mAlert.setPositiveButton("接受"){_,_->
+        mAlert.setPositiveButton("接受") { _, _ ->
         }
-        mAlert.setNegativeButton("拒絕"){_,_->
+        mAlert.setNegativeButton("拒絕") { _, _ ->
             finishApp()
         }
-      val  mAlertDialog = mAlert.create()
+        val mAlertDialog = mAlert.create()
         mAlertDialog.show()
         auth = Firebase.auth
         startActivityLauncher = StartActivityLauncher(this)
@@ -115,12 +121,11 @@ class LoginActivity : AppCompatActivity() {
             id = account.email ?: "",
             name = account.displayName ?: "",
             image = (account.photoUrl ?: "").toString(),
-           )
+        )
         viewModel.addUser(user)
-        viewModel.getUserData(account.email ?: "")
-    }
+     }
 
-    private fun finishApp(){
+    private fun finishApp() {
         finish()
     }
 

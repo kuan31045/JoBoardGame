@@ -1,9 +1,7 @@
 package com.kappstudio.joboardgame.user
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kappstudio.joboardgame.login.UserManager
 
 interface NavToUserInterface {
     companion object {

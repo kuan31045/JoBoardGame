@@ -24,10 +24,8 @@ object FirebaseService {
     private const val COLLECTION_PARTIES = "parties"
     private const val COLLECTION_GAMES = "games"
     private const val COLLECTION_USERS = "users"
-    private const val COLLECTION_PARTY_MSG = "partyMsgs"
-    private const val COLLECTION_RATINGS = "ratings"
-    private const val COLLECTION_NOTIFICATIONS = "notifications"
-    private const val COLLECTION_REPORTS = "reports"
+     private const val COLLECTION_RATINGS = "ratings"
+     private const val COLLECTION_REPORTS = "reports"
     private const val FIELD_PLAYER_ID_LIST = "playerIdList"
     private const val FIELD_PHOTOS = "photos"
     private const val FIELD_FRIEND_LIST = "friendList"
@@ -159,28 +157,6 @@ object FirebaseService {
                 }
         }
 
-    fun getLiveUser(userId: String): MutableLiveData<User> {
-        Timber.d("-----Get Live User By Id------------------------------")
-
-        val user = MutableLiveData<User>()
-
-        FirebaseFirestore.getInstance().collection(COLLECTION_USERS).document(userId)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Timber.d("Current data: ${snapshot.data}")
-                    user.value = snapshot.toObject<User>()
-                } else {
-                    Timber.d("Current data: null")
-                }
-            }
-
-        return user
-    }
 
     suspend fun addPartyPhoto(partyId: String, photo: String): Resource<String> =
         suspendCoroutine { continuation ->
@@ -345,70 +321,6 @@ object FirebaseService {
                     }
                 }
         }
-
-    fun getLiveRatings(id: String): MutableLiveData<List<Rating>> {
-        Timber.d("-----Get Live Ratings------------------------------")
-
-        val liveData = MutableLiveData<List<Rating>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_RATINGS).whereEqualTo("userId", id)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                liveData.value = snapshot?.toObjects(Rating::class.java) ?: mutableListOf()
-                Timber.d("Current data: ${liveData.value}")
-            }
-
-        return liveData
-    }
-
-
- 
-
-    fun addToFavorite(gameMap: HashMap<String, Any>) {
-        Timber.d("-----Add To Favorite------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-            .update("favoriteGames", FieldValue.arrayUnion(gameMap))
-
-        ToastUtil.show(appInstance.getString(R.string.favorite_in))
-    }
-
-    fun removeFavorite(gameMap: HashMap<String, Any>) {
-        Timber.d("-----Remove Favorite------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-            .update("favoriteGames", FieldValue.arrayRemove(gameMap))
-
-
-        ToastUtil.show(appInstance.getString(R.string.favorite_out))
-    }
-
-    fun getLivePartyMsgs(id: String): MutableLiveData<List<PartyMsg>> {
-        Timber.d("-----Get Live Party Msgs------------------------------")
-
-
-        val liveData = MutableLiveData<List<PartyMsg>>()
-
-        FirebaseFirestore.getInstance()
-            .collection("partyMsgs").whereEqualTo("partyId", id)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                liveData.value = snapshot?.toObjects(PartyMsg::class.java) ?: mutableListOf()
-                Timber.d("Current data: ${liveData.value}")
-            }
-
-        return liveData
-    }
-
     suspend fun sendPartyMsg(msg: PartyMsg): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Send Party Msg------------------------------")
 
@@ -435,29 +347,6 @@ object FirebaseService {
             }
     }
 
-    suspend fun getUserHosts(userId: String): List<Party> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get User Hosts------------------------------")
-
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_PARTIES).whereEqualTo("hostId", userId)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
-                        Timber.d("Current data: $list")
-
-                        continuation.resume(list)
-                    } else {
-                        task.exception?.let {
-
-                            Timber.w("Error getting documents. ${it.message}")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
-
     fun getLiveGameById(gameId: String): MutableLiveData<Game> {
         Timber.d("-----Get Live Game By Id------------------------------")
 
@@ -483,36 +372,7 @@ object FirebaseService {
         return game
     }
 
-    suspend fun getUserParties(userId: String): List<Party> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get User Parties------------------------------")
 
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_PARTIES).whereArrayContains(FIELD_PLAYER_ID_LIST, userId)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = task.result?.toObjects(Party::class.java) ?: mutableListOf()
-                        Timber.d("Current data: $list")
-
-
-                        val openParties =
-                            list.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
-                        val overParties =
-                            list.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
-
-                        continuation.resume(openParties + overParties.sortedByDescending { it.partyTime })
-
-
-                    } else {
-                        task.exception?.let {
-
-                            Timber.w("Error getting documents. ${it.message}")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
     suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Create Party------------------------------")
@@ -540,54 +400,8 @@ object FirebaseService {
             }
     }
 
-    fun getLivePartyById(partyId: String): MutableLiveData<Party> {
-        Timber.d("-------------------------------")
 
-        val party = MutableLiveData<Party>()
 
-        FirebaseFirestore.getInstance().collection(COLLECTION_PARTIES).document(partyId)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Timber.d("Current data: ${snapshot.data}")
-                    party.value = snapshot.toObject<Party>()
-                } else {
-                    Timber.d("Current data: null")
-                }
-            }
-
-        return party
-    }
-
-    fun getLiveParties(): MutableLiveData<List<Party>> {
-        Timber.d("-----Get All Live Parties------------------------------")
-
-        val liveData = MutableLiveData<List<Party>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_PARTIES).orderBy("partyTime", Query.Direction.ASCENDING)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                val result = snapshot?.toObjects(Party::class.java) ?: mutableListOf()
-                val openParties =
-                    result.filter { it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis }
-                val overParties =
-                    result.filter { it.partyTime + 3600000 < Calendar.getInstance().timeInMillis }
-
-                liveData.value = openParties + overParties.sortedByDescending { it.partyTime }
-
-                Timber.d("Current data: ${liveData.value}")
-            }
-        return liveData
-    }
 
     fun getLiveUsers(): MutableLiveData<List<User>> {
         Timber.d("-----Get All Live Users------------------------------")
@@ -608,47 +422,7 @@ object FirebaseService {
         return liveData
     }
 
-    fun getLiveGames(): MutableLiveData<List<Game>> {
-        Timber.d("-----Get All Live Games------------------------------")
 
-        val liveData = MutableLiveData<List<Game>>()
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_GAMES).orderBy("createdTime", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                liveData.value = snapshot?.toObjects(Game::class.java) ?: mutableListOf()
-                Timber.d("Current data: ${liveData.value}")
-            }
-        return liveData
-    }
-
-    fun leaveParty(partyId: String) {
-        Timber.d("-----Leave Party------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_PARTIES).document(partyId)
-            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayRemove(UserManager.user.value?.id ?: ""))
-
-        ToastUtil.show(appInstance.getString(R.string.bye))
-    }
-
-    fun joinParty(partyId: String) {
-        Timber.d("-----Join Party------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_PARTIES).document(partyId)
-            .update(FIELD_PLAYER_ID_LIST, FieldValue.arrayUnion(UserManager.user.value?.id ?: ""))
-
-        ToastUtil.show(appInstance.getString(R.string.welcome))
-    }
 
 
 }
-
-
-
-
-

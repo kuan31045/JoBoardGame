@@ -1,14 +1,11 @@
 package com.kappstudio.joboardgame.partydetail
 
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
@@ -21,23 +18,23 @@ import com.irozon.alertview.AlertStyle
 import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.*
-
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.game.GameAdapter
 import com.kappstudio.joboardgame.game.GameFragmentDirections
-
- import com.kappstudio.joboardgame.party.PhotoAdapter
+import com.kappstudio.joboardgame.party.PhotoAdapter
 import com.kappstudio.joboardgame.tools.ToolsFragmentDirections
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import tech.gujin.toast.ToastUtil
 
 class PartyDetailFragment : Fragment() {
-    lateinit var binding: FragmentPartyDetailBinding
-    lateinit var startActivityLauncher: StartActivityLauncher
+
+    private lateinit var binding: FragmentPartyDetailBinding
+    private lateinit var startActivityLauncher: StartActivityLauncher
     val viewModel: PartyDetailViewModel by viewModels {
         VMFactory {
             PartyDetailViewModel(
-                PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId
+                PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId,
+                appInstance.provideJoRepository()
             )
         }
     }
@@ -46,56 +43,68 @@ class PartyDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        startActivityLauncher = StartActivityLauncher(this)
-        binding = FragmentPartyDetailBinding.inflate(inflater)
 
+        startActivityLauncher = StartActivityLauncher(this)
+
+        binding = FragmentPartyDetailBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        val gameAdapter = GameAdapter(viewModel)
+        val playerAdapter = PlayerAdapter(viewModel)
+        val msgAdapter = PartyMsgAdapter(viewModel)
 
-
+        binding.rvPartyGame.adapter = gameAdapter
+        binding.rvPlayer.adapter = playerAdapter
+        binding.rvMsg.adapter = msgAdapter
         binding.rvPhoto.adapter = PhotoAdapter(viewModel)
 
-        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
+        binding.rvMsg.addItemDecoration(
+            DividerItemDecoration(appInstance, DividerItemDecoration.VERTICAL)
+        )
+
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.tvToDrawLots.setOnClickListener {
             viewModel.party.value?.let {
-                findNavController().navigate(ToolsFragmentDirections.navToDrawLotsFragment(it.gameNameList.toTypedArray()))
+                findNavController().navigate(
+                    ToolsFragmentDirections.navToDrawLotsFragment(it.gameNameList.toTypedArray())
+                )
             }
         }
 
-        binding.rvMsg.addItemDecoration(
-            DividerItemDecoration(
-                appInstance, DividerItemDecoration.VERTICAL
-            )
-        )
         binding.btnAddPhoto.setOnClickListener {
             pickImage()
         }
+
         binding.btnMore.setOnClickListener {
-
-            val alert = AlertView("退出?", "", AlertStyle.BOTTOM_SHEET)
+            val alert = AlertView(getString(R.string.ask_out), "", AlertStyle.BOTTOM_SHEET)
             if (viewModel.isJoin.value == true) {
-                alert.addAction(AlertAction("我要退出!", AlertActionStyle.NEGATIVE) { _ ->
-                    viewModel.leaveParty()
-                })
+                alert.addAction(
+                    AlertAction(
+                        getString(R.string.i_out),
+                        AlertActionStyle.NEGATIVE
+                    ) { _ ->
+                        viewModel.leaveParty()
+                    })
             }
-
-
-
             alert.show(activity as AppCompatActivity)
         }
 
         binding.tvSeeAll.setOnClickListener {
             viewModel.party.value?.photos?.let {
-                findNavController().navigate(PartyDetailFragmentDirections.navToAlbumFragment(it.toTypedArray()))
-
+                findNavController().navigate(
+                    PartyDetailFragmentDirections.navToAlbumFragment(it.toTypedArray())
+                )
             }
         }
 
         binding.tvLocation.setOnClickListener {
-            findNavController().navigate(PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id))
-
+            findNavController().navigate(
+                PartyDetailFragmentDirections.navToMapFragment(viewModel.party.value?.id)
+            )
         }
 
         viewModel.isSend.observe(viewLifecycleOwner, {
@@ -103,43 +112,36 @@ class PartyDetailFragment : Fragment() {
         })
 
         viewModel.party.observe(viewLifecycleOwner, {
-            viewModel.setHost()
-            viewModel.setGames()
-            viewModel.setUsers()
-        })
+            viewModel.getHostUser()
+            viewModel.getGames()
+            viewModel.getPlayers()
 
-        viewModel.partyUsers.observe(viewLifecycleOwner, {
-            binding.rvPlayer.adapter = PlayerAdapter(viewModel).apply {
-                submitList(it)
-            }
-        })
+            viewModel.host.observe(viewLifecycleOwner, {
+                binding.tvHost.text = it.name
+            })
 
-        allGames.observe(viewLifecycleOwner, {
-            viewModel.setGames()
-        })
+            viewModel.games.observe(viewLifecycleOwner, {
+                gameAdapter.submitList(it)
+            })
 
-        viewModel.partyGames.observe(viewLifecycleOwner, {
-            binding.rvPartyGame.adapter = GameAdapter(viewModel).apply {
-                submitList(it)
-            }
+            viewModel.players.observe(viewLifecycleOwner, {
+                playerAdapter.submitList(it)
+            })
         })
 
         viewModel.partyMsgs.observe(viewLifecycleOwner, {
-            binding.rvMsg.adapter = PartyMsgAdapter(viewModel).apply {
-                submitList(it.sortedByDescending { it.createdTime })
-            }
+            msgAdapter.submitList(it)
         })
 
-        viewModel.reportOk.observe(viewLifecycleOwner,{
-           it?.let{
-               ToastUtil.show("檢舉已送出")
-               val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-               builder?.setMessage(getString(R.string.google_play_want_see_this3))
-               builder?.show()
+        viewModel.reportOk.observe(viewLifecycleOwner, {
+            it?.let {
+                ToastUtil.show(getString(R.string.report_ok))
+                val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
+                builder?.setMessage(getString(R.string.google_play_want_see_this3))
+                builder?.show()
 
-               viewModel.onReportOk()
-           }
-
+                viewModel.onReportOk()
+            }
         })
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner, {
@@ -158,11 +160,10 @@ class PartyDetailFragment : Fragment() {
                             AlertActionStyle.POSITIVE
                         ) { _ ->
                             findNavController().navigate(
-                                GameFragmentDirections.navToNewGameFragment(
-                                    it.name
-                                )
+                                GameFragmentDirections.navToNewGameFragment(it.name)
                             )
                         })
+
                     alert.addAction(
                         AlertAction(
                             getString(R.string.cancel),
@@ -172,13 +173,9 @@ class PartyDetailFragment : Fragment() {
                         })
 
                     alert.show(activity as AppCompatActivity)
-
-
                 } else {
                     findNavController().navigate(
-                        PartyDetailFragmentDirections.navToGameDetailFragment(
-                            it.id
-                        )
+                        PartyDetailFragmentDirections.navToGameDetailFragment(it.id)
                     )
                 }
                 viewModel.onNavToGameDetail()
@@ -196,7 +193,7 @@ class PartyDetailFragment : Fragment() {
     }
 
     private fun pickImage() {
-        ImagePicker.with(this)              //Crop image(Optional), Check Customization for more option
+        ImagePicker.with(this)         //Crop image(Optional), Check Customization for more option
             .compress(1024)            //Final image size will be less than 1 MB(Optional)
             .maxResultSize(
                 1080,
@@ -219,6 +216,4 @@ class PartyDetailFragment : Fragment() {
                 }
             }
     }
-
-
 }
