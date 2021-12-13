@@ -41,7 +41,7 @@
 - RecyclerView
 - ViewPiger
 - G-Sensor
-- Jepack Compose
+- Jetpack Compose
 
 
 ## 第三方套件
