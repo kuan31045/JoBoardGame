@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.search.SearchViewModel" />
+            type="com.kappstudio.joboardgame.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
 
-        tools:context=".search.SearchFragment">
+        tools:context=".ui.search.SearchFragment">
 
         <ImageView
             android:id="@+id/iv_back"

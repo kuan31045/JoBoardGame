@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/partyFragment"
-        android:name="com.kappstudio.joboardgame.party.PartyFragment"
+        android:name="com.kappstudio.joboardgame.ui.party.PartyFragment"
         android:label="fragment_party"
         tools:layout="@layout/fragment_party">
 
@@ -19,19 +19,19 @@
 
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.kappstudio.joboardgame.game.GameFragment"
+        android:name="com.kappstudio.joboardgame.ui.game.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" />
 
     <fragment
         android:id="@+id/toolsFragment"
-        android:name="com.kappstudio.joboardgame.tools.ToolsFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.ToolsFragment"
         android:label="fragment_tools"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.kappstudio.joboardgame.profile.ProfileFragment"
+        android:name="com.kappstudio.joboardgame.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/partyDetailFragment"
-        android:name="com.kappstudio.joboardgame.partydetail.PartyDetailFragment"
+        android:name="com.kappstudio.joboardgame.ui.partydetail.PartyDetailFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
         <argument
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/newPartyFragment"
-        android:name="com.kappstudio.joboardgame.newparty.NewPartyFragment"
+        android:name="com.kappstudio.joboardgame.ui.newparty.NewPartyFragment"
         android:label="fragment_new_party"
         tools:layout="@layout/fragment_new_party">
 
@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/newGameFragment"
-        android:name="com.kappstudio.joboardgame.newgame.NewGameFragment"
+        android:name="com.kappstudio.joboardgame.ui.newgame.NewGameFragment"
         android:label="fragment_new_game"
         tools:layout="@layout/fragment_new_game">
         <argument
@@ -69,7 +69,7 @@
 
     <fragment
         android:id="@+id/myPartyFragment"
-        android:name="com.kappstudio.joboardgame.myparty.MyPartyFragment"
+        android:name="com.kappstudio.joboardgame.ui.myparty.MyPartyFragment"
         android:label="fragment_my_party"
         tools:layout="@layout/fragment_my_party">
         <argument
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/myHostFragment"
-        android:name="com.kappstudio.joboardgame.myhost.MyHostFragment"
+        android:name="com.kappstudio.joboardgame.ui.myhost.MyHostFragment"
         android:label="fragment_my_host"
         tools:layout="@layout/fragment_my_host">
         <argument
@@ -88,7 +88,7 @@
 
     <fragment
         android:id="@+id/gameDetailFragment"
-        android:name="com.kappstudio.joboardgame.gamedetail.GameDetailFragment"
+        android:name="com.kappstudio.joboardgame.ui.gamedetail.GameDetailFragment"
         android:label="fragment_game_detail"
         tools:layout="@layout/fragment_game_detail">
         <argument
@@ -98,22 +98,22 @@
 
     <fragment
         android:id="@+id/diceFragment"
-        android:name="com.kappstudio.joboardgame.tools.dice.DiceFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.dice.DiceFragment"
         android:label="fragment_dice"
         tools:layout="@layout/fragment_dice" />
     <fragment
         android:id="@+id/bottleFragment"
-        android:name="com.kappstudio.joboardgame.tools.bottle.BottleFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.bottle.BottleFragment"
         android:label="fragment_bottle"
         tools:layout="@layout/fragment_bottle" />
     <fragment
         android:id="@+id/timerFragment"
-        android:name="com.kappstudio.joboardgame.tools.timer.TimerFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.timer.TimerFragment"
         android:label="fragment_timer" />
 
     <fragment
         android:id="@+id/myRatingFragment"
-        android:name="com.kappstudio.joboardgame.myrating.MyRatingFragment"
+        android:name="com.kappstudio.joboardgame.ui.myrating.MyRatingFragment"
         android:label="fragment_my_rating"
         tools:layout="@layout/fragment_my_rating">
 
@@ -124,7 +124,7 @@
 
     <fragment
         android:id="@+id/albumFragment"
-        android:name="com.kappstudio.joboardgame.album.AlbumFragment"
+        android:name="com.kappstudio.joboardgame.ui.album.AlbumFragment"
         android:label="fragment_album"
         tools:layout="@layout/fragment_album">
         <argument
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
-        android:name="com.kappstudio.joboardgame.album.photo.PhotoFragment"
+        android:name="com.kappstudio.joboardgame.ui.album.photo.PhotoFragment"
         android:label="fragment_photo"
         tools:layout="@layout/fragment_photo">
         <argument
@@ -146,7 +146,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.kappstudio.joboardgame.map.MapFragment"
+        android:name="com.kappstudio.joboardgame.ui.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map">
         <argument
@@ -157,7 +157,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.kappstudio.joboardgame.search.SearchFragment"
+        android:name="com.kappstudio.joboardgame.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
         <argument
@@ -168,7 +168,7 @@
 
     <dialog
         android:id="@+id/ratingDialog"
-        android:name="com.kappstudio.joboardgame.rating.RatingDialog"
+        android:name="com.kappstudio.joboardgame.ui.rating.RatingDialog"
         android:label="RatingDialog">
 
         <argument
@@ -177,7 +177,7 @@
     </dialog>
     <dialog
         android:id="@+id/drawDialog"
-        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawDialog"
+        android:name="com.kappstudio.joboardgame.ui.tools.drawlots.DrawDialog"
         android:label="DrawDialog">
 
         <argument
@@ -186,14 +186,14 @@
     </dialog>
     <dialog
         android:id="@+id/lieDialog"
-        android:name="com.kappstudio.joboardgame.tools.polygraph.LieDialog"
+        android:name="com.kappstudio.joboardgame.ui.tools.polygraph.LieDialog"
         android:label="LieDialog">
 
     </dialog>
 
     <dialog
         android:id="@+id/reportDialog"
-        android:name="com.kappstudio.joboardgame.report.ReportDialog"
+        android:name="com.kappstudio.joboardgame.ui.report.ReportDialog"
         android:label="ReportDialog">
 
         <argument
@@ -203,12 +203,12 @@
 
     <fragment
         android:id="@+id/selectGameFragment"
-        android:name="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameFragment"
+        android:name="com.kappstudio.joboardgame.ui.newparty.selectedgame.SelectGameFragment"
         android:label="SelectGameFragment" />
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.kappstudio.joboardgame.user.UserFragment"
+        android:name="com.kappstudio.joboardgame.ui.user.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/fragment_user">
 
@@ -219,7 +219,7 @@
 
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.kappstudio.joboardgame.friend.FriendFragment"
+        android:name="com.kappstudio.joboardgame.ui.friend.FriendFragment"
         android:label="FriendFragment"
         tools:layout="@layout/fragment_friend">
         <argument
@@ -229,7 +229,7 @@
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.kappstudio.joboardgame.favorite.FavoriteFragment"
+        android:name="com.kappstudio.joboardgame.ui.favorite.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite">
         <argument
@@ -239,12 +239,12 @@
 
     <fragment
         android:id="@+id/notificationFragment"
-        android:name="com.kappstudio.joboardgame.notification.NotificationFragment"
+        android:name="com.kappstudio.joboardgame.ui.notification.NotificationFragment"
         android:label="fragment_dice"
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/drawLotsFragment"
-        android:name="com.kappstudio.joboardgame.tools.drawlots.DrawLotsFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.drawlots.DrawLotsFragment"
         android:label="fragment_draw_lots"
         tools:layout="@layout/fragment_draw_lots" >
         <argument
@@ -256,7 +256,7 @@
 
     <fragment
         android:id="@+id/scoreboardFragment"
-        android:name="com.kappstudio.joboardgame.tools.scoreboard.ScoreboardFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.scoreboard.ScoreboardFragment"
         android:label="fragment_scoreboard"
         tools:layout="@layout/fragment_scoreboard" >
         <argument
@@ -268,7 +268,7 @@
 
     <fragment
         android:id="@+id/polygraphFragment"
-        android:name="com.kappstudio.joboardgame.tools.polygraph.PolygraphFragment"
+        android:name="com.kappstudio.joboardgame.ui.tools.polygraph.PolygraphFragment"
         android:label="fragment_polygraph"
         tools:layout="@layout/fragment_polygraph" />
     <action

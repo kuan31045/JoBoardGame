@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.tools.dice.DiceViewModel" />
+            type="com.kappstudio.joboardgame.ui.tools.dice.DiceViewModel" />
 
     </data>
 
@@ -19,7 +19,7 @@
         android:paddingBottom="16dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        tools:context=".tools.dice.DiceFragment">
+        tools:context=".ui.tools.dice.DiceFragment">
 
         <TextView
             android:layout_marginTop="16dp"

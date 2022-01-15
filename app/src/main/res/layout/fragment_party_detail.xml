@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.partydetail.PartyDetailViewModel" />
+            type="com.kappstudio.joboardgame.ui.partydetail.PartyDetailViewModel" />
 
     </data>
 
@@ -137,7 +137,7 @@
                         android:background="@drawable/bg_ripple"
                         android:clickable="true"
                         android:focusable="true"
-                        android:onClick="@{()->viewModel.navToUser(viewModel.party.hostId)}"
+                        android:onClick="@{ () -> viewModel.navToUser(viewModel.party.hostId)}"
                          android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_title_host"
                         app:layout_constraintStart_toEndOf="@id/tv_title_host"

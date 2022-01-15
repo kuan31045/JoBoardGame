@@ -11,7 +11,7 @@
         <variable name="game" type="com.kappstudio.joboardgame.data.Game"/>
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.newparty.selectedgame.SelectGameViewModel" />
+            type="com.kappstudio.joboardgame.ui.newparty.selectedgame.SelectGameViewModel" />
     </data>
 
 

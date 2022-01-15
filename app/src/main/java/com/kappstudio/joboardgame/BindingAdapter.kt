@@ -4,12 +4,11 @@ import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.Lottie
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.kappstudio.joboardgame.album.AlbumAdapter
-import com.kappstudio.joboardgame.party.PhotoAdapter
+import com.kappstudio.joboardgame.ui.album.AlbumAdapter
+import com.kappstudio.joboardgame.ui.party.PhotoAdapter
 import java.text.SimpleDateFormat
 
 @BindingAdapter("toTools")

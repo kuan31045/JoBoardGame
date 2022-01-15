@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.rating.RatingViewModel" />
+            type="com.kappstudio.joboardgame.ui.rating.RatingViewModel" />
 
 
     </data>

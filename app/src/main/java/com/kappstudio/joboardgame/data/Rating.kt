@@ -1,7 +1,7 @@
 package com.kappstudio.joboardgame.data
 
 import android.os.Parcelable
-import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import java.util.*

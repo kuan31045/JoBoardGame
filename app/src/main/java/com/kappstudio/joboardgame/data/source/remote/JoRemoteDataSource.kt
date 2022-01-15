@@ -8,7 +8,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.JoDataSource
-import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

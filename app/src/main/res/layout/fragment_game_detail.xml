@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.gamedetail.GameDetailViewModel" />
+            type="com.kappstudio.joboardgame.ui.gamedetail.GameDetailViewModel" />
 
     </data>
 
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            tools:context=".gamedetail.GameDetailFragment">
+            tools:context=".ui.gamedetail.GameDetailFragment">
 
 
             <ImageView

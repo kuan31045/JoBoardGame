@@ -7,7 +7,7 @@
 
         <import type="android.view.View" />
 
-        <import type="com.kappstudio.joboardgame.PageType" />
+        <import type="com.kappstudio.joboardgame.util.PageType" />
 
         <variable
             name="vm"
