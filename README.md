@@ -5,6 +5,9 @@
 一款為桌遊愛好者打造的 APP，幫助你揪團玩桌遊，瀏覽桌遊資料，以及使用桌遊小工具
 
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
+  
+  <a href='https://youtu.be/F4pF40-fW-g' ><img alt='Demo Video' src='https://firebasestorage.googleapis.com/v0/b/publisher-77e03.appspot.com/o/jodemoyt.PNG?alt=media&token=0eb17c39-e111-4d2a-a583-d7e9f0cf9ba7' /></a>
+
  
 ## 功能
 
