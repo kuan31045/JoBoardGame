@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JoBoardGame" >
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.kappstudio.joboardgame.ui.login.LoginActivity"
             android:screenOrientation="portrait"
 
             android:exported="true" />

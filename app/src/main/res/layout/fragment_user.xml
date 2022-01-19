@@ -7,13 +7,13 @@
 
         <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
 
-        <import type="com.kappstudio.joboardgame.user.FriendStatus" />
+        <import type="com.kappstudio.joboardgame.ui.user.FriendStatus" />
 
         <import type="android.view.View" />
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.user.UserViewModel" />
+            type="com.kappstudio.joboardgame.ui.user.UserViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.report.ReportViewModel" />
+            type="com.kappstudio.joboardgame.ui.report.ReportViewModel" />
 
 
     </data>

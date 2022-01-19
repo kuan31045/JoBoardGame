@@ -6,7 +6,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".favorite.FavoriteFragment">
+    tools:context=".ui.favorite.FavoriteFragment">
 
      <androidx.recyclerview.widget.RecyclerView
          android:layout_width="0dp"

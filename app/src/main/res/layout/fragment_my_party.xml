@@ -7,7 +7,7 @@
     android:id="@+id/cl"
 
     android:background="@drawable/bg_app_theme"
-    tools:context=".myparty.MyPartyFragment">
+    tools:context=".ui.myparty.MyPartyFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

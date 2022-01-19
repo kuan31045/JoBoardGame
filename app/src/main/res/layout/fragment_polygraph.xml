@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".tools.polygraph.PolygraphFragment">
+    tools:context=".ui.tools.polygraph.PolygraphFragment">
 
     <data>
 
@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.kappstudio.joboardgame.tools.polygraph.PolygraphViewModel" />
+            type="com.kappstudio.joboardgame.ui.tools.polygraph.PolygraphViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

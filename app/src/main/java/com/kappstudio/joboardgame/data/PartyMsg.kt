@@ -1,10 +1,9 @@
 package com.kappstudio.joboardgame.data
 
 import android.os.Parcelable
-import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.parcelize.Parcelize
 import java.util.*
-import kotlin.collections.HashMap
 
 @Parcelize
 data class PartyMsg(

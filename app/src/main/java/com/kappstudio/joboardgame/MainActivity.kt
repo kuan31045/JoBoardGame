@@ -3,25 +3,19 @@ package com.kappstudio.joboardgame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.libraries.places.api.Places
-import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.databinding.ActivityMainBinding
-import com.kappstudio.joboardgame.game.GameViewModel
-import com.kappstudio.joboardgame.login.LoginActivity
-import com.kappstudio.joboardgame.party.PartyFragmentDirections
-import com.kappstudio.joboardgame.party.PartyViewModel
+import com.kappstudio.joboardgame.factory.VMFactory
+import com.kappstudio.joboardgame.ui.login.LoginActivity
+import com.kappstudio.joboardgame.ui.party.PartyFragmentDirections
+import com.kappstudio.joboardgame.util.PageType
 import com.kappstudio.joboardgame.util.statusBarUtil
 
 class MainActivity : AppCompatActivity() {

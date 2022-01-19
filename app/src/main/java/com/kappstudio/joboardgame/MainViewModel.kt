@@ -9,7 +9,8 @@ import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
-import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.ui.login.UserManager
+import com.kappstudio.joboardgame.util.PageType
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -47,7 +48,7 @@ class MainViewModel(private val repository: JoRepository) : ViewModel() {
     fun setBarStatus(status: PageType) {
         Timber.d("Status: $status")
         _page.value = status
-        if (status!=PageType.OTHER){
+        if (status!= PageType.OTHER){
             _title.value = status.title
         }
 
