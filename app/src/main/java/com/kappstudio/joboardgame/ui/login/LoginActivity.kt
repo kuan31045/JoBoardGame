@@ -32,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
             LoginViewModel(appInstance.provideJoRepository())
         }
     }
-    lateinit var startActivityLauncher: StartActivityLauncher
-    lateinit var auth: FirebaseAuth
+    private lateinit var startActivityLauncher: StartActivityLauncher
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +60,10 @@ class LoginActivity : AppCompatActivity() {
             binding.btnLogin.visibility = View.GONE
         }
 
-        viewModel.navToMain.observe(this, {
+        viewModel.navToMain.observe(this) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-        })
+        }
     }
 
     private fun firebaseLogin() {

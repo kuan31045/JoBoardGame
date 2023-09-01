@@ -262,9 +262,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
     override fun onInfoWindowClick(p0: Marker) {
          findNavController().navigate(
-            MapFragmentDirections.navToPartyDetailFragment(
-                p0.snippet
-            )
+             p0.snippet?.let {
+                 MapFragmentDirections.navToPartyDetailFragment(
+                     it
+                 )
+             }
         )
     }
 

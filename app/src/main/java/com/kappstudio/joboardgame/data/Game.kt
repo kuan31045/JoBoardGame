@@ -13,23 +13,22 @@ import kotlin.collections.HashMap
 @Entity(tableName = "jo_game_table")
 @TypeConverters(JoConverters::class)
 @Parcelize
-
 data class Game(
     @PrimaryKey
     var id: String = "notFound",
     var name: String = "",
-    val image: String = "",
-    val type: MutableList<String> = mutableListOf(""),
-    val time: Int = 0,
-    val tools: List<String> = listOf(),
+    var image: String = "",
+    var type: MutableList<String> = mutableListOf(""),
+    var time: Int = 0,
+    var tools: List<String> = emptyList(),
 
     @ColumnInfo(name = "min_player_qty")
-    val minPlayerQty: Int = 0,
+    var minPlayerQty: Int = 0,
 
     @ColumnInfo(name = "max_player_qty")
-    val maxPlayerQty: Int = 0,
+    var maxPlayerQty: Int = 0,
 
-    val desc: String = "",
+    var desc: String = "",
 
     @ColumnInfo(name = "total_rating")
     var totalRating: Long = 0,

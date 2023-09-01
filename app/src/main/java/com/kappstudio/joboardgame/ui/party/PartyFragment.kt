@@ -33,22 +33,22 @@ class PartyFragment : Fragment() {
             findNavController().navigate(PartyFragmentDirections.navToNewPartyFragment())
         }
 
-        viewModel.parties.observe(viewLifecycleOwner, {
+        viewModel.parties.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 viewModel.getHosts()
 
-                viewModel.hosts.observe(viewLifecycleOwner, {
+                viewModel.hosts.observe(viewLifecycleOwner) {
                     adapter.submitList(viewModel.parties.value)
-                })
+                }
             }
-        })
+        }
 
-        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+        viewModel.navToPartyDetail.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(PartyFragmentDirections.navToPartyDetailFragment(it))
                 viewModel.onNavToPartyDetail()
             }
-        })
+        }
 
         return binding.root
     }

@@ -11,23 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentUserBinding
-
 import com.kappstudio.joboardgame.ui.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.ui.profile.ProfileFragmentDirections
-
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.VMFactory
-import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.databinding.FragmentUserBinding
-
-import com.kappstudio.joboardgame.login.UserManager
-import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
-import com.kappstudio.joboardgame.party.PartyAdapter
-import com.kappstudio.joboardgame.party.PartyFragmentDirections
-import com.kappstudio.joboardgame.profile.ProfileFragmentDirections
 import tech.gujin.toast.ToastUtil
-import java.util.*
-
 
 class UserFragment : Fragment() {
 
@@ -42,7 +29,7 @@ class UserFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentUserBinding.inflate(inflater, container, false)
         val userId = UserFragmentArgs.fromBundle(requireArguments()).clickedUserId
@@ -54,13 +41,11 @@ class UserFragment : Fragment() {
         //Nav
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
 
-
-
         binding.tvPartyQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToMyPartyFragment(userId))
         }
         binding.tvHostQty.setOnClickListener {
-          findNavController().navigate(MyHostFragmentDirections.navToMyHostFragment(userId))
+            findNavController().navigate(MyHostFragmentDirections.navToMyHostFragment(userId))
         }
         binding.tvFriendQty.setOnClickListener {
             findNavController().navigate(UserFragmentDirections.navToFriendFragment(userId))
@@ -81,50 +66,48 @@ class UserFragment : Fragment() {
             }
         }
 
-binding.btnMore.setOnClickListener {
-    val popMenu = PopupMenu(appInstance, binding.btnMore)
-    popMenu.menuInflater.inflate(R.menu.pop_report_menu, popMenu.menu)
-    popMenu.setOnMenuItemClickListener {
-        when (it.itemId) {
-            R.id.report_user -> viewModel.navToReport()
+        binding.btnMore.setOnClickListener {
+            val popMenu = PopupMenu(appInstance, binding.btnMore)
+            popMenu.menuInflater.inflate(R.menu.pop_report_menu, popMenu.menu)
+            popMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.report_user -> viewModel.navToReport()
 
-            R.id.block_user -> {
-                ToastUtil.show("封鎖已送出")
-                val mAlert = android.app.AlertDialog.Builder(activity)
-                mAlert.setTitle("封鎖使用者")
-                mAlert.setMessage(getString(R.string.block))
-                mAlert.setCancelable(false)
-                mAlert.setPositiveButton("確定"){_,_->
-                }
-                val  mAlertDialog = mAlert.create()
-                mAlertDialog.show()
-            }
+                    R.id.block_user -> {
+                        ToastUtil.show("封鎖已送出")
+                        val mAlert = android.app.AlertDialog.Builder(activity)
+                        mAlert.setTitle("封鎖使用者")
+                        mAlert.setMessage(getString(R.string.block))
+                        mAlert.setCancelable(false)
+                        mAlert.setPositiveButton("確定") { _, _ ->
+                        }
+                        val mAlertDialog = mAlert.create()
+                        mAlertDialog.show()
+                    }
 
-            R.id.see_rule -> {
-                val mAlert = android.app.AlertDialog.Builder(activity)
-                mAlert.setTitle("社群規範")
-                mAlert.setMessage(getString(R.string.rule))
-                mAlert.setCancelable(false)
-                mAlert.setPositiveButton("確定"){_,_->
+                    R.id.see_rule -> {
+                        val mAlert = android.app.AlertDialog.Builder(activity)
+                        mAlert.setTitle("社群規範")
+                        mAlert.setMessage(getString(R.string.rule))
+                        mAlert.setCancelable(false)
+                        mAlert.setPositiveButton("確定") { _, _ ->
+                        }
+                        val mAlertDialog = mAlert.create()
+                        mAlertDialog.show()
+                    }
                 }
-                val  mAlertDialog = mAlert.create()
-                mAlertDialog.show()
+                true
             }
+            popMenu.show()
         }
-        true
-    }
-    popMenu.show()
-}
 
-
-
-        viewModel.me.observe(viewLifecycleOwner, {
+        viewModel.me.observe(viewLifecycleOwner) {
             viewModel.reUser()
-        })
+        }
 
-        viewModel.user.observe(viewLifecycleOwner, {
+        viewModel.user.observe(viewLifecycleOwner) {
             viewModel.checkFriendStatus()
-        })
+        }
 
 //        viewModel.comingParties.observe(viewLifecycleOwner,
 //            {
@@ -135,16 +118,16 @@ binding.btnMore.setOnClickListener {
 //                }
 //            })
 
-        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+        viewModel.navToPartyDetail.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(UserFragmentDirections.navToPartyDetailFragment(it))
                 viewModel.onNavToPartyDetail()
             }
-        })
+        }
 
-        viewModel.navToReport.observe(viewLifecycleOwner,{
+        viewModel.navToReport.observe(viewLifecycleOwner) {
             it?.let {
-               // findNavController().navigate(UserFragmentDirections.navToReportDialog(it))
+                // findNavController().navigate(UserFragmentDirections.navToReportDialog(it))
 
                 ToastUtil.show("檢舉已送出")
 
@@ -152,17 +135,16 @@ binding.btnMore.setOnClickListener {
                 mAlert.setTitle("檢舉已送出")
                 mAlert.setMessage(getString(R.string.google_play_want_see_this))
                 mAlert.setCancelable(false)
-                mAlert.setPositiveButton("確定"){_,_->
+                mAlert.setPositiveButton("確定") { _, _ ->
                 }
 
-                val  mAlertDialog = mAlert.create()
+                val mAlertDialog = mAlert.create()
                 mAlertDialog.show()
-                
+
                 viewModel.onNavToReport()
             }
-        })
+        }
 
         return binding.root
     }
-
 }

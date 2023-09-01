@@ -26,14 +26,14 @@ class TimerFragment : Fragment() {
 
         viewModel.setupInitTime(10L)
 
-        viewModel.alertMessage.observe(viewLifecycleOwner, {
+        viewModel.alertMessage.observe(viewLifecycleOwner) {
             if (it) {
                 val vibrator = activity?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 vibrator.vibrate(
                     (VibrationEffect.createOneShot(600, VibrationEffect.DEFAULT_AMPLITUDE))
                 )
             }
-        })
+        }
 
         return ComposeView(requireContext()).apply {
             setContent {

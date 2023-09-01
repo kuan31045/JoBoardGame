@@ -170,7 +170,8 @@ fun TimeWave(
 ) {
     val animColor by animateColorAsState(
         targetValue = if (init) green200 else red700,
-        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing)
+        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing),
+        label = ""
     )
 
     val deltaXAnim = rememberInfiniteTransition()
@@ -179,7 +180,7 @@ fun TimeWave(
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(500, easing = LinearEasing)
-        )
+        ), label = ""
     )
 
     val screenWidthPx = with(LocalDensity.current) {
@@ -187,22 +188,24 @@ fun TimeWave(
     }
     val animTranslate by animateFloatAsState(
         targetValue = if (init) 0f else screenWidthPx,
-        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing)
+        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing),
+        label = ""
     )
 
     val waveHeight by animateFloatAsState(
         targetValue = if (init) 125f else 0f,
-        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing)
+        animationSpec = TweenSpec(if (init) 0 else timeSpec.toInt(), easing = LinearEasing),
+        label = ""
     )
 
-    val infiniteScale = rememberInfiniteTransition()
+    val infiniteScale = rememberInfiniteTransition(label = "")
     val animAlertScale by infiniteScale.animateFloat(
         initialValue = 0.95f,
         targetValue = 1.05f,
         animationSpec = infiniteRepeatable(
             animation = tween(500, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = ""
     )
 
     val waveWidth = 200

@@ -61,7 +61,7 @@ class SearchViewModel( ) : ViewModel(), NavToGameDetailInterface, NavToUserInter
         parties?.value?.forEach { party ->
             val title = party.title.lowercase(Locale.ROOT)
 
-            var host = allUsers.value?.first { it.id == party.hostId }?.name?.lowercase(Locale.ROOT)
+            val host = allUsers.value?.first { it.id == party.hostId }?.name?.lowercase(Locale.ROOT)
 
 
             val location = party.location.address.lowercase(Locale.ROOT)

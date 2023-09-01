@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -108,54 +107,54 @@ class PartyDetailFragment : Fragment() {
             )
         }
 
-        viewModel.isSend.observe(viewLifecycleOwner, {
+        viewModel.isSend.observe(viewLifecycleOwner) {
             closeSoftKeyboard(binding.etMsg)
-        })
+        }
 
-        viewModel.party.observe(viewLifecycleOwner, {
+        viewModel.party.observe(viewLifecycleOwner) {
             viewModel.getHostUser()
             viewModel.getGames()
             viewModel.getPlayers()
 
-            viewModel.host.observe(viewLifecycleOwner, {
+            viewModel.host.observe(viewLifecycleOwner) {
                 binding.tvHost.text = it.name
-            })
+            }
 
-            viewModel.games.observe(viewLifecycleOwner, {
+            viewModel.games.observe(viewLifecycleOwner) {
                 gameAdapter.submitList(it)
-            })
+            }
 
-            viewModel.players.observe(viewLifecycleOwner, {
+            viewModel.players.observe(viewLifecycleOwner) {
                 playerAdapter.submitList(it)
-            })
-        })
+            }
+        }
 
-        viewModel.partyMsgs.observe(viewLifecycleOwner, {
+        viewModel.partyMsgs.observe(viewLifecycleOwner) {
             msgAdapter.submitList(it)
-        })
+        }
 
-        viewModel.reportOk.observe(viewLifecycleOwner,{
-           it?.let{
-               ToastUtil.show("檢舉已送出")
-               
-               val mAlert = android.app.AlertDialog.Builder(activity)
-               mAlert.setTitle("檢舉已送出")
-               mAlert.setMessage(getString(R.string.google_play_want_see_this3))
-               mAlert.setCancelable(false)
-               mAlert.setPositiveButton("確定"){_,_->
-               }
+        viewModel.reportOk.observe(viewLifecycleOwner) {
+            it?.let {
+                ToastUtil.show("檢舉已送出")
 
-               val  mAlertDialog = mAlert.create()
-               mAlertDialog.show()
+                val mAlert = android.app.AlertDialog.Builder(activity)
+                mAlert.setTitle("檢舉已送出")
+                mAlert.setMessage(getString(R.string.google_play_want_see_this3))
+                mAlert.setCancelable(false)
+                mAlert.setPositiveButton("確定") { _, _ ->
+                }
 
-               viewModel.onReportOk()
-           }
+                val mAlertDialog = mAlert.create()
+                mAlertDialog.show()
 
                 viewModel.onReportOk()
             }
-        })
 
-        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+            viewModel.onReportOk()
+
+        }
+
+        viewModel.navToGameDetail.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.id == "notFound") {
 
@@ -191,14 +190,14 @@ class PartyDetailFragment : Fragment() {
                 }
                 viewModel.onNavToGameDetail()
             }
-        })
+        }
 
-        viewModel.navToUser.observe(viewLifecycleOwner, {
+        viewModel.navToUser.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(PartyDetailFragmentDirections.navToUserFragment(it))
                 viewModel.onNavToUser()
             }
-        })
+        }
 
         return binding.root
     }

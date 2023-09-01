@@ -52,7 +52,7 @@ class PartyAdapter(private val viewModel: ViewModel) :
                     }
                 }
 
-                if (UserManager.user.value?.id ?: "" in party.playerIdList) {
+                if ((UserManager.user.value?.id ?: "") in party.playerIdList) {
                     tvAlreadyJoin.visibility = View.VISIBLE
                 } else {
                     tvAlreadyJoin.visibility = View.GONE
