@@ -16,7 +16,7 @@ android {
         applicationId "com.kappstudio.joboardgame"
         minSdk 26
         targetSdk 30
-        versionCode 22
+        versionCode 28
         versionName "1.0"
         renderscriptTargetApi 28 //must match target sdk and build tools
         renderscriptSupportModeEnabled true

@@ -39,9 +39,16 @@ class ReportDialog : DialogFragment() {
         viewModel.sendOk.observe(viewLifecycleOwner,{
             dismiss()
             ToastUtil.show("檢舉已送出")
-            val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-             builder?.setMessage(getString(R.string.google_play_want_see_this))
-             builder?.show()
+
+            val mAlert = android.app.AlertDialog.Builder(activity)
+            mAlert.setTitle("檢舉已送出")
+            mAlert.setMessage(getString(R.string.google_play_want_see_this))
+            mAlert.setCancelable(false)
+            mAlert.setPositiveButton("關閉"){_,_->
+            }
+
+            val  mAlertDialog = mAlert.create()
+            mAlertDialog.show()
         })
 
         return binding.root

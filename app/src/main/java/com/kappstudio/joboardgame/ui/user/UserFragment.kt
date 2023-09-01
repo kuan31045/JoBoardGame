@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.factory.VMFactory
@@ -13,6 +14,19 @@ import com.kappstudio.joboardgame.databinding.FragmentUserBinding
 
 import com.kappstudio.joboardgame.ui.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.ui.profile.ProfileFragmentDirections
+
+import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.VMFactory
+import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.databinding.FragmentUserBinding
+
+import com.kappstudio.joboardgame.login.UserManager
+import com.kappstudio.joboardgame.myhost.MyHostFragmentDirections
+import com.kappstudio.joboardgame.party.PartyAdapter
+import com.kappstudio.joboardgame.party.PartyFragmentDirections
+import com.kappstudio.joboardgame.profile.ProfileFragmentDirections
+import tech.gujin.toast.ToastUtil
+import java.util.*
 
 
 class UserFragment : Fragment() {
@@ -67,8 +81,40 @@ class UserFragment : Fragment() {
             }
         }
 
+binding.btnMore.setOnClickListener {
+    val popMenu = PopupMenu(appInstance, binding.btnMore)
+    popMenu.menuInflater.inflate(R.menu.pop_report_menu, popMenu.menu)
+    popMenu.setOnMenuItemClickListener {
+        when (it.itemId) {
+            R.id.report_user -> viewModel.navToReport()
 
+            R.id.block_user -> {
+                ToastUtil.show("封鎖已送出")
+                val mAlert = android.app.AlertDialog.Builder(activity)
+                mAlert.setTitle("封鎖使用者")
+                mAlert.setMessage(getString(R.string.block))
+                mAlert.setCancelable(false)
+                mAlert.setPositiveButton("確定"){_,_->
+                }
+                val  mAlertDialog = mAlert.create()
+                mAlertDialog.show()
+            }
 
+            R.id.see_rule -> {
+                val mAlert = android.app.AlertDialog.Builder(activity)
+                mAlert.setTitle("社群規範")
+                mAlert.setMessage(getString(R.string.rule))
+                mAlert.setCancelable(false)
+                mAlert.setPositiveButton("確定"){_,_->
+                }
+                val  mAlertDialog = mAlert.create()
+                mAlertDialog.show()
+            }
+        }
+        true
+    }
+    popMenu.show()
+}
 
 
 
@@ -98,7 +144,20 @@ class UserFragment : Fragment() {
 
         viewModel.navToReport.observe(viewLifecycleOwner,{
             it?.let {
-                findNavController().navigate(UserFragmentDirections.navToReportDialog(it))
+               // findNavController().navigate(UserFragmentDirections.navToReportDialog(it))
+
+                ToastUtil.show("檢舉已送出")
+
+                val mAlert = android.app.AlertDialog.Builder(activity)
+                mAlert.setTitle("檢舉已送出")
+                mAlert.setMessage(getString(R.string.google_play_want_see_this))
+                mAlert.setCancelable(false)
+                mAlert.setPositiveButton("確定"){_,_->
+                }
+
+                val  mAlertDialog = mAlert.create()
+                mAlertDialog.show()
+                
                 viewModel.onNavToReport()
             }
         })
