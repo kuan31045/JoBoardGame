@@ -86,6 +86,16 @@
                     android:paddingTop="16dp"
                     android:paddingRight="16dp"
                     android:paddingBottom="28dp">
+                    <ImageButton
+                        android:id="@+id/btn_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:background="@drawable/bg_ripple"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:src="@drawable/ic_more_16dp"
+                        />
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -528,19 +538,7 @@
                 app:lottie_rawRes="@raw/anim_poker"
                 tools:visibility="gone" />
 
-            <Button
-                android:id="@+id/btn_report"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                 android:layout_marginEnd="-4dp"
-                android:backgroundTint="@color/gray_bg_eaeaea"
-                android:focusable="false"
-                android:onClick="@{()->viewModel.navToReport()}"
-                android:text="@string/report_him"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_back" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

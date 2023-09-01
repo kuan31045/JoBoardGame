@@ -134,12 +134,22 @@ class PartyDetailFragment : Fragment() {
             msgAdapter.submitList(it)
         })
 
-        viewModel.reportOk.observe(viewLifecycleOwner, {
-            it?.let {
-                ToastUtil.show(getString(R.string.report_ok))
-                val builder = context?.let { it1 -> AlertDialog.Builder(it1) }
-                builder?.setMessage(getString(R.string.google_play_want_see_this3))
-                builder?.show()
+        viewModel.reportOk.observe(viewLifecycleOwner,{
+           it?.let{
+               ToastUtil.show("檢舉已送出")
+               
+               val mAlert = android.app.AlertDialog.Builder(activity)
+               mAlert.setTitle("檢舉已送出")
+               mAlert.setMessage(getString(R.string.google_play_want_see_this3))
+               mAlert.setCancelable(false)
+               mAlert.setPositiveButton("確定"){_,_->
+               }
+
+               val  mAlertDialog = mAlert.create()
+               mAlertDialog.show()
+
+               viewModel.onReportOk()
+           }
 
                 viewModel.onReportOk()
             }
