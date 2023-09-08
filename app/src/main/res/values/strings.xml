@@ -279,6 +279,7 @@ kuanappstudio@gmail.com</string>
     <string name="need_gps">使用定位功能需要開啟GPS</string>
     <string name="go_to_open">前往開啟</string>
     <string name="cant_get_location">無法取得目前位置</string>
+    <string name="already_have">已存在資料庫內!</string>
 
 
 </resources>

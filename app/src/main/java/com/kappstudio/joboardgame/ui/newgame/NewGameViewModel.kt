@@ -13,7 +13,6 @@ import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
-import timber.log.Timber
 
 class NewGameViewModel : ViewModel() {
 
@@ -60,10 +59,13 @@ class NewGameViewModel : ViewModel() {
     }
 
     fun prepareCreate() {
-        if (allGames.value?.filter { it.name == name.value?.replace("\\s".toRegex(), "") ?: "" }?.size ?: 0 == 0) {
+        if ((allGames.value?.filter {
+                it.name == (name.value?.replace(
+                    "\\s".toRegex(),
+                    ""
+                ) ?: "")
+            }?.size ?: 0) == 0) {
 
-
-            Timber.d("$types + $tools")
             _invalidPublish.value = when {
                 imageUri.value == null ->
                     GameInvalidInput.IMAGE_EMPTY
@@ -90,16 +92,13 @@ class NewGameViewModel : ViewModel() {
 
                 else -> {
                     createGame()
-
                     null
-
                 }
             }
-        }else{
-            ToastUtil.show("資料庫內已經有${name.value}了!")
+        } else {
+            ToastUtil.show("${name.value} ${appInstance.getString(R.string.already_have)}")
         }
     }
-
 
     private fun createGame() {
         viewModelScope.launch {
@@ -125,15 +124,16 @@ class NewGameViewModel : ViewModel() {
     }
 
     private suspend fun uploadImage() {
-        imageUri.value?.let {it->
-
+        imageUri.value?.let {
             _status.value = LoadApiStatus.LOADING
+
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is com.kappstudio.joboardgame.data.Resource.Success -> {
+                is Resource.Success -> {
                     _imageUrl.value = result.data!!
-                    Timber.d("image: ${imageUrl.value}")
                 }
 
+                else -> {}
+            }
         }
-    } }
+    }
 }

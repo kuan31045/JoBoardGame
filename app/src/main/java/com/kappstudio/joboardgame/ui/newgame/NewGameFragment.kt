@@ -20,7 +20,6 @@ class NewGameFragment : Fragment() {
     private lateinit var startActivityLauncher: StartActivityLauncher
     val viewModel: NewGameViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,18 +48,18 @@ class NewGameFragment : Fragment() {
             pickImage()
         }
 
-        viewModel.invalidPublish.observe(viewLifecycleOwner, {
+        viewModel.invalidPublish.observe(viewLifecycleOwner) {
             it?.let {
                 ToastUtil.show(it.msg)
             }
-        })
+        }
 
-        viewModel.status.observe(viewLifecycleOwner, {
+        viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
                 LoadApiStatus.DONE -> findNavController().popBackStack()
+                else -> {}
             }
-        })
-
+        }
 
         return binding.root
     }
@@ -93,5 +92,4 @@ class NewGameFragment : Fragment() {
                 }
             }
     }
-
 }
