@@ -1,10 +1,13 @@
 package com.kappstudio.joboardgame.ui.newparty
 
+import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.appInstance
+
 enum class PartyInvalidInput(val msg:String) {
-    TITLE_EMPTY("請填寫標題!"),
-    TIME_EMPTY("請選擇時間!"),
-    LOCATION_EMPTY("請填寫地點!"),
-    QTY_EMPTY("請填寫徵求人數!"),
-    DESC_EMPTY("請填寫說明!"),
-    GAMES_EMPTY("請加入遊戲!"),
+    TITLE_EMPTY(appInstance.getString(R.string.enter_title)),
+    TIME_EMPTY(appInstance.getString(R.string.enter_time)),
+    LOCATION_EMPTY(appInstance.getString(R.string.enter_place)),
+    QTY_EMPTY(appInstance.getString(R.string.enter_people_qty)),
+    DESC_EMPTY(appInstance.getString(R.string.enter_desc)),
+    GAMES_EMPTY(appInstance.getString(R.string.enter_game)),
 }

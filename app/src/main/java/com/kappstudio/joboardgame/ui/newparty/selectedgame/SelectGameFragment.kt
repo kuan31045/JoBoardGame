@@ -12,7 +12,7 @@ import com.kappstudio.joboardgame.databinding.FragmentSelectGameBinding
 import com.kappstudio.joboardgame.ui.newparty.NewPartyViewModel
 
 class SelectGameFragment : Fragment() {
-    lateinit var newPartyViewModel: NewPartyViewModel
+    private lateinit var newPartyViewModel: NewPartyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class SelectGameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentSelectGameBinding.inflate(inflater)
         val viewModel: SelectGameViewModel by viewModels()
@@ -35,22 +35,23 @@ class SelectGameFragment : Fragment() {
 
         val adapter = SelectGameAdapter(viewModel)
         binding.rvGame.adapter = adapter
+
         binding.ivClose.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.btnAdd.setOnClickListener {
             viewModel.selectedGames.value?.let { it1 -> newPartyViewModel.addGameFromFavorite(it1) }
             findNavController().popBackStack()
         }
 
-        viewModel.games.observe(viewLifecycleOwner, {
+        viewModel.games.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
-
-        viewModel.selectedGames.observe(viewLifecycleOwner, {
+        viewModel.selectedGames.observe(viewLifecycleOwner) {
             adapter.notifyDataSetChanged()
-        })
+        }
 
         return binding.root
     }

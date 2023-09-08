@@ -11,6 +11,7 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
 
@@ -70,24 +71,24 @@ class NewGameViewModel : ViewModel() {
                 imageUri.value == null ->
                     GameInvalidInput.IMAGE_EMPTY
 
-                name.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                name.value.checkValid() ->
                     GameInvalidInput.NAME_EMPTY
 
                 types.size == 0 -> GameInvalidInput.TYPE_EMPTY
 
-                minPlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty()
+                minPlayerQty.value.checkValid()
                         || (minPlayerQty.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.MIN_PLAYER_QTY_EMPTY
 
-                maxPlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty()
+                maxPlayerQty.value.checkValid()
                         || (maxPlayerQty.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.MAX_PLAYER_QTY_EMPTY
 
-                time.value?.replace("\\s".toRegex(), "").isNullOrEmpty()
+                time.value.checkValid()
                         || (time.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.TIME_EMPTY
 
-                desc.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+                desc.value.checkValid() ->
                     GameInvalidInput.DESC_EMPTY
 
                 else -> {

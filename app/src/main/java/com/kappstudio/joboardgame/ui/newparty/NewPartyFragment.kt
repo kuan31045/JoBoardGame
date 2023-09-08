@@ -29,7 +29,6 @@ import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.allGames
-
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
@@ -43,7 +42,7 @@ class NewPartyFragment : Fragment() {
     lateinit var binding: FragmentNewPartyBinding
     lateinit var viewModel: NewPartyViewModel
 
-    lateinit var startActivityLauncher: StartActivityLauncher
+    private lateinit var startActivityLauncher: StartActivityLauncher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,33 +53,27 @@ class NewPartyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentNewPartyBinding.inflate(inflater)
-
         val gameViewModel: GameViewModel by viewModels()
-
         startActivityLauncher = StartActivityLauncher(this)
-
-
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-
 
         binding.btnAddCover.setOnClickListener {
             pickImage()
         }
+
         binding.tvAddGame.setOnClickListener {
             findNavController().navigate(NewPartyFragmentDirections.navToSelectGameFragment())
         }
+
         binding.actAddGame.setOnItemClickListener { _, _, _, _ ->
             viewModel.addGame()
         }
 
-
-        gameViewModel.games.observe(viewLifecycleOwner, {
+        gameViewModel.games.observe(viewLifecycleOwner) {
             var query = arrayListOf<String>()
             for (game in it) {
                 query.add(game.name)
@@ -93,12 +86,11 @@ class NewPartyFragment : Fragment() {
                 )
             }
             binding.actAddGame.setAdapter(arraryAdapter)
-
-        })
+        }
 
         var isPickingTime = false
 
-        var r = SingleDateAndTimePickerDialog.Builder(context)
+        val builder = SingleDateAndTimePickerDialog.Builder(context)
             .bottomSheet()
             .curved()
             .backgroundColor(appInstance.getColor(R.color.white))
@@ -115,16 +107,16 @@ class NewPartyFragment : Fragment() {
                 isPickingTime = false
 
             }
+
         binding.rvGame.addItemDecoration(
             DividerItemDecoration(
                 appInstance, DividerItemDecoration.VERTICAL
             )
         )
 
-
         binding.etTime.setOnClickListener {
             closeSoftKeyboard(binding.etTitle)
-            r.display()
+            builder.display()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -132,12 +124,11 @@ class NewPartyFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (isPickingTime) {
-                        r.close()
+                        builder.close()
                         isPickingTime = false
                     } else {
                         findNavController().popBackStack()
                     }
-
                 }
             })
 
@@ -145,22 +136,15 @@ class NewPartyFragment : Fragment() {
             startAutoCompleteIntent()
         }
 
-
-        viewModel.invalidPublish.observe(viewLifecycleOwner, {
+        viewModel.invalidPublish.observe(viewLifecycleOwner) {
             it?.let {
                 ToastUtil.show(it.msg)
             }
-        })
+        }
 
-
-
-        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+        viewModel.navToGameDetail.observe(viewLifecycleOwner) {
             it?.let {
-
-
                 if (it.id == "notFound") {
-
-
                     val alert = AlertView(
                         getString(R.string.no_game) + it.name,
                         "",
@@ -179,10 +163,6 @@ class NewPartyFragment : Fragment() {
                             )
                         })
 
-
-
-
-
                     alert.addAction(
                         AlertAction(
                             getString(R.string.cancel),
@@ -192,34 +172,36 @@ class NewPartyFragment : Fragment() {
                         })
 
                     alert.show(activity as AppCompatActivity)
-
-
                 } else {
                     findNavController().navigate(
                         FavoriteFragmentDirections.navToGameDetailFragment(it.id)
                     )
                 }
+
                 viewModel.onNavToGameDetail()
             }
-        })
+        }
 
-        viewModel.gameNameList.observe(viewLifecycleOwner, {
+        viewModel.gameNameList.observe(viewLifecycleOwner) {
             viewModel.setGame()
-        })
-        allGames.observe(viewLifecycleOwner, {
+        }
+
+        allGames.observe(viewLifecycleOwner) {
             viewModel.setGame()
-        })
-        viewModel.partyGames.observe(viewLifecycleOwner,{
+        }
+
+        viewModel.partyGames.observe(viewLifecycleOwner) {
             binding.rvGame.adapter = AddGameAdapter(viewModel).apply {
                 submitList(it)
             }
-        })
+        }
 
-        viewModel.status.observe(viewLifecycleOwner, {
+        viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
                 LoadApiStatus.DONE -> findNavController().popBackStack()
+                else -> {}
             }
-        })
+        }
 
         return binding.root
     }
@@ -229,8 +211,8 @@ class NewPartyFragment : Fragment() {
             .crop(
                 2f,
                 1f
-            )                    //Crop image(Optional), Check Customization for more option
-            .compress(1024)            //Final image size will be less than 1 MB(Optional)
+            )                        //Crop image(Optional), Check Customization for more option
+            .compress(1024)                   //Final image size will be less than 1 MB(Optional)
             .maxResultSize(
                 1080,
                 540
@@ -245,6 +227,7 @@ class NewPartyFragment : Fragment() {
                                 viewModel.photoUri.value = fileUri
                             }
                         }
+
                         ImagePicker.RESULT_ERROR -> {
                             ToastUtil.show(ImagePicker.getError(data))
                         }
@@ -261,7 +244,6 @@ class NewPartyFragment : Fragment() {
 
         // Start the autocomplete intent.
         val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-
             .setTypeFilter(TypeFilter.ADDRESS)
             .build(activity)
 
@@ -277,6 +259,7 @@ class NewPartyFragment : Fragment() {
                         Timber.d("Place: ${place.name}, ${place.id}")
                     }
                 }
+
                 AutocompleteActivity.RESULT_ERROR -> {
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
@@ -294,6 +277,6 @@ class NewPartyFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.viewModelStore?.clear();
+        activity?.viewModelStore?.clear()
     }
 }

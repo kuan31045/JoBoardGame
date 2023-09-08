@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.databinding.ItemGameAddBinding
-import timber.log.Timber
 
 class AddGameAdapter(private val viewModel: NewPartyViewModel) :
     ListAdapter<Game, AddGameAdapter.GameViewHolder>(DiffCallback) {
@@ -17,9 +16,7 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
     inner class GameViewHolder(private val binding: ItemGameAddBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(game: Game, viewModel: NewPartyViewModel) {
-
             binding.apply {
                 tvName.text = game.name
                 bindImage(ivGame, game.image)
@@ -31,10 +28,10 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
                 if (game.time != 0) {
                     tvTime.text = game.time.toString()
                     tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
-                    tvNoData.visibility= View.GONE
+                    tvNoData.visibility = View.GONE
 
                 } else {
-                    tvNoData.visibility= View.VISIBLE
+                    tvNoData.visibility = View.VISIBLE
                 }
 
                 clGame.setOnClickListener {
@@ -55,7 +52,6 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
-        Timber.d("create")
         return GameViewHolder(
             ItemGameAddBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -66,8 +62,6 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        Timber.d("BindViewHolder")
-
         holder.bind(getItem(position), viewModel)
     }
 }

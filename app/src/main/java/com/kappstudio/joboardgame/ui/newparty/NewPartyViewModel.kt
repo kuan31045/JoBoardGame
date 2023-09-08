@@ -6,20 +6,19 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
-
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
+import com.kappstudio.joboardgame.util.checkEmpty
+import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
-import timber.log.Timber
 
-private const val defaultCover =
+private const val DEFAULT_COVER =
     "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/cover1.png?alt=media&token=f3144faf-1e81-4d84-b25e-46e32b64b8f1"
 
 class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
-
-
+    
     var partyTime = MutableLiveData<Long>(0)
 
     // EditText
@@ -55,10 +54,9 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     private val _status = MutableLiveData<LoadApiStatus>()
     val status: LiveData<LoadApiStatus>
         get() = _status
-
-
+    
     fun addGame() {
-        if (gameName.value?.replace("\\s".toRegex(), "") != "") {
+        if (gameName.value.checkEmpty() ) {
 
             if (gameNameList.value?.contains(gameName.value ?: "") == true) {
                 ToastUtil.show(gameName.value + appInstance.getString(R.string.already_in_list))
@@ -69,20 +67,18 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             }
 
         } else {
-            ToastUtil.show("請輸入遊戲名")
+            ToastUtil.show(appInstance.getString(R.string.enter_game_name))
         }
-
     }
-
-
+    
     private fun createParty() {
-
         viewModelScope.launch {
             uploadCover()
+
             val res = FirebaseService.createParty(
                 Party(
                     title = title.value ?: "",
-                    cover = coverUrl.value ?: defaultCover,
+                    cover = coverUrl.value ?: DEFAULT_COVER,
                     partyTime = partyTime.value ?: 0,
                     location = Location(
                         location.value ?: "",
@@ -108,38 +104,35 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
 
     private suspend fun uploadCover() {
         photoUri.value?.let {
-
-
             _status.value = LoadApiStatus.LOADING
 
             when (val result = FirebaseService.uploadPhoto(it)) {
-                is com.kappstudio.joboardgame.data.Resource.Success -> {
+                is Resource.Success -> {
                     _coverUrl.value = result.data!!
-                    Timber.d("Photo: ${coverUrl.value}")
                 }
-            }
 
+                else -> {}
+            }
         }
     }
 
     fun prepareCreate() {
         _invalidPublish.value = when {
-            title.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+            title.value.checkValid() ->
                 PartyInvalidInput.TITLE_EMPTY
             partyTime.value == 0L ->
                 PartyInvalidInput.TIME_EMPTY
-            location.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+            location.value.checkValid() ->
                 PartyInvalidInput.LOCATION_EMPTY
-            requirePlayerQty.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+            requirePlayerQty.value.checkValid() ->
                 PartyInvalidInput.QTY_EMPTY
-            note.value?.replace("\\s".toRegex(), "").isNullOrEmpty() ->
+            note.value.checkValid() ->
                 PartyInvalidInput.DESC_EMPTY
             gameNameList.value == null || gameNameList.value!!.size == 0 ->
                 PartyInvalidInput.GAMES_EMPTY
             else -> {
                 createParty()
                 null
-
             }
         }
     }
@@ -163,7 +156,8 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             val query = allGames.value?.filter { game ->
                 game.name == name
             }
-            if (query != null && query.isNotEmpty()) {
+
+            if (!query.isNullOrEmpty()) {
                 list.add(query.first())
             } else {
                 list.add(
@@ -174,8 +168,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
                 )
             }
         }
+
         _partyGames.value = list
     }
-
-
 }

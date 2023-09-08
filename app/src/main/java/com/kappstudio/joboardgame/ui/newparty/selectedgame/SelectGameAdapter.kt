@@ -25,8 +25,6 @@ class SelectGameAdapter(private val viewModel: SelectGameViewModel) :
                 bindImage(ivGame, game.image)
                 clGame.setOnClickListener {
                     viewModel.selectGame(game)
-
-
                 }
             }
         }
@@ -51,7 +49,6 @@ class SelectGameAdapter(private val viewModel: SelectGameViewModel) :
             )
         )
     }
-
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         holder.bind(getItem(position), viewModel)
