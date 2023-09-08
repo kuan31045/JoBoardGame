@@ -272,6 +272,13 @@ kuanappstudio@gmail.com</string>
     <string name="block_user">封鎖該用戶</string>
     <string name="see_rule">社群規範</string>
     <string name="block">封鎖需求已送出，我們會立即進行後續事宜，您將不會看到任何有關該使用者發布的內容及無法建立朋友關係。</string>
+    <string name="permission_msg">定位功能需同意位置權限才可使用</string>
+    <string name="ok">確定</string>
+    <string name="permission_setting_msg">若要使用定位功能，您需要手動在“設置”中允許位置權限</string>
+    <string name="no_gps">GPS尚未開啟</string>
+    <string name="need_gps">使用定位功能需要開啟GPS</string>
+    <string name="go_to_open">前往開啟</string>
+    <string name="cant_get_location">無法取得目前位置</string>
 
 
 </resources>

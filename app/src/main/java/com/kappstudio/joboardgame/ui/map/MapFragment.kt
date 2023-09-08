@@ -27,43 +27,37 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Party
 import com.permissionx.guolindev.PermissionX
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 
+const val taipeiLatitude = 25.0426166
+const val taipeiLongitude = 121.5651808
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
-
-    lateinit var partyViewModel: PartyViewModel
+    private lateinit var partyViewModel: PartyViewModel
     lateinit var binding: FragmentMapBinding
     private var locationPermissionOk = false
     private lateinit var mMap: GoogleMap
     private lateinit var mLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallBack: LocationCallback
     var locationIsUpdate = false
-
-    lateinit var enableLocationLauncher: EnableLocationLauncher
+    private lateinit var enableLocationLauncher: EnableLocationLauncher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        partyViewModel = ViewModelProvider(requireParentFragment()).get(PartyViewModel::class.java)
-
+        partyViewModel = ViewModelProvider(requireParentFragment())[PartyViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentMapBinding.inflate(inflater)
-        partyViewModel.parties?.observe(viewLifecycleOwner, {
-            Timber.d("${partyViewModel.parties!!.value}")
 
-        })
         enableLocationLauncher = EnableLocationLauncher(this)
-
-
         mLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(context ?: appInstance)
 
@@ -85,21 +79,25 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         PermissionX.init(this)
             .permissions(Manifest.permission.ACCESS_FINE_LOCATION)
             .onExplainRequestReason { scope, deniedList ->
-                scope.showRequestReasonDialog(deniedList, "定位功能需同意位置權限才可使用", "OK", "Cancel")
+                scope.showRequestReasonDialog(
+                    deniedList,
+                    getString(R.string.permission_msg),
+                    getString(R.string.ok),
+                    getString(R.string.cancel)
+                )
             }
             .onForwardToSettings { scope, deniedList ->
                 scope.showForwardToSettingsDialog(
                     deniedList,
-                    "若要使用定位功能，您需要手動在“設置”中允許位置權限",
-                    "OK",
-                    "Cancel"
+                    getString(R.string.permission_setting_msg),
+                    getString(R.string.ok),
+                    getString(R.string.cancel)
                 )
             }
-            .request { allGranted, grantedList, deniedList ->
+            .request { allGranted, _, _ ->
                 if (allGranted) {
                     locationPermissionOk = true
                     ToastUtil.show(getString(R.string.geting_location))
-                    //gps
                     checkGPS()
                 }
             }
@@ -109,70 +107,62 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
         val locationManager =
             context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             context?.let {
                 AlertDialog.Builder(it)
-                    .setTitle("GPS尚未開啟")
-                    .setMessage("使用定位功能需要開啟GPS")
-                    .setPositiveButton("前往開啟") { _, _ ->
+                    .setTitle(getString(R.string.no_gps))
+                    .setMessage(getString(R.string.need_gps))
+                    .setPositiveButton(getString(R.string.go_to_open)) { _, _ ->
                         enableLocationLauncher.launch { enabled ->
                             if (enabled) {
                                 checkGPS()
                             }
                         }
                     }
-                    .setNegativeButton("取消", null)
+                    .setNegativeButton(getString(R.string.cancel), null)
                     .show()
             }
         } else {
-            getNowLocation()
+            getCurrentLocation()
         }
     }
 
-    private fun getNowLocation() {
+    private fun getCurrentLocation() {
         try {
             if (locationPermissionOk) {
-                ToastUtil.show("正在取得目前位置...")
+                ToastUtil.show(getString(R.string.geting_location))
 
                 binding.btnGetLocation.visibility = View.GONE
 
-                var nowLocationCount = 0  //定位次數
-
-                // 藍色小點
-                mMap?.isMyLocationEnabled = true
-
+                mMap.isMyLocationEnabled = true
+                var currentLocationCount = 0
                 val locationRequest = LocationRequest()
                 locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                //更新頻率
-                locationRequest.interval = 1000 //1秒
+                locationRequest.interval = 1000
 
-                mLocationProviderClient?.requestLocationUpdates(
+                mLocationProviderClient.requestLocationUpdates(
                     locationRequest,
 
                     object : LocationCallback() {
-                        override fun onLocationResult(locationResult: LocationResult?) {
-
+                        override fun onLocationResult(locationResult: LocationResult) {
                             locationCallBack = this
                             locationIsUpdate = true
 
-                            locationResult ?: return
-                            nowLocationCount++
-                            val nowLocation = LatLng(
-                                locationResult.lastLocation.latitude, //緯度
-                                locationResult.lastLocation.longitude //經度
-                            )
-                            Timber.d(
-                                "第${nowLocationCount}次定位: $nowLocation"
-                            )
-
-                            //移動鏡頭到現在位置
-                            if (nowLocationCount == 1) {
-                                mMap?.moveCamera(
-                                    CameraUpdateFactory.newLatLngZoom(
-                                        nowLocation, 15f
-                                    )
+                            currentLocationCount++
+                            locationResult.lastLocation?.let {
+                                val currentLocation = LatLng(
+                                    it.latitude,
+                                    it.longitude
                                 )
 
+                                if (currentLocationCount == 1) {
+                                    mMap.moveCamera(
+                                        CameraUpdateFactory.newLatLngZoom(
+                                            currentLocation, 15f
+                                        )
+                                    )
+                                }
                             }
                         }
                     },
@@ -183,13 +173,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
                 getPermission()
             }
         } catch (e: SecurityException) {
-            ToastUtil.show("Exception:$e")
+            ToastUtil.show(getString(R.string.cant_get_location))
         }
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        //鏡頭移到點擊的藥局
         mMap = googleMap
 
         val selectedPartyId: String? = MapFragmentArgs.fromBundle(requireArguments()).partyId
@@ -197,20 +185,16 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
             addPartiesMark()
 
             moveToLocation(
-                LatLng(
-                    25.0426166, //緯度
-                    121.5651808  //經度
-                )
+                LatLng(taipeiLatitude, taipeiLongitude)
             )
-
         } else {
-            val party = partyViewModel.parties?.value?.filter { it.id == selectedPartyId }?.get(0)
+            val party = partyViewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
             if (party != null) {
                 addMark(party)
                 moveToLocation(
                     LatLng(
-                        party.location.lat, //緯度
-                        party.location.lng  //經度
+                        party.location.lat,
+                        party.location.lng
                     )
                 )
             }
@@ -218,7 +202,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
         mMap.setInfoWindowAdapter(context?.let { PartyInfoWindowAdapter(it, partyViewModel) })
         mMap.setOnInfoWindowClickListener(this)
-
     }
 
     private fun moveToLocation(latLng: LatLng) {
@@ -230,45 +213,38 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     }
 
     private fun addPartiesMark() {
-
-        partyViewModel.parties?.value?.forEach { party ->
+        partyViewModel.parties.value?.forEach { party ->
             if (party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis) {
                 addMark(party)
             }
-
         }
-
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun addMark(party: Party) {
         GlobalScope.launch {
-
             val partyLocation = LatLng(
-                party.location.lat, //緯度
-                party.location.lng  //經度
+                party.location.lat,
+                party.location.lng
             )
             activity?.runOnUiThread {
-                mMap?.addMarker(
+                mMap.addMarker(
                     MarkerOptions()
                         .position(partyLocation)
                         .title(party.title)
                         .snippet(party.id)
-                ).apply {
+                )?.apply {
                     showInfoWindow()
                 }
             }
         }
     }
 
-    override fun onInfoWindowClick(p0: Marker) {
-         findNavController().navigate(
-             p0.snippet?.let {
-                 MapFragmentDirections.navToPartyDetailFragment(
-                     it
-                 )
-             }
-        )
+    override fun onInfoWindowClick(marker: Marker) {
+        marker.snippet?.let {
+            findNavController().navigate(
+                MapFragmentDirections.navToPartyDetailFragment(it)
+            )
+        }
     }
-
-
 }
