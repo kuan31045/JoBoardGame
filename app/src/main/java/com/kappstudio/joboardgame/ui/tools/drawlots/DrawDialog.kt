@@ -30,9 +30,7 @@ class DrawDialog : DialogFragment() {
         animSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.amin_rotate))
 
         binding.lottieDraw.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(p0: Animator) {
-                TODO("Not yet implemented")
-            }
+            override fun onAnimationStart(p0: Animator) {}
 
             override fun onAnimationEnd(p0: Animator) {
                 binding.tvTitleResult.visibility = View.VISIBLE
@@ -40,13 +38,9 @@ class DrawDialog : DialogFragment() {
                 binding.tvResult.startAnimation(animSet)
             }
 
-            override fun onAnimationCancel(p0: Animator) {
-                TODO("Not yet implemented")
-            }
+            override fun onAnimationCancel(p0: Animator) {}
 
-            override fun onAnimationRepeat(p0: Animator) {
-                TODO("Not yet implemented")
-            }
+            override fun onAnimationRepeat(p0: Animator) {}
         })
 
         return binding.root
