@@ -23,9 +23,9 @@ class ProfileViewModel(private val repository: JoRepository) : ViewModel(),
 
     val parties: LiveData<List<Party>> = repository.getUserParties(me.value?.id ?: "")
 
-    val comingParties: LiveData<List<Party>> = Transformations.map(parties) {
-        it.filter {
-            it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
+    val comingParties = parties.map { parties ->
+        parties.filter { party ->
+            party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
     }
 

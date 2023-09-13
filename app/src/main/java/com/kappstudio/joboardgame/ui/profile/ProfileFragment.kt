@@ -29,8 +29,8 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
 
         val binding = FragmentProfileBinding.inflate(inflater)
         val userId = UserManager.user.value?.id ?: ""
@@ -81,42 +81,38 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        viewModel.viewedGames.observe(viewLifecycleOwner, {
+        viewModel.viewedGames.observe(viewLifecycleOwner) {
             binding.rvGame.adapter = GameAdapter(viewModel).apply {
                 submitList(if (it.size > 20) it.slice(0..19) else it)
             }
-        })
+        }
 
-        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+        viewModel.navToGameDetail.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(ProfileFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
-        })
+        }
 
-        viewModel.comingParties.observe(viewLifecycleOwner, {
+        viewModel.comingParties.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 viewModel.getHosts()
-
-                viewModel.hosts.observe(viewLifecycleOwner, {
+                viewModel.hosts.observe(viewLifecycleOwner) {
                     partyAdapter.submitList(viewModel.comingParties.value)
                     viewModel.status.value = LoadApiStatus.DONE
-                })
+                }
             } else {
                 viewModel.status.value = LoadApiStatus.DONE
             }
-        })
+        }
 
-        viewModel.navToPartyDetail.observe(viewLifecycleOwner, {
+        viewModel.navToPartyDetail.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(PartyFragmentDirections.navToPartyDetailFragment(it))
                 viewModel.onNavToPartyDetail()
             }
-        })
+        }
 
         return binding.root
     }
-
 }
-
-
