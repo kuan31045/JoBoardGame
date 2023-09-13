@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dylanc.activityresult.launcher.EnableLocationLauncher
 import com.google.android.gms.location.*
@@ -26,17 +26,18 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.factory.VMFactory
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 const val taipeiLatitude = 25.0426166
 const val taipeiLongitude = 121.5651808
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
-    private lateinit var partyViewModel: PartyViewModel
     lateinit var binding: FragmentMapBinding
     private var locationPermissionOk = false
     private lateinit var mMap: GoogleMap
@@ -45,9 +46,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     var locationIsUpdate = false
     private lateinit var enableLocationLauncher: EnableLocationLauncher
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        partyViewModel = ViewModelProvider(requireParentFragment())[PartyViewModel::class.java]
+    private val partyViewModel: PartyViewModel by viewModels {
+        VMFactory {
+            PartyViewModel(appInstance.provideJoRepository())
+        }
     }
 
     override fun onCreateView(
@@ -56,6 +58,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMapBinding.inflate(inflater)
+
+        partyViewModel.parties.observe(viewLifecycleOwner) {
+            Timber.d("${partyViewModel.parties.value}")
+        }
 
         enableLocationLauncher = EnableLocationLauncher(this)
         mLocationProviderClient =

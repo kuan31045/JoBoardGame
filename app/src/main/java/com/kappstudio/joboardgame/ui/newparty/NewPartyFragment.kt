@@ -31,6 +31,7 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.game.GameViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
@@ -56,8 +57,14 @@ class NewPartyFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentNewPartyBinding.inflate(inflater)
-        val gameViewModel: GameViewModel by viewModels()
-        startActivityLauncher = StartActivityLauncher(this)
+
+        val gameViewModel: GameViewModel by viewModels {
+            VMFactory {
+                GameViewModel(appInstance.provideJoRepository())
+            }
+        }
+
+         startActivityLauncher = StartActivityLauncher(this)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
