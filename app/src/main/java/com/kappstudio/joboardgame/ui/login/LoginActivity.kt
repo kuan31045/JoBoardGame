@@ -22,7 +22,7 @@ import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {

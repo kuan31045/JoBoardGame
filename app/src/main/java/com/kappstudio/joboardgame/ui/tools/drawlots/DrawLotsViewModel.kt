@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class DrawLotsViewModel : ViewModel() {
 

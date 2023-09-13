@@ -13,7 +13,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding 
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class NewGameFragment : Fragment() {
     lateinit var binding: FragmentNewGameBinding

@@ -7,7 +7,6 @@ import com.kappstudio.joboardgame.data.source.DefaultJoRepository
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.local.JoLocalDataSource
 import com.kappstudio.joboardgame.data.source.remote.JoRemoteDataSource
-import tech.gujin.toast.ToastUtil
 import timber.log.Timber
 import kotlin.properties.Delegates
 
@@ -34,7 +33,6 @@ class JoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ToastUtil.initialize(this)
 
         // 獲取螢幕高度
         val displayMetrics = DisplayMetrics()

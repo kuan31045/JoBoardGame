@@ -34,7 +34,7 @@ import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.game.GameViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 import timber.log.Timber
 
 

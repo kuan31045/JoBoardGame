@@ -15,7 +15,7 @@ import com.kappstudio.joboardgame.screenHeight
 import com.kappstudio.joboardgame.util.setBlurView
 
 import android.widget.RatingBar.OnRatingBarChangeListener
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 
 class RatingDialog : BottomSheetDialogFragment() {

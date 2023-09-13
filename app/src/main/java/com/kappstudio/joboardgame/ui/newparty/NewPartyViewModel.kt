@@ -12,7 +12,7 @@ import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.util.checkEmpty
 import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 private const val DEFAULT_COVER =
     "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/cover1.png?alt=media&token=f3144faf-1e81-4d84-b25e-46e32b64b8f1"

@@ -68,8 +68,7 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
-    //Toast Util
-    implementation 'tech.gujin:toast-util:1.1.1'
+
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"

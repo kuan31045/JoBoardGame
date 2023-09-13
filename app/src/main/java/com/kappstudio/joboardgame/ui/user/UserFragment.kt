@@ -14,7 +14,7 @@ import com.kappstudio.joboardgame.databinding.FragmentUserBinding
 import com.kappstudio.joboardgame.ui.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.ui.profile.ProfileFragmentDirections
 import com.kappstudio.joboardgame.R
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class UserFragment : Fragment() {
 

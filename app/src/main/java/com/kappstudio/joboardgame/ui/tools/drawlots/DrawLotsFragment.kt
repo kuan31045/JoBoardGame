@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.databinding.FragmentDrawLotsBinding
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class DrawLotsFragment : Fragment() {
     lateinit var binding: FragmentDrawLotsBinding

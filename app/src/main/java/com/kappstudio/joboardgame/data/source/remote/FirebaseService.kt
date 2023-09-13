@@ -11,7 +11,7 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.ui.login.UserManager
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 import timber.log.Timber
 import java.util.*
 import kotlin.coroutines.resume

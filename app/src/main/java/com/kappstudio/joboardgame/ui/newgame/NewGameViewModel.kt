@@ -13,7 +13,7 @@ import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class NewGameViewModel : ViewModel() {
 

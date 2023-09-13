@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.databinding.DialogReportBinding
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class ReportDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {

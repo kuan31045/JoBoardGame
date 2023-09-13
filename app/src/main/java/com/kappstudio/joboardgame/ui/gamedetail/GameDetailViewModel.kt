@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.collect
-import tech.gujin.toast.ToastUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class GameDetailViewModel(
     private val gameId: String,
