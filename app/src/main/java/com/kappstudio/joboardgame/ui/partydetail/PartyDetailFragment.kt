@@ -41,7 +41,7 @@ class PartyDetailFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         startActivityLauncher = StartActivityLauncher(this)
@@ -135,13 +135,13 @@ class PartyDetailFragment : Fragment() {
 
         viewModel.reportOk.observe(viewLifecycleOwner) {
             it?.let {
-                ToastUtil.show("檢舉已送出")
+                ToastUtil.show(getString(R.string.report_ok))
 
                 val mAlert = android.app.AlertDialog.Builder(activity)
-                mAlert.setTitle("檢舉已送出")
+                mAlert.setTitle(getString(R.string.report_ok))
                 mAlert.setMessage(getString(R.string.google_play_want_see_this3))
                 mAlert.setCancelable(false)
-                mAlert.setPositiveButton("確定") { _, _ ->
+                mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
                 }
 
                 val mAlertDialog = mAlert.create()
@@ -149,9 +149,7 @@ class PartyDetailFragment : Fragment() {
 
                 viewModel.onReportOk()
             }
-
             viewModel.onReportOk()
-
         }
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner) {
@@ -178,9 +176,7 @@ class PartyDetailFragment : Fragment() {
                         AlertAction(
                             getString(R.string.cancel),
                             AlertActionStyle.DEFAULT
-                        ) { _ ->
-                            // Action 2 callback
-                        })
+                        ) { _ ->})
 
                     alert.show(activity as AppCompatActivity)
                 } else {
@@ -219,6 +215,7 @@ class PartyDetailFragment : Fragment() {
                                 viewModel.uploadPhoto(fileUri)
                             }
                         }
+
                         ImagePicker.RESULT_ERROR -> {
                             ToastUtil.show(ImagePicker.getError(data))
                         }

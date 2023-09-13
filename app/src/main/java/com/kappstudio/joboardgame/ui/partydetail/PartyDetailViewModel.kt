@@ -1,6 +1,5 @@
 package com.kappstudio.joboardgame.ui.partydetail
 
-
 import android.net.Uri
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.*
@@ -14,19 +13,16 @@ import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import tech.gujin.toast.ToastUtil
-import timber.log.Timber
 
 class PartyDetailViewModel(
     private val partyId: String,
-    private val repository: JoRepository
+    private val repository: JoRepository,
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
     val party: LiveData<Party> = repository.getParty(partyId)
-
 
     private var _host = MutableLiveData<User>()
     val host: LiveData<User>
@@ -44,23 +40,18 @@ class PartyDetailViewModel(
     val isSend: LiveData<Boolean>
         get() = _isSend
 
-
     val partyMsgs: LiveData<List<PartyMsg>> = repository.getPartyMsgs(partyId)
 
     private val _reportOk = MutableLiveData<Boolean?>()
     val reportOk: LiveData<Boolean?>
         get() = _reportOk
 
-    val isJoin: LiveData<Boolean> = Transformations.map(party) {
-        it?.playerIdList?.contains(UserManager.user.value?.id ?: "")
+    val isJoin = party.map {
+        it.playerIdList.contains(UserManager.user.value?.id ?: "")
     }
 
-    val playerQtyStatus: LiveData<String> = Transformations.map(party) {
-        var str = "${it?.playerIdList?.size}/${it?.requirePlayerQty}"
-        if (it?.playerIdList?.size ?: 0 < it?.requirePlayerQty ?: 0) {
-            str += appInstance.getString(R.string.lack)
-        }
-        str
+    val playerQtyStatus = party.map {
+        "${it.playerIdList.size}/${it.requirePlayerQty}"
     }
 
     //Msg edittext
@@ -115,23 +106,21 @@ class PartyDetailViewModel(
                 }
             }
         } else {
-            ToastUtil.show("請填寫內容!")
+            ToastUtil.show(appInstance.getString(R.string.enter_content))
         }
-
     }
 
     fun uploadPhoto(fileUri: Uri?) {
         viewModelScope.launch {
             fileUri?.let {
-
                 _status.value = LoadApiStatus.LOADING
 
                 when (val result = FirebaseService.uploadPhoto(it)) {
                     is Resource.Success -> {
                         val res = result.data
-                        Timber.d("Photo: $res")
                         addPartyPhoto(res)
                     }
+
                     else -> {
                         ToastUtil.show(appInstance.getString(R.string.upload_fail))
                         _status.value = LoadApiStatus.ERROR
@@ -148,6 +137,7 @@ class PartyDetailViewModel(
                     ToastUtil.show(appInstance.getString(R.string.upload_ok))
                     _status.value = LoadApiStatus.DONE
                 }
+
                 else -> {
                     ToastUtil.show(appInstance.getString(R.string.upload_fail))
                     _status.value = LoadApiStatus.ERROR

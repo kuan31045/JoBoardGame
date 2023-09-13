@@ -38,7 +38,6 @@
     <string name="welcome">Welcome!</string>
     <string name="bye">"Bye~"</string>
     <string name="peopleQty">人數:</string>
-    <string name="lack"> (缺)</string>
 
 
     <!--Game-->
@@ -287,6 +286,7 @@ kuanappstudio@gmail.com</string>
     <string name="enter_desc">請填寫說明!</string>
     <string name="enter_people_qty">請填寫徵求人數!</string>
     <string name="enter_place">請填寫地點!</string>
+    <string name="enter_content">請填寫內容</string>
 
 
 </resources>

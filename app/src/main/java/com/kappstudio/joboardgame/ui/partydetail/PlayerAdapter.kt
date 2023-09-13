@@ -7,24 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.User
-import timber.log.Timber
-
 import com.kappstudio.joboardgame.databinding.ItemPlayerBinding
-
 
 class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
     ListAdapter<User, PlayerAdapter.PlayerViewHolder>(DiffCallback) {
-    init {
-        Timber.d(" init")
-
-    }
 
     inner class PlayerViewHolder(private val binding: ItemPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(user: User, viewModel: PartyDetailViewModel) {
-
-            Timber.d("bind")
             bindImage(binding.ivUser, user.image)
             binding.tvName.text = user.name
             binding.clUser.setOnClickListener {
@@ -44,7 +34,6 @@ class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        Timber.d("create")
         return PlayerViewHolder(
             ItemPlayerBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -55,8 +44,6 @@ class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
     }
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
-        Timber.d("BindViewHolde")
-
         holder.bind(getItem(position), viewModel)
     }
 }
