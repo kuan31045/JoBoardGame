@@ -12,23 +12,25 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class UserViewModel(private val userId: String, private val repository: JoRepository) :
-    ViewModel(),
-    NavToPartyDetailInterface, NavToUserInterface {
+    ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
+
     private var _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
+
     private var _hosts = MutableLiveData<List<User>>()
     override val hosts: LiveData<List<User>>
         get() = _hosts
+
     val me: LiveData<User> = UserManager.user
 
     private var _parties = MutableLiveData<List<Party>>(mutableListOf())
     val parties: LiveData<List<Party>>
         get() = _parties
 
-    val comingParties: LiveData<List<Party>> = Transformations.map(parties) {
-        it.filter {
-            it.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
+    val comingParties: LiveData<List<Party>> = parties.map { parties ->
+        parties.filter { party ->
+            party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
     }
 
@@ -47,13 +49,9 @@ class UserViewModel(private val userId: String, private val repository: JoReposi
     fun checkFriendStatus() {
         _friendStatus.value = when {
             userId == me.value?.id -> FriendStatus.IS_ME
-
             user.value?.friendList?.contains(me.value?.id) == true -> FriendStatus.IS_FRIEND
-
             user.value?.requestList?.contains(me.value?.id) == true -> FriendStatus.SEND_FROM_ME
-
             me.value?.requestList?.contains(user.value?.id) == true -> FriendStatus.SEND_TO_ME
-
             else -> FriendStatus.CAN_SEND
         }
     }
