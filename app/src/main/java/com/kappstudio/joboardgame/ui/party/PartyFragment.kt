@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
 import com.kappstudio.joboardgame.util.ToastUtil
 
@@ -22,7 +23,7 @@ class PartyFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         val binding = FragmentPartyBinding.inflate(inflater)
@@ -35,13 +36,23 @@ class PartyFragment : Fragment() {
         }
 
         viewModel.parties.observe(viewLifecycleOwner) {
-            ToastUtil.show("observe")
             if (it.isNotEmpty()) {
                 viewModel.getHosts()
 
                 viewModel.hosts.observe(viewLifecycleOwner) {
                     adapter.submitList(viewModel.parties.value)
-                 }
+                    viewModel.status.value = LoadApiStatus.DONE
+                }
+            } else {
+                viewModel.status.value = LoadApiStatus.DONE
+            }
+        }
+
+        viewModel.status.observe(viewLifecycleOwner) {
+            binding.lottieLoading.visibility = if (it == LoadApiStatus.LOADING) {
+                View.VISIBLE
+            } else {
+                View.GONE
             }
         }
 
