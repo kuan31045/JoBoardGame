@@ -67,11 +67,11 @@ class PartyAdapter(private val viewModel: ViewModel) :
 
     companion object DiffCallback : DiffUtil.ItemCallback<Party>() {
         override fun areItemsTheSame(oldItem: Party, newItem: Party): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.playerIdList == newItem.playerIdList
         }
 
         override fun areContentsTheSame(oldItem: Party, newItem: Party): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id && oldItem.playerIdList == newItem.playerIdList
         }
     }
 

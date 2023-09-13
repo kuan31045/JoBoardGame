@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class PartyFragment : Fragment() {
 
@@ -34,12 +35,13 @@ class PartyFragment : Fragment() {
         }
 
         viewModel.parties.observe(viewLifecycleOwner) {
+            ToastUtil.show("observe")
             if (it.isNotEmpty()) {
                 viewModel.getHosts()
 
                 viewModel.hosts.observe(viewLifecycleOwner) {
                     adapter.submitList(viewModel.parties.value)
-                }
+                 }
             }
         }
 

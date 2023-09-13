@@ -10,5 +10,4 @@ class GameViewModel(repository: JoRepository) : ViewModel(),
     NavToGameDetailInterface {
 
     val games: LiveData<List<Game>> = repository.getGames()
-
 }

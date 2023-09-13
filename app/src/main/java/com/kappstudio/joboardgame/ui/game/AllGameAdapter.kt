@@ -25,25 +25,23 @@ class AllGameAdapter(private val viewModel: ViewModel) :
                 tvTime.text = game.time.toString()
                 tvPlayerQty.text = "${game.minPlayerQty}-${game.maxPlayerQty}"
                 val avg = game.totalRating / game.ratingQty.toFloat()
+
                 if (game.ratingQty > 0) {
                     tvRating.text = ((avg * 10.0).roundToInt() / 10.0).toString()
                     tvRating.visibility = View.VISIBLE
                 } else {
                     tvRating.visibility = View.GONE
                 }
+
                 bindImage(ivGame, game.image)
 
                 game.type.forEach {
                     tvType.text = "${tvType.text}$it"
-
                     if (it != game.type.last()) {
                         tvType.text = "${tvType.text} | "
 
                     }
                 }
-
-
-
 
                 clGame.setOnClickListener {
                     when (viewModel) {
@@ -73,7 +71,6 @@ class AllGameAdapter(private val viewModel: ViewModel) :
             )
         )
     }
-
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         holder.bind(getItem(position), viewModel)

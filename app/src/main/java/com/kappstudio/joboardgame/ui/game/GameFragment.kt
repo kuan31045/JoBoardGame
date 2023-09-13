@@ -18,12 +18,12 @@ class GameFragment : Fragment() {
             GameViewModel(appInstance.provideJoRepository())
         }
     }
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
 
         val binding = FragmentGameBinding.inflate(inflater)
         val adapter = AllGameAdapter(viewModel)
@@ -34,16 +34,16 @@ class GameFragment : Fragment() {
             findNavController().navigate(GameFragmentDirections.navToNewGameFragment(""))
         }
 
-        viewModel.games.observe(viewLifecycleOwner, {
+        viewModel.games.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
-        viewModel.navToGameDetail.observe(viewLifecycleOwner, {
+        viewModel.navToGameDetail.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(GameFragmentDirections.navToGameDetailFragment(it.id))
                 viewModel.onNavToGameDetail()
             }
-        })
+        }
 
         return binding.root
     }
