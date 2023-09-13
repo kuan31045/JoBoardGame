@@ -19,30 +19,33 @@ class DrawDialog : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         val binding = DialogDrawBinding.inflate(inflater, container, false)
-
         val item = DrawDialogArgs.fromBundle(requireArguments()).item
-
         val animSet = AnimationSet(true)
+
         animSet.fillAfter = true
         animSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.amin_scale))
         animSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.amin_rotate))
 
         binding.lottieDraw.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationStart(p0: Animator) {
+                TODO("Not yet implemented")
             }
-            override fun onAnimationEnd(animation: Animator?) {
-                //Add your code here for animation end
+
+            override fun onAnimationEnd(p0: Animator) {
                 binding.tvTitleResult.visibility = View.VISIBLE
                 binding.tvResult.text = item
                 binding.tvResult.startAnimation(animSet)
             }
-            override fun onAnimationCancel(animation: Animator?) {
+
+            override fun onAnimationCancel(p0: Animator) {
+                TODO("Not yet implemented")
             }
-            override fun onAnimationStart(animation: Animator?) {
+
+            override fun onAnimationRepeat(p0: Animator) {
+                TODO("Not yet implemented")
             }
         })
 

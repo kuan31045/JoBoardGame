@@ -29,8 +29,8 @@ class DrawLotsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = FragmentDrawLotsBinding.inflate(inflater)
 
@@ -39,13 +39,19 @@ class DrawLotsFragment : Fragment() {
         }
 
         binding.etAddItem.setOnFocusChangeListener { v, hasFocus ->
-            binding.etAddItem.let { ContextCompat.getSystemService(it.context, InputMethodManager::class.java) }
+            binding.etAddItem.let {
+                ContextCompat.getSystemService(
+                    it.context,
+                    InputMethodManager::class.java
+                )
+            }
                 ?.showSoftInput(binding.etAddItem, InputMethodManager.SHOW_IMPLICIT)
         }
 
         binding.btnAdd.setOnClickListener {
             addItem()
         }
+
         binding.etAddItem.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 addItem()
@@ -63,18 +69,18 @@ class DrawLotsFragment : Fragment() {
             }
         }
 
-        viewModel.items.observe(viewLifecycleOwner, {
+        viewModel.items.observe(viewLifecycleOwner) {
             binding.rvItem.adapter = DrawItemAdapter(viewModel).apply {
                 submitList(it)
             }
-        })
+        }
 
-        viewModel.navToDraw.observe(viewLifecycleOwner, {
+        viewModel.navToDraw.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(DrawLotsFragmentDirections.navToDrawDialog(it))
                 viewModel.onNavToDraw()
             }
-        })
+        }
 
         return binding.root
     }
@@ -87,8 +93,4 @@ class DrawLotsFragment : Fragment() {
             binding.etAddItem.setText("")
         }
     }
-
-
-
-
 }

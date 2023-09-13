@@ -14,13 +14,11 @@ class DrawItemAdapter(var viewModel: DrawLotsViewModel) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int, item: String, viewModel: DrawLotsViewModel) {
-            binding.tvPosition.text = (position + 1).toString()+"."
+            binding.tvPosition.text = (position + 1).toString() + "."
             binding.tvItem.text = item
-
             binding.ivRemove.setOnClickListener {
                 viewModel.removeItem(item)
             }
-
         }
     }
 

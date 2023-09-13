@@ -287,6 +287,7 @@ kuanappstudio@gmail.com</string>
     <string name="enter_people_qty">請填寫徵求人數!</string>
     <string name="enter_place">請填寫地點!</string>
     <string name="enter_content">請填寫內容</string>
+    <string name="already_in_draw_list">已經在抽籤項目了!</string>
 
 
 </resources>
