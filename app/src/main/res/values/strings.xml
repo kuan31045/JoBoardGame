@@ -288,6 +288,9 @@ kuanappstudio@gmail.com</string>
     <string name="enter_place">請填寫地點!</string>
     <string name="enter_content">請填寫內容</string>
     <string name="already_in_draw_list">已經在抽籤項目了!</string>
+    <string name="term">Jo桌遊使用條款</string>
+    <string name="accept">接受</string>
+    <string name="reject">拒絕</string>
 
 
 </resources>

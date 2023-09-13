@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "531495186078-874r49lv0kta3l8g1heb3lg8ohfj5m7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kappstudio.joboardgame",
+            "certificate_hash": "343f844c562a6f9bf2abecd55368713ea902d7cd"
+          }
+        },
+        {
           "client_id": "531495186078-l08lr7vsmek2cfcj20ecda5bd747hshg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -30,36 +38,7 @@
           }
         },
         {
-          "client_id": "531495186078-1aumage7ncnt1rs312t6c8tv6e7ekllr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB3LHlKyZ8MazCi-pgmxS-Ot2295TKjqPE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "531495186078-1aumage7ncnt1rs312t6c8tv6e7ekllr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:531495186078:android:91d47797ca41b84c49958f",
-        "android_client_info": {
-          "package_name": "com.kappstudio.jotabletopgame"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "531495186078-1aumage7ncnt1rs312t6c8tv6e7ekllr.apps.googleusercontent.com",
+          "client_id": "531495186078-84tui9r69slel2kuicflsn78u52p15r5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

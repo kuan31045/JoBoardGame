@@ -41,16 +41,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val mAlert = AlertDialog.Builder(this)
-        mAlert.setTitle("Jo桌遊使用條款")
+        mAlert.setTitle(getString(R.string.term))
         mAlert.setMessage(getString(R.string.google_play_want_see_this2))
         mAlert.setCancelable(false)
-        mAlert.setPositiveButton("接受") { _, _ ->
+        mAlert.setPositiveButton(getString(R.string.accept)) { _, _ ->
         }
-        mAlert.setNegativeButton("拒絕") { _, _ ->
+        mAlert.setNegativeButton(getString(R.string.reject)) { _, _ ->
             finishApp()
         }
         val mAlertDialog = mAlert.create()
         mAlertDialog.show()
+
         auth = Firebase.auth
         startActivityLauncher = StartActivityLauncher(this)
 
@@ -91,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
                         Timber.d("google signInResult:failed code=" + e.message)
                     }
                 }
+
                 else -> {
                     ToastUtil.show(getString(R.string.login_fail))
                     binding.lottiePoker.visibility = View.GONE
@@ -123,10 +125,9 @@ class LoginActivity : AppCompatActivity() {
             image = (account.photoUrl ?: "").toString(),
         )
         viewModel.addUser(user)
-     }
+    }
 
     private fun finishApp() {
         finish()
     }
-
 }
