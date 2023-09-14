@@ -4,8 +4,9 @@ import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class PartyViewModel(private val repository: JoRepository) : ViewModel(),
     NavToPartyDetailInterface {
@@ -17,6 +18,10 @@ class PartyViewModel(private val repository: JoRepository) : ViewModel(),
         get() = _hosts
 
     val status = MutableLiveData(LoadApiStatus.LOADING)
+
+    init {
+        ToastUtil.show("PartyViewModel init")
+    }
 
     fun getHosts() {
         val hostIdList = parties.value?.map { it.hostId }?.distinctBy { it }

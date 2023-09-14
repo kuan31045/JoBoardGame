@@ -6,7 +6,7 @@ import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
@@ -72,7 +72,7 @@ class PartyDetailViewModel(
     fun joinParty() {
         coroutineScope.launch {
             repository.joinParty(partyId).collect {
-                if (it is Resource.Success) {
+                if (it is Result.Success) {
                     ToastUtil.show(appInstance.getString(R.string.welcome))
                 }
             }
@@ -82,7 +82,7 @@ class PartyDetailViewModel(
     fun leaveParty() {
         coroutineScope.launch {
             repository.leaveParty(partyId).collect {
-                if (it is Resource.Success) {
+                if (it is Result.Success) {
                     ToastUtil.show(appInstance.getString(R.string.bye))
                 }
             }
@@ -116,7 +116,7 @@ class PartyDetailViewModel(
                 _status.value = LoadApiStatus.LOADING
 
                 when (val result = FirebaseService.uploadPhoto(it)) {
-                    is Resource.Success -> {
+                    is Result.Success -> {
                         val res = result.data
                         addPartyPhoto(res)
                     }
@@ -133,7 +133,7 @@ class PartyDetailViewModel(
     private suspend fun addPartyPhoto(photo: String) {
         viewModelScope.launch {
             when (FirebaseService.addPartyPhoto(partyId, photo)) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     ToastUtil.show(appInstance.getString(R.string.upload_ok))
                     _status.value = LoadApiStatus.DONE
                 }

@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,14 +23,11 @@ import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
 import com.kappstudio.joboardgame.util.ToastUtil
 import timber.log.Timber
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    val viewModel: LoginViewModel by viewModels {
-        VMFactory {
-            LoginViewModel(appInstance.provideJoRepository())
-        }
-    }
+    val viewModel: LoginViewModel by viewModel()
     private lateinit var startActivityLauncher: StartActivityLauncher
     private lateinit var auth: FirebaseAuth
 

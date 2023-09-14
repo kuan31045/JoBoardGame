@@ -5,13 +5,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.kappstudio.joboardgame.data.source.local.JoConverters
+import com.kappstudio.joboardgame.data.source.room.Converters
 import kotlinx.parcelize.Parcelize
 import java.util.*
 import kotlin.collections.HashMap
 
 @Entity(tableName = "jo_game_table")
-@TypeConverters(JoConverters::class)
+@TypeConverters(Converters::class)
 @Parcelize
 data class Game(
     @PrimaryKey

@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
+        <import type="com.kappstudio.joboardgame.util.LoadApiStatus" />
 
         <import type="com.kappstudio.joboardgame.ui.user.FriendStatus" />
 

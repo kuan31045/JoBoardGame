@@ -115,7 +115,7 @@ object FirebaseService {
             }
     }
 
-    suspend fun addUser(user: User): Resource<Boolean> =
+    suspend fun addUser(user: User): Result<Boolean> =
         suspendCoroutine { continuation ->
             Timber.d("-----Add User------------------------------")
 
@@ -132,17 +132,17 @@ object FirebaseService {
                         postUser.set(user)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    continuation.resume(Resource.Success(true))
+                                    continuation.resume(Result.Success(true))
                                 } else {
                                     task.exception?.let {
                                         Timber.w(
                                             "[${this::class.simpleName}] Error getting documents. ${it.message}"
                                         )
-                                        continuation.resume(Resource.Error(it))
+                                        continuation.resume(Result.Error(it))
                                         return@addOnCompleteListener
                                     }
                                     continuation.resume(
-                                        Resource.Fail(
+                                        Result.Fail(
                                             appInstance.getString(
                                                 R.string.nothing
                                             )
@@ -151,13 +151,13 @@ object FirebaseService {
                                 }
                             }
                     } else {
-                        continuation.resume(Resource.Success(true))
+                        continuation.resume(Result.Success(true))
                     }
                 }
         }
 
 
-    suspend fun addPartyPhoto(partyId: String, photo: String): Resource<String> =
+    suspend fun addPartyPhoto(partyId: String, photo: String): Result<String> =
         suspendCoroutine { continuation ->
             Timber.d("-----Add Party Photo------------------------------")
             FirebaseFirestore.getInstance()
@@ -170,21 +170,21 @@ object FirebaseService {
                             .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
                             .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
 
-                        continuation.resume(Resource.Success("success"))
+                        continuation.resume(Result.Success("success"))
                     } else {
                         task.exception?.let {
                             Timber.w("[${this::class.simpleName}] Error adding photo. ${it.message}")
-                            continuation.resume(Resource.Error(it))
+                            continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
                         continuation.resume(
-                            Resource.Fail(appInstance.getString(R.string.nothing))
+                            Result.Fail(appInstance.getString(R.string.nothing))
                         )
                     }
                 }
         }
 
-    suspend fun uploadPhoto(imgUri: Uri): Resource<String> =
+    suspend fun uploadPhoto(imgUri: Uri): Result<String> =
         suspendCoroutine { continuation ->
             Timber.d("-----Upload Photo------------------------------")
 
@@ -201,27 +201,27 @@ object FirebaseService {
                         task.result.storage.downloadUrl.addOnCompleteListener {
                             if (it.isSuccessful) {
                                 Timber.d("Upload Photo Success: $fileName")
-                                continuation.resume(Resource.Success(it.result.toString()))
+                                continuation.resume(Result.Success(it.result.toString()))
                             } else {
                                 task.exception?.let { exception ->
 
                                     Timber.w("[${this::class.simpleName}] Error uploading img. ${exception.message}")
-                                    continuation.resume(Resource.Error(exception))
+                                    continuation.resume(Result.Error(exception))
                                     return@let
                                 }
                                 continuation.resume(
-                                    Resource.Fail(appInstance.getString(R.string.nothing))
+                                    Result.Fail(appInstance.getString(R.string.nothing))
                                 )
                             }
                         }
                     } else {
                         task.exception?.let {
                             Timber.w("[${this::class.simpleName}] Error uploading img. ${it.message}")
-                            continuation.resume(Resource.Error(it))
+                            continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
                         continuation.resume(
-                            Resource.Fail(appInstance.getString(R.string.nothing))
+                            Result.Fail(appInstance.getString(R.string.nothing))
                         )
                     }
                 }

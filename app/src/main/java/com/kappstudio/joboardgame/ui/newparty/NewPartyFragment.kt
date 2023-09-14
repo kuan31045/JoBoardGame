@@ -30,7 +30,7 @@ import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.game.GameViewModel

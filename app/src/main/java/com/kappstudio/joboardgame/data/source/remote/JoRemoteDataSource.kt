@@ -262,7 +262,7 @@ object JoRemoteDataSource : JoDataSource {
         return liveData
     }
 
-    override suspend fun joinParty(id: String): Flow<Resource<Boolean>> =
+    override suspend fun joinParty(id: String): Flow<Result<Boolean>> =
         flow {
             Timber.d("-----Join Party------------------------------")
 
@@ -274,13 +274,13 @@ object JoRemoteDataSource : JoDataSource {
                     FieldValue.arrayUnion(UserManager.user.value?.id ?: "")
                 )
 
-            emit(Resource.Success(true))
+            emit(Result.Success(true))
 
         }.flowOn(Dispatchers.IO).catch {
-            Resource.Fail(it.message.toString())
+            Result.Fail(it.message.toString())
         }
 
-    override suspend fun leaveParty(id: String): Flow<Resource<Boolean>> =
+    override suspend fun leaveParty(id: String): Flow<Result<Boolean>> =
         flow {
             Timber.d("-----Leave Party------------------------------")
 
@@ -292,13 +292,13 @@ object JoRemoteDataSource : JoDataSource {
                     FieldValue.arrayRemove(UserManager.user.value?.id ?: "")
                 )
 
-            emit(Resource.Success(true))
+            emit(Result.Success(true))
 
         }.flowOn(Dispatchers.IO).catch {
-            Resource.Fail(it.message.toString())
+            Result.Fail(it.message.toString())
         }
 
-    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> =
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
         flow {
             Timber.d("-----Insert Favorite------------------------------")
 
@@ -307,13 +307,13 @@ object JoRemoteDataSource : JoDataSource {
                 .document(UserManager.user.value?.id ?: "")
                 .update("favoriteGames", FieldValue.arrayUnion(gameMap))
 
-            emit(Resource.Success(true))
+            emit(Result.Success(true))
 
         }.flowOn(Dispatchers.IO).catch {
-            Resource.Fail(it.message.toString())
+            Result.Fail(it.message.toString())
         }
 
-    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> =
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
         flow {
             Timber.d("-----Delete Favorite------------------------------")
 
@@ -322,10 +322,10 @@ object JoRemoteDataSource : JoDataSource {
                 .document(UserManager.user.value?.id ?: "")
                 .update("favoriteGames", FieldValue.arrayRemove(gameMap))
 
-            emit(Resource.Success(true))
+            emit(Result.Success(true))
 
         }.flowOn(Dispatchers.IO).catch {
-            Resource.Fail(it.message.toString())
+            Result.Fail(it.message.toString())
         }
 
     private fun sortParty(parties: List<Party>): List<Party> {

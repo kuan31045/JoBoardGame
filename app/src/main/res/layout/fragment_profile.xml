@@ -8,7 +8,7 @@
 
         <import type="android.view.View" />
 
-        <import type="com.kappstudio.joboardgame.data.source.remote.LoadApiStatus" />
+        <import type="com.kappstudio.joboardgame.util.LoadApiStatus" />
 
         <variable
             name="viewModel"

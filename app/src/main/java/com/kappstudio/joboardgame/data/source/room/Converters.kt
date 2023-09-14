@@ -1,11 +1,11 @@
-package com.kappstudio.joboardgame.data.source.local
+package com.kappstudio.joboardgame.data.source.room
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 
-class JoConverters {
+class Converters {
     /**
      * Convert [List] [String] to Json
      */

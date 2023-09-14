@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.local
+package com.kappstudio.joboardgame.data.source.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -8,7 +8,7 @@ import androidx.room.Update
 import com.kappstudio.joboardgame.data.Game
 
 @Dao
-interface JoDatabaseDao {
+interface GameDao {
     @Insert
     suspend fun insert(game: Game)
 

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentProfileBinding
 import com.kappstudio.joboardgame.ui.game.GameAdapter
 import com.kappstudio.joboardgame.ui.login.LoginActivity

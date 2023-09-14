@@ -291,6 +291,7 @@ kuanappstudio@gmail.com</string>
     <string name="term">Jo桌遊使用條款</string>
     <string name="accept">接受</string>
     <string name="reject">拒絕</string>
+    <string name="register_fail">註冊失敗!</string>
 
 
 </resources>

@@ -6,9 +6,9 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.source.remote.FirebaseService
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.Resource
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.data.toGameMap
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +17,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.math.roundToInt
-import kotlinx.coroutines.flow.collect
 import com.kappstudio.joboardgame.util.ToastUtil
 
 class GameDetailViewModel(
@@ -88,7 +87,7 @@ class GameDetailViewModel(
             coroutineScope.launch {
                 status.value = LoadApiStatus.LOADING
                 repository.insertFavorite(toGameMap(game.value ?: Game())).collect {
-                    if (it is Resource.Success) {
+                    if (it is Result.Success) {
                         ToastUtil.show(appInstance.getString(R.string.favorite_in))
                     }
                 }
@@ -98,7 +97,7 @@ class GameDetailViewModel(
         } else {
             coroutineScope.launch {
                 repository.removeFavorite(toGameMap(game.value ?: Game())).collect {
-                    if (it is Resource.Success) {
+                    if (it is Result.Success) {
                         ToastUtil.show(appInstance.getString(R.string.favorite_out))
                     }
                 }

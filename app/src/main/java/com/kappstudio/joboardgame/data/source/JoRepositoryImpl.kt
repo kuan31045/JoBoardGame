@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import java.util.HashMap
 
-class DefaultJoRepository(
+class JoRepositoryImpl(
     private val joRemoteDataSource: JoDataSource,
     private val joLocalDataSource: JoDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -70,19 +70,19 @@ class DefaultJoRepository(
         return joRemoteDataSource.getUserRatings(id)
     }
 
-    override suspend fun joinParty(id: String): Flow<Resource<Boolean>> {
+    override suspend fun joinParty(id: String): Flow<Result<Boolean>> {
         return joRemoteDataSource.joinParty(id)
     }
 
-    override suspend fun leaveParty(id: String): Flow<Resource<Boolean>> {
+    override suspend fun leaveParty(id: String): Flow<Result<Boolean>> {
         return joRemoteDataSource.leaveParty(id)
     }
 
-    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> {
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> {
         return joRemoteDataSource.insertFavorite(gameMap)
     }
 
-    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>> {
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> {
         return joRemoteDataSource.removeFavorite(gameMap)
     }
 

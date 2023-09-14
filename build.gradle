@@ -3,6 +3,7 @@
 buildscript {
     ext {
         compose_version = '1.5.0'
+        koin_android_version = '3.5.0'
     }
     repositories {
         google()

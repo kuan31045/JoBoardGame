@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.remote
+package com.kappstudio.joboardgame.util
 
 enum class LoadApiStatus {
     LOADING,

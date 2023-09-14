@@ -3,10 +3,14 @@ package com.kappstudio.joboardgame
 import android.app.Application
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.kappstudio.joboardgame.data.source.DefaultJoRepository
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.local.JoLocalDataSource
+import com.kappstudio.joboardgame.data.source.JoRepositoryImpl
+import com.kappstudio.joboardgame.data.source.room.JoLocalDataSource
 import com.kappstudio.joboardgame.data.source.remote.JoRemoteDataSource
+import com.kappstudio.joboardgame.di.appModule
+import com.kappstudio.joboardgame.di.repositoryModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 import kotlin.properties.Delegates
 
@@ -24,7 +28,7 @@ class JoApplication : Application() {
 
     fun provideJoRepository(): JoRepository {
         synchronized(this) {
-            return joRepository ?: DefaultJoRepository(
+            return joRepository ?: JoRepositoryImpl(
                 JoRemoteDataSource,
                 JoLocalDataSource(this)
             )
@@ -34,15 +38,19 @@ class JoApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // 獲取螢幕高度
+        startKoin {
+            androidContext(this@JoApplication)
+            modules(appModule, repositoryModule)
+        }
+
         val displayMetrics = DisplayMetrics()
         val windowsManager = this.getSystemService(WINDOW_SERVICE) as WindowManager
         windowsManager.defaultDisplay.getMetrics(displayMetrics)
         _screenHeight = displayMetrics.heightPixels
         _appInstance = this
 
-        //if (BuildConfig.DEBUG) {
-        Timber.plant(Timber.DebugTree())
-        //}
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }

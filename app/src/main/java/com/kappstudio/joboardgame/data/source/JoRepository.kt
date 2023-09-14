@@ -36,12 +36,12 @@ interface JoRepository {
 
     fun getUserRatings(id: String): MutableLiveData<List<Rating>>
 
-    suspend fun joinParty(id: String): Flow<Resource<Boolean>>
+    suspend fun joinParty(id: String): Flow<Result<Boolean>>
 
-    suspend fun leaveParty(id: String): Flow<Resource<Boolean>>
+    suspend fun leaveParty(id: String): Flow<Result<Boolean>>
 
-    suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>>
+    suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
 
-    suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Resource<Boolean>>
+    suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
 
 }

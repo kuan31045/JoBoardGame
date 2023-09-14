@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.local
+package com.kappstudio.joboardgame.data.source.room
 
 import android.content.Context
 import androidx.room.Database
@@ -8,7 +8,7 @@ import com.kappstudio.joboardgame.data.Game
 
 @Database(entities = [Game::class], version = 1)
 abstract class JoDatabase : RoomDatabase() {
-    abstract val joDatabaseDao: JoDatabaseDao
+    abstract val gameDao: GameDao
 
     companion object {
         @Volatile

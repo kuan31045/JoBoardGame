@@ -9,9 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
-import com.kappstudio.joboardgame.util.ToastUtil
 
 class PartyFragment : Fragment() {
 

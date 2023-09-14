@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.data.source.remote.LoadApiStatus
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding 
 import com.kappstudio.joboardgame.util.ToastUtil
 

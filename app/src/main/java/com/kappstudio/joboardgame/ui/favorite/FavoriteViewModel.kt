@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Game
-import com.kappstudio.joboardgame.data.Resource
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.toGameMap
@@ -12,7 +12,6 @@ import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.util.ToastUtil
 
@@ -32,7 +31,7 @@ class FavoriteViewModel(userId: String, private val repository: JoRepository) : 
     fun removeFavorite(game: Game) {
         coroutineScope.launch {
             repository.removeFavorite(toGameMap(game)).collect {
-                if (it is Resource.Success) {
+                if (it is Result.Success) {
                     ToastUtil.show(appInstance.getString(R.string.favorite_out))
                 }
             }
