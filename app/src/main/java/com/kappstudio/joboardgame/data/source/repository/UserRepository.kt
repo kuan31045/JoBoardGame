@@ -26,25 +26,26 @@ class UserRepositoryImpl : UserRepository {
             .whereEqualTo(FIELD_ID, user.id)
             .get()
             .addOnCompleteListener { userTask ->
-                if (userTask.isSuccessful && !userTask.result.isEmpty) {
-                    Result.Success(true)
+
+                if (!userTask.isSuccessful) {
+                    Result.Fail(appInstance.getString(R.string.login_fail))
                 }
 
-                firestore.collection(COLLECTION_USERS).document(user.id).set(user)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Result.Success(true)
-                        } else {
-                            task.exception?.let {
-                                Timber.w(
-                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                                )
-                                return@addOnCompleteListener
+                if (userTask.result.isEmpty) {
+                    firestore.collection(COLLECTION_USERS).document(user.id).set(user)
+                        .addOnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    Timber.w(
+                                        "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                                    )
+                                }
+                                Result.Fail(appInstance.getString(R.string.login_fail))
                             }
                         }
-                    }
+                }
             }
-        Result.Fail(appInstance.getString(R.string.login_fail))
+        Result.Success(true)
     }
 
     private companion object {

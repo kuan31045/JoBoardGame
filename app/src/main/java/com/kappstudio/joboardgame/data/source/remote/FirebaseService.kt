@@ -115,47 +115,6 @@ object FirebaseService {
             }
     }
 
-    suspend fun addUser(user: User): Result<Boolean> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Add User------------------------------")
-
-            val query = FirebaseFirestore.getInstance()
-
-            FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
-                .whereEqualTo("id", user.id)
-                .get()
-                .addOnCompleteListener { userTask ->
-                    if (userTask.isSuccessful && userTask.result.isEmpty) {
-
-                        val postUser = query.collection(COLLECTION_USERS).document(user.id)
-
-                        postUser.set(user)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    continuation.resume(Result.Success(true))
-                                } else {
-                                    task.exception?.let {
-                                        Timber.w(
-                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                                        )
-                                        continuation.resume(Result.Error(it))
-                                        return@addOnCompleteListener
-                                    }
-                                    continuation.resume(
-                                        Result.Fail(
-                                            appInstance.getString(
-                                                R.string.nothing
-                                            )
-                                        )
-                                    )
-                                }
-                            }
-                    } else {
-                        continuation.resume(Result.Success(true))
-                    }
-                }
-        }
-
 
     suspend fun addPartyPhoto(partyId: String, photo: String): Result<String> =
         suspendCoroutine { continuation ->
