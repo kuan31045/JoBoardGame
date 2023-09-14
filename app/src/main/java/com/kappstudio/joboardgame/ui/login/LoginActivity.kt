@@ -17,8 +17,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kappstudio.joboardgame.MainActivity
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.factory.VMFactory
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -26,6 +24,7 @@ import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
+
     lateinit var binding: ActivityLoginBinding
     val viewModel: LoginViewModel by viewModel()
     private lateinit var startActivityLauncher: StartActivityLauncher

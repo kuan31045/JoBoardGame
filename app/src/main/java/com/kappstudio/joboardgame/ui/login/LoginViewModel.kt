@@ -9,11 +9,10 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.repository.UserRepository
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.util.ToastUtil
 
-class LoginViewModel (
+class LoginViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
