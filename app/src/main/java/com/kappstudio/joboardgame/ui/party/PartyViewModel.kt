@@ -11,8 +11,7 @@ import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
 class PartyViewModel(
     partyRepository: PartyRepository,
     private val userRepository: UserRepository,
-) : ViewModel(),
-    NavToPartyDetailInterface {
+) : ViewModel(), NavToPartyDetailInterface {
 
     val parties: LiveData<List<Party>> = partyRepository.getParties()
 
