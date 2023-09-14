@@ -34,8 +34,10 @@ import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.game.GameViewModel
+import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.ToastUtil
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import timber.log.Timber
 
 
@@ -44,6 +46,10 @@ class NewPartyFragment : Fragment() {
     lateinit var viewModel: NewPartyViewModel
 
     private lateinit var startActivityLauncher: StartActivityLauncher
+
+    private val gameViewModel by lazy {
+        requireParentFragment().getViewModel<GameViewModel>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +64,7 @@ class NewPartyFragment : Fragment() {
     ): View? {
         binding = FragmentNewPartyBinding.inflate(inflater)
 
-        val gameViewModel: GameViewModel by viewModels {
-            VMFactory {
-                GameViewModel(appInstance.provideJoRepository())
-            }
-        }
+
 
          startActivityLauncher = StartActivityLauncher(this)
         binding.lifecycleOwner = viewLifecycleOwner

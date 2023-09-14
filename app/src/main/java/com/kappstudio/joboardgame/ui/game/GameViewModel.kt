@@ -3,11 +3,12 @@ package com.kappstudio.joboardgame.ui.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kappstudio.joboardgame.data.Game
-import com.kappstudio.joboardgame.data.source.JoRepository
+import com.kappstudio.joboardgame.data.source.repository.GameRepository
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 
-class GameViewModel(repository: JoRepository) : ViewModel(),
-    NavToGameDetailInterface {
+class GameViewModel(
+    gameRepository: GameRepository,
+) : ViewModel(), NavToGameDetailInterface {
 
-    val games: LiveData<List<Game>> = repository.getGames()
+    val games: LiveData<List<Game>> = gameRepository.getGames()
 }

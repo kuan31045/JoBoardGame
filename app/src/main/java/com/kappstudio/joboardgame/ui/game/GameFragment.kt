@@ -5,19 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.factory.VMFactory
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentGameBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameFragment : Fragment() {
 
-    val viewModel: GameViewModel by viewModels {
-        VMFactory {
-            GameViewModel(appInstance.provideJoRepository())
-        }
-    }
+    val viewModel: GameViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

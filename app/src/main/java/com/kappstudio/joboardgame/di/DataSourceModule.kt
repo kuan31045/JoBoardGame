@@ -1,5 +1,7 @@
 package com.kappstudio.joboardgame.di
 
+import com.kappstudio.joboardgame.data.source.repository.GameRepository
+import com.kappstudio.joboardgame.data.source.repository.GameRepositoryImpl
 import com.kappstudio.joboardgame.data.source.repository.PartyRepository
 import com.kappstudio.joboardgame.data.source.repository.PartyRepositoryImpl
 import com.kappstudio.joboardgame.data.source.repository.UserRepository
@@ -8,11 +10,9 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
 
-    single<UserRepository> {
-        UserRepositoryImpl()
-    }
+    single<UserRepository> { UserRepositoryImpl() }
 
-    single<PartyRepository> {
-        PartyRepositoryImpl()
-    }
+    single<PartyRepository> { PartyRepositoryImpl() }
+
+    single<GameRepository> { GameRepositoryImpl() }
 }
