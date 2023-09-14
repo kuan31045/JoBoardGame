@@ -5,25 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.factory.VMFactory
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
+import com.kappstudio.joboardgame.util.ToastUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PartyFragment : Fragment() {
 
-    val viewModel: PartyViewModel by viewModels {
-        VMFactory {
-            PartyViewModel(appInstance.provideJoRepository())
-        }
-    }
+    val viewModel: PartyViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
 
         val binding = FragmentPartyBinding.inflate(inflater)
         val adapter = PartyAdapter(viewModel)

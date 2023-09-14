@@ -2,7 +2,7 @@ package com.kappstudio.joboardgame.ui.login
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
- import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 
 object UserManager {
@@ -25,6 +25,7 @@ object UserManager {
                         .apply()
                     null
                 }
+
                 else -> {
                     appInstance
                         .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE).edit()
@@ -37,6 +38,5 @@ object UserManager {
 
     fun clear() {
         userToken = null
-     }
-
- }
+    }
+}

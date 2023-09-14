@@ -25,8 +25,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityLoginBinding
-    val viewModel: LoginViewModel by viewModel()
+    private lateinit var binding: ActivityLoginBinding
+    private val viewModel: LoginViewModel by viewModel()
     private lateinit var startActivityLauncher: StartActivityLauncher
     private lateinit var auth: FirebaseAuth
 

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dylanc.activityresult.launcher.EnableLocationLauncher
 import com.google.android.gms.location.*
@@ -26,11 +25,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.factory.VMFactory
 import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import timber.log.Timber
 import java.util.*
 
@@ -38,18 +37,17 @@ const val taipeiLatitude = 25.0426166
 const val taipeiLongitude = 121.5651808
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
-    lateinit var binding: FragmentMapBinding
+
+    private lateinit var binding: FragmentMapBinding
     private var locationPermissionOk = false
     private lateinit var mMap: GoogleMap
     private lateinit var mLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallBack: LocationCallback
-    var locationIsUpdate = false
+    private var locationIsUpdate = false
     private lateinit var enableLocationLauncher: EnableLocationLauncher
 
-    private val partyViewModel: PartyViewModel by viewModels {
-        VMFactory {
-            PartyViewModel(appInstance.provideJoRepository())
-        }
+    private val viewModel by lazy {
+        requireParentFragment().getViewModel<PartyViewModel>()
     }
 
     override fun onCreateView(
@@ -57,10 +55,11 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+
         binding = FragmentMapBinding.inflate(inflater)
 
-        partyViewModel.parties.observe(viewLifecycleOwner) {
-            Timber.d("${partyViewModel.parties.value}")
+        viewModel.parties.observe(viewLifecycleOwner) {
+            Timber.d("${viewModel.parties.value}")
         }
 
         enableLocationLauncher = EnableLocationLauncher(this)
@@ -110,7 +109,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     }
 
     private fun checkGPS() {
-
         val locationManager =
             context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
@@ -194,7 +192,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
                 LatLng(taipeiLatitude, taipeiLongitude)
             )
         } else {
-            val party = partyViewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
+            val party = viewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
             if (party != null) {
                 addMark(party)
                 moveToLocation(
@@ -206,7 +204,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
             }
         }
 
-        mMap.setInfoWindowAdapter(context?.let { PartyInfoWindowAdapter(it, partyViewModel) })
+        mMap.setInfoWindowAdapter(context?.let { PartyInfoWindowAdapter(it, viewModel) })
         mMap.setOnInfoWindowClickListener(this)
     }
 
@@ -219,7 +217,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     }
 
     private fun addPartiesMark() {
-        partyViewModel.parties.value?.forEach { party ->
+        viewModel.parties.value?.forEach { party ->
             if (party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis) {
                 addMark(party)
             }

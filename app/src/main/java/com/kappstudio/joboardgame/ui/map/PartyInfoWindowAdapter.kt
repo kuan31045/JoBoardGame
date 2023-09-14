@@ -9,24 +9,26 @@ import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.databinding.InfoWindowBinding
 import com.kappstudio.joboardgame.ui.party.PartyViewModel
 
-class PartyInfoWindowAdapter(private val context: Context, private val viewModel: PartyViewModel) :
-    GoogleMap.InfoWindowAdapter {
+class PartyInfoWindowAdapter(
+    private val context: Context,
+    private val viewModel: PartyViewModel,
+) : GoogleMap.InfoWindowAdapter {
 
-    private fun render(marker: Marker, binding: InfoWindowBinding) {
-        val party = viewModel.parties?.value?.filter {
+    private fun render(
+        marker: Marker,
+        binding: InfoWindowBinding,
+    ) {
+        val party = viewModel.parties.value?.filter {
             it.id == marker.snippet
         }?.get(0)
 
-
         if (party != null) {
             binding.apply {
-
 
                 tvTitle.text = party.title
                 tvLocation.text = party.location.address
                 bindTextViewDate(tvTime, party.partyTime)
                 tvPeople.text = "${party.playerIdList.size}/${party.requirePlayerQty}"
-
 
                 party.gameNameList.forEach {
                     tvGame.text = "${tvGame.text}${it}"
@@ -36,21 +38,14 @@ class PartyInfoWindowAdapter(private val context: Context, private val viewModel
 
                     }
                 }
-
-
             }
-
         }
-
-
     }
 
     override fun getInfoContents(marker: Marker): View {
         val layoutInflater = LayoutInflater.from(context)
         val binding = InfoWindowBinding.inflate(layoutInflater)
-
         render(marker, binding)
-
         return binding.root
     }
 
