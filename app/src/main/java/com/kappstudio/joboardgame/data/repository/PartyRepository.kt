@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.repository
+package com.kappstudio.joboardgame.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,7 +11,7 @@ interface PartyRepository {
     fun getParties(): MutableLiveData<List<Party>>
 }
 
-class PartyRepositoryImpl : PartyRepository {
+class PartyRepositoryImpl() : PartyRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val partyCollection = firestore.collection(COLLECTION_PARTIES)

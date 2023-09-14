@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.remote.FirebaseService
+import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.login.UserManager

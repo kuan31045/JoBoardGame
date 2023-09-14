@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.remote
+package com.kappstudio.joboardgame.data.remote
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
@@ -18,13 +18,12 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
-
 object FirebaseService {
     private const val COLLECTION_PARTIES = "parties"
     private const val COLLECTION_GAMES = "games"
     private const val COLLECTION_USERS = "users"
-     private const val COLLECTION_RATINGS = "ratings"
-     private const val COLLECTION_REPORTS = "reports"
+    private const val COLLECTION_RATINGS = "ratings"
+    private const val COLLECTION_REPORTS = "reports"
     private const val FIELD_PLAYER_ID_LIST = "playerIdList"
     private const val FIELD_PHOTOS = "photos"
     private const val FIELD_FRIEND_LIST = "friendList"
@@ -94,14 +93,14 @@ object FirebaseService {
 
         val games = FirebaseFirestore.getInstance().collection(COLLECTION_GAMES)
         val document = games.document()
+        val newGame = game.copy(id = document.id)
 
-        game.id = document.id
 
         document
-            .set(game)
+            .set(newGame)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Timber.d("Create Game Successful: $game")
+                    Timber.d("Create Game Successful: $newGame")
                     continuation.resume(true)
                 } else {
                     task.exception?.let {
@@ -279,6 +278,7 @@ object FirebaseService {
                     }
                 }
         }
+
     suspend fun sendPartyMsg(msg: PartyMsg): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Send Party Msg------------------------------")
 
@@ -304,32 +304,6 @@ object FirebaseService {
                 }
             }
     }
-
-    fun getLiveGameById(gameId: String): MutableLiveData<Game> {
-        Timber.d("-----Get Live Game By Id------------------------------")
-
-        val game = MutableLiveData<Game>()
-
-        FirebaseFirestore.getInstance().collection(COLLECTION_GAMES).document(gameId)
-            .addSnapshotListener { snapshot, e ->
-                if (e != null) {
-                    Timber.w("Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Timber.d("Current data: ${snapshot.data}")
-                    game.value = snapshot.toObject<Game>()?.apply {
-                        viewedTime = Calendar.getInstance().timeInMillis
-                    }
-                } else {
-                    Timber.d("Current data: null")
-                }
-            }
-
-        return game
-    }
-
 
 
     suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->
@@ -359,8 +333,6 @@ object FirebaseService {
     }
 
 
-
-
     fun getLiveUsers(): MutableLiveData<List<User>> {
         Timber.d("-----Get All Live Users------------------------------")
 
@@ -379,8 +351,6 @@ object FirebaseService {
             }
         return liveData
     }
-
-
 
 
 }

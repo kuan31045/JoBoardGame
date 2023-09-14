@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.data.source.remote
+package com.kappstudio.joboardgame.data.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -298,20 +298,10 @@ object JoRemoteDataSource : JoDataSource {
             Result.Fail(it.message.toString())
         }
 
-    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
-        flow {
-            Timber.d("-----Insert Favorite------------------------------")
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> {
+        TODO("Not yet implemented")
+    }
 
-            FirebaseFirestore.getInstance()
-                .collection(PATH_USERS)
-                .document(UserManager.user.value?.id ?: "")
-                .update("favoriteGames", FieldValue.arrayUnion(gameMap))
-
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Result.Fail(it.message.toString())
-        }
 
     override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
         flow {

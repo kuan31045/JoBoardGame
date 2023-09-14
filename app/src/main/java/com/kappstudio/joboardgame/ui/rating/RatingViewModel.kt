@@ -8,8 +8,7 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.NewRating
 import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.source.remote.FirebaseService
-import com.kappstudio.joboardgame.data.toGameMap
+import com.kappstudio.joboardgame.data.remote.FirebaseService
 import kotlinx.coroutines.launch
 
 class RatingViewModel(private val rating: Rating) : ViewModel() {
@@ -30,7 +29,7 @@ class RatingViewModel(private val rating: Rating) : ViewModel() {
         var newRating = NewRating(
             id = rating.id,
             gameId = rating.gameId,
-            game = toGameMap(rating.game),
+            game =  rating.game.toGameMap(),
             score = score.value ?: 0
         )
         viewModelScope.launch {

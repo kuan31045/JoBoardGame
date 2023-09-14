@@ -292,6 +292,9 @@ kuanappstudio@gmail.com</string>
     <string name="accept">接受</string>
     <string name="reject">拒絕</string>
     <string name="register_fail">註冊失敗!</string>
+    <string name="rating_fail">評分失敗!</string>
+    <string name="insert_fail">加入失敗!</string>
+    <string name="remove_fail">刪除失敗!</string>
 
 
 </resources>

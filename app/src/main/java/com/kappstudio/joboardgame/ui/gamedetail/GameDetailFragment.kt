@@ -5,32 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
-import timber.log.Timber
-
 import androidx.transition.Fade
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
-import com.kappstudio.joboardgame.factory.VMFactory
+import org.koin.core.parameter.parametersOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class GameDetailFragment : Fragment() {
-    val viewModel: GameDetailViewModel by viewModels {
-        VMFactory {
-            GameDetailViewModel(
-                GameDetailFragmentArgs.fromBundle(requireArguments()).clickedGameId,
-                appInstance.provideJoRepository()
-            )
-        }
+
+    val viewModel: GameDetailViewModel by viewModel {
+        parametersOf(
+            GameDetailFragmentArgs.fromBundle(
+                requireArguments()
+            ).clickedGameId
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         val binding = FragmentGameDetailBinding.inflate(inflater)
 
         binding.viewModel = viewModel
@@ -61,7 +59,6 @@ class GameDetailFragment : Fragment() {
 
         viewModel.game.observe(viewLifecycleOwner, {
             it?.let {
-                Timber.d("game= $it")
                 bindImage(binding.ivGame, it.image)
 
 
@@ -97,18 +94,11 @@ class GameDetailFragment : Fragment() {
         })
         viewModel.isFavorite.observe(viewLifecycleOwner, {
 
-            Timber.d("isFavorite: $it")
             binding.cbFavorite.isChecked = it
         })
 
 
         return binding.root
-    }
-
-    override fun onResume() {
-
-        super.onResume()
-        Timber.d("onResume")
     }
 
 

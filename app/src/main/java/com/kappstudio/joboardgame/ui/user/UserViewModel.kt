@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.remote.FirebaseService
+import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
-import com.kappstudio.joboardgame.util.ToastUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PartyFragment : Fragment() {

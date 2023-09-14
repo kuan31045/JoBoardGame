@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.repository.UserRepository
+import com.kappstudio.joboardgame.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.util.ToastUtil

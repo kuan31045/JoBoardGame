@@ -8,13 +8,8 @@ import java.util.HashMap
 
 interface JoRepository {
 
-    suspend fun getViewedGame(id: String): Game?
 
-    suspend fun insertViewedGame(game: Game)
 
-    suspend fun updateViewedGame(game: Game)
-
-    fun getAllViewedGames(): LiveData<List<Game>>
 
     fun getParties(): MutableLiveData<List<Party>>
 

@@ -93,8 +93,8 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.2"
-    implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:1.9.3"

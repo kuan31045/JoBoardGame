@@ -3,8 +3,8 @@ package com.kappstudio.joboardgame.ui.party
 import androidx.lifecycle.*
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.repository.PartyRepository
-import com.kappstudio.joboardgame.data.source.repository.UserRepository
+import com.kappstudio.joboardgame.data.repository.PartyRepository
+import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
 

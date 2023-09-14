@@ -7,7 +7,6 @@ import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.toGameMap
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +29,7 @@ class FavoriteViewModel(userId: String, private val repository: JoRepository) : 
 
     fun removeFavorite(game: Game) {
         coroutineScope.launch {
-            repository.removeFavorite(toGameMap(game)).collect {
+            repository.removeFavorite(game.toGameMap()).collect {
                 if (it is Result.Success) {
                     ToastUtil.show(appInstance.getString(R.string.favorite_out))
                 }

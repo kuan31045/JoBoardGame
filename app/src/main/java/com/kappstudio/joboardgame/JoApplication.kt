@@ -5,9 +5,10 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.JoRepositoryImpl
-import com.kappstudio.joboardgame.data.source.room.JoLocalDataSource
-import com.kappstudio.joboardgame.data.source.remote.JoRemoteDataSource
+import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.di.appModule
+import com.kappstudio.joboardgame.di.daoModule
+import com.kappstudio.joboardgame.di.dbModule
 import com.kappstudio.joboardgame.di.repositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -30,7 +31,6 @@ class JoApplication : Application() {
         synchronized(this) {
             return joRepository ?: JoRepositoryImpl(
                 JoRemoteDataSource,
-                JoLocalDataSource(this)
             )
         }
     }
@@ -40,7 +40,12 @@ class JoApplication : Application() {
 
         startKoin {
             androidContext(this@JoApplication)
-            modules(appModule, repositoryModule)
+            modules(
+                appModule,
+                dbModule,
+                daoModule,
+                repositoryModule,
+                )
         }
 
         val displayMetrics = DisplayMetrics()

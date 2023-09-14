@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.remote.FirebaseService
+import com.kappstudio.joboardgame.data.remote.FirebaseService
 import kotlinx.coroutines.launch
 
 class ReportViewModel(

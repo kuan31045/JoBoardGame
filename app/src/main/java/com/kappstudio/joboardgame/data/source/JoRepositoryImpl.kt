@@ -10,25 +10,8 @@ import java.util.HashMap
 
 class JoRepositoryImpl(
     private val joRemoteDataSource: JoDataSource,
-    private val joLocalDataSource: JoDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : JoRepository {
-
-    override suspend fun getViewedGame(id: String): Game? {
-        return joLocalDataSource.getViewedGame(id)
-    }
-
-    override suspend fun insertViewedGame(game: Game) {
-        return joLocalDataSource.insertViewedGame(game)
-    }
-
-    override suspend fun updateViewedGame(game: Game) {
-        return joLocalDataSource.updateViewedGame(game)
-    }
-
-    override fun getAllViewedGames(): LiveData<List<Game>> {
-        return joLocalDataSource.getAllViewedGames()
-    }
 
     override fun getParties(): MutableLiveData<List<Party>> {
         return joRemoteDataSource.getParties()

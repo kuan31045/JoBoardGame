@@ -17,7 +17,7 @@ class ProfileViewModel(private val repository: JoRepository) : ViewModel(),
     NavToGameDetailInterface,
     NavToUserInterface {
 
-    val viewedGames: LiveData<List<Game>> = repository.getAllViewedGames()
+    val viewedGames: LiveData<List<Game>> = repository.getGames()
 
     val me: LiveData<User> = UserManager.user
 
