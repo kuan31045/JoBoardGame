@@ -55,7 +55,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         binding = FragmentMapBinding.inflate(inflater)
 
         viewModel.parties.observe(viewLifecycleOwner) {
-            Timber.d("${viewModel.parties.value}")
+            addPartiesMark()
         }
 
         enableLocationLauncher = EnableLocationLauncher(this)
@@ -130,48 +130,49 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
     private fun getCurrentLocation() {
         try {
-            if (locationPermissionOk) {
-                ToastUtil.show(getString(R.string.geting_location))
+            if (!locationPermissionOk) {
+                getPermission()
+                return
+            }
 
-                binding.btnGetLocation.visibility = View.GONE
+            ToastUtil.show(getString(R.string.geting_location))
 
-                mMap.isMyLocationEnabled = true
-                var currentLocationCount = 0
-                val locationRequest = LocationRequest()
-                locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                locationRequest.interval = 1000
+            binding.btnGetLocation.visibility = View.GONE
 
-                mLocationProviderClient.requestLocationUpdates(
-                    locationRequest,
+            mMap.isMyLocationEnabled = true
+            var currentLocationCount = 0
+            val locationRequest = LocationRequest()
+            locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            locationRequest.interval = 1000
 
-                    object : LocationCallback() {
-                        override fun onLocationResult(locationResult: LocationResult) {
-                            locationCallBack = this
-                            locationIsUpdate = true
+            mLocationProviderClient.requestLocationUpdates(
+                locationRequest,
 
-                            currentLocationCount++
-                            locationResult.lastLocation?.let {
-                                val currentLocation = LatLng(
-                                    it.latitude,
-                                    it.longitude
-                                )
+                object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult) {
+                        locationCallBack = this
+                        locationIsUpdate = true
 
-                                if (currentLocationCount == 1) {
-                                    mMap.moveCamera(
-                                        CameraUpdateFactory.newLatLngZoom(
-                                            currentLocation, 15f
-                                        )
+                        currentLocationCount++
+                        locationResult.lastLocation?.let {
+                            val currentLocation = LatLng(
+                                it.latitude,
+                                it.longitude
+                            )
+
+                            if (currentLocationCount == 1) {
+                                mMap.moveCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        currentLocation, 15f
                                     )
-                                }
+                                )
                             }
                         }
-                    },
-                    null
-                )
+                    }
+                },
+                null
+            )
 
-            } else {
-                getPermission()
-            }
         } catch (e: SecurityException) {
             ToastUtil.show(getString(R.string.cant_get_location))
         }
@@ -182,8 +183,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
 
         val selectedPartyId: String? = MapFragmentArgs.fromBundle(requireArguments()).partyId
         if (selectedPartyId == null) {
-            addPartiesMark()
-
             moveToLocation(
                 LatLng(taipeiLatitude, taipeiLongitude)
             )
