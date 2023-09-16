@@ -19,9 +19,7 @@ class GameDetailViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
-    private var _game = MutableLiveData<Game>()
-    val game: LiveData<Game>
-        get() = _game
+    val game: LiveData<Game> = gameRepository.getGameById(gameId).asLiveData()
 
     private val _navToRating = MutableLiveData<Rating?>()
     val navToRating: LiveData<Rating?>
@@ -35,22 +33,20 @@ class GameDetailViewModel(
         _navToRating.value = null
     }
 
-    val isFavorite = MutableLiveData(false)
-
-
-    private var _myRating = MutableLiveData<Rating>()
-    val myRating: LiveData<Rating>
-        get() = _myRating
-
-    val avgRating = MutableLiveData(0f)
-
-    init {
-        getGame()
+    val isFavorite: LiveData<Boolean> = UserManager.user.map { user ->
+        user.favoriteGames.map { it.id }.contains(gameId)
     }
 
-    private fun getGame() {
-        viewModelScope.launch {
-            _game = gameRepository.getGameById(gameId)
+
+    val myRating: LiveData<Rating?> = gameRepository.getMyRating(gameId).asLiveData()
+
+
+    val avgRating: LiveData<Float?> = game.map { game ->
+        if (game.ratingQty == 0L) {
+            null
+        } else {
+            val avg = (game.totalRating.toFloat().div(game.ratingQty))
+            ((avg * 10.0).roundToInt() / 10.0).toFloat()
         }
     }
 
@@ -74,48 +70,15 @@ class GameDetailViewModel(
                         ToastUtil.show(appInstance.getString(R.string.favorite_in))
                     }
                 }
-                isFavorite.value = true
-            } else {
+             } else {
                 userRepository.removeFavorite(game.value!!.toGameMap()).collect {
                     if (it is Result.Success) {
                         ToastUtil.show(appInstance.getString(R.string.favorite_out))
                     }
                 }
-                isFavorite.value = false
-            }
+             }
         }
     }
 
-    fun checkFavorite() {
-        viewModelScope.launch {
-            UserManager.user.value?.favoriteGames?.forEach {
-                if (it.id == (game.value?.id ?: "")) {
-                    isFavorite.value = true
-                }
-            }
-        }
-    }
 
-    fun checkRating() {
-        viewModelScope.launch {
-            _myRating.value = game.value?.let {
-                gameRepository.getRating(it) ?: Rating(
-                    gameId = it.id,
-                    game = it,
-                    userId = UserManager.user.value?.id ?: ""
-                )
-            }
-        }
-    }
-
-    fun calAvgRating() {
-        if ((game.value?.ratingQty ?: 0) <= 0) {
-            return
-        }
-
-        val avg = (game.value?.totalRating?.toFloat()?.div(game.value?.ratingQty ?: 0))
-        if (avg != null) {
-            avgRating.value = ((avg * 10.0).roundToInt() / 10.0).toFloat()
-        }
-    }
 }

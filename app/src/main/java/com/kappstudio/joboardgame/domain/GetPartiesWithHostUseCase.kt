@@ -27,15 +27,11 @@ class GetPartiesWithHostUseCase(
         parties.collect { parties ->
             val hostIdList = parties.map { it.hostId }.distinct()
             val hosts = userRepository.getUsersByIdList(hostIdList)
-
             if (hosts is Result.Success) {
                 val newParties = parties.map { party ->
-                    party.copy(host = hosts.data.firstOrNull { it.id == party.hostId }
-                        ?: User())
+                    party.copy(host = hosts.data.firstOrNull { it.id == party.hostId } ?: User())
                 }
-
                 emit(Result.Success(newParties))
-
             } else {
                 emit(Result.Fail(appInstance.getString(R.string.check_internet)))
             }

@@ -62,9 +62,8 @@ class UserRepositoryImpl : UserRepository {
     override suspend fun getUsersByIdList(idList: List<String>): Result<List<User>> {
         Timber.d("----------getUsersByIdList----------")
 
-        val result = userCollection.whereIn(FIELD_ID, idList).get().await()
-
         return try {
+            val result = userCollection.whereIn(FIELD_ID, idList).get().await()
             Result.Success(result.toObjects(User::class.java))
         } catch (e: Exception) {
             Timber.w("Error getting documents. $e")

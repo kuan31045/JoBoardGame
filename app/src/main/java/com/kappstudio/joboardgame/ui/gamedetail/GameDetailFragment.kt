@@ -14,7 +14,6 @@ import androidx.transition.TransitionManager
 import org.koin.core.parameter.parametersOf
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class GameDetailFragment : Fragment() {
 
     val viewModel: GameDetailViewModel by viewModel {
@@ -29,13 +28,13 @@ class GameDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding = FragmentGameDetailBinding.inflate(inflater)
 
+        val binding = FragmentGameDetailBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         val transition: Transition = Fade()
-        transition.setDuration(600)
+        transition.duration = 600
         transition.addTarget(binding.ivGame)
         if (container != null) {
             TransitionManager.beginDelayedTransition(container, transition)
@@ -50,20 +49,20 @@ class GameDetailFragment : Fragment() {
         binding.btnToBottle.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.navToBottleFragment())
         }
+
         binding.btnToDice.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.navToDiceFragment())
         }
+
         binding.btnToTimer.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.navToTimerFragment())
         }
 
-        viewModel.game.observe(viewLifecycleOwner, {
+        viewModel.game.observe(viewLifecycleOwner) {
             it?.let {
                 bindImage(binding.ivGame, it.image)
-
-
-
                 bindTextViewGameTypes(binding.tvType, it.type)
+
                 if (it.desc.length > 100) {
                     binding.tvDesc.text = it.desc.substring(0..100) + "···"
                 } else {
@@ -71,31 +70,27 @@ class GameDetailFragment : Fragment() {
                 }
 
                 viewModel.addViewedGame() //加入瀏覽紀錄
-                viewModel.checkFavorite()
-                viewModel.checkRating()
-                viewModel.calAvgRating()
 
                 if (it.tools.isNotEmpty()) {
                     binding.tvTitleTools.visibility = View.VISIBLE
                 } else {
                     binding.tvTitleTools.visibility = View.GONE
-
                 }
             }
-        })
+        }
 
 
 
-        viewModel.navToRating.observe(viewLifecycleOwner, {
+        viewModel.navToRating.observe(viewLifecycleOwner) {
             it?.let { it ->
                 findNavController().navigate(GameDetailFragmentDirections.navToRatingDialog(it))
                 viewModel.onNavToRating()
             }
-        })
-        viewModel.isFavorite.observe(viewLifecycleOwner, {
+        }
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
 
             binding.cbFavorite.isChecked = it
-        })
+        }
 
 
         return binding.root

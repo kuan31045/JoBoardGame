@@ -14,22 +14,19 @@ import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 class GameAdapter(private val viewModel: ViewModel) :
     ListAdapter<Game, RecyclerView.ViewHolder>(DiffCallback) {
 
-
     class SimpleViewHolder(private val binding: ItemGameSimpleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(game: Game, viewModel: ViewModel) {
-
             binding.apply {
                 tvName.text = game.name
                 bindImage(ivGame, game.image)
 
                 clGame.setOnClickListener {
-                    when(viewModel){
+                    when (viewModel) {
                         is NavToGameDetailInterface -> viewModel.navToGameDetail(game)
                     }
                 }
-
             }
         }
     }
@@ -45,9 +42,7 @@ class GameAdapter(private val viewModel: ViewModel) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         return when (viewModel) {
-
             else -> {
                 SimpleViewHolder(
                     ItemGameSimpleBinding.inflate(LayoutInflater.from(parent.context))
@@ -57,14 +52,10 @@ class GameAdapter(private val viewModel: ViewModel) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when (holder) {
             is SimpleViewHolder -> {
                 holder.bind(getItem(position), viewModel)
-
             }
-
         }
     }
-
 }

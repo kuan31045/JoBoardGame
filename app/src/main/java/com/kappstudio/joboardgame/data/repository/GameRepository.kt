@@ -1,11 +1,9 @@
 package com.kappstudio.joboardgame.data.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
-import com.google.firebase.firestore.ktx.toObject
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.data.room.GameDao
@@ -21,9 +19,9 @@ interface GameRepository {
 
     fun getGames(): Flow<List<Game>>
 
-    fun getGameById(id: String):MutableLiveData<Game>
+    fun getGameById(id: String): Flow<Game>
 
-    suspend fun getRating(game: Game): Rating?
+    fun getMyRating(gameId: String): Flow<Rating?>
 
     fun getAllViewedGames(): LiveData<List<Game>>
 
@@ -46,41 +44,28 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
                 it.toObjects(Game::class.java)
             }
     }
-    override fun getGameById(id: String): MutableLiveData<Game> {
-        Timber.d("----------getLiveGameById----------")
 
-        val game = MutableLiveData<Game>()
+    override fun getGameById(id: String): Flow<Game> {
+        Timber.d("----------getGameById----------")
 
-        gameCollection
+        return gameCollection
             .document(id)
-            .addSnapshotListener { snapshot, exception ->
-                exception?.let {
-                    Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                }
-                if (snapshot != null) {
-                    game.value = snapshot.toObject<Game>()
-                }
+            .snapshots()
+            .map {
+                it.toObject(Game::class.java)!!
             }
-
-        return game
     }
 
-    override suspend fun getRating(game: Game): Rating? = withContext(Dispatchers.IO) {
-        Timber.d("----------getRating----------")
+    override fun getMyRating(gameId: String): Flow<Rating?> {
+        Timber.d("----------getMyRating----------")
 
-        ratingCollection
+        return ratingCollection
             .whereEqualTo(FIELD_USER_ID, UserManager.user.value?.id ?: "")
-            .whereEqualTo(FIELD_GAME_ID, game.id)
-            .get()
-            .addOnCompleteListener { task ->
-                task.exception?.let { Timber.w("User task failed. ${it.message}") }
-
-                if (task.isSuccessful && !task.result.isEmpty) {
-                    task.result.toObjects(Rating::class.java).first()
-                }
+            .whereEqualTo(FIELD_GAME_ID, gameId)
+            .snapshots()
+            .map {
+                it.toObjects(Rating::class.java).firstOrNull()
             }
-
-        null
     }
 
     override fun getAllViewedGames(): LiveData<List<Game>> = gameDao.getAllGames().map { entities ->
