@@ -34,7 +34,6 @@ class PartyInfoWindowAdapter(
 
                     if (it != party.gameNameList.last()) {
                         tvGame.text = "${tvGame.text}, "
-
                     }
                 }
             }
