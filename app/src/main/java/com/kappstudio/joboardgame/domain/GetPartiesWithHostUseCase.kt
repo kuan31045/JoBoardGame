@@ -10,7 +10,7 @@ import com.kappstudio.joboardgame.data.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetPartyWithHostUseCase(
+class GetPartiesWithHostUseCase(
     private val partyRepository: PartyRepository,
     private val userRepository: UserRepository,
 ) {
