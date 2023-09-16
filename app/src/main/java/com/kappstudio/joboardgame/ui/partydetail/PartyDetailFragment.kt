@@ -21,7 +21,6 @@ import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameAdapter
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
-import com.kappstudio.joboardgame.ui.party.PhotoAdapter
 import com.kappstudio.joboardgame.ui.tools.ToolsFragmentDirections
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.ToastUtil

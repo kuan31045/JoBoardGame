@@ -25,10 +25,8 @@ class PartyAdapter(private val viewModel: ViewModel) :
             viewModel as NavToPartyDetailInterface
             binding.apply {
 
-                viewModel.hosts.value?.first { it.id == party.hostId }?.let { host ->
-                    tvHost.text = host.name
-                    bindImage(ivHost, host.image)
-                }
+                tvHost.text = party.host.name
+                bindImage(ivHost, party.host.image)
 
                 tvIsOver.visibility =
                     if (party.partyTime + 3600000 < Calendar.getInstance().timeInMillis) {

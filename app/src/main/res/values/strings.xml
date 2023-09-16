@@ -295,6 +295,7 @@ kuanappstudio@gmail.com</string>
     <string name="rating_fail">評分失敗!</string>
     <string name="insert_fail">加入失敗!</string>
     <string name="remove_fail">刪除失敗!</string>
+    <string name="check_internet">請檢查網路連線</string>
 
 
 </resources>

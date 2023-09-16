@@ -19,7 +19,7 @@ class UserViewModel(private val userId: String, private val repository: JoReposi
         get() = _user
 
     private var _hosts = MutableLiveData<List<User>>()
-    override val hosts: LiveData<List<User>>
+    val hosts: LiveData<List<User>>
         get() = _hosts
 
     val me: LiveData<User> = UserManager.user

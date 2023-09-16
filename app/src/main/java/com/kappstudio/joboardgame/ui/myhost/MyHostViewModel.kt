@@ -14,7 +14,7 @@ class MyHostViewModel(userId: String, private val repository: JoRepository) : Vi
     val parties: LiveData<List<Party>> = repository.getUserHosts(userId)
 
     private var _hosts = MutableLiveData<List<User>>()
-    override val hosts: LiveData<List<User>>
+     val hosts: LiveData<List<User>>
         get() = _hosts
 
     fun getHosts() {

@@ -50,7 +50,7 @@ class GameDetailViewModel(
 
     private fun getGame() {
         viewModelScope.launch {
-            _game = gameRepository.getLiveGameById(gameId)
+            _game = gameRepository.getGameById(gameId)
         }
     }
 

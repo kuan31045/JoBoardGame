@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.util.LoadApiStatus
+import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.databinding.FragmentPartyBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.util.ToastUtil
 
 class PartyFragment : Fragment() {
 
-    val viewModel: PartyViewModel by viewModel()
+    private val viewModel: PartyViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,24 +30,19 @@ class PartyFragment : Fragment() {
             findNavController().navigate(PartyFragmentDirections.navToNewPartyFragment())
         }
 
-        viewModel.parties.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                viewModel.getHosts()
-
-                viewModel.hosts.observe(viewLifecycleOwner) {
-                    adapter.submitList(viewModel.parties.value)
-                    viewModel.status.value = LoadApiStatus.DONE
+        viewModel.parties.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    adapter.submitList(result.data)
+                    binding.lottieLoading.visibility = View.GONE
                 }
-            } else {
-                viewModel.status.value = LoadApiStatus.DONE
-            }
-        }
 
-        viewModel.status.observe(viewLifecycleOwner) {
-            binding.lottieLoading.visibility = if (it == LoadApiStatus.LOADING) {
-                View.VISIBLE
-            } else {
-                View.GONE
+                is Result.Loading -> binding.lottieLoading.visibility = View.VISIBLE
+
+                else -> {
+                    ToastUtil.show(getString(R.string.check_internet))
+                    binding.lottieLoading.visibility = View.GONE
+                }
             }
         }
 

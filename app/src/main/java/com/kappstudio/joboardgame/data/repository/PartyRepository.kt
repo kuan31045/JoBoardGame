@@ -1,14 +1,16 @@
 package com.kappstudio.joboardgame.data.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.data.Party
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import java.util.Calendar
 
 interface PartyRepository {
 
-    fun getParties(): MutableLiveData<List<Party>>
+    fun getParties(): Flow<List<Party>>
 }
 
 class PartyRepositoryImpl() : PartyRepository {
@@ -16,21 +18,12 @@ class PartyRepositoryImpl() : PartyRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val partyCollection = firestore.collection(COLLECTION_PARTIES)
 
-    override fun getParties(): MutableLiveData<List<Party>> {
+    override fun getParties(): Flow<List<Party>> {
         Timber.d("----------getParties----------")
 
-        val liveData = MutableLiveData<List<Party>>()
-
-        partyCollection.addSnapshotListener { snapshot, exception ->
-                exception?.let {
-                    Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                }
-
-                val result = snapshot?.toObjects(Party::class.java) ?: listOf()
-                liveData.value = sortParty(result)
-            }
-
-        return liveData
+        return partyCollection
+            .snapshots()
+            .map { sortParty(it.toObjects(Party::class.java)) }
     }
 
     private fun sortParty(parties: List<Party>): List<Party> {

@@ -2,7 +2,9 @@ package com.kappstudio.joboardgame.ui.login
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kappstudio.joboardgame.MainActivity
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -52,8 +55,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             firebaseLogin()
-            binding.lottiePoker.visibility = View.VISIBLE
-            binding.btnLogin.visibility = View.GONE
         }
 
         viewModel.navToMain.observe(this) {
@@ -63,6 +64,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseLogin() {
+        if ((appInstance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+                .activeNetwork == null
+        ) {
+            ToastUtil.show(getString(R.string.check_internet))
+            return
+        }
+
+        binding.lottiePoker.visibility = View.VISIBLE
+        binding.btnLogin.visibility = View.GONE
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()

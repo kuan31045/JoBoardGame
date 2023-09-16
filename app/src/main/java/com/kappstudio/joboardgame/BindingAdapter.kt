@@ -8,7 +8,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kappstudio.joboardgame.ui.album.AlbumAdapter
-import com.kappstudio.joboardgame.ui.party.PhotoAdapter
+import com.kappstudio.joboardgame.ui.partydetail.PhotoAdapter
 import java.text.SimpleDateFormat
 
 @BindingAdapter("toTools")

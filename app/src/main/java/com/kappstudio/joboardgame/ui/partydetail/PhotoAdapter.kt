@@ -1,4 +1,4 @@
-package com.kappstudio.joboardgame.ui.party
+package com.kappstudio.joboardgame.ui.partydetail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.databinding.ItemPhotoBinding
-import com.kappstudio.joboardgame.ui.partydetail.PartyDetailViewModel
 import timber.log.Timber
 
 class PhotoAdapter(private val viewModel: PartyDetailViewModel) :

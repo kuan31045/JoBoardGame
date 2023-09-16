@@ -6,10 +6,11 @@ import android.view.WindowManager
 import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.source.JoRepositoryImpl
 import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
-import com.kappstudio.joboardgame.di.appModule
+import com.kappstudio.joboardgame.di.viewModelModule
 import com.kappstudio.joboardgame.di.daoModule
 import com.kappstudio.joboardgame.di.dbModule
 import com.kappstudio.joboardgame.di.repositoryModule
+import com.kappstudio.joboardgame.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -41,11 +42,12 @@ class JoApplication : Application() {
         startKoin {
             androidContext(this@JoApplication)
             modules(
-                appModule,
+                viewModelModule,
                 dbModule,
                 daoModule,
                 repositoryModule,
-                )
+                useCaseModule
+            )
         }
 
         val displayMetrics = DisplayMetrics()

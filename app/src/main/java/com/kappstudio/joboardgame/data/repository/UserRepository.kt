@@ -1,28 +1,27 @@
 package com.kappstudio.joboardgame.data.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.HashMap
 
 interface UserRepository {
 
-    suspend fun login(user: User): Result<Boolean>
+    suspend fun addUser(user: User): Result<Boolean>
 
-    fun getUsersByIdList(idList: List<String>): MutableLiveData<List<User>>
+    suspend fun getUsersByIdList(idList: List<String>): Result<List<User>>
 
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
 
@@ -35,7 +34,7 @@ class UserRepositoryImpl : UserRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val userCollection = firestore.collection(COLLECTION_USERS)
 
-    override suspend fun login(user: User): Result<Boolean> = withContext(Dispatchers.IO) {
+    override suspend fun addUser(user: User): Result<Boolean> = withContext(Dispatchers.IO) {
         Timber.d("----------login----------")
 
         userCollection
@@ -47,31 +46,30 @@ class UserRepositoryImpl : UserRepository {
                     Result.Fail(appInstance.getString(R.string.login_fail))
                 }
                 if (userTask.result.isEmpty) {
-                    firestore.collection(COLLECTION_USERS).document(user.id).set(user)
-                        .addOnCompleteListener { loginTask ->
-                            if (!loginTask.isSuccessful) {
-                                Timber.w("Login task failed. ${loginTask.exception?.message}")
+                    userCollection.document(user.id).set(user)
+                        .addOnCompleteListener { registerTask ->
+                            if (!registerTask.isSuccessful) {
+                                Timber.w("Register task failed. ${registerTask.exception?.message}")
                                 Result.Fail(appInstance.getString(R.string.login_fail))
                             }
                         }
                 }
             }
+
         Result.Success(true)
     }
 
-    override fun getUsersByIdList(idList: List<String>): MutableLiveData<List<User>> {
+    override suspend fun getUsersByIdList(idList: List<String>): Result<List<User>> {
         Timber.d("----------getUsersByIdList----------")
 
-        val users = MutableLiveData<List<User>>()
+        val result = userCollection.whereIn(FIELD_ID, idList).get().await()
 
-        userCollection
-            .whereIn(FIELD_ID, idList)
-            .addSnapshotListener { snapshot, exception ->
-                exception?.let { Timber.w("Error getting documents. ${it.message}") }
-                users.value = snapshot?.toObjects(User::class.java) ?: listOf()
-            }
-
-        return users
+        return try {
+            Result.Success(result.toObjects(User::class.java))
+        } catch (e: Exception) {
+            Timber.w("Error getting documents. $e")
+            Result.Fail(appInstance.getString(R.string.check_internet))
+        }
     }
 
     override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =

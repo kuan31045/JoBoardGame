@@ -7,11 +7,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.kappstudio.joboardgame.bindTextViewDate
 import com.kappstudio.joboardgame.databinding.InfoWindowBinding
-import com.kappstudio.joboardgame.ui.party.PartyViewModel
 
 class PartyInfoWindowAdapter(
     private val context: Context,
-    private val viewModel: PartyViewModel,
+    private val viewModel: MapViewModel,
 ) : GoogleMap.InfoWindowAdapter {
 
     private fun render(

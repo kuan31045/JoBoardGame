@@ -19,7 +19,7 @@ class SearchViewModel( ) : ViewModel(), NavToGameDetailInterface, NavToUserInter
     var isInit = true
 
     private var _hosts = MutableLiveData<List<User>>()
-    override val hosts: LiveData<List<User>>
+    val hosts: LiveData<List<User>>
         get() = _hosts
 
     fun onInit() {

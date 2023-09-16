@@ -16,7 +16,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.kappstudio.joboardgame.databinding.FragmentMapBinding
-import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.util.ToastUtil
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
@@ -29,7 +28,7 @@ import com.permissionx.guolindev.PermissionX
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.*
 
@@ -45,10 +44,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     private lateinit var locationCallBack: LocationCallback
     private var locationIsUpdate = false
     private lateinit var enableLocationLauncher: EnableLocationLauncher
-
-    private val viewModel by lazy {
-        requireParentFragment().getViewModel<PartyViewModel>()
-    }
+    private val viewModel: MapViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

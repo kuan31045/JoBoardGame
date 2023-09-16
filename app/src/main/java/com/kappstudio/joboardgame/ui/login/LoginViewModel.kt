@@ -22,7 +22,7 @@ class LoginViewModel(
 
     fun addUser(user: User) {
         viewModelScope.launch {
-            when (userRepository.login(user)) {
+            when (userRepository.addUser(user)) {
                 is Result.Success -> _navToMain.value = true
                 else -> ToastUtil.show(appInstance.getString(R.string.login_fail))
             }

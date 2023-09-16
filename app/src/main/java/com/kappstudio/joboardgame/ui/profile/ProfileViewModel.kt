@@ -30,7 +30,7 @@ class ProfileViewModel(private val repository: JoRepository) : ViewModel(),
     }
 
     private var _hosts = MutableLiveData<List<User>>()
-    override val hosts: LiveData<List<User>>
+     val hosts: LiveData<List<User>>
         get() = _hosts
 
     val hostParties: LiveData<List<Party>> =
