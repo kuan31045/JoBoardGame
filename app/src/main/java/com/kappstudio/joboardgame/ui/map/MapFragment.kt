@@ -25,15 +25,14 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Party
 import com.permissionx.guolindev.PermissionX
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import java.util.*
 
-const val taipeiLatitude = 25.0426166
-const val taipeiLongitude = 121.5651808
+const val taipeiLatitude = 25.03870345095808
+const val taipeiLongitude = 121.53238092570203
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
@@ -53,10 +52,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     ): View {
 
         binding = FragmentMapBinding.inflate(inflater)
-
-        viewModel.parties.observe(viewLifecycleOwner) {
-            addPartiesMark()
-        }
 
         enableLocationLauncher = EnableLocationLauncher(this)
         mLocationProviderClient =
@@ -181,21 +176,24 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val selectedPartyId: String? = MapFragmentArgs.fromBundle(requireArguments()).partyId
-        if (selectedPartyId == null) {
-            moveToLocation(
-                LatLng(taipeiLatitude, taipeiLongitude)
-            )
-        } else {
-            val party = viewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
-            if (party != null) {
-                addMark(party)
+        viewModel.parties.observe(viewLifecycleOwner) {
+            addPartiesMark()
+            val selectedPartyId: String? = MapFragmentArgs.fromBundle(requireArguments()).partyId
+            if (selectedPartyId == null) {
                 moveToLocation(
-                    LatLng(
-                        party.location.lat,
-                        party.location.lng
-                    )
+                    LatLng(taipeiLatitude, taipeiLongitude)
                 )
+            } else {
+                val party = viewModel.parties.value?.filter { it.id == selectedPartyId }?.get(0)
+                if (party != null) {
+                    addMark(party)
+                    moveToLocation(
+                        LatLng(
+                            party.location.lat,
+                            party.location.lng
+                        )
+                    )
+                }
             }
         }
 
@@ -219,9 +217,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickL
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun addMark(party: Party) {
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val partyLocation = LatLng(
                 party.location.lat,
                 party.location.lng
