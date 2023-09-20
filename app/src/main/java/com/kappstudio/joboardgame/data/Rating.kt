@@ -21,9 +21,6 @@ data class Rating(
 data class NewRating(
     var id: String = "",
     val gameId: String = "",
-
-
-
     val game: @RawValue HashMap<String, Any> = hashMapOf(
         "id" to "",
         "name" to "",

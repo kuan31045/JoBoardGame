@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameFragment : Fragment() {
 
-    val viewModel: GameViewModel by viewModel()
+    private val viewModel: GameViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

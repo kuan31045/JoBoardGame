@@ -8,14 +8,12 @@ import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.HashMap
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 interface UserRepository {
 
@@ -23,9 +21,9 @@ interface UserRepository {
 
     suspend fun getUsersByIdList(idList: List<String>): Result<List<User>>
 
-    suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
+    suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean
 
-    suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
+    suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean
 }
 
 
@@ -71,34 +69,24 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
-        flow {
+    override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean =
+        suspendCoroutine { continuation ->
             Timber.d("----------insertFavorite----------")
 
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayUnion(gameMap))
-
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Timber.w("Update failed. ${it.message}")
-            Result.Fail(appInstance.getString(R.string.insert_fail))
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
         }
 
-    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
-        flow {
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean =
+        suspendCoroutine { continuation ->
             Timber.d("----------removeFavorite----------")
 
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayRemove(gameMap))
-
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Timber.w("Update failed. ${it.message}")
-            Result.Fail(appInstance.getString(R.string.remove_fail))
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
         }
 
     private companion object {

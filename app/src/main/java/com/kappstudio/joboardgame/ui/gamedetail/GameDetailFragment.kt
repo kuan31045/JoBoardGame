@@ -5,18 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.*
 import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
 import androidx.transition.Fade
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
+import com.kappstudio.joboardgame.bindImage
+import com.kappstudio.joboardgame.bindTextViewGameTypes
 import org.koin.core.parameter.parametersOf
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameDetailFragment : Fragment() {
 
-    val viewModel: GameDetailViewModel by viewModel {
+    private val viewModel: GameDetailViewModel by viewModel {
         parametersOf(
             GameDetailFragmentArgs.fromBundle(
                 requireArguments()
@@ -30,6 +32,7 @@ class GameDetailFragment : Fragment() {
     ): View {
 
         val binding = FragmentGameDetailBinding.inflate(inflater)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -69,7 +72,7 @@ class GameDetailFragment : Fragment() {
                     binding.tvDesc.text = it.desc
                 }
 
-                viewModel.addViewedGame() //加入瀏覽紀錄
+                viewModel.addViewedGame()
 
                 if (it.tools.isNotEmpty()) {
                     binding.tvTitleTools.visibility = View.VISIBLE
@@ -79,22 +82,23 @@ class GameDetailFragment : Fragment() {
             }
         }
 
-
-
         viewModel.navToRating.observe(viewLifecycleOwner) {
-            it?.let { it ->
+            it?.let {
                 findNavController().navigate(GameDetailFragmentDirections.navToRatingDialog(it))
                 viewModel.onNavToRating()
             }
         }
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
 
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
             binding.cbFavorite.isChecked = it
         }
 
+        viewModel.toastMsgRes.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+            }
+        }
 
         return binding.root
     }
-
-
 }

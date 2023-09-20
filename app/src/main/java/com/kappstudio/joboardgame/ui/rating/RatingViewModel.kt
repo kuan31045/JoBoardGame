@@ -12,34 +12,29 @@ import com.kappstudio.joboardgame.data.remote.FirebaseService
 import kotlinx.coroutines.launch
 
 class RatingViewModel(private val rating: Rating) : ViewModel() {
+
     private var _myRating = MutableLiveData(rating)
-    val myRating: LiveData<Rating>
-        get() = _myRating
+    val myRating: LiveData<Rating> = _myRating
 
     private var _msg = MutableLiveData<String>()
-    val msg: LiveData<String>
-        get() = _msg
+    val msg: LiveData<String> = _msg
 
     val hasRating = MutableLiveData(rating.id.isNotEmpty())
 
     var score = MutableLiveData(rating.score)
 
     fun sendRating() {
-
         var newRating = NewRating(
             id = rating.id,
             gameId = rating.gameId,
-            game =  rating.game.toGameMap(),
+            game = rating.game.toGameMap(),
             score = score.value ?: 0
         )
         viewModelScope.launch {
             if (FirebaseService.sendRating(newRating)) {
                 _msg.value = appInstance.getString(R.string.rating_ok)
             }
-
-
             FirebaseService.updateRating(rating, (score.value ?: 0) - rating.score)
-
         }
     }
 
@@ -53,6 +48,5 @@ class RatingViewModel(private val rating: Rating) : ViewModel() {
                 _msg.value = appInstance.getString(R.string.error)
             }
         }
-
     }
 }

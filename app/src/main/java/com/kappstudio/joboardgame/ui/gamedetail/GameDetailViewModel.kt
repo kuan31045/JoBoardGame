@@ -1,17 +1,19 @@
 package com.kappstudio.joboardgame.ui.gamedetail
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
-import com.kappstudio.joboardgame.util.ToastUtil
 
 class GameDetailViewModel(
     private val gameId: String,
@@ -22,24 +24,16 @@ class GameDetailViewModel(
     val game: LiveData<Game> = gameRepository.getGameById(gameId).asLiveData()
 
     private val _navToRating = MutableLiveData<Rating?>()
-    val navToRating: LiveData<Rating?>
-        get() = _navToRating
+    val navToRating: LiveData<Rating?> = _navToRating
 
-    fun navToRating(rating: Rating) {
-        _navToRating.value = rating
-    }
-
-    fun onNavToRating() {
-        _navToRating.value = null
-    }
+    private val _toastMsgRes = MutableLiveData<Int>()
+    val toastMsgRes: LiveData<Int> = _toastMsgRes
 
     val isFavorite: LiveData<Boolean> = UserManager.user.map { user ->
         user.favoriteGames.map { it.id }.contains(gameId)
     }
 
-
     val myRating: LiveData<Rating?> = gameRepository.getMyRating(gameId).asLiveData()
-
 
     val avgRating: LiveData<Float?> = game.map { game ->
         if (game.ratingQty == 0L) {
@@ -58,27 +52,35 @@ class GameDetailViewModel(
         }
     }
 
-    fun updateCollect() {
+    fun toggleFavorite() {
         if (game.value == null) {
             return
         }
 
         viewModelScope.launch {
-            if (isFavorite.value == false) {
-                userRepository.insertFavorite(game.value!!.toGameMap()).collect {
-                    if (it is Result.Success) {
-                        ToastUtil.show(appInstance.getString(R.string.favorite_in))
+            when (isFavorite.value) {
+                true -> {
+                    if (userRepository.removeFavorite(game.value!!.toGameMap())) {
+                        _toastMsgRes.value = R.string.favorite_out
                     }
                 }
-             } else {
-                userRepository.removeFavorite(game.value!!.toGameMap()).collect {
-                    if (it is Result.Success) {
-                        ToastUtil.show(appInstance.getString(R.string.favorite_out))
+
+                false -> {
+                    if (userRepository.insertFavorite(game.value!!.toGameMap())) {
+                        _toastMsgRes.value = R.string.favorite_in
                     }
                 }
-             }
+
+                else -> {}
+            }
         }
     }
 
+    fun navToRating(rating: Rating) {
+        _navToRating.value = rating
+    }
 
+    fun onNavToRating() {
+        _navToRating.value = null
+    }
 }

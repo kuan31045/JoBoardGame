@@ -13,7 +13,7 @@ interface PartyRepository {
     fun getParties(): Flow<List<Party>>
 }
 
-class PartyRepositoryImpl() : PartyRepository {
+class PartyRepositoryImpl : PartyRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val partyCollection = firestore.collection(COLLECTION_PARTIES)

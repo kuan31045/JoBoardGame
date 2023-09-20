@@ -12,4 +12,3 @@ class PartyViewModel(
 
     val parties: LiveData<Result<List<Party>>> = getPartyWithHostUseCase().asLiveData()
 }
-
