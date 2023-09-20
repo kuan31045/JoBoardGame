@@ -12,7 +12,7 @@ import com.kappstudio.joboardgame.databinding.DialogRatingBinding
 import com.kappstudio.joboardgame.screenHeight
 import com.kappstudio.joboardgame.util.setBlurView
 import android.widget.RatingBar.OnRatingBarChangeListener
-import com.kappstudio.joboardgame.util.ToastUtil
+import android.widget.Toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -46,14 +46,18 @@ class RatingDialog : BottomSheetDialogFragment() {
 
         binding.ivClose.setOnClickListener { dismiss() }
 
-        binding.ratingBar.onRatingBarChangeListener =
-            OnRatingBarChangeListener { _, rating, _ ->
-                viewModel.score.value = rating.toInt()
-            }
+        binding.ratingBar.onRatingBarChangeListener = OnRatingBarChangeListener { _, rating, _ ->
+            viewModel.score.value = rating.toInt()
+        }
 
-        viewModel.msg.observe(viewLifecycleOwner) {
-            it?.let { ToastUtil.show(it) }
-            dismiss()
+        viewModel.toastMsgRes.observe(viewLifecycleOwner) {
+            it?.let {
+                Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.dismiss.observe(viewLifecycleOwner) {
+            it?.let { dismiss() }
         }
 
         return binding.root

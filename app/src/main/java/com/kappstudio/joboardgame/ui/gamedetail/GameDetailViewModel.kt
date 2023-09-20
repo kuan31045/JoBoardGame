@@ -76,8 +76,14 @@ class GameDetailViewModel(
         }
     }
 
-    fun navToRating(rating: Rating) {
+    fun navToRating(rating: Rating?) {
         _navToRating.value = rating
+            ?: Rating(
+                id = "",
+                gameId = gameId,
+                game = game.value!!,
+                score = 0
+            )
     }
 
     fun onNavToRating() {

@@ -2,9 +2,7 @@ package com.kappstudio.joboardgame.ui.login
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,9 +17,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kappstudio.joboardgame.MainActivity
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.databinding.ActivityLoginBinding
+import com.kappstudio.joboardgame.util.ConnectivityUtil
 import com.kappstudio.joboardgame.util.ToastUtil
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -72,9 +70,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun firebaseLogin() {
-        if ((appInstance.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
-                .activeNetwork == null
-        ) {
+        if (ConnectivityUtil.isNotConnected()) {
             ToastUtil.show(getString(R.string.check_internet))
             return
         }

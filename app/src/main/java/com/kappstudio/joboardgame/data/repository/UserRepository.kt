@@ -7,9 +7,7 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.ui.login.UserManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.HashMap
 import kotlin.coroutines.resume

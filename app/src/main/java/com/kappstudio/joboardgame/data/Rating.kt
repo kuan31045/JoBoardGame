@@ -19,7 +19,7 @@ data class Rating(
 
 @Parcelize
 data class NewRating(
-    var id: String = "",
+    val id: String = "",
     val gameId: String = "",
     val game: @RawValue HashMap<String, Any> = hashMapOf(
         "id" to "",

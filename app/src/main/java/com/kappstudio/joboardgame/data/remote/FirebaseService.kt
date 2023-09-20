@@ -215,69 +215,6 @@ object FirebaseService {
 
     }
 
-    suspend fun sendRating(rating: NewRating): Boolean = suspendCoroutine { continuation ->
-        Timber.d("-----Send Rating------------------------------")
-
-        val ratings = FirebaseFirestore.getInstance().collection(COLLECTION_RATINGS)
-        if (rating.id.isEmpty()) {
-            rating.id = ratings.document().id
-        }
-
-        ratings.document(rating.id)
-            .set(rating)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Timber.d("Send Party Msg Successful: $rating")
-                    continuation.resume(true)
-                } else {
-                    task.exception?.let {
-
-                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(false)
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(false)
-                }
-            }
-    }
-
-    suspend fun getRating(game: Game): Rating =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Get My Rating------------------------------")
-
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_RATINGS)
-                .whereEqualTo("userId", UserManager.user.value?.id ?: "")
-                .whereEqualTo("gameId", game.id)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        if (task.result?.size() != 0) {
-                            Timber.d("Has Rating: ${game.name}")
-                            val rating =
-                                task.result?.toObjects(Rating::class.java)?.first() ?: Rating()
-
-                            continuation.resume(rating)
-                        } else {
-                            Timber.d("Has Not Rating: ${game.name}")
-                            continuation.resume(
-                                Rating(
-                                    gameId = game.id,
-                                    game = game,
-                                    userId = UserManager.user.value?.id ?: ""
-                                )
-                            )
-                        }
-
-                    } else {
-                        task.exception?.let {
-
-                            Timber.w("Error getting documents. ${it.message}")
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
     suspend fun sendPartyMsg(msg: PartyMsg): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Send Party Msg------------------------------")
