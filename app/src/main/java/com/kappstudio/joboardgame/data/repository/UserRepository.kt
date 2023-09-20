@@ -17,7 +17,7 @@ import kotlin.coroutines.suspendCoroutine
 
 interface UserRepository {
 
-    suspend fun addUser(user: User): Result<Boolean>
+    suspend fun addUser(user: User): Boolean
 
     suspend fun getUsersByIdList(idList: List<String>): Result<List<User>>
 
@@ -32,7 +32,7 @@ class UserRepositoryImpl : UserRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val userCollection = firestore.collection(COLLECTION_USERS)
 
-    override suspend fun addUser(user: User): Result<Boolean> = withContext(Dispatchers.IO) {
+    override suspend fun addUser(user: User): Boolean = suspendCoroutine { continuation ->
         Timber.d("----------login----------")
 
         userCollection
@@ -41,20 +41,24 @@ class UserRepositoryImpl : UserRepository {
             .addOnCompleteListener { userTask ->
                 if (!userTask.isSuccessful) {
                     Timber.w("User task failed. ${userTask.exception?.message}")
-                    Result.Fail(appInstance.getString(R.string.login_fail))
+                    continuation.resume(false)
                 }
                 if (userTask.result.isEmpty) {
-                    userCollection.document(user.id).set(user)
+
+                    userCollection
+                        .document(user.id)
+                        .set(user)
                         .addOnCompleteListener { registerTask ->
-                            if (!registerTask.isSuccessful) {
-                                Timber.w("Register task failed. ${registerTask.exception?.message}")
-                                Result.Fail(appInstance.getString(R.string.login_fail))
+                            registerTask.exception?.let {
+                                Timber.w("Register task failed. ${it.message}")
                             }
+                            continuation.resume(registerTask.isSuccessful)
                         }
+
+                } else {
+                    continuation.resume(true)
                 }
             }
-
-        Result.Success(true)
     }
 
     override suspend fun getUsersByIdList(idList: List<String>): Result<List<User>> {

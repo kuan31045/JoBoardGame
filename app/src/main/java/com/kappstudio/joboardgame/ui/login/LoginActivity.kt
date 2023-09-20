@@ -58,9 +58,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.navToMain.observe(this) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            if (it == true) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
+    }
+
+    private fun showLoginFailedUi() {
+        ToastUtil.show(getString(R.string.login_fail))
+        binding.lottiePoker.visibility = View.GONE
+        binding.btnLogin.visibility = View.VISIBLE
     }
 
     private fun firebaseLogin() {
@@ -99,11 +107,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
 
-                else -> {
-                    ToastUtil.show(getString(R.string.login_fail))
-                    binding.lottiePoker.visibility = View.GONE
-                    binding.btnLogin.visibility = View.VISIBLE
-                }
+                else -> showLoginFailedUi()
             }
         }
     }
@@ -117,9 +121,7 @@ class LoginActivity : AppCompatActivity() {
                     onFirebaseSignInSuccess(google)
                 } else {
                     Timber.d("signInWithCredential:failure", task.exception)
-                    ToastUtil.show(getString(R.string.login_fail))
-                    binding.lottiePoker.visibility = View.GONE
-                    binding.btnLogin.visibility = View.VISIBLE
+                    showLoginFailedUi()
                 }
             }
     }
