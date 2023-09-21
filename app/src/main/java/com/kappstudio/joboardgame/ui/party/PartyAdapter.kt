@@ -13,7 +13,7 @@ import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.databinding.ItemPartyBinding
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
-import java.util.*
+import java.util.Calendar
 
 class PartyAdapter(private val viewModel: ViewModel) :
     ListAdapter<Party, PartyAdapter.PartyViewHolder>(DiffCallback) {
