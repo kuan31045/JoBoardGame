@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GameDao {
@@ -12,5 +13,5 @@ interface GameDao {
     fun upsert(game: GameEntity)
 
     @Query("SELECT * FROM game_table ORDER BY viewed_time DESC")
-    fun getAllGames(): LiveData<List<GameEntity>>
+    fun getAllGames(): Flow<List<GameEntity>>
 }

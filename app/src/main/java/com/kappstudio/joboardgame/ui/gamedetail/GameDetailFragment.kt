@@ -94,9 +94,7 @@ class GameDetailFragment : Fragment() {
         }
 
         viewModel.toastMsgRes.observe(viewLifecycleOwner) {
-            it?.let {
-                Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root

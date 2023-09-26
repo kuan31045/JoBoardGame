@@ -78,7 +78,7 @@ object JoRemoteDataSource : JoDataSource {
         val liveData = MutableLiveData<Party>()
 
         FirebaseFirestore.getInstance().collection(PATH_PARTIES)
-            .document(id)
+                    .document(id)
             .addSnapshotListener { snapshot, exception ->
 
                 exception?.let {

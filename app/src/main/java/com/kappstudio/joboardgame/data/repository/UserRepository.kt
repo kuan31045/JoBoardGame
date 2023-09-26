@@ -19,6 +19,8 @@ interface UserRepository {
 
     suspend fun getUsersByIdList(idList: List<String>): Result<List<User>>
 
+    suspend fun getUser(id: String): User
+
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean
 
     suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean
@@ -71,6 +73,18 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
+    override suspend fun getUser(id: String): User {
+        Timber.d("----------getUser----------")
+
+        return try {
+            val result = userCollection.document(id).get().await()
+            result.toObject(User::class.java)!!
+        } catch (e: Exception) {
+            Timber.w("Error getting documents. $e")
+            User()
+        }
+    }
+
     override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean =
         suspendCoroutine { continuation ->
             Timber.d("----------insertFavorite----------")
@@ -78,7 +92,9 @@ class UserRepositoryImpl : UserRepository {
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayUnion(gameMap))
-                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+                .addOnCompleteListener {
+                    continuation.resume(it.isSuccessful)
+                }
         }
 
     override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean =
@@ -88,7 +104,9 @@ class UserRepositoryImpl : UserRepository {
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayRemove(gameMap))
-                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+                .addOnCompleteListener {
+                    continuation.resume(it.isSuccessful)
+                }
         }
 
     private companion object {

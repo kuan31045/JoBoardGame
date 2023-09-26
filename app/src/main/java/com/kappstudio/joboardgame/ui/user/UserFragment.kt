@@ -68,7 +68,7 @@ class UserFragment : Fragment() {
 
         binding.btnMore.setOnClickListener {
             val popMenu = PopupMenu(appInstance, binding.btnMore)
-            popMenu.menuInflater.inflate(R.menu.pop_report_menu, popMenu.menu)
+            popMenu.menuInflater.inflate(R.menu.pop_user_menu, popMenu.menu)
             popMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.report_user -> viewModel.navToReport()

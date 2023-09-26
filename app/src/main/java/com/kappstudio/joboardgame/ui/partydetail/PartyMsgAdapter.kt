@@ -12,6 +12,7 @@ import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.PartyMsg
 import com.kappstudio.joboardgame.databinding.ItemPartyMsgBinding
+import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.util.timeUtil
 
 class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
@@ -30,11 +31,19 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
                         viewModel.navToUser(user.id)
                     }
                 }
+
                 btnMore.setOnClickListener {
                     val popMenu = PopupMenu(appInstance, btnMore)
-                    popMenu.menuInflater.inflate(R.menu.pop_msg_menu, popMenu.menu)
+
+                    if (msg.userId == UserManager.getUserId()) {
+                        popMenu.menuInflater.inflate(R.menu.pop_delete_msg_menu, popMenu.menu)
+                    } else {
+                        popMenu.menuInflater.inflate(R.menu.pop_report_msg_menu, popMenu.menu)
+                    }
+
                     popMenu.setOnMenuItemClickListener {
                         when (it.itemId) {
+                            R.id.delete_msg -> viewModel.deleteMsg(msg.id)
                             R.id.report_msg -> viewModel.reportMsg(msg)
                         }
                         true
@@ -68,7 +77,6 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
     }
 
     override fun onBindViewHolder(holder: MsgViewHolder, position: Int) {
-
         holder.bind(getItem(position), viewModel)
     }
 }

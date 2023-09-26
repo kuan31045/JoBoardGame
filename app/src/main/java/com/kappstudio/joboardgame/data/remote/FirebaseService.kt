@@ -28,6 +28,7 @@ object FirebaseService {
     private const val FIELD_PHOTOS = "photos"
     private const val FIELD_FRIEND_LIST = "friendList"
     private const val FIELD_REQUEST_LIST = "requestList"
+
     suspend fun sendReport(report: Report): Boolean = suspendCoroutine { continuation ->
         Timber.d("-----Send Report------------------------------")
 
@@ -186,61 +187,6 @@ object FirebaseService {
 
         }
 
-    suspend fun removeRating(rating: Rating): Boolean = suspendCoroutine { continuation ->
-        Timber.d("-----Remove Rating------------------------------")
-        val game = FirebaseFirestore.getInstance()
-            .collection(COLLECTION_GAMES).document(rating.gameId)
-        game.update("totalRating", FieldValue.increment(-(rating.score.toDouble())))
-        game.update("ratingQty", FieldValue.increment(-1))
-
-        FirebaseFirestore.getInstance().collection(COLLECTION_RATINGS).document(rating.id)
-            .delete()
-            .addOnSuccessListener {
-                continuation.resume(true)
-            }
-            .addOnFailureListener {
-                continuation.resume(false)
-            }
-
-    }
-
-    fun updateRating(rating: Rating, addScore: Int) {
-        val game = FirebaseFirestore.getInstance()
-            .collection(COLLECTION_GAMES).document(rating.gameId)
-        game.update("totalRating", FieldValue.increment(addScore.toDouble()))
-
-        if (rating.id == "") {
-            game.update("ratingQty", FieldValue.increment(1))
-        }
-
-    }
-
-
-    suspend fun sendPartyMsg(msg: PartyMsg): Boolean = suspendCoroutine { continuation ->
-        Timber.d("-----Send Party Msg------------------------------")
-
-        val msgs = FirebaseFirestore.getInstance().collection("partyMsgs")
-        val document = msgs.document()
-
-        msg.id = document.id
-
-        document
-            .set(msg)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Timber.d("Send Party Msg Successful: $msg")
-                    continuation.resume(true)
-                } else {
-                    task.exception?.let {
-
-                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(false)
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(false)
-                }
-            }
-    }
 
 
     suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->

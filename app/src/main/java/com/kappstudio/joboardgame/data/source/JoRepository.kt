@@ -38,5 +38,4 @@ interface JoRepository {
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
 
     suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>>
-
 }

@@ -36,6 +36,8 @@ object UserManager {
             }
         }
 
+    fun getUserId() = user.value?.id ?: ""
+
     fun clear() {
         userToken = null
     }

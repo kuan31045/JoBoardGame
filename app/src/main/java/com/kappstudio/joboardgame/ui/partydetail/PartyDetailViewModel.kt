@@ -1,50 +1,56 @@
 package com.kappstudio.joboardgame.ui.partydetail
 
 import android.net.Uri
-import androidx.lifecycle.*
-import com.kappstudio.joboardgame.*
-import com.kappstudio.joboardgame.data.*
-import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.remote.FirebaseService
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.data.Game
+import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.PartyMsg
+import com.kappstudio.joboardgame.data.Report
+import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.data.repository.GameRepository
+import com.kappstudio.joboardgame.data.repository.PartyRepository
+import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.util.ToastUtil
+import com.kappstudio.joboardgame.util.checkValid
+import kotlinx.coroutines.launch
 
 class PartyDetailViewModel(
     private val partyId: String,
-    private val repository: JoRepository,
+    private val partyRepository: PartyRepository,
+    private val gameRepository: GameRepository,
+    private val userRepository: UserRepository,
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
-    val party: LiveData<Party> = repository.getParty(partyId)
+    val party: LiveData<Party> = partyRepository.getParty(partyId).asLiveData()
 
     private var _host = MutableLiveData<User>()
-    val host: LiveData<User>
-        get() = _host
+    val host: LiveData<User> = _host
 
-    private var _games = MutableLiveData<List<Game>>()
-    val games: LiveData<List<Game>>
-        get() = _games
+    lateinit var games: LiveData<List<Game>>
+        private set
 
     private var _players = MutableLiveData<List<User>>()
-    val players: LiveData<List<User>>
-        get() = _players
+    val players: LiveData<List<User>> = _players
 
     private val _isSend = MutableLiveData(false)
-    val isSend: LiveData<Boolean>
-        get() = _isSend
+    val isSend: LiveData<Boolean> = _isSend
 
-    val partyMsgs: LiveData<List<PartyMsg>> = repository.getPartyMsgs(partyId)
+    val partyMsgs: LiveData<List<PartyMsg>> = partyRepository.getPartyMsgs(partyId).asLiveData()
 
-    private val _reportOk = MutableLiveData<Boolean?>()
-    val reportOk: LiveData<Boolean?>
-        get() = _reportOk
+    private val _reportOk = MutableLiveData<Boolean>()
+    val reportOk: LiveData<Boolean> = _reportOk
 
     val isJoin = party.map {
         it.playerIdList.contains(UserManager.user.value?.id ?: "")
@@ -57,114 +63,93 @@ class PartyDetailViewModel(
     //Msg edittext
     var newMsg = MutableLiveData("")
 
-    private val _status = MutableLiveData<LoadApiStatus>()
-    val status: LiveData<LoadApiStatus>
-        get() = _status
+    val status = MutableLiveData<LoadApiStatus>()
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
+    private val _toastMsgRes = MutableLiveData<Int>()
+    val toastMsgRes: LiveData<Int> = _toastMsgRes
 
     fun joinParty() {
-        coroutineScope.launch {
-            repository.joinParty(partyId).collect {
-                if (it is Result.Success) {
-                    ToastUtil.show(appInstance.getString(R.string.welcome))
-                }
-            }
+        viewModelScope.launch {
+            partyRepository.joinParty(partyId)
         }
     }
 
     fun leaveParty() {
-        coroutineScope.launch {
-            repository.leaveParty(partyId).collect {
-                if (it is Result.Success) {
-                    ToastUtil.show(appInstance.getString(R.string.bye))
-                }
-            }
+        viewModelScope.launch {
+            partyRepository.leaveParty(partyId)
         }
     }
 
     fun sendMsg() {
-        if (newMsg.value?.replace("\\s".toRegex(), "") != "") {
-            viewModelScope.launch {
-                val res = FirebaseService.sendPartyMsg(
-                    PartyMsg(
-                        partyId = partyId,
-                        msg = newMsg.value ?: ""
-                    )
+        if (!newMsg.value.checkValid()) {
+            _toastMsgRes.value = R.string.cant_empty
+            return
+        }
+
+        viewModelScope.launch {
+            val res = partyRepository.sendPartyMsg(
+                PartyMsg(
+                    partyId = partyId,
+                    msg = newMsg.value ?: ""
                 )
+            )
 
-                if (res) {
-                    _isSend.value = true
-                    ToastUtil.show(appInstance.getString(R.string.send_ok))
-                    newMsg.value = ""
-                }
+            if (res) {
+                _isSend.value = true
+                newMsg.value = ""
             }
-        } else {
-            ToastUtil.show(appInstance.getString(R.string.enter_content))
         }
     }
 
-    fun uploadPhoto(fileUri: Uri?) {
-        viewModelScope.launch {
-            fileUri?.let {
-                _status.value = LoadApiStatus.LOADING
+    fun uploadPhoto(fileUri: Uri) {
+        status.value =  LoadApiStatus.LOADING
 
-                when (val result = FirebaseService.uploadPhoto(it)) {
+        viewModelScope.launch {
+            partyRepository.addPartyPhoto(partyId, fileUri).collect { result ->
+                status.value = when (result) {
+                    is Result.Loading -> LoadApiStatus.LOADING
                     is Result.Success -> {
-                        val res = result.data
-                        addPartyPhoto(res)
+                        ToastUtil.show(result.data)
+                        LoadApiStatus.DONE
                     }
-
                     else -> {
-                        ToastUtil.show(appInstance.getString(R.string.upload_fail))
-                        _status.value = LoadApiStatus.ERROR
+                        ToastUtil.show("failed")
+                        LoadApiStatus.ERROR
                     }
-                }
-            }
-        }
-    }
-
-    private suspend fun addPartyPhoto(photo: String) {
-        viewModelScope.launch {
-            when (FirebaseService.addPartyPhoto(partyId, photo)) {
-                is Result.Success -> {
-                    ToastUtil.show(appInstance.getString(R.string.upload_ok))
-                    _status.value = LoadApiStatus.DONE
-                }
-
-                else -> {
-                    ToastUtil.show(appInstance.getString(R.string.upload_fail))
-                    _status.value = LoadApiStatus.ERROR
                 }
             }
         }
     }
 
     fun getHostUser() {
-        party.value?.let {
-            _host = repository.getUser(it.hostId)
+        viewModelScope.launch {
+            party.value?.let {
+                _host.value = userRepository.getUser(it.hostId)
+            }
         }
     }
 
     fun getGames() {
         party.value?.let {
-            _games = repository.getGamesByNames(it.gameNameList)
+            games = gameRepository.getGamesByNames(it.gameNameList).asLiveData()
         }
     }
 
     fun getPlayers() {
-        party.value?.let {
-            if (it.playerIdList.isNotEmpty()) {
-                _players = repository.getUsersByIdList(it.playerIdList)
-            } else {
-                _players.value = listOf()
+        if (party.value!!.playerIdList.isEmpty()) {
+            return
+        }
+        viewModelScope.launch {
+            val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
+            if (result is Result.Success) {
+                _players.value = result.data ?: emptyList()
             }
+        }
+    }
+
+    fun deleteMsg(id: String) {
+        viewModelScope.launch {
+            partyRepository.deletePartyMsg(id)
         }
     }
 
@@ -174,14 +159,12 @@ class PartyDetailViewModel(
                 thing = "${msg.userId}: ${msg.msg}",
                 violationId = msg.id
             )
-            val result = FirebaseService.sendReport(report)
+
+            val result = partyRepository.sendReport(report)
+
             if (result) {
                 _reportOk.value = true
             }
         }
-    }
-
-    fun onReportOk() {
-        _reportOk.value = null
     }
 }

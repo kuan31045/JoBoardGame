@@ -1,7 +1,5 @@
 package com.kappstudio.joboardgame.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
@@ -27,7 +25,7 @@ interface GameRepository {
 
     fun getMyRating(gameId: String): Flow<Rating?>
 
-    fun getAllViewedGames(): LiveData<List<Game>>
+    fun getAllViewedGames(): Flow<List<Game>>
 
     suspend fun upsertViewedGame(game: Game)
 
@@ -36,6 +34,8 @@ interface GameRepository {
     suspend fun updateGameRating(rating: Rating, scoreIncrement: Int)
 
     suspend fun removeMyRating(rating: Rating): Boolean
+
+    fun getGamesByNames(names: List<String>): Flow<List<Game>>
 }
 
 
@@ -78,7 +78,7 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             }
     }
 
-    override fun getAllViewedGames(): LiveData<List<Game>> = gameDao.getAllGames().map { entities ->
+    override fun getAllViewedGames(): Flow<List<Game>> = gameDao.getAllGames().map { entities ->
         entities.map { it.toGame() }
     }
 
@@ -123,6 +123,30 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
                 .addOnCompleteListener { continuation.resume(it.isSuccessful) }
         }
 
+    override fun getGamesByNames(names: List<String>): Flow<List<Game>> {
+        Timber.d("----------getGamesByNames----------")
+
+        return gameCollection
+            .whereIn(FIELD_NAME, names)
+            .snapshots()
+            .map {
+                val result = it.toObjects(Game::class.java)
+
+                val games = mutableListOf<Game>()
+                names.forEach { name ->
+                    games.add(
+                        try {
+                            result.first { game -> game.name == name }
+                        } catch (e: Exception) {
+                            Game(name = name)
+                        }
+                    )
+                }
+
+                games
+            }
+    }
+
     private companion object {
         const val COLLECTION_GAMES = "games"
         const val FIELD_CREATED_TIME = "createdTime"
@@ -131,5 +155,6 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
         const val FIELD_GAME_ID = "gameId"
         const val FIELD_TOTAL_RATING = "totalRating"
         const val FIELD_RATING_QTY = "ratingQty"
+        const val FIELD_NAME = "name"
     }
 }

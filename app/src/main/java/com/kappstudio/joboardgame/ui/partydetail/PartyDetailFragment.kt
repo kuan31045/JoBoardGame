@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.dylanc.activityresult.launcher.StartActivityLauncher
@@ -16,32 +16,35 @@ import com.irozon.alertview.AlertActionStyle
 import com.irozon.alertview.AlertStyle
 import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
-import com.kappstudio.joboardgame.*
+import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
-import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameAdapter
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.tools.ToolsFragmentDirections
+import com.kappstudio.joboardgame.util.ConnectivityUtil
+import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.ToastUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class PartyDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentPartyDetailBinding
     private lateinit var startActivityLauncher: StartActivityLauncher
-    val viewModel: PartyDetailViewModel by viewModels {
-        VMFactory {
-            PartyDetailViewModel(
-                PartyDetailFragmentArgs.fromBundle(requireArguments()).clickedPartyId,
-                appInstance.provideJoRepository()
-            )
-        }
+    private val viewModel: PartyDetailViewModel by viewModel {
+        parametersOf(
+            PartyDetailFragmentArgs.fromBundle(
+                requireArguments()
+            ).clickedPartyId
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
 
         startActivityLauncher = StartActivityLauncher(this)
 
@@ -106,10 +109,6 @@ class PartyDetailFragment : Fragment() {
             )
         }
 
-        viewModel.isSend.observe(viewLifecycleOwner) {
-            closeSoftKeyboard(binding.etMsg)
-        }
-
         viewModel.party.observe(viewLifecycleOwner) {
             viewModel.getHostUser()
             viewModel.getGames()
@@ -132,23 +131,24 @@ class PartyDetailFragment : Fragment() {
             msgAdapter.submitList(it)
         }
 
+        viewModel.isSend.observe(viewLifecycleOwner) {
+            closeSoftKeyboard(binding.etMsg)
+        }
+
+        viewModel.toastMsgRes.observe(viewLifecycleOwner) {
+            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
+        }
+
         viewModel.reportOk.observe(viewLifecycleOwner) {
-            it?.let {
-                ToastUtil.show(getString(R.string.report_ok))
-
-                val mAlert = android.app.AlertDialog.Builder(activity)
-                mAlert.setTitle(getString(R.string.report_ok))
-                mAlert.setMessage(getString(R.string.google_play_want_see_this3))
-                mAlert.setCancelable(false)
-                mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
-                }
-
-                val mAlertDialog = mAlert.create()
-                mAlertDialog.show()
-
-                viewModel.onReportOk()
+            val mAlert = android.app.AlertDialog.Builder(activity)
+            mAlert.setTitle(getString(R.string.report_ok))
+            mAlert.setMessage(getString(R.string.google_play_want_see_this3))
+            mAlert.setCancelable(true)
+            mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
             }
-            viewModel.onReportOk()
+
+            val mAlertDialog = mAlert.create()
+            mAlertDialog.show()
         }
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner) {
@@ -175,7 +175,7 @@ class PartyDetailFragment : Fragment() {
                         AlertAction(
                             getString(R.string.cancel),
                             AlertActionStyle.DEFAULT
-                        ) { _ ->})
+                        ) { _ -> })
 
                     alert.show(activity as AppCompatActivity)
                 } else {
@@ -205,18 +205,26 @@ class PartyDetailFragment : Fragment() {
                 1080
             )    //Final image resolution will be less than 1080 x 1080(Optional)
             .createIntent { intent ->
+                viewModel.status.value = LoadApiStatus.LOADING
+
                 startActivityLauncher.launch(intent) { resultCode, data ->
                     when (resultCode) {
                         Activity.RESULT_OK -> {
                             data?.let {
                                 val fileUri = data.data
-                                binding.ivCover.setImageURI(fileUri)
-                                viewModel.uploadPhoto(fileUri)
+                                if (fileUri != null) {
+                                    viewModel.uploadPhoto(fileUri)
+                                }
                             }
+                        }
+
+                        Activity.RESULT_CANCELED -> {
+                            viewModel.status.value = LoadApiStatus.DONE
                         }
 
                         ImagePicker.RESULT_ERROR -> {
                             ToastUtil.show(ImagePicker.getError(data))
+                            viewModel.status.value = LoadApiStatus.DONE
                         }
                     }
                 }
