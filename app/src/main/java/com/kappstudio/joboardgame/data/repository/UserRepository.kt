@@ -69,7 +69,7 @@ class UserRepositoryImpl : UserRepository {
             Result.Success(result.toObjects(User::class.java))
         } catch (e: Exception) {
             Timber.w("Error getting documents. $e")
-            Result.Fail(appInstance.getString(R.string.check_internet))
+            Result.Fail(R.string.check_internet)
         }
     }
 

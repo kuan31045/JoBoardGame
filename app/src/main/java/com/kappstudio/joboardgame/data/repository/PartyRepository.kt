@@ -134,7 +134,7 @@ class PartyRepositoryImpl : PartyRepository {
         emit(Result.Loading)
 
         if (ConnectivityUtil.isNotConnected()) {
-            emit(Result.Fail(appInstance.getString(R.string.check_internet)))
+            emit(Result.Fail(R.string.check_internet))
         }
 
         val uploadTime = Calendar.getInstance().timeInMillis
@@ -148,7 +148,7 @@ class PartyRepositoryImpl : PartyRepository {
         emit(Result.Success(uri.toString()))
 
     }.catch {
-        Result.Fail(appInstance.getString(R.string.upload_fail))
+        Result.Fail(R.string.upload_fail)
     }.flowOn(Dispatchers.IO)
 
     private fun sortParty(parties: List<Party>): List<Party> {

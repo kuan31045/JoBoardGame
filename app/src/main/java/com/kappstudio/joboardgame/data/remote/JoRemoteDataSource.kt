@@ -262,61 +262,23 @@ object JoRemoteDataSource : JoDataSource {
         return liveData
     }
 
-    override suspend fun joinParty(id: String): Flow<Result<Boolean>> =
-        flow {
-            Timber.d("-----Join Party------------------------------")
+    override suspend fun joinParty(id: String): Flow<Result<Boolean>> {
+        TODO("Not yet implemented")
+    }
 
-            FirebaseFirestore.getInstance()
-                .collection(PATH_PARTIES)
-                .document(id)
-                .update(
-                    KEY_PLAYER_ID_LIST,
-                    FieldValue.arrayUnion(UserManager.user.value?.id ?: "")
-                )
+    override suspend fun leaveParty(id: String): Flow<Result<Boolean>> {
+        TODO("Not yet implemented")
+    }
 
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Result.Fail(it.message.toString())
-        }
-
-    override suspend fun leaveParty(id: String): Flow<Result<Boolean>> =
-        flow {
-            Timber.d("-----Leave Party------------------------------")
-
-            FirebaseFirestore.getInstance()
-                .collection(PATH_PARTIES)
-                .document(id)
-                .update(
-                    KEY_PLAYER_ID_LIST,
-                    FieldValue.arrayRemove(UserManager.user.value?.id ?: "")
-                )
-
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Result.Fail(it.message.toString())
-        }
 
     override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> {
         TODO("Not yet implemented")
     }
 
+    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> {
+        TODO("Not yet implemented")
+    }
 
-    override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Flow<Result<Boolean>> =
-        flow {
-            Timber.d("-----Delete Favorite------------------------------")
-
-            FirebaseFirestore.getInstance()
-                .collection(PATH_USERS)
-                .document(UserManager.user.value?.id ?: "")
-                .update("favoriteGames", FieldValue.arrayRemove(gameMap))
-
-            emit(Result.Success(true))
-
-        }.flowOn(Dispatchers.IO).catch {
-            Result.Fail(it.message.toString())
-        }
 
     private fun sortParty(parties: List<Party>): List<Party> {
         val openParties =

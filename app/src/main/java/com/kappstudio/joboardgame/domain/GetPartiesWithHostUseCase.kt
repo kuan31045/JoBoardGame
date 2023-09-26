@@ -1,7 +1,6 @@
 package com.kappstudio.joboardgame.domain
 
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
@@ -33,7 +32,7 @@ class GetPartiesWithHostUseCase(
                 }
                 emit(Result.Success(newParties))
             } else {
-                emit(Result.Fail(appInstance.getString(R.string.check_internet)))
+                emit(Result.Fail(R.string.check_internet))
             }
         }
     }

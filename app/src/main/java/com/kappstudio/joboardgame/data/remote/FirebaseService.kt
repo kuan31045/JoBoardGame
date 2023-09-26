@@ -116,32 +116,7 @@ object FirebaseService {
     }
 
 
-    suspend fun addPartyPhoto(partyId: String, photo: String): Result<String> =
-        suspendCoroutine { continuation ->
-            Timber.d("-----Add Party Photo------------------------------")
-            FirebaseFirestore.getInstance()
-                .collection(COLLECTION_PARTIES).document(partyId)
-                .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
 
-                        FirebaseFirestore.getInstance()
-                            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-                            .update(FIELD_PHOTOS, FieldValue.arrayUnion(photo))
-
-                        continuation.resume(Result.Success("success"))
-                    } else {
-                        task.exception?.let {
-                            Timber.w("[${this::class.simpleName}] Error adding photo. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(appInstance.getString(R.string.nothing))
-                        )
-                    }
-                }
-        }
 
     suspend fun uploadPhoto(imgUri: Uri): Result<String> =
         suspendCoroutine { continuation ->
@@ -169,7 +144,7 @@ object FirebaseService {
                                     return@let
                                 }
                                 continuation.resume(
-                                    Result.Fail(appInstance.getString(R.string.nothing))
+                                    Result.Fail(0)
                                 )
                             }
                         }
@@ -180,7 +155,7 @@ object FirebaseService {
                             return@addOnCompleteListener
                         }
                         continuation.resume(
-                            Result.Fail(appInstance.getString(R.string.nothing))
+                            Result.Fail(0)
                         )
                     }
                 }
