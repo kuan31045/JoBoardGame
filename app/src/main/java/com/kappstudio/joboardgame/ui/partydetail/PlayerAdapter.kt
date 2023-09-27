@@ -14,6 +14,7 @@ class PlayerAdapter(private val viewModel: PartyDetailViewModel) :
 
     inner class PlayerViewHolder(private val binding: ItemPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(user: User, viewModel: PartyDetailViewModel) {
             bindImage(binding.ivUser, user.image)
             binding.tvName.text = user.name

@@ -5,6 +5,8 @@ import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.GameRepositoryImpl
 import com.kappstudio.joboardgame.data.repository.PartyRepository
 import com.kappstudio.joboardgame.data.repository.PartyRepositoryImpl
+import com.kappstudio.joboardgame.data.repository.StorageRepository
+import com.kappstudio.joboardgame.data.repository.StorageRepositoryImpl
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.data.repository.UserRepositoryImpl
 import com.kappstudio.joboardgame.data.room.JoDatabase
@@ -33,4 +35,6 @@ val repositoryModule = module {
     single<PartyRepository> { PartyRepositoryImpl() }
 
     single<GameRepository> { GameRepositoryImpl(get()) }
+
+    single<StorageRepository> { StorageRepositoryImpl() }
 }

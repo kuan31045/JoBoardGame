@@ -15,7 +15,6 @@ sealed class Result<out R> {
             is Fail -> "Fail[error=$stringRes]"
             is Error -> "Error[exception=${exception.message}]"
             Loading -> "Loading"
-            else -> ""
         }
     }
 }

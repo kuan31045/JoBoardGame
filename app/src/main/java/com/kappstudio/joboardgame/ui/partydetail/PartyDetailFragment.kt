@@ -22,7 +22,6 @@ import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.ui.game.GameAdapter
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
 import com.kappstudio.joboardgame.ui.tools.ToolsFragmentDirections
-import com.kappstudio.joboardgame.util.ConnectivityUtil
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -59,7 +58,7 @@ class PartyDetailFragment : Fragment() {
         binding.rvPartyGame.adapter = gameAdapter
         binding.rvPlayer.adapter = playerAdapter
         binding.rvMsg.adapter = msgAdapter
-        binding.rvPhoto.adapter = PhotoAdapter(viewModel)
+        binding.rvPhoto.adapter = PhotoAdapter()
 
         binding.rvMsg.addItemDecoration(
             DividerItemDecoration(appInstance, DividerItemDecoration.VERTICAL)

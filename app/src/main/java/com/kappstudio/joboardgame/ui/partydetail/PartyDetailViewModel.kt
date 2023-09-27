@@ -16,12 +16,12 @@ import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.PartyRepository
+import com.kappstudio.joboardgame.data.repository.StorageRepository
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
-import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 
@@ -30,6 +30,7 @@ class PartyDetailViewModel(
     private val partyRepository: PartyRepository,
     private val gameRepository: GameRepository,
     private val userRepository: UserRepository,
+    private val storageRepository: StorageRepository,
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
@@ -102,24 +103,28 @@ class PartyDetailViewModel(
     }
 
     fun uploadPhoto(fileUri: Uri) {
-        status.value =  LoadApiStatus.LOADING
+        status.value = LoadApiStatus.LOADING
 
         viewModelScope.launch {
-            partyRepository.addPartyPhoto(partyId, fileUri).collect { result ->
+            storageRepository.uploadPhoto(fileUri).collect { result ->
                 status.value = when (result) {
-                    is Result.Loading -> LoadApiStatus.LOADING
                     is Result.Success -> {
-                        ToastUtil.show(result.data)
+                        partyRepository.addPartyPhoto(partyId, result.data)
+                        _toastMsgRes.value = R.string.upload_ok
                         LoadApiStatus.DONE
                     }
-                    else -> {
-                        ToastUtil.show("failed")
-                        LoadApiStatus.ERROR
+
+                    is Result.Fail -> {
+                        _toastMsgRes.value = result.stringRes
+                        LoadApiStatus.DONE
                     }
+
+                    else -> LoadApiStatus.LOADING
                 }
             }
         }
     }
+
 
     fun getHostUser() {
         viewModelScope.launch {
