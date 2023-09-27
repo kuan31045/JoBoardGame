@@ -12,15 +12,16 @@ class PhotoFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentPhotoBinding.inflate(inflater)
 
         // set View Pager Adapter
+        val photos = PhotoFragmentArgs.fromBundle(requireArguments()).photos
         val adapter = PhotoPagerAdapter(
             childFragmentManager,
-            PhotoFragmentArgs.fromBundle(requireArguments()).photos
-            )
+            photos
+        )
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = PhotoFragmentArgs.fromBundle(requireArguments()).position

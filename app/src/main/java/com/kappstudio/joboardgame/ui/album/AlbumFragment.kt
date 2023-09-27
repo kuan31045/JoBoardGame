@@ -31,12 +31,13 @@ class AlbumFragment : Fragment() {
 
         binding.rvPhoto.adapter = AlbumAdapter(viewModel)
 
-        viewModel.navToPhoto.observe(viewLifecycleOwner,{
+        viewModel.navToPhoto.observe(viewLifecycleOwner) {
             it?.let {
-                findNavController().navigate(AlbumFragmentDirections.navToPhotoFragment(it.sortedByDescending { it }.toTypedArray(),viewModel.position.value?:0))
+                findNavController().navigate(AlbumFragmentDirections.navToPhotoFragment(it.reversed()
+                    .toTypedArray(), viewModel.position.value ?: 0))
                 viewModel.onNavToPhoto()
             }
-        })
+        }
 
         return binding.root
     }

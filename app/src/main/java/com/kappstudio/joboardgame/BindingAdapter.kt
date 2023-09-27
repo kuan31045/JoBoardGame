@@ -55,8 +55,8 @@ fun bindRecyclerViewPhotos(rv: RecyclerView, photos: List<String>?) {
     photos?.let {
         rv.adapter?.apply {
             when (this) {
-                is PhotoAdapter -> submitList(photos.sortedByDescending { it })
-                is AlbumAdapter -> submitList(photos.sortedByDescending { it })
+                is PhotoAdapter -> submitList(photos.reversed())
+                is AlbumAdapter -> submitList(photos.reversed())
             }
         }
     }
