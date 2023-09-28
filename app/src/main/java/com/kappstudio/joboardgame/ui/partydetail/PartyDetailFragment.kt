@@ -134,20 +134,19 @@ class PartyDetailFragment : Fragment() {
             closeSoftKeyboard(binding.etMsg)
         }
 
-        viewModel.toastMsgRes.observe(viewLifecycleOwner) {
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
-        }
+        viewModel.hasReported.observe(viewLifecycleOwner) {
+            it?.let {
+                val mAlert = android.app.AlertDialog.Builder(activity)
+                mAlert.setTitle(getString(R.string.report_ok))
+                mAlert.setMessage(getString(R.string.google_play_want_see_this3))
+                mAlert.setCancelable(true)
+                mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
+                }
 
-        viewModel.reportOk.observe(viewLifecycleOwner) {
-            val mAlert = android.app.AlertDialog.Builder(activity)
-            mAlert.setTitle(getString(R.string.report_ok))
-            mAlert.setMessage(getString(R.string.google_play_want_see_this3))
-            mAlert.setCancelable(true)
-            mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
+                val mAlertDialog = mAlert.create()
+                mAlertDialog.show()
+                viewModel.hasReported.value = null
             }
-
-            val mAlertDialog = mAlert.create()
-            mAlertDialog.show()
         }
 
         viewModel.navToGameDetail.observe(viewLifecycleOwner) {

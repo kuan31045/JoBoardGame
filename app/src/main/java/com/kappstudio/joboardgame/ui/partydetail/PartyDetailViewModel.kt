@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.PartyMsg
@@ -18,11 +19,15 @@ import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.PartyRepository
 import com.kappstudio.joboardgame.data.repository.StorageRepository
 import com.kappstudio.joboardgame.data.repository.UserRepository
+import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
+import com.kappstudio.joboardgame.domain.GetPartyMsgsUseCase
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
+import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class PartyDetailViewModel(
@@ -31,6 +36,7 @@ class PartyDetailViewModel(
     private val gameRepository: GameRepository,
     private val userRepository: UserRepository,
     private val storageRepository: StorageRepository,
+    private val getPartyMsgsUseCase: GetPartyMsgsUseCase,
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
@@ -50,8 +56,7 @@ class PartyDetailViewModel(
 
     val partyMsgs: LiveData<List<PartyMsg>> = partyRepository.getPartyMsgs(partyId).asLiveData()
 
-    private val _reportOk = MutableLiveData<Boolean>()
-    val reportOk: LiveData<Boolean> = _reportOk
+    val hasReported = MutableLiveData<Boolean?>()
 
     val isJoin = party.map {
         it.playerIdList.contains(UserManager.user.value?.id ?: "")
@@ -65,9 +70,6 @@ class PartyDetailViewModel(
     var newMsg = MutableLiveData("")
 
     val status = MutableLiveData<LoadApiStatus>()
-
-    private val _toastMsgRes = MutableLiveData<Int>()
-    val toastMsgRes: LiveData<Int> = _toastMsgRes
 
     fun joinParty() {
         viewModelScope.launch {
@@ -83,7 +85,7 @@ class PartyDetailViewModel(
 
     fun sendMsg() {
         if (!newMsg.value.checkValid()) {
-            _toastMsgRes.value = R.string.cant_empty
+            ToastUtil.showByRes((R.string.cant_empty))
             return
         }
 
@@ -106,16 +108,16 @@ class PartyDetailViewModel(
         status.value = LoadApiStatus.LOADING
 
         viewModelScope.launch {
-            storageRepository.uploadPhoto(fileUri).collect { result ->
+            storageRepository.uploadPhoto(fileUri).collectLatest { result ->
                 status.value = when (result) {
                     is Result.Success -> {
                         partyRepository.addPartyPhoto(partyId, result.data)
-                        _toastMsgRes.value = R.string.upload_ok
+                        ToastUtil.showByRes(R.string.upload_ok)
                         LoadApiStatus.DONE
                     }
 
                     is Result.Fail -> {
-                        _toastMsgRes.value = result.stringRes
+                        ToastUtil.showByRes(result.stringRes)
                         LoadApiStatus.DONE
                     }
 
@@ -168,7 +170,7 @@ class PartyDetailViewModel(
             val result = partyRepository.sendReport(report)
 
             if (result) {
-                _reportOk.value = true
+                hasReported.value = true
             }
         }
     }
