@@ -24,6 +24,8 @@ interface UserRepository {
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean
 
     suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean
+
+    suspend fun addMyPhoto(photo: String)
 }
 
 
@@ -33,8 +35,6 @@ class UserRepositoryImpl : UserRepository {
     private val userCollection = firestore.collection(COLLECTION_USERS)
 
     override suspend fun addUser(user: User): Boolean = suspendCoroutine { continuation ->
-        Timber.d("----------login----------")
-
         userCollection
             .whereEqualTo(FIELD_ID, user.id)
             .get()
@@ -62,8 +62,6 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override suspend fun getUsersByIdList(idList: List<String>): Result<List<User>> {
-        Timber.d("----------getUsersByIdList----------")
-
         return try {
             val result = userCollection.whereIn(FIELD_ID, idList).get().await()
             Result.Success(result.toObjects(User::class.java))
@@ -74,8 +72,6 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override suspend fun getUser(id: String): User {
-        Timber.d("----------getUser----------")
-
         return try {
             val result = userCollection.document(id).get().await()
             result.toObject(User::class.java)!!
@@ -87,8 +83,6 @@ class UserRepositoryImpl : UserRepository {
 
     override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean =
         suspendCoroutine { continuation ->
-            Timber.d("----------insertFavorite----------")
-
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayUnion(gameMap))
@@ -99,8 +93,6 @@ class UserRepositoryImpl : UserRepository {
 
     override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean =
         suspendCoroutine { continuation ->
-            Timber.d("----------removeFavorite----------")
-
             userCollection
                 .document(UserManager.user.value?.id ?: "")
                 .update(FIELD_FAVORITE, FieldValue.arrayRemove(gameMap))
@@ -109,9 +101,19 @@ class UserRepositoryImpl : UserRepository {
                 }
         }
 
+    override suspend fun addMyPhoto(photo: String) {
+        userCollection
+            .document(UserManager.getUserId())
+            .update(
+                FIELD_PHOTOS,
+                FieldValue.arrayUnion(photo)
+            )
+    }
+
     private companion object {
         const val COLLECTION_USERS = "users"
         const val FIELD_ID = "id"
         const val FIELD_FAVORITE = "favoriteGames"
+        const val FIELD_PHOTOS = "photos"
     }
 }

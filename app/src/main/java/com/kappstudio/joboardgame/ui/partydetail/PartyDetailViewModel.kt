@@ -8,7 +8,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.PartyMsg
@@ -19,7 +18,6 @@ import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.PartyRepository
 import com.kappstudio.joboardgame.data.repository.StorageRepository
 import com.kappstudio.joboardgame.data.repository.UserRepository
-import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
 import com.kappstudio.joboardgame.domain.GetPartyMsgsUseCase
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
@@ -27,9 +25,7 @@ import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class PartyDetailViewModel(
@@ -38,7 +34,7 @@ class PartyDetailViewModel(
     private val gameRepository: GameRepository,
     private val userRepository: UserRepository,
     private val storageRepository: StorageRepository,
-    private val getPartyMsgsUseCase: GetPartyMsgsUseCase,
+    getPartyMsgsUseCase: GetPartyMsgsUseCase,
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
@@ -107,20 +103,24 @@ class PartyDetailViewModel(
     }
 
     fun uploadPhoto(fileUri: Uri) {
-        status.value = LoadApiStatus.LOADING
-
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO + viewModelScope.coroutineContext) {
             storageRepository.uploadPhoto(fileUri).collect { result ->
                 status.value = when (result) {
                     is Result.Success -> {
-                        partyRepository.addPartyPhoto(partyId, result.data)
+                        val photo = result.data
+                        partyRepository.addPartyPhoto(partyId, photo)
+                        userRepository.addMyPhoto(photo)
                         ToastUtil.showByRes(R.string.upload_ok)
                         LoadApiStatus.DONE
                     }
 
                     is Result.Fail -> {
                         ToastUtil.showByRes(result.stringRes)
-                        LoadApiStatus.DONE
+                        if (result.stringRes == R.string.check_internet) {
+                            LoadApiStatus.LOADING
+                        } else {
+                            LoadApiStatus.ERROR
+                        }
                     }
 
                     else -> LoadApiStatus.LOADING
@@ -128,7 +128,6 @@ class PartyDetailViewModel(
             }
         }
     }
-
 
     fun getHostUser() {
         viewModelScope.launch {
@@ -148,6 +147,7 @@ class PartyDetailViewModel(
         if (party.value!!.playerIdList.isEmpty()) {
             return
         }
+
         viewModelScope.launch {
             val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
             if (result is Result.Success) {

@@ -25,7 +25,7 @@ class StorageRepositoryImpl : StorageRepository {
 
     private val storageReference = FirebaseStorage.getInstance().reference
 
-    override suspend fun uploadPhoto(imgUri: Uri): Flow<Result<String>> = flow {
+    override suspend fun uploadPhoto(fileUri: Uri): Flow<Result<String>> = flow {
         emit(Result.Loading)
 
         if (ConnectivityUtil.isNotConnected()) {
@@ -38,7 +38,7 @@ class StorageRepositoryImpl : StorageRepository {
         val uri =
             storageReference
                 .child("${PATH_PHOTOS}/${UserManager.getUserId()}/$fileName")
-                .putFile(imgUri).await()
+                .putFile(fileUri).await()
                 .task.result.storage.downloadUrl.await() ?: ""
 
         emit(Result.Success(uri.toString()))
