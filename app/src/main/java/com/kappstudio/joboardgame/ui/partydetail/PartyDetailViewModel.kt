@@ -103,7 +103,7 @@ class PartyDetailViewModel(
     }
 
     fun uploadPhoto(fileUri: Uri) {
-        viewModelScope.launch(Dispatchers.IO + viewModelScope.coroutineContext) {
+        viewModelScope.launch {
             storageRepository.uploadPhoto(fileUri).collect { result ->
                 status.value = when (result) {
                     is Result.Success -> {
