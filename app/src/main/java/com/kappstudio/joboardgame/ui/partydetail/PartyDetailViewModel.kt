@@ -25,7 +25,6 @@ import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PartyDetailViewModel(
