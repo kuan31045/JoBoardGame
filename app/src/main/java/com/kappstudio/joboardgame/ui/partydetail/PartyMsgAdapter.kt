@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.allUsers
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.PartyMsg
@@ -24,12 +23,14 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
         fun bind(msg: PartyMsg, viewModel: PartyDetailViewModel) {
             binding.apply {
 
-                allUsers.value?.first { it.id == msg.userId }?.let { user ->
-                    bindImage(ivUser, user.image)
-                    tvName.text = user.name
-                    ivUser.setOnClickListener {
-                        viewModel.navToUser(user.id)
-                    }
+                bindImage(ivUser, msg.user.image)
+
+                tvName.text = msg.user.name
+                tvMsg.text = msg.msg
+                tvTime.text = timeUtil(msg.createdTime)
+
+                ivUser.setOnClickListener {
+                    viewModel.navToUser(msg.user.id)
                 }
 
                 btnMore.setOnClickListener {
@@ -50,8 +51,6 @@ class PartyMsgAdapter(private val viewModel: PartyDetailViewModel) :
                     }
                     popMenu.show()
                 }
-                tvMsg.text = msg.msg
-                tvTime.text = timeUtil(msg.createdTime)
             }
         }
     }

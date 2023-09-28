@@ -27,6 +27,8 @@ import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -54,7 +56,7 @@ class PartyDetailViewModel(
     private val _isSend = MutableLiveData(false)
     val isSend: LiveData<Boolean> = _isSend
 
-    val partyMsgs: LiveData<List<PartyMsg>> = partyRepository.getPartyMsgs(partyId).asLiveData()
+    val partyMsgs: LiveData<Result<List<PartyMsg>>> = getPartyMsgsUseCase(partyId).asLiveData()
 
     val hasReported = MutableLiveData<Boolean?>()
 
@@ -108,7 +110,7 @@ class PartyDetailViewModel(
         status.value = LoadApiStatus.LOADING
 
         viewModelScope.launch {
-            storageRepository.uploadPhoto(fileUri).collectLatest { result ->
+            storageRepository.uploadPhoto(fileUri).collect { result ->
                 status.value = when (result) {
                     is Result.Success -> {
                         partyRepository.addPartyPhoto(partyId, result.data)

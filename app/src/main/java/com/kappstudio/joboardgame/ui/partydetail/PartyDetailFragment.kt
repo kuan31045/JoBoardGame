@@ -18,6 +18,7 @@ import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.databinding.FragmentPartyDetailBinding
 import com.kappstudio.joboardgame.ui.game.GameAdapter
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
@@ -126,8 +127,11 @@ class PartyDetailFragment : Fragment() {
             }
         }
 
-        viewModel.partyMsgs.observe(viewLifecycleOwner) {
-            msgAdapter.submitList(it)
+        viewModel.partyMsgs.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> msgAdapter.submitList(result.data)
+                else -> {}
+            }
         }
 
         viewModel.isSend.observe(viewLifecycleOwner) {

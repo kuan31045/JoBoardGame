@@ -282,6 +282,5 @@ kuanappstudio@gmail.com</string>
     <string name="remove_fail">刪除失敗!</string>
     <string name="check_internet">請檢查網路連線</string>
     <string name="delete_msg">刪除留言\n</string>
-
-
+    <string name="cant_get_msg">無法取得留言</string>
 </resources>
