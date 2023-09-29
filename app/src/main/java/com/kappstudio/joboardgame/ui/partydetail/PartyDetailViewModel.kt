@@ -168,7 +168,7 @@ class PartyDetailViewModel(
                 violationId = msg.id
             )
 
-            val result = partyRepository.sendReport(report)
+            val result = userRepository.sendReport(report)
 
             if (result) {
                 hasReported.value = true

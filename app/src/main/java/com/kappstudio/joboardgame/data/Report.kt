@@ -6,8 +6,8 @@ import java.util.*
 
 @Parcelize
 data class Report(
-    var id: String = "",
-    var reportTime: Long = Calendar.getInstance().timeInMillis,
-    var thing: String = "",
-    var violationId: String = ""
+    val id: String = "",
+    val reportTime: Long = Calendar.getInstance().timeInMillis,
+    val thing: String = "",
+    val violationId: String = ""
 ): Parcelable

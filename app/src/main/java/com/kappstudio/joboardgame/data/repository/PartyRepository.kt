@@ -5,7 +5,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.PartyMsg
-import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -29,8 +28,6 @@ interface PartyRepository {
 
     suspend fun deletePartyMsg(msgId: String)
 
-    suspend fun sendReport(report: Report): Boolean
-
     suspend fun addPartyPhoto(partyId: String, photo: String)
 }
 
@@ -39,7 +36,6 @@ class PartyRepositoryImpl : PartyRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val partyCollection = firestore.collection(COLLECTION_PARTIES)
     private val msgCollection = firestore.collection(COLLECTION_PARTY_MSGS)
-    private val reportCollection = firestore.collection(COLLECTION_REPORTS)
 
     override fun getParties(): Flow<List<Party>> {
         return partyCollection
@@ -100,19 +96,6 @@ class PartyRepositoryImpl : PartyRepository {
             .delete()
     }
 
-    override suspend fun sendReport(report: Report): Boolean =
-        suspendCoroutine { continuation ->
-
-            val newReport = report.copy(
-                id = report.id.ifEmpty { reportCollection.document().id }
-            )
-
-            reportCollection
-                .document(newReport.id)
-                .set(newReport)
-                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
-        }
-
     override suspend fun addPartyPhoto(partyId: String, photo: String) {
         partyCollection
             .document(partyId)
@@ -137,7 +120,6 @@ class PartyRepositoryImpl : PartyRepository {
     private companion object {
         const val COLLECTION_PARTIES = "parties"
         const val COLLECTION_PARTY_MSGS = "partyMsgs"
-        const val COLLECTION_REPORTS = "reports"
         const val FIELD_PARTY_ID = "partyId"
         const val FIELD_PLAYER_ID_LIST = "playerIdList"
         const val FIELD_PHOTOS = "photos"

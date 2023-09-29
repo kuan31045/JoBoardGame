@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.ui.login.UserManager
@@ -31,6 +32,8 @@ interface UserRepository {
     suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean
 
     suspend fun addMyPhoto(photo: String)
+
+    suspend fun sendReport(report: Report): Boolean
 }
 
 
@@ -38,6 +41,7 @@ class UserRepositoryImpl : UserRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val userCollection = firestore.collection(COLLECTION_USERS)
+    private val reportCollection = firestore.collection(COLLECTION_REPORTS)
 
     override suspend fun addUser(user: User): Boolean = suspendCoroutine { continuation ->
         userCollection
@@ -122,10 +126,24 @@ class UserRepositoryImpl : UserRepository {
             .map { it.toObject(User::class.java)!! }
     }
 
+    override suspend fun sendReport(report: Report): Boolean =
+        suspendCoroutine { continuation ->
+
+            val newReport = report.copy(
+                id = report.id.ifEmpty { reportCollection.document().id }
+            )
+
+            reportCollection
+                .document(newReport.id)
+                .set(newReport)
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+        }
+
     private companion object {
         const val COLLECTION_USERS = "users"
         const val FIELD_ID = "id"
         const val FIELD_FAVORITE = "favoriteGames"
         const val FIELD_PHOTOS = "photos"
+        const val COLLECTION_REPORTS = "reports"
     }
 }
