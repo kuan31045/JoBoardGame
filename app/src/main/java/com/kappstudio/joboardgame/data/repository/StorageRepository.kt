@@ -17,7 +17,7 @@ import java.util.Calendar
 
 interface StorageRepository {
 
-    suspend fun uploadPhoto(imgUri: Uri): Flow<Result<String>>
+    suspend fun uploadPhoto(fileUri: Uri): Flow<Result<String>>
 }
 
 
