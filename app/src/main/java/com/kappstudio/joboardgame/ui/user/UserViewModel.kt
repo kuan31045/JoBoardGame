@@ -1,26 +1,26 @@
 package com.kappstudio.joboardgame.ui.user
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.JoRepository
 import com.kappstudio.joboardgame.data.remote.FirebaseService
+import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
-import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
 
-class UserViewModel(private val userId: String, private val repository: JoRepository) :
+class UserViewModel(
+    private val userId: String,
+    private val userRepository: UserRepository,
+) :
     ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
 
-    private var _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
-
-    private var _hosts = MutableLiveData<List<User>>()
-    val hosts: LiveData<List<User>>
-        get() = _hosts
+    val user: LiveData<User> = userRepository.getUserStream(userId).asLiveData()
 
     val me: LiveData<User> = UserManager.user
 
@@ -42,9 +42,7 @@ class UserViewModel(private val userId: String, private val repository: JoReposi
     val friendStatus: LiveData<FriendStatus>
         get() = _friendStatus
 
-    private var _navToReport = MutableLiveData<User?>()
-    val navToReport: LiveData<User?>
-        get() = _navToReport
+    val hasReported = MutableLiveData<Boolean?>()
 
     fun checkFriendStatus() {
         _friendStatus.value = when {
@@ -60,23 +58,6 @@ class UserViewModel(private val userId: String, private val repository: JoReposi
     val status: LiveData<LoadApiStatus>
         get() = _status
 
-    init {
-        getUserInfo()
-    }
-
-    private fun getUserInfo() {
-        viewModelScope.launch {
-            _status.value = LoadApiStatus.LOADING
-            _user = repository.getUser(userId)
-            //  _parties.value = FirebaseService.getUserParties(userId)
-            // _hostParties.value = FirebaseServicegetUserHosts(userId)
-            _status.value = LoadApiStatus.DONE
-        }
-    }
-
-    fun reUser() {
-        _user.value = _user.value
-    }
 
     fun sendFriendRequest() {
         FirebaseService.sendFriendRequest(userId)

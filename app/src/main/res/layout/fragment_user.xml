@@ -87,6 +87,7 @@
                     android:paddingRight="16dp"
                     android:paddingBottom="28dp">
                     <ImageButton
+                        android:visibility="@{viewModel.friendStatus == FriendStatus.IS_ME  ? View.GONE : View.VISIBLE}"
                         android:id="@+id/btn_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -151,20 +152,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_status">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_edit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:backgroundTint="@color/theme_blue"
-                            android:drawableLeft="@drawable/ic_edit_24dp"
-                            android:elevation="@dimen/elevation_4dp"
-                            android:minWidth="150dp"
-                            android:text="@string/edit_profile"
-                            android:textColor="@color/white"
 
-                            android:visibility="@{viewModel.friendStatus == FriendStatus.IS_ME  ? View.VISIBLE : View.GONE}"
-                            app:cornerRadius="99dp"
-                            tools:visibility="visible" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_add_friend"

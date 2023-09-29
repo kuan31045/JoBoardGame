@@ -2,11 +2,14 @@ package com.kappstudio.joboardgame.data.repository
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.ui.login.UserManager
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.util.HashMap
@@ -20,6 +23,8 @@ interface UserRepository {
     suspend fun getUsersByIdList(idList: List<String>): Result<List<User>>
 
     suspend fun getUser(id: String): User
+
+    fun getUserStream(id: String): Flow<User>
 
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean
 
@@ -108,6 +113,13 @@ class UserRepositoryImpl : UserRepository {
                 FIELD_PHOTOS,
                 FieldValue.arrayUnion(photo)
             )
+    }
+
+    override fun getUserStream(id: String): Flow<User> {
+        return userCollection
+            .document(id)
+            .snapshots()
+            .map { it.toObject(User::class.java)!! }
     }
 
     private companion object {

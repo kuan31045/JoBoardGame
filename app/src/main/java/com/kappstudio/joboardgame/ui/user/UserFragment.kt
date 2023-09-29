@@ -101,10 +101,6 @@ class UserFragment : Fragment() {
             popMenu.show()
         }
 
-        viewModel.me.observe(viewLifecycleOwner) {
-            viewModel.reUser()
-        }
-
         viewModel.user.observe(viewLifecycleOwner) {
             viewModel.checkFriendStatus()
         }
