@@ -68,6 +68,30 @@ class PartyDetailViewModel(
 
     val status = MutableLiveData<LoadApiStatus>()
 
+    fun setupParty() {
+        viewModelScope.launch { getHostUser() }
+        viewModelScope.launch { getGames() }
+        viewModelScope.launch { getPlayers() }
+    }
+
+    private suspend fun getHostUser() {
+        party.value?.let {
+            _host.value = userRepository.getUser(it.hostId)
+        }
+    }
+
+    private suspend fun getGames() {
+        val result = gameRepository.getGamesByNames(party.value!!.gameNameList)
+        _games.value = result
+    }
+
+    private suspend fun getPlayers() {
+        val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
+        if (result is Result.Success) {
+            _players.value = result.data ?: emptyList()
+        }
+    }
+
     fun joinParty() {
         viewModelScope.launch {
             partyRepository.joinParty(partyId)
@@ -128,24 +152,6 @@ class PartyDetailViewModel(
         }
     }
 
-    private suspend fun getHostUser() {
-        party.value?.let {
-            _host.value = userRepository.getUser(it.hostId)
-        }
-    }
-
-    private suspend fun getGames() {
-        val result = gameRepository.getGamesByNames(party.value!!.gameNameList)
-        _games.value = result
-    }
-
-    private suspend fun getPlayers() {
-        val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
-        if (result is Result.Success) {
-            _players.value = result.data ?: emptyList()
-        }
-    }
-
     fun deleteMsg(id: String) {
         viewModelScope.launch {
             partyRepository.deletePartyMsg(id)
@@ -165,11 +171,5 @@ class PartyDetailViewModel(
                 hasReported.value = true
             }
         }
-    }
-
-    fun setupParty() {
-        viewModelScope.launch { getHostUser() }
-        viewModelScope.launch { getGames() }
-        viewModelScope.launch { getPlayers() }
     }
 }
