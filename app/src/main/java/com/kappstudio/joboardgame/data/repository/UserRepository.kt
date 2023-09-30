@@ -8,6 +8,7 @@ import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -34,6 +35,12 @@ interface UserRepository {
     suspend fun addMyPhoto(photo: String)
 
     suspend fun sendReport(report: Report): Boolean
+
+    suspend fun sendFriendRequest(userId: String)
+
+    suspend fun rejectRequest(userId: String)
+
+    suspend fun addFriend(userId: String)
 }
 
 
@@ -93,7 +100,7 @@ class UserRepositoryImpl : UserRepository {
     override suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean =
         suspendCoroutine { continuation ->
             userCollection
-                .document(UserManager.user.value?.id ?: "")
+                .document(UserManager.getUserId())
                 .update(FIELD_FAVORITE, FieldValue.arrayUnion(gameMap))
                 .addOnCompleteListener {
                     continuation.resume(it.isSuccessful)
@@ -103,7 +110,7 @@ class UserRepositoryImpl : UserRepository {
     override suspend fun removeFavorite(gameMap: HashMap<String, Any>): Boolean =
         suspendCoroutine { continuation ->
             userCollection
-                .document(UserManager.user.value?.id ?: "")
+                .document(UserManager.getUserId())
                 .update(FIELD_FAVORITE, FieldValue.arrayRemove(gameMap))
                 .addOnCompleteListener {
                     continuation.resume(it.isSuccessful)
@@ -139,11 +146,41 @@ class UserRepositoryImpl : UserRepository {
                 .addOnCompleteListener { continuation.resume(it.isSuccessful) }
         }
 
+    override suspend fun sendFriendRequest(userId: String) {
+        userCollection
+            .document(userId)
+            .update(FIELD_REQUEST_LIST, FieldValue.arrayUnion(UserManager.getUserId()))
+    }
+
+    override suspend fun rejectRequest(userId: String) {
+        userCollection
+            .document(UserManager.getUserId())
+            .update(FIELD_REQUEST_LIST, FieldValue.arrayRemove(userId))
+    }
+
+    override suspend fun addFriend(userId: String) {
+        userCollection
+            .document(userId)
+            .update(FIELD_FRIEND_LIST, FieldValue.arrayUnion(UserManager.getUserId()))
+
+        userCollection
+            .document(UserManager.getUserId())
+            .update(FIELD_FRIEND_LIST, FieldValue.arrayUnion(userId))
+
+        userCollection
+            .document(UserManager.getUserId())
+            .update(FIELD_REQUEST_LIST, FieldValue.arrayRemove(userId))
+    }
+
     private companion object {
         const val COLLECTION_USERS = "users"
         const val FIELD_ID = "id"
         const val FIELD_FAVORITE = "favoriteGames"
         const val FIELD_PHOTOS = "photos"
         const val COLLECTION_REPORTS = "reports"
+        const val FIELD_REQUEST_LIST = "requestList"
+        const val FIELD_FRIEND_LIST = "friendList"
     }
 }
+
+

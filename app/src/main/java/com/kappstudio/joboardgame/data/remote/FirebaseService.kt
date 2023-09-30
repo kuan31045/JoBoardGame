@@ -55,38 +55,9 @@ object FirebaseService {
             }
     }
 
-    fun newFriend(userId: String) {
-        Timber.d("-----New Friend------------------------------")
 
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(userId)
-            .update(FIELD_FRIEND_LIST, FieldValue.arrayUnion(UserManager.user.value?.id ?: ""))
 
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-            .update(FIELD_FRIEND_LIST, FieldValue.arrayUnion(userId))
 
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-            .update(FIELD_REQUEST_LIST, FieldValue.arrayRemove(userId))
-    }
-
-    fun refuseRequest(userId: String) {
-        Timber.d("-----Refuse Request-----------------------------")
-
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(UserManager.user.value?.id ?: "")
-            .update(FIELD_REQUEST_LIST, FieldValue.arrayRemove(userId))
-    }
-
-    fun sendFriendRequest(userId: String) {
-        Timber.d("-----Send Friend Request------------------------------")
-        FirebaseFirestore.getInstance()
-            .collection(COLLECTION_USERS).document(userId)
-            .update(FIELD_REQUEST_LIST, FieldValue.arrayUnion(UserManager.user.value?.id ?: ""))
-
-        ToastUtil.show(appInstance.getString(R.string.send_request_ok))
-    }
 
 
     suspend fun createGame(game: Game): Boolean = suspendCoroutine { continuation ->

@@ -7,6 +7,7 @@ import com.kappstudio.joboardgame.ui.map.MapViewModel
 import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.ui.partydetail.PartyDetailViewModel
 import com.kappstudio.joboardgame.ui.rating.RatingViewModel
+import com.kappstudio.joboardgame.ui.user.UserViewModel
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 
@@ -25,4 +26,6 @@ val viewModelModule = module {
     viewModelOf(::RatingViewModel)
 
     viewModelOf(::PartyDetailViewModel)
+
+    viewModelOf(::UserViewModel)
 }

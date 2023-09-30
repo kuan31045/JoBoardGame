@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class UserViewModel(
@@ -60,22 +62,35 @@ class UserViewModel(
 
 
     fun sendFriendRequest() {
-        FirebaseService.sendFriendRequest(userId)
+        viewModelScope.launch {
+            userRepository.sendFriendRequest(userId)
+        }
     }
 
     fun acceptRequest() {
-        FirebaseService.newFriend(userId)
+        viewModelScope.launch {
+            userRepository.addFriend(userId)
+        }
     }
 
     fun refuseRequest() {
-        FirebaseService.refuseRequest(userId)
+        viewModelScope.launch {
+            userRepository.rejectRequest(userId)
+        }
     }
 
-    fun navToReport() {
-        _navToReport.value = user.value
-    }
+    fun reportUser() {
+        viewModelScope.launch {
+            val report = Report(
+                thing = userId,
+                violationId = userId
+            )
 
-    fun onNavToReport() {
-        _navToReport.value = null
+            val result = userRepository.sendReport(report)
+
+            if (result) {
+                hasReported.value = true
+            }
+        }
     }
 }

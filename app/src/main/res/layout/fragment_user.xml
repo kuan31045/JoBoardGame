@@ -232,7 +232,7 @@
                             android:elevation="@dimen/elevation_4dp"
                             android:focusable="false"
                             android:minWidth="150dp"
-                            android:onClick="@{()->viewModel.refuseRequest()}"
+                            android:onClick="@{()->viewModel.rejectRequest()}"
                             android:text="拒絕"
                             android:textColor="@color/black"
                             android:visibility="@{viewModel.friendStatus == FriendStatus.SEND_TO_ME ? View.VISIBLE : View.GONE}"
