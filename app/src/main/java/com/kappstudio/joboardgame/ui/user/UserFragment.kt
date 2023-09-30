@@ -12,6 +12,7 @@ import com.kappstudio.joboardgame.databinding.FragmentUserBinding
 import com.kappstudio.joboardgame.ui.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.ui.profile.ProfileFragmentDirections
 import com.kappstudio.joboardgame.R
+import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.util.ToastUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -78,9 +79,8 @@ class UserFragment : Fragment() {
                     R.id.report_user -> viewModel.reportUser()
 
                     R.id.block_user -> {
-                        ToastUtil.show("封鎖已送出")
                         val mAlert = android.app.AlertDialog.Builder(activity)
-                        mAlert.setTitle("封鎖使用者")
+                        mAlert.setTitle(getString(R.string.block_user))
                         mAlert.setMessage(getString(R.string.block))
                         mAlert.setCancelable(false)
                         mAlert.setPositiveButton("確定") { _, _ ->
@@ -91,10 +91,10 @@ class UserFragment : Fragment() {
 
                     R.id.see_rule -> {
                         val mAlert = android.app.AlertDialog.Builder(activity)
-                        mAlert.setTitle("社群規範")
+                        mAlert.setTitle(getString(R.string.see_rule))
                         mAlert.setMessage(getString(R.string.rule))
                         mAlert.setCancelable(false)
-                        mAlert.setPositiveButton("確定") { _, _ ->
+                        mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
                         }
                         val mAlertDialog = mAlert.create()
                         mAlertDialog.show()
@@ -106,6 +106,10 @@ class UserFragment : Fragment() {
         }
 
         viewModel.user.observe(viewLifecycleOwner) {
+            viewModel.checkFriendStatus()
+        }
+
+        UserManager.user.observe(viewLifecycleOwner) {
             viewModel.checkFriendStatus()
         }
 
