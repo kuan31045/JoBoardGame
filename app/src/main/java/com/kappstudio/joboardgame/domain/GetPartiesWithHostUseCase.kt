@@ -17,10 +17,10 @@ class GetPartiesWithHostUseCase(
         emit(Result.Loading)
 
         val parties = if (userId == null) {
-            partyRepository.getParties()
+            partyRepository.getPartiesStream()
         } else {
             //Filter
-            partyRepository.getParties()
+            partyRepository.getUserPartiesStream(userId)
         }
 
         parties.collect { parties ->

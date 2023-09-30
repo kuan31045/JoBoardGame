@@ -37,7 +37,7 @@ class PartyDetailViewModel(
 ) : ViewModel(), NavToGameDetailInterface,
     NavToUserInterface {
 
-    val party: LiveData<Party> = partyRepository.getParty(partyId).asLiveData()
+    val party: LiveData<Party> = partyRepository.getPartyStream(partyId).asLiveData()
 
     private var _host = MutableLiveData<User>()
     val host: LiveData<User> = _host

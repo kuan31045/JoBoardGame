@@ -16,7 +16,7 @@ class GetPartyMsgsUseCase(
     operator fun invoke(partyId: String): Flow<Result<List<PartyMsg>>> = flow {
         emit(Result.Loading)
 
-        val msgsFlow = partyRepository.getPartyMsgs(partyId)
+        val msgsFlow = partyRepository.getPartyMsgsStream(partyId)
 
         msgsFlow.collect { msgs ->
             val userIdList = msgs.map { it.userId }.distinct()

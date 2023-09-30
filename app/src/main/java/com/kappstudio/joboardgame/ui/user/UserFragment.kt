@@ -13,6 +13,7 @@ import com.kappstudio.joboardgame.ui.myhost.MyHostFragmentDirections
 import com.kappstudio.joboardgame.ui.profile.ProfileFragmentDirections
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.ui.login.UserManager
+import com.kappstudio.joboardgame.ui.party.PartyAdapter
 import com.kappstudio.joboardgame.util.ToastUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -32,9 +33,12 @@ class UserFragment : Fragment() {
 
         val binding = FragmentUserBinding.inflate(inflater, container, false)
         val userId = UserFragmentArgs.fromBundle(requireArguments()).clickedUserId
+        val adapter = PartyAdapter(viewModel)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        binding.rvParty.adapter = adapter
 
         //Nav
         binding.btnBack.setOnClickListener {
@@ -113,14 +117,9 @@ class UserFragment : Fragment() {
             viewModel.checkFriendStatus()
         }
 
-//        viewModel.comingParties.observe(viewLifecycleOwner,
-//            {
-//                binding.rvParty.adapter = PartyAdapter(viewModel, appInstance.provideJoRepository()).apply {
-//                    submitList(
-//                        it
-//                    )
-//                }
-//            })
+        viewModel.comingParties.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         viewModel.navToPartyDetail.observe(viewLifecycleOwner) {
             it?.let {

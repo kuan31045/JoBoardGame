@@ -8,8 +8,10 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Report
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.repository.UserRepository
+import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
@@ -19,6 +21,7 @@ import java.util.Calendar
 class UserViewModel(
     private val userId: String,
     private val userRepository: UserRepository,
+    getPartyWithHostUseCase: GetPartiesWithHostUseCase,
 ) :
     ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
 
@@ -26,19 +29,24 @@ class UserViewModel(
 
     val me: LiveData<User> = UserManager.user
 
-    private var _parties = MutableLiveData<List<Party>>(mutableListOf())
-    val parties: LiveData<List<Party>>
-        get() = _parties
+    val parties: LiveData<List<Party>> = getPartyWithHostUseCase(userId).asLiveData().map {
+        when (it) {
+            is Result.Success -> it.data
+            else -> emptyList()
+        }
+    }
 
-    val comingParties: LiveData<List<Party>> = parties.map { parties ->
+    val comingParties: LiveData<List<Party>> = parties.map {parties->
         parties.filter { party ->
             party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
     }
 
-    private var _hostParties = MutableLiveData<List<Party>>(mutableListOf())
-    val hostParties: LiveData<List<Party>>
-        get() = _hostParties
+    val hostParties: LiveData<List<Party>> = parties.map {parties->
+        parties.filter { party ->
+            party.hostId == userId
+        }
+    }
 
     private var _friendStatus = MutableLiveData<FriendStatus>()
     val friendStatus: LiveData<FriendStatus>

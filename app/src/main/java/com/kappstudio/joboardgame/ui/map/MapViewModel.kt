@@ -23,7 +23,7 @@ class MapViewModel(
 
     private fun getParties() {
         viewModelScope.launch {
-            _parties.value = partyRepository.getParties().first().reversed()
+            _parties.value = partyRepository.getPartiesStream().first().reversed()
         }
     }
 }

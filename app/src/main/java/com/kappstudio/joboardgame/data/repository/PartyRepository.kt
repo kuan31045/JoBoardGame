@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.PartyMsg
+import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,11 +15,11 @@ import kotlin.coroutines.suspendCoroutine
 
 interface PartyRepository {
 
-    fun getParties(): Flow<List<Party>>
+    fun getPartiesStream(): Flow<List<Party>>
 
-    fun getParty(id: String): Flow<Party>
+    fun getPartyStream(id: String): Flow<Party>
 
-    fun getPartyMsgs(partyId: String): Flow<List<PartyMsg>>
+    fun getPartyMsgsStream(partyId: String): Flow<List<PartyMsg>>
 
     suspend fun joinParty(partyId: String)
 
@@ -29,6 +30,8 @@ interface PartyRepository {
     suspend fun deletePartyMsg(msgId: String)
 
     suspend fun addPartyPhoto(partyId: String, photo: String)
+
+    fun getUserPartiesStream(userId: String): Flow<List<Party>>
 }
 
 class PartyRepositoryImpl : PartyRepository {
@@ -37,20 +40,20 @@ class PartyRepositoryImpl : PartyRepository {
     private val partyCollection = firestore.collection(COLLECTION_PARTIES)
     private val msgCollection = firestore.collection(COLLECTION_PARTY_MSGS)
 
-    override fun getParties(): Flow<List<Party>> {
+    override fun getPartiesStream(): Flow<List<Party>> {
         return partyCollection
             .snapshots()
             .map { sortParty(it.toObjects(Party::class.java)) }
     }
 
-    override fun getParty(id: String): Flow<Party> {
+    override fun getPartyStream(id: String): Flow<Party> {
         return partyCollection
             .document(id)
             .snapshots()
             .map { it.toObject(Party::class.java)!! }
     }
 
-    override fun getPartyMsgs(partyId: String): Flow<List<PartyMsg>> {
+    override fun getPartyMsgsStream(partyId: String): Flow<List<PartyMsg>> {
         return msgCollection
             .whereEqualTo(FIELD_PARTY_ID, partyId)
             .snapshots()
@@ -103,6 +106,13 @@ class PartyRepositoryImpl : PartyRepository {
                 FIELD_PHOTOS,
                 FieldValue.arrayUnion(photo)
             )
+    }
+
+    override fun getUserPartiesStream(userId: String): Flow<List<Party>> {
+        return partyCollection
+            .whereArrayContains(FIELD_PLAYER_ID_LIST, userId)
+            .snapshots()
+            .map { sortParty(it.toObjects(Party::class.java)) }
     }
 
     private fun sortParty(parties: List<Party>): List<Party> {
