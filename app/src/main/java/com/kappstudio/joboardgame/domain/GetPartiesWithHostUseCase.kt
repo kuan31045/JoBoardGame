@@ -24,6 +24,11 @@ class GetPartiesWithHostUseCase(
         }
 
         parties.collect { parties ->
+            if(parties.isEmpty()){
+                emit(Result.Success(emptyList()))
+                return@collect
+            }
+
             val hostIdList = parties.map { it.hostId }.distinct()
             val hosts = userRepository.getUsersByIdList(hostIdList)
             if (hosts is Result.Success) {
