@@ -188,17 +188,6 @@
         android:id="@+id/lieDialog"
         android:name="com.kappstudio.joboardgame.ui.tools.polygraph.LieDialog"
         android:label="LieDialog">
-
-    </dialog>
-
-    <dialog
-        android:id="@+id/reportDialog"
-        android:name="com.kappstudio.joboardgame.ui.report.ReportDialog"
-        android:label="ReportDialog">
-
-        <argument
-            android:name="user"
-            app:argType="com.kappstudio.joboardgame.data.User" />
     </dialog>
 
     <fragment
@@ -348,7 +337,4 @@
     <action
         android:id="@+id/nav_to_scoreboard_fragment"
         app:destination="@id/scoreboardFragment" />
-    <action
-        android:id="@+id/nav_to_report_dialog"
-        app:destination="@id/reportDialog" />
 </navigation>

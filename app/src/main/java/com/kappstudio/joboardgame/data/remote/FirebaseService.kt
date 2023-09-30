@@ -22,42 +22,8 @@ object FirebaseService {
     private const val COLLECTION_PARTIES = "parties"
     private const val COLLECTION_GAMES = "games"
     private const val COLLECTION_USERS = "users"
-    private const val COLLECTION_RATINGS = "ratings"
     private const val COLLECTION_REPORTS = "reports"
-    private const val FIELD_PLAYER_ID_LIST = "playerIdList"
     private const val FIELD_PHOTOS = "photos"
-    private const val FIELD_FRIEND_LIST = "friendList"
-    private const val FIELD_REQUEST_LIST = "requestList"
-
-    suspend fun sendReport(report: Report): Boolean = suspendCoroutine { continuation ->
-        Timber.d("-----Send Report------------------------------")
-
-        val reports = FirebaseFirestore.getInstance().collection(COLLECTION_REPORTS)
-        val document = reports.document()
-
-        report.id = document.id
-
-        document
-            .set(report)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Timber.d("Create Party Successful: $report")
-                    continuation.resume(true)
-                } else {
-                    task.exception?.let {
-
-                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(false)
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(false)
-                }
-            }
-    }
-
-
-
-
 
 
     suspend fun createGame(game: Game): Boolean = suspendCoroutine { continuation ->
@@ -85,8 +51,6 @@ object FirebaseService {
                 }
             }
     }
-
-
 
 
     suspend fun uploadPhoto(imgUri: Uri): Result<String> =
@@ -132,7 +96,6 @@ object FirebaseService {
                 }
 
         }
-
 
 
     suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->

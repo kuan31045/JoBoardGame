@@ -57,9 +57,7 @@ class MainViewModel(private val repository: JoRepository) : ViewModel() {
                 PageType.GAME_DETAIL -> true
                 PageType.PARTY_DETAIL -> true
                 PageType.USER -> true
-                PageType.REPORT-> true
                 else -> false
-
             }
     }
 }

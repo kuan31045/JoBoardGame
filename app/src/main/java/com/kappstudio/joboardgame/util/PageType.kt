@@ -17,10 +17,7 @@ enum class PageType(val title: String) {
     BOTTLE(appInstance.getString(R.string.spin_bottle)),
     DRAW_LOTS(appInstance.getString(R.string.draw_lots)),
     SCOREBOARD(appInstance.getString(R.string.scoreboard)),
-    REPORT(""),
-
     POLYGRAPH(appInstance.getString(R.string.polygraph)),
-
     RATING(""),
     ALBUM(appInstance.getString(R.string.album)),
     MAP(""),
@@ -28,13 +25,10 @@ enum class PageType(val title: String) {
     SELECT_GAME(""),
     NEW_GAME(appInstance.getString(R.string.add_game)),
     NOTIFICATION(appInstance.getString(R.string.notification)),
-
-    //TODO Show the user's name
     FAVORITE("收藏"),
     FRIEND_LIST("好友名單"),
     MY_RATING("評分"),
     MY_PARTY("參加的聚會"),
     MY_HOST("主辦的聚會"),
-
     OTHER("")
 }

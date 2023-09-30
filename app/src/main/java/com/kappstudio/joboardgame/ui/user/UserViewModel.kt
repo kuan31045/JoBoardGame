@@ -73,7 +73,7 @@ class UserViewModel(
         }
     }
 
-    fun refuseRequest() {
+    fun rejectRequest() {
         viewModelScope.launch {
             userRepository.rejectRequest(userId)
         }
