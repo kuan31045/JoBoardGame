@@ -42,8 +42,8 @@ class PartyDetailViewModel(
     private var _host = MutableLiveData<User>()
     val host: LiveData<User> = _host
 
-    lateinit var games: LiveData<List<Game>>
-        private set
+    private var _games = MutableLiveData<List<Game>>()
+    val games: LiveData<List<Game>> = _games
 
     private var _players = MutableLiveData<List<User>>()
     val players: LiveData<List<User>> = _players
@@ -128,30 +128,21 @@ class PartyDetailViewModel(
         }
     }
 
-    fun getHostUser() {
-        viewModelScope.launch {
-            party.value?.let {
-                _host.value = userRepository.getUser(it.hostId)
-            }
-        }
-    }
-
-    fun getGames() {
+    private suspend fun getHostUser() {
         party.value?.let {
-            games = gameRepository.getGamesByNames(it.gameNameList).asLiveData()
+            _host.value = userRepository.getUser(it.hostId)
         }
     }
 
-    fun getPlayers() {
-        if (party.value!!.playerIdList.isEmpty()) {
-            return
-        }
+    private suspend fun getGames() {
+        val result = gameRepository.getGamesByNames(party.value!!.gameNameList)
+        _games.value = result
+    }
 
-        viewModelScope.launch {
-            val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
-            if (result is Result.Success) {
-                _players.value = result.data ?: emptyList()
-            }
+    private suspend fun getPlayers() {
+        val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
+        if (result is Result.Success) {
+            _players.value = result.data ?: emptyList()
         }
     }
 
@@ -174,5 +165,11 @@ class PartyDetailViewModel(
                 hasReported.value = true
             }
         }
+    }
+
+    fun setupParty() {
+        viewModelScope.launch { getHostUser() }
+        viewModelScope.launch { getGames() }
+        viewModelScope.launch { getPlayers() }
     }
 }

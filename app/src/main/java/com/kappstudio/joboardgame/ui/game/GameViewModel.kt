@@ -11,5 +11,5 @@ class GameViewModel(
     gameRepository: GameRepository,
 ) : ViewModel(), NavToGameDetailInterface {
 
-    val games: LiveData<List<Game>> = gameRepository.getGames().asLiveData()
+    val games: LiveData<List<Game>> = gameRepository.getGamesStream().asLiveData()
 }

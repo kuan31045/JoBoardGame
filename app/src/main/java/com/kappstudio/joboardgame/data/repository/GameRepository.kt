@@ -3,15 +3,19 @@ package com.kappstudio.joboardgame.data.repository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.NewRating
 import com.kappstudio.joboardgame.data.Rating
+import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.room.GameDao
 import com.kappstudio.joboardgame.data.room.toGame
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import kotlin.coroutines.resume
@@ -19,13 +23,13 @@ import kotlin.coroutines.suspendCoroutine
 
 interface GameRepository {
 
-    fun getGames(): Flow<List<Game>>
+    fun getGamesStream(): Flow<List<Game>>
 
-    fun getGameById(id: String): Flow<Game>
+    fun getGameByIdStream(id: String): Flow<Game>
 
-    fun getMyRating(gameId: String): Flow<Rating?>
+    fun getMyRatingStream(gameId: String): Flow<Rating?>
 
-    fun getAllViewedGames(): Flow<List<Game>>
+    fun getAllViewedGamesStream(): Flow<List<Game>>
 
     suspend fun upsertViewedGame(game: Game)
 
@@ -35,7 +39,7 @@ interface GameRepository {
 
     suspend fun removeMyRating(rating: Rating): Boolean
 
-    fun getGamesByNames(names: List<String>): Flow<List<Game>>
+    suspend fun getGamesByNames(names: List<String>): List<Game>
 }
 
 
@@ -45,9 +49,7 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
     private val gameCollection = firestore.collection(COLLECTION_GAMES)
     private val ratingCollection = firestore.collection(COLLECTION_RATINGS)
 
-    override fun getGames(): Flow<List<Game>> {
-        Timber.d("----------getGames----------")
-
+    override fun getGamesStream(): Flow<List<Game>> {
         return gameCollection
             .snapshots()
             .map {
@@ -55,9 +57,7 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             }
     }
 
-    override fun getGameById(id: String): Flow<Game> {
-        Timber.d("----------getGameById----------")
-
+    override fun getGameByIdStream(id: String): Flow<Game> {
         return gameCollection
             .document(id)
             .snapshots()
@@ -66,9 +66,7 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             }
     }
 
-    override fun getMyRating(gameId: String): Flow<Rating?> {
-        Timber.d("----------getMyRating----------")
-
+    override fun getMyRatingStream(gameId: String): Flow<Rating?> {
         return ratingCollection
             .whereEqualTo(FIELD_USER_ID, UserManager.user.value?.id ?: "")
             .whereEqualTo(FIELD_GAME_ID, gameId)
@@ -78,9 +76,10 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             }
     }
 
-    override fun getAllViewedGames(): Flow<List<Game>> = gameDao.getAllGames().map { entities ->
-        entities.map { it.toGame() }
-    }
+    override fun getAllViewedGamesStream(): Flow<List<Game>> =
+        gameDao.getAllGames().map { entities ->
+            entities.map { it.toGame() }
+        }
 
     override suspend fun upsertViewedGame(game: Game) = withContext(Dispatchers.IO) {
         gameDao.upsert(game.toEntity())
@@ -88,8 +87,6 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
 
     override suspend fun upsertMyRating(rating: NewRating): Boolean =
         suspendCoroutine { continuation ->
-            Timber.d("----------upsertMyRating----------")
-
             val newRating = rating.copy(
                 id = rating.id.ifEmpty { ratingCollection.document().id }
             )
@@ -111,8 +108,6 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
 
     override suspend fun removeMyRating(rating: Rating): Boolean =
         suspendCoroutine { continuation ->
-            Timber.d("----------removeMyRating----------")
-
             val gameDoc = gameCollection.document(rating.gameId)
             gameDoc.update(FIELD_TOTAL_RATING, FieldValue.increment(-(rating.score.toDouble())))
             gameDoc.update(FIELD_RATING_QTY, FieldValue.increment(-1))
@@ -123,28 +118,27 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
                 .addOnCompleteListener { continuation.resume(it.isSuccessful) }
         }
 
-    override fun getGamesByNames(names: List<String>): Flow<List<Game>> {
-        Timber.d("----------getGamesByNames----------")
+    override suspend fun getGamesByNames(names: List<String>): List<Game> {
+        return try {
+            val result = gameCollection.whereIn(FIELD_NAME, names).get().await()
+                .toObjects(Game::class.java)
 
-        return gameCollection
-            .whereIn(FIELD_NAME, names)
-            .snapshots()
-            .map {
-                val result = it.toObjects(Game::class.java)
-
-                val games = mutableListOf<Game>()
-                names.forEach { name ->
-                    games.add(
-                        try {
-                            result.first { game -> game.name == name }
-                        } catch (e: Exception) {
-                            Game(name = name)
-                        }
-                    )
-                }
-
-                games
+            val games = mutableListOf<Game>()
+            names.forEach { name ->
+                games.add(
+                    try {
+                        result.first { game -> game.name == name }
+                    } catch (e: Exception) {
+                        Game(name = name)
+                    }
+                )
             }
+
+            games
+        } catch (e: Exception) {
+            Timber.w("Error getting documents. $e")
+            emptyList()
+        }
     }
 
     private companion object {

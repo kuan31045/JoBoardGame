@@ -21,7 +21,7 @@ class GameDetailViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
-    val game: LiveData<Game> = gameRepository.getGameById(gameId).asLiveData()
+    val game: LiveData<Game> = gameRepository.getGameByIdStream(gameId).asLiveData()
 
     private val _navToRating = MutableLiveData<Rating?>()
     val navToRating: LiveData<Rating?> = _navToRating
@@ -33,7 +33,7 @@ class GameDetailViewModel(
         user.favoriteGames.map { it.id }.contains(gameId)
     }
 
-    val myRating: LiveData<Rating?> = gameRepository.getMyRating(gameId).asLiveData()
+    val myRating: LiveData<Rating?> = gameRepository.getMyRatingStream(gameId).asLiveData()
 
     val avgRating: LiveData<Float?> = game.map { game ->
         if (game.ratingQty == 0L) {
