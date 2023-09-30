@@ -25,6 +25,7 @@ import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 import com.kappstudio.joboardgame.util.ToastUtil
 import com.kappstudio.joboardgame.util.checkValid
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class PartyDetailViewModel(
@@ -69,26 +70,32 @@ class PartyDetailViewModel(
     val status = MutableLiveData<LoadApiStatus>()
 
     fun setupParty() {
-        viewModelScope.launch { getHostUser() }
-        viewModelScope.launch { getGames() }
-        viewModelScope.launch { getPlayers() }
+        getHostUser()
+        getGames()
+        getPlayers()
     }
 
-    private suspend fun getHostUser() {
-        party.value?.let {
-            _host.value = userRepository.getUser(it.hostId)
+    private fun getHostUser() {
+        viewModelScope.launch {
+            party.value?.let {
+                _host.value = userRepository.getUser(it.hostId)
+            }
         }
     }
 
-    private suspend fun getGames() {
-        val result = gameRepository.getGamesByNames(party.value!!.gameNameList)
-        _games.value = result
+    private fun getGames() {
+        viewModelScope.launch {
+            val result = gameRepository.getGamesByNames(party.value!!.gameNameList)
+            _games.value = result
+        }
     }
 
-    private suspend fun getPlayers() {
-        val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
-        if (result is Result.Success) {
-            _players.value = result.data ?: emptyList()
+    private fun getPlayers() {
+        viewModelScope.launch {
+            val result = userRepository.getUsersByIdList(party.value!!.playerIdList)
+            if (result is Result.Success) {
+                _players.value = result.data ?: emptyList()
+            }
         }
     }
 

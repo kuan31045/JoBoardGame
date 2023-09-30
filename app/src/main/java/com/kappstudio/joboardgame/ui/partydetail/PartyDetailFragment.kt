@@ -113,20 +113,20 @@ class PartyDetailFragment : Fragment() {
             it?.let {
                 viewModel.setupParty()
 
-                viewModel.host.observe(viewLifecycleOwner) { user ->
-                    binding.tvHost.text = user.name
-                }
-
-                viewModel.games.observe(viewLifecycleOwner) { games ->
-                    gameAdapter.submitList(games)
-                    if (games.isNotEmpty()) {
-                        binding.lottieGameLoading.visibility = View.GONE
-                    }
-                }
-
                 viewModel.players.observe(viewLifecycleOwner) { users ->
                     playerAdapter.submitList(users)
                 }
+            }
+        }
+
+        viewModel.host.observe(viewLifecycleOwner) { user ->
+            binding.tvHost.text = user.name
+        }
+
+        viewModel.games.observe(viewLifecycleOwner) { games ->
+            gameAdapter.submitList(games)
+            if (games.isNotEmpty()) {
+                binding.lottieGameLoading.visibility = View.GONE
             }
         }
 
