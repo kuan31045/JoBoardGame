@@ -4,6 +4,7 @@ import com.kappstudio.joboardgame.ui.game.GameViewModel
 import com.kappstudio.joboardgame.ui.gamedetail.GameDetailViewModel
 import com.kappstudio.joboardgame.ui.login.LoginViewModel
 import com.kappstudio.joboardgame.ui.map.MapViewModel
+import com.kappstudio.joboardgame.ui.myhost.MyHostViewModel
 import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.ui.partydetail.PartyDetailViewModel
 import com.kappstudio.joboardgame.ui.rating.RatingViewModel
@@ -28,4 +29,6 @@ val viewModelModule = module {
     viewModelOf(::PartyDetailViewModel)
 
     viewModelOf(::UserViewModel)
+
+    viewModelOf(::MyHostViewModel)
 }

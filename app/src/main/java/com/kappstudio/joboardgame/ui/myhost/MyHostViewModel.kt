@@ -1,26 +1,17 @@
 package com.kappstudio.joboardgame.ui.myhost
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.kappstudio.joboardgame.data.Party
-import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.source.JoRepository
+import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
 
-class MyHostViewModel(userId: String, private val repository: JoRepository) : ViewModel(),
-    NavToPartyDetailInterface {
+class MyHostViewModel(
+    val userId: String,
+    getPartyWithHostUseCase: GetPartiesWithHostUseCase,
+) : ViewModel(), NavToPartyDetailInterface {
 
-    val parties: LiveData<List<Party>> = repository.getUserHosts(userId)
-
-    private var _hosts = MutableLiveData<List<User>>()
-     val hosts: LiveData<List<User>>
-        get() = _hosts
-
-    fun getHosts() {
-        val hostIdList = parties.value?.map { it.hostId }?.distinctBy { it }
-        hostIdList?.let {
-            _hosts = repository.getUsersByIdList(it)
-        }
-    }
+    val parties: LiveData<Result<List<Party>>> = getPartyWithHostUseCase(userId).asLiveData()
 }
