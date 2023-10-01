@@ -9,7 +9,7 @@ import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
 
 class MyPartyViewModel(
-    val userId: String,
+    userId: String,
     getPartyWithHostUseCase: GetPartiesWithHostUseCase,
 ) : ViewModel(), NavToPartyDetailInterface {
 
