@@ -283,4 +283,5 @@ kuanappstudio@gmail.com</string>
     <string name="check_internet">請檢查網路連線</string>
     <string name="delete_msg">刪除留言\n</string>
     <string name="cant_get_msg">無法取得留言</string>
+    <string name="cant_get_friend">無法取得好友</string>
 </resources>

@@ -5,52 +5,59 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kappstudio.joboardgame.factory.VMFactory
-import com.kappstudio.joboardgame.appInstance
+import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.bindNotFoundLottie
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.databinding.FragmentFriendBinding
+import com.kappstudio.joboardgame.ui.myparty.MyPartyFragmentArgs
 import com.kappstudio.joboardgame.ui.search.UserAdapter
+import com.kappstudio.joboardgame.util.ToastUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class FriendFragment : Fragment() {
 
-    val viewModel: FriendViewModel by viewModels {
-        VMFactory {
-            FriendViewModel(
-                FriendFragmentArgs.fromBundle(requireArguments()).userId,
-                appInstance.provideJoRepository(),
-            )
-        }
+    private val viewModel: FriendViewModel by viewModel {
+        parametersOf(
+            MyPartyFragmentArgs.fromBundle(requireArguments()).userId
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
 
         val binding = FragmentFriendBinding.inflate(inflater, container, false)
         val adapter = UserAdapter(viewModel)
 
         binding.rvFriend.adapter = adapter
 
-        viewModel.user.observe(viewLifecycleOwner, { user ->
-            if (user.friendList.isNotEmpty()) {
-                viewModel.getFriends()
+        viewModel.friends.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Success -> {
+                    val friends = result.data
+                    adapter.submitList(result.data)
+                    bindNotFoundLottie(binding.lottieNotFound, binding.tvNotFound, friends)
+                    binding.lottieLoading.visibility = View.GONE
+                }
 
-                viewModel.friends.observe(viewLifecycleOwner, { friends ->
-                    adapter.submitList(friends)
-                })
+                is Result.Loading -> binding.lottieLoading.visibility = View.VISIBLE
+
+                else -> {
+                    ToastUtil.show(getString(R.string.cant_get_friend))
+                    binding.lottieLoading.visibility = View.GONE
+                }
             }
-            bindNotFoundLottie(binding.lottieNotFound, binding.tvNotFound, user.friendList)
-        })
+        }
 
-        viewModel.navToUser.observe(viewLifecycleOwner, {
+        viewModel.navToUser.observe(viewLifecycleOwner) {
             it?.let {
                 findNavController().navigate(FriendFragmentDirections.navToUserFragment(it))
                 viewModel.onNavToUser()
             }
-        })
+        }
 
         return binding.root
     }
