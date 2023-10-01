@@ -10,6 +10,7 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.bindNotFoundLottie
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.databinding.FragmentMyHostBinding
+import com.kappstudio.joboardgame.ui.myparty.MyPartyViewModel
 import com.kappstudio.joboardgame.ui.party.PartyAdapter
 import com.kappstudio.joboardgame.ui.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -18,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 
 class MyHostFragment : Fragment() {
 
-    private val viewModel: MyHostViewModel by viewModel {
+    private val viewModel: MyPartyViewModel by viewModel {
         parametersOf(
             MyHostFragmentArgs.fromBundle(requireArguments()).userId
         )
