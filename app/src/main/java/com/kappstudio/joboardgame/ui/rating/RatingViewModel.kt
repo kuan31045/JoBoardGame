@@ -9,6 +9,7 @@ import com.kappstudio.joboardgame.data.NewRating
 import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.util.ConnectivityUtil
+import com.kappstudio.joboardgame.util.ToastUtil
 import kotlinx.coroutines.launch
 
 class RatingViewModel(
@@ -19,9 +20,6 @@ class RatingViewModel(
     private var _myRating = MutableLiveData(rating)
     val myRating: LiveData<Rating> = _myRating
 
-    private val _toastMsgRes = MutableLiveData<Int>()
-    val toastMsgRes: LiveData<Int> = _toastMsgRes
-
     val hasRating = MutableLiveData(rating.id.isNotEmpty())
 
     var score = MutableLiveData(rating.score)
@@ -31,7 +29,7 @@ class RatingViewModel(
 
     fun sendRating() {
         if (ConnectivityUtil.isNotConnected()) {
-            _toastMsgRes.value = R.string.check_internet
+            ToastUtil.showByRes(R.string.check_internet)
             return
         }
 
@@ -44,7 +42,7 @@ class RatingViewModel(
 
         viewModelScope.launch {
             if (gameRepository.upsertMyRating(newRating)) {
-                _toastMsgRes.value = R.string.rating_ok
+                ToastUtil.showByRes(R.string.rating_ok)
                 _dismiss.value = true
             }
             gameRepository.updateGameRating(rating, (score.value ?: 0) - rating.score)
@@ -53,14 +51,14 @@ class RatingViewModel(
 
     fun removeRating() {
         if (ConnectivityUtil.isNotConnected()) {
-            _toastMsgRes.value = R.string.check_internet
+            ToastUtil.showByRes(R.string.check_internet)
             return
         }
 
         viewModelScope.launch {
             if (gameRepository.removeMyRating(rating)
             ) {
-                _toastMsgRes.value = R.string.remove_ok
+                ToastUtil.showByRes(R.string.remove_ok)
                 _dismiss.value = true
             }
         }
