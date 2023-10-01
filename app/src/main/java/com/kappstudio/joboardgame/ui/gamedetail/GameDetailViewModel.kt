@@ -12,6 +12,7 @@ import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.ui.login.UserManager
+import com.kappstudio.joboardgame.util.ToastUtil
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -25,9 +26,6 @@ class GameDetailViewModel(
 
     private val _navToRating = MutableLiveData<Rating?>()
     val navToRating: LiveData<Rating?> = _navToRating
-
-    private val _toastMsgRes = MutableLiveData<Int>()
-    val toastMsgRes: LiveData<Int> = _toastMsgRes
 
     val isFavorite: LiveData<Boolean> = UserManager.user.map { user ->
         user.favoriteGames.map { it.id }.contains(gameId)
@@ -61,13 +59,13 @@ class GameDetailViewModel(
             when (isFavorite.value) {
                 true -> {
                     if (userRepository.removeFavorite(game.value!!.toGameMap())) {
-                        _toastMsgRes.value = R.string.favorite_out
+                        ToastUtil.showByRes(R.string.favorite_out)
                     }
                 }
 
                 false -> {
                     if (userRepository.insertFavorite(game.value!!.toGameMap())) {
-                        _toastMsgRes.value = R.string.favorite_in
+                        ToastUtil.showByRes(R.string.favorite_in)
                     }
                 }
 

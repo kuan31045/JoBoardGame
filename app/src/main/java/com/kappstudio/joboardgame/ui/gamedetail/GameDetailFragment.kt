@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentGameDetailBinding
 import androidx.transition.Fade
@@ -91,10 +90,6 @@ class GameDetailFragment : Fragment() {
 
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             binding.cbFavorite.isChecked = it
-        }
-
-        viewModel.toastMsgRes.observe(viewLifecycleOwner) {
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
 
         return binding.root
