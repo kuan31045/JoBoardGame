@@ -10,7 +10,6 @@ import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.bindNotFoundLottie
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.databinding.FragmentFriendBinding
-import com.kappstudio.joboardgame.ui.myparty.MyPartyFragmentArgs
 import com.kappstudio.joboardgame.ui.search.UserAdapter
 import com.kappstudio.joboardgame.util.ToastUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,7 +19,7 @@ class FriendFragment : Fragment() {
 
     private val viewModel: FriendViewModel by viewModel {
         parametersOf(
-            MyPartyFragmentArgs.fromBundle(requireArguments()).userId
+            FriendFragmentArgs.fromBundle(requireArguments()).userId
         )
     }
 

@@ -3,12 +3,10 @@ package com.kappstudio.joboardgame.data.repository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
-import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.NewRating
 import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.Result
-import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.data.room.GameDao
 import com.kappstudio.joboardgame.data.room.toGame
 import com.kappstudio.joboardgame.ui.login.UserManager
@@ -40,6 +38,8 @@ interface GameRepository {
     suspend fun removeMyRating(rating: Rating): Boolean
 
     suspend fun getGamesByNames(names: List<String>): List<Game>
+
+    fun getUserRatingsStream(userId: String): Flow<List<Rating>>
 }
 
 
@@ -139,6 +139,15 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             Timber.w("Error getting documents. $e")
             emptyList()
         }
+    }
+
+    override fun getUserRatingsStream(userId: String): Flow<List<Rating>> {
+        return ratingCollection
+            .whereEqualTo(FIELD_USER_ID, userId)
+            .snapshots()
+            .map {
+                it.toObjects(Rating::class.java)
+            }
     }
 
     private companion object {

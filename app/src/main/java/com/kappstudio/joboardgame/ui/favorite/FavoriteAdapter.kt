@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.databinding.ItemGameFavoriteBinding
+import com.kappstudio.joboardgame.ui.login.UserManager
 
-class FavoriteAdapter(private val viewModel: FavoriteViewModel, private val canEdit: Boolean) :
+class FavoriteAdapter(private val viewModel: FavoriteViewModel) :
     ListAdapter<Game, FavoriteAdapter.FavoriteViewHolder>(DiffCallback) {
 
     inner class FavoriteViewHolder(private val binding: ItemGameFavoriteBinding) :
@@ -22,14 +23,16 @@ class FavoriteAdapter(private val viewModel: FavoriteViewModel, private val canE
                 tvName.text = game.name
                 bindImage(ivGame, game.image)
 
-                if (canEdit) {
+                if (viewModel.userId == UserManager.getUserId()) {
                     tvRemove.visibility = View.VISIBLE
                 } else {
                     tvRemove.visibility = View.GONE
                 }
+
                 tvRemove.setOnClickListener {
                     viewModel.removeFavorite(game)
                 }
+
                 clGame.setOnClickListener {
                     viewModel.navToGameDetail(game)
                 }
