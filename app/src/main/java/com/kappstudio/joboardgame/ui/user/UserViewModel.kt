@@ -12,7 +12,6 @@ import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
-import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
 import kotlinx.coroutines.launch
@@ -22,8 +21,7 @@ class UserViewModel(
     private val userId: String,
     private val userRepository: UserRepository,
     getPartyWithHostUseCase: GetPartiesWithHostUseCase,
-) :
-    ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
+) : ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
 
     val user: LiveData<User> = userRepository.getUserStream(userId).asLiveData()
 
@@ -36,13 +34,13 @@ class UserViewModel(
         }
     }
 
-    val comingParties: LiveData<List<Party>> = parties.map {parties->
+    val comingParties: LiveData<List<Party>> = parties.map { parties ->
         parties.filter { party ->
             party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
     }
 
-    val hostParties: LiveData<List<Party>> = parties.map {parties->
+    val hostParties: LiveData<List<Party>> = parties.map { parties ->
         parties.filter { party ->
             party.hostId == userId
         }
@@ -63,11 +61,6 @@ class UserViewModel(
             else -> FriendStatus.CAN_SEND
         }
     }
-
-    private val _status = MutableLiveData<LoadApiStatus>()
-    val status: LiveData<LoadApiStatus>
-        get() = _status
-
 
     fun sendFriendRequest() {
         viewModelScope.launch {
