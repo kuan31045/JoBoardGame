@@ -1,47 +1,46 @@
 package com.kappstudio.joboardgame.ui.profile
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.map
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
+import com.kappstudio.joboardgame.data.repository.GameRepository
 import com.kappstudio.joboardgame.ui.login.UserManager
-import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.util.LoadApiStatus
+import com.kappstudio.joboardgame.domain.GetPartiesWithHostUseCase
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
 import com.kappstudio.joboardgame.ui.partydetail.NavToPartyDetailInterface
-import com.kappstudio.joboardgame.ui.user.NavToUserInterface
-import java.util.*
+import java.util.Calendar
 
-class ProfileViewModel(private val repository: JoRepository) : ViewModel(),
-    NavToPartyDetailInterface,
-    NavToGameDetailInterface,
-    NavToUserInterface {
+class ProfileViewModel(
+    gameRepository: GameRepository,
+    getPartiesWithHostUseCase: GetPartiesWithHostUseCase,
+) : ViewModel(), NavToPartyDetailInterface, NavToGameDetailInterface {
 
-    val viewedGames: LiveData<List<Game>> = repository.getGames()
+    val viewedGames: LiveData<List<Game>> = gameRepository.getAllViewedGamesStream().asLiveData()
 
     val me: LiveData<User> = UserManager.user
 
-    val parties: LiveData<List<Party>> = repository.getUserParties(me.value?.id ?: "")
+    val parties: LiveData<List<Party>> =
+        getPartiesWithHostUseCase(UserManager.getUserId()).asLiveData().map {
+            when (it) {
+                is Result.Success -> it.data
+                else -> emptyList()
+            }
+        }
 
-    val comingParties = parties.map { parties ->
+    val comingParties: LiveData<List<Party>> = parties.map { parties ->
         parties.filter { party ->
             party.partyTime + 3600000 >= Calendar.getInstance().timeInMillis
         }
     }
 
-    private var _hosts = MutableLiveData<List<User>>()
-     val hosts: LiveData<List<User>>
-        get() = _hosts
-
-    val hostParties: LiveData<List<Party>> =
-        repository.getUserHosts(me.value?.id ?: "")
-
-    val status = MutableLiveData(LoadApiStatus.LOADING)
-
-    fun getHosts() {
-        val hostIdList = comingParties.value?.map { it.hostId }?.distinctBy { it }
-        hostIdList?.let {
-            _hosts = repository.getUsersByIdList(it)
+    val hostParties: LiveData<List<Party>> = parties.map { parties ->
+        parties.filter { party ->
+            party.hostId == UserManager.getUserId()
         }
     }
 }

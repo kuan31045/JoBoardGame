@@ -438,35 +438,6 @@
                 app:shapeAppearanceOverlay="@style/circle"
                 tools:src="@drawable/defult_profile" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/transparentWhite"
-
-                android:elevation="40dp"
-                android:visibility="@{viewModel.status==LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_loading"
-                android:layout_width="0dp"
-                android:layout_height="230dp"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="250dp"
-                android:elevation="50dp"
-                android:visibility="@{viewModel.status==LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.7"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/anim_poker"
-                tools:visibility="gone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

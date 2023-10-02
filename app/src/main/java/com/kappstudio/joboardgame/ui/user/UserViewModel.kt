@@ -20,14 +20,14 @@ import java.util.Calendar
 class UserViewModel(
     private val userId: String,
     private val userRepository: UserRepository,
-    getPartyWithHostUseCase: GetPartiesWithHostUseCase,
+    getPartiesWithHostUseCase: GetPartiesWithHostUseCase,
 ) : ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
 
     val user: LiveData<User> = userRepository.getUserStream(userId).asLiveData()
 
-    val me: LiveData<User> = UserManager.user
+    private val me: LiveData<User> = UserManager.user
 
-    val parties: LiveData<List<Party>> = getPartyWithHostUseCase(userId).asLiveData().map {
+    val parties: LiveData<List<Party>> = getPartiesWithHostUseCase(userId).asLiveData().map {
         when (it) {
             is Result.Success -> it.data
             else -> emptyList()
@@ -47,8 +47,7 @@ class UserViewModel(
     }
 
     private var _friendStatus = MutableLiveData<FriendStatus>()
-    val friendStatus: LiveData<FriendStatus>
-        get() = _friendStatus
+    val friendStatus: LiveData<FriendStatus> = _friendStatus
 
     val hasReported = MutableLiveData<Boolean?>()
 
