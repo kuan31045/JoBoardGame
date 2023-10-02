@@ -23,7 +23,7 @@ class UserViewModel(
     getPartiesWithHostUseCase: GetPartiesWithHostUseCase,
 ) : ViewModel(), NavToPartyDetailInterface, NavToUserInterface {
 
-    val user: LiveData<User> = userRepository.getUserStream(userId).asLiveData()
+    val user: LiveData<User> = userRepository.getUserByIdStream(userId).asLiveData()
 
     private val me: LiveData<User> = UserManager.user
 

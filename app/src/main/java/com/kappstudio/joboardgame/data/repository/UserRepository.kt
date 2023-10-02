@@ -4,11 +4,9 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.Report
 import com.kappstudio.joboardgame.data.Result
 import com.kappstudio.joboardgame.data.User
-import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -26,7 +24,7 @@ interface UserRepository {
 
     suspend fun getUser(id: String): User
 
-    fun getUserStream(id: String): Flow<User>
+    fun getUserByIdStream(id: String): Flow<User>
 
     suspend fun insertFavorite(gameMap: HashMap<String, Any>): Boolean
 
@@ -41,6 +39,8 @@ interface UserRepository {
     suspend fun rejectRequest(userId: String)
 
     suspend fun addFriend(userId: String)
+
+    fun getUsersStream(): Flow<List<User>>
 }
 
 
@@ -126,7 +126,7 @@ class UserRepositoryImpl : UserRepository {
             )
     }
 
-    override fun getUserStream(id: String): Flow<User> {
+    override fun getUserByIdStream(id: String): Flow<User> {
         return userCollection
             .document(id)
             .snapshots()
@@ -172,6 +172,14 @@ class UserRepositoryImpl : UserRepository {
             .update(FIELD_REQUEST_LIST, FieldValue.arrayRemove(userId))
     }
 
+    override fun getUsersStream(): Flow<List<User>> {
+        return userCollection
+            .snapshots()
+            .map {
+                it.toObjects(User::class.java)
+            }
+    }
+
     private companion object {
         const val COLLECTION_USERS = "users"
         const val FIELD_ID = "id"
@@ -182,5 +190,3 @@ class UserRepositoryImpl : UserRepository {
         const val FIELD_FRIEND_LIST = "friendList"
     }
 }
-
-

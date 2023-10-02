@@ -14,12 +14,10 @@ import com.kappstudio.joboardgame.ui.user.NavToUserInterface
 class UserAdapter(private val viewModel: ViewModel) :
     ListAdapter<User, UserAdapter.UserViewHolder>(UserAdapter) {
 
-
     inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User, viewModel: ViewModel) {
-
             bindImage(binding.ivUser, user.image)
             binding.tvName.text = user.name
             binding.clUser.setOnClickListener {
@@ -51,7 +49,6 @@ class UserAdapter(private val viewModel: ViewModel) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-
         holder.bind(getItem(position), viewModel)
     }
 }

@@ -13,7 +13,7 @@ class GetUserFriendsUseCase(
     operator fun invoke(userId: String): Flow<Result<List<User>>> = flow {
         emit(Result.Loading)
 
-        val userFlow = userRepository.getUserStream(userId)
+        val userFlow = userRepository.getUserByIdStream(userId)
 
         userFlow.collect { user ->
             if (user.friendList.isEmpty()) {

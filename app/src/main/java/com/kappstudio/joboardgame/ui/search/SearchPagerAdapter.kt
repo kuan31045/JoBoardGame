@@ -18,7 +18,7 @@ class SearchPagerAdapter(fm: FragmentManager) :
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return SearchType.values()[position].title
     }
 }

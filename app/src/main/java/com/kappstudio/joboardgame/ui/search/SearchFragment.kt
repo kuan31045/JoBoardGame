@@ -5,38 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import timber.log.Timber
 import androidx.navigation.fragment.findNavController
 import com.kappstudio.joboardgame.databinding.FragmentSearchBinding
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.openKeyBoard
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 
+    private val viewModel: SearchViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
+
         val binding = FragmentSearchBinding.inflate(inflater)
-        val viewModel: SearchViewModel by viewModels()
-        Timber.d("${viewModel.search.value}")
-        // set View Pager Adapter
+
+        // Setup View Pager Adapter
         val adapter = SearchPagerAdapter(childFragmentManager)
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = SearchFragmentArgs.fromBundle(requireArguments()).position
 
-        // set Tabs Layout Adapter
+        // Setup Tabs Layout Adapter
         binding.tabsLayout.setupWithViewPager(binding.viewPager)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        if (viewModel.isInit) {
-            openKeyBoard(binding.etSearch)
-            viewModel.onInit()
-        }
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -46,13 +43,21 @@ class SearchFragment : Fragment() {
             binding.etSearch.setText("")
         }
 
-        binding.etSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        binding.etSearch.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                 closeSoftKeyboard(binding.etSearch)
+                closeSoftKeyboard(binding.etSearch)
                 return@OnEditorActionListener true
             }
             false
         })
+
+        viewModel.isInit.observe(viewLifecycleOwner) {
+            if (it) {
+                openKeyBoard(binding.etSearch)
+                viewModel.onInit()
+            }
+        }
+
         return binding.root
     }
 }

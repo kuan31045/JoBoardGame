@@ -15,7 +15,7 @@ class FavoriteViewModel(
     private val userRepository: UserRepository,
 ) : ViewModel(), NavToGameDetailInterface {
 
-    val user: LiveData<User> = userRepository.getUserStream(userId).asLiveData()
+    val user: LiveData<User> = userRepository.getUserByIdStream(userId).asLiveData()
 
     fun removeFavorite(game: Game) {
         viewModelScope.launch {
