@@ -1,11 +1,14 @@
 package com.kappstudio.joboardgame.ui.newgame
 
-enum class GameInvalidInput(val msg:String) {
-    IMAGE_EMPTY("請選擇遊戲圖片!"),
-    NAME_EMPTY("請輸入遊戲名!"),
-    MIN_PLAYER_QTY_EMPTY("請輸入最小遊玩人數!"),
-    MAX_PLAYER_QTY_EMPTY("請輸入最大遊玩人數!"),
-    TIME_EMPTY("請輸入遊戲時間!"),
-    DESC_EMPTY("請輸入遊戲簡介!"),
-    TYPE_EMPTY("請選擇至少一種類型!"),
+import androidx.annotation.StringRes
+import com.kappstudio.joboardgame.R
+
+enum class GameInvalidInput(@StringRes val stringRes: Int) {
+    IMAGE_EMPTY(R.string.plz_pick_image),
+    NAME_EMPTY(R.string.plz_enter_game_name),
+    MIN_PLAYER_QTY_EMPTY(R.string.plz_enter_min_player),
+    MAX_PLAYER_QTY_EMPTY(R.string.plz_enter_max_player),
+    TIME_EMPTY(R.string.plz_enter_game_time),
+    DESC_EMPTY(R.string.plz_enter_game_desc),
+    TYPE_EMPTY(R.string.plz_pick_type)
 }

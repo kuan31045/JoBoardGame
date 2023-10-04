@@ -9,23 +9,23 @@ import kotlin.collections.HashMap
 @Parcelize
 data class Game(
     val id: String = "notFound",
-    var name: String = "",
-    var image: String = "",
-    var type: MutableList<String> = mutableListOf(""),
-    var time: Int = 0,
-    var tools: List<String> = emptyList(),
+    val name: String = "",
+    val image: String = "",
+    val type: MutableList<String> = mutableListOf(""),
+    val time: Int = 0,
+    val tools: List<String> = emptyList(),
 
-    var minPlayerQty: Int = 0,
+    val minPlayerQty: Int = 0,
 
-    var maxPlayerQty: Int = 0,
+    val maxPlayerQty: Int = 0,
 
-    var desc: String = "",
+    val desc: String = "",
 
-    var totalRating: Long = 0,
+    val totalRating: Long = 0,
 
-    var ratingQty: Long = 0,
+    val ratingQty: Long = 0,
 
-    var createdTime: Long = Calendar.getInstance().timeInMillis,
+    val createdTime: Long = Calendar.getInstance().timeInMillis,
 
     ) : Parcelable {
 

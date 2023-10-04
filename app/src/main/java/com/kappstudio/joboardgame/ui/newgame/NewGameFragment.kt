@@ -6,32 +6,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dylanc.activityresult.launcher.StartActivityLauncher
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.kappstudio.joboardgame.R
 import com.kappstudio.joboardgame.util.LoadApiStatus
-import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding 
+import com.kappstudio.joboardgame.databinding.FragmentNewGameBinding
+import com.kappstudio.joboardgame.ui.friend.FriendFragmentArgs
 import com.kappstudio.joboardgame.util.ToastUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class NewGameFragment : Fragment() {
-    lateinit var binding: FragmentNewGameBinding
+
+    private lateinit var binding: FragmentNewGameBinding
     private lateinit var startActivityLauncher: StartActivityLauncher
-    val viewModel: NewGameViewModel by viewModels()
+    private val viewModel: NewGameViewModel by viewModel {
+        parametersOf(
+            NewGameFragmentArgs.fromBundle(requireArguments()).gameName
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
+
         binding = FragmentNewGameBinding.inflate(inflater)
         startActivityLauncher = StartActivityLauncher(this)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        viewModel.name.value=NewGameFragmentArgs.fromBundle(requireArguments()).gameName
-
 
         val typeList = resources.getStringArray(R.array.game_type_list).toList()
         val toolList = resources.getStringArray(R.array.tool_list).toList()
@@ -50,7 +55,7 @@ class NewGameFragment : Fragment() {
 
         viewModel.invalidPublish.observe(viewLifecycleOwner) {
             it?.let {
-                ToastUtil.show(it.msg)
+                ToastUtil.showByRes(it.stringRes)
             }
         }
 
@@ -85,6 +90,7 @@ class NewGameFragment : Fragment() {
                                 viewModel.imageUri.value = fileUri
                             }
                         }
+
                         ImagePicker.RESULT_ERROR -> {
                             ToastUtil.show(ImagePicker.getError(data))
                         }

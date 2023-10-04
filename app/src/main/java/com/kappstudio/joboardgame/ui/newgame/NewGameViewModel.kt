@@ -6,41 +6,41 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.*
-import com.kappstudio.joboardgame.data.remote.FirebaseService
+import com.kappstudio.joboardgame.data.Game
+import com.kappstudio.joboardgame.data.repository.GameRepository
+import com.kappstudio.joboardgame.data.repository.StorageRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
-import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.util.ToastUtil
+import com.kappstudio.joboardgame.util.checkValid
+import com.kappstudio.joboardgame.data.Result
 
-class NewGameViewModel : ViewModel() {
+class NewGameViewModel(
+    gameName: String,
+    private val storageRepository: StorageRepository,
+    private val gameRepository: GameRepository,
+) : ViewModel() {
 
     //Image
     var imageUri = MutableLiveData<Uri>()
 
     // EditText
-    var name = MutableLiveData("")
+    var name = MutableLiveData(gameName)
     var minPlayerQty = MutableLiveData("")
     var maxPlayerQty = MutableLiveData("")
     var time = MutableLiveData("")
     var desc = MutableLiveData("")
 
-    private val _imageUrl = MutableLiveData<String>()
-    private val imageUrl: LiveData<String>
-        get() = _imageUrl
-
     // Handle the error for edittext
     private val _invalidPublish = MutableLiveData<GameInvalidInput?>()
-    val invalidPublish: LiveData<GameInvalidInput?>
-        get() = _invalidPublish
+    val invalidPublish: LiveData<GameInvalidInput?> = _invalidPublish
 
     private val _status = MutableLiveData<LoadApiStatus>()
-    val status: LiveData<LoadApiStatus>
-        get() = _status
+    val status: LiveData<LoadApiStatus> = _status
 
     private var types = mutableListOf<String>()
+
     private var tools = mutableListOf<String>()
 
     fun addType(type: String) {
@@ -60,35 +60,34 @@ class NewGameViewModel : ViewModel() {
     }
 
     fun prepareCreate() {
-        if ((allGames.value?.filter {
-                it.name == (name.value?.replace(
-                    "\\s".toRegex(),
-                    ""
-                ) ?: "")
-            }?.size ?: 0) == 0) {
+        viewModelScope.launch {
+            if (gameRepository.isGameExist(name.value!!.replace("\\s".toRegex(), ""))) {
+                ToastUtil.show("${name.value} ${appInstance.getString(R.string.already_have)}")
+                return@launch
+            }
 
             _invalidPublish.value = when {
                 imageUri.value == null ->
                     GameInvalidInput.IMAGE_EMPTY
 
-                name.value.checkValid() ->
+                !name.value.checkValid() ->
                     GameInvalidInput.NAME_EMPTY
 
                 types.size == 0 -> GameInvalidInput.TYPE_EMPTY
 
-                minPlayerQty.value.checkValid()
+                !minPlayerQty.value.checkValid()
                         || (minPlayerQty.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.MIN_PLAYER_QTY_EMPTY
 
-                maxPlayerQty.value.checkValid()
+                !maxPlayerQty.value.checkValid()
                         || (maxPlayerQty.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.MAX_PLAYER_QTY_EMPTY
 
-                time.value.checkValid()
+                !time.value.checkValid()
                         || (time.value?.toInt() ?: 0) < 1 ->
                     GameInvalidInput.TIME_EMPTY
 
-                desc.value.checkValid() ->
+                !desc.value.checkValid() ->
                     GameInvalidInput.DESC_EMPTY
 
                 else -> {
@@ -96,44 +95,42 @@ class NewGameViewModel : ViewModel() {
                     null
                 }
             }
-        } else {
-            ToastUtil.show("${name.value} ${appInstance.getString(R.string.already_have)}")
         }
     }
 
     private fun createGame() {
         viewModelScope.launch {
-            uploadImage()
-            val res = FirebaseService.createGame(
-                Game(
-                    name = name.value ?: "",
-                    image = imageUrl.value ?: "",
-                    type = types,
-                    time = time.value?.toInt() ?: 0,
-                    tools = tools,
-                    minPlayerQty = minPlayerQty.value?.toInt() ?: 0,
-                    maxPlayerQty = maxPlayerQty.value?.toInt() ?: 0,
-                    desc = desc.value ?: "",
-                )
-            )
+            storageRepository.uploadPhoto(imageUri.value!!).collect { photoRes ->
+                _status.value = when (photoRes) {
+                    is Result.Success -> {
+                        val gameTaskRes = gameRepository.addGame(
+                            Game(
+                                name = name.value!!,
+                                image = photoRes.data,
+                                type = types,
+                                time = time.value?.toInt()!!,
+                                tools = tools,
+                                minPlayerQty = minPlayerQty.value?.toInt()!!,
+                                maxPlayerQty = maxPlayerQty.value?.toInt()!!,
+                                desc = desc.value!!,
+                            )
+                        )
 
-            if (res) {
-                ToastUtil.show(appInstance.getString(R.string.add_ok))
-                _status.value = LoadApiStatus.DONE
-            }
-        }
-    }
+                        if (gameTaskRes) {
+                            ToastUtil.showByRes(R.string.create_game_ok)
+                            LoadApiStatus.DONE
+                        } else {
+                            LoadApiStatus.ERROR
+                        }
+                    }
 
-    private suspend fun uploadImage() {
-        imageUri.value?.let {
-            _status.value = LoadApiStatus.LOADING
+                    is Result.Fail -> {
+                        ToastUtil.showByRes(photoRes.stringRes)
+                        LoadApiStatus.ERROR
+                    }
 
-            when (val result = FirebaseService.uploadPhoto(it)) {
-                is Result.Success -> {
-                    _imageUrl.value = result.data!!
+                    else -> LoadApiStatus.LOADING
                 }
-
-                else -> {}
             }
         }
     }

@@ -104,6 +104,7 @@
     <string name="roll">Roll</string>
     <string name="new_msg">新增留言...</string>
     <string name="send_ok">發送成功!</string>
+    <string name="create_game_ok">新增遊戲成功!</string>
     <string name="creat_ok">創建成功!</string>
     <string name="favorite_in">已加入收藏!</string>
     <string name="favorite_out">已移出收藏!</string>
@@ -284,4 +285,11 @@ kuanappstudio@gmail.com</string>
     <string name="delete_msg">刪除留言\n</string>
     <string name="cant_get_msg">無法取得留言</string>
     <string name="cant_get_friend">無法取得好友</string>
+    <string name="plz_pick_image">請選擇遊戲圖片!</string>
+    <string name="plz_enter_game_name">請輸入遊戲名!</string>
+    <string name="plz_enter_min_player">請輸入最小遊玩人數!</string>
+    <string name="plz_enter_max_player">請輸入最大遊玩人數!</string>
+    <string name="plz_enter_game_time">請輸入遊戲時間!</string>
+    <string name="plz_enter_game_desc">請輸入遊戲簡介!</string>
+    <string name="plz_pick_type">請選擇至少一種類型!</string>
 </resources>

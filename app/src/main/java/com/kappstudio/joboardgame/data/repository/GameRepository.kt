@@ -6,7 +6,6 @@ import com.google.firebase.firestore.ktx.snapshots
 import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.NewRating
 import com.kappstudio.joboardgame.data.Rating
-import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.data.room.GameDao
 import com.kappstudio.joboardgame.data.room.toGame
 import com.kappstudio.joboardgame.ui.login.UserManager
@@ -40,6 +39,10 @@ interface GameRepository {
     suspend fun getGamesByNames(names: List<String>): List<Game>
 
     fun getUserRatingsStream(userId: String): Flow<List<Rating>>
+
+    suspend fun addGame(game: Game): Boolean
+
+    suspend fun isGameExist(gameName: String): Boolean
 }
 
 
@@ -148,6 +151,26 @@ class GameRepositoryImpl(private val gameDao: GameDao) : GameRepository {
             .map {
                 it.toObjects(Rating::class.java)
             }
+    }
+
+    override suspend fun addGame(game: Game): Boolean =
+        suspendCoroutine { continuation ->
+            val newGame = game.copy(
+                id = gameCollection.document().id
+            )
+
+            gameCollection
+                .document(newGame.id)
+                .set(newGame)
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+        }
+
+    override suspend fun isGameExist(gameName: String): Boolean {
+        return !gameCollection
+            .whereEqualTo(FIELD_NAME, gameName)
+            .get()
+            .await()
+            .isEmpty
     }
 
     private companion object {

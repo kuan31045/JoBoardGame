@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-<!--    val list = listOf("陣營","派對","心機","經濟","協商","城市建設","反應","推理")-->
-
     <string-array name="game_type_list">
         <item>陣營</item>
         <item>派對</item>
@@ -18,5 +15,8 @@
         <item>骰子</item>
         <item>轉瓶</item>
         <item>計時器</item>
+        <item>記分板</item>
+        <item>抽籤</item>
+        <item>測謊機</item>
     </string-array>
 </resources>

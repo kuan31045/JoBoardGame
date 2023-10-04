@@ -8,6 +8,7 @@ import com.kappstudio.joboardgame.ui.login.LoginViewModel
 import com.kappstudio.joboardgame.ui.map.MapViewModel
 import com.kappstudio.joboardgame.ui.myparty.MyPartyViewModel
 import com.kappstudio.joboardgame.ui.myrating.MyRatingViewModel
+import com.kappstudio.joboardgame.ui.newgame.NewGameViewModel
 import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.ui.partydetail.PartyDetailViewModel
 import com.kappstudio.joboardgame.ui.profile.ProfileViewModel
@@ -46,4 +47,6 @@ val viewModelModule = module {
     viewModelOf(::ProfileViewModel)
 
     viewModelOf(::SearchViewModel)
+
+    viewModelOf(::NewGameViewModel)
 }

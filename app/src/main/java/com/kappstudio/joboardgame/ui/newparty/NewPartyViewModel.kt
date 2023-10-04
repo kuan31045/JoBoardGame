@@ -9,7 +9,6 @@ import com.kappstudio.joboardgame.data.*
 import com.kappstudio.joboardgame.data.remote.FirebaseService
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
-import com.kappstudio.joboardgame.util.checkEmpty
 import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -56,7 +55,7 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
         get() = _status
     
     fun addGame() {
-        if (gameName.value.checkEmpty() ) {
+        if (gameName.value.checkValid() ) {
 
             if (gameNameList.value?.contains(gameName.value ?: "") == true) {
                 ToastUtil.show(gameName.value + appInstance.getString(R.string.already_in_list))
