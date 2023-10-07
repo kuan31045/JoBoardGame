@@ -3,7 +3,6 @@ package com.kappstudio.joboardgame
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,18 +11,17 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.libraries.places.api.Places
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.databinding.ActivityMainBinding
-import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.login.LoginActivity
 import com.kappstudio.joboardgame.ui.party.PartyFragmentDirections
 import com.kappstudio.joboardgame.util.PageType
 import com.kappstudio.joboardgame.util.statusBarUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-     lateinit var binding: ActivityMainBinding
-    val viewModel: MainViewModel by viewModels {
-        VMFactory { MainViewModel(appInstance.provideJoRepository()) }
-    }
+
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
         // Create a new PlacesClient instance
         val placesClient = Places.createClient(this)
-
 
         binding.btnToMap.setOnClickListener {
             this.findNavController(R.id.nav_host_fragment_activity_main)
@@ -71,9 +68,9 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        viewModel.isImmersion.observe(this, {
+        viewModel.isImmersion.observe(this) {
             statusBarUtil(this, it)
-        })
+        }
 
         setSupportActionBar(binding.toolbar)
         navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -89,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun setNavController() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        var appBarConfiguration = AppBarConfiguration(
+        val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.partyFragment, R.id.gameFragment, R.id.toolsFragment, R.id.profileFragment
             )

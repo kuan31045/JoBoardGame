@@ -1,5 +1,6 @@
 package com.kappstudio.joboardgame.di
 
+import com.kappstudio.joboardgame.MainViewModel
 import com.kappstudio.joboardgame.ui.favorite.FavoriteViewModel
 import com.kappstudio.joboardgame.ui.friend.FriendViewModel
 import com.kappstudio.joboardgame.ui.game.GameViewModel
@@ -21,6 +22,8 @@ import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 
 val viewModelModule = module {
+
+    viewModelOf(::MainViewModel)
 
     viewModelOf(::LoginViewModel)
 
