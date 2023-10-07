@@ -1,6 +1,7 @@
 package com.kappstudio.joboardgame.di
 
 import com.kappstudio.joboardgame.MainViewModel
+import com.kappstudio.joboardgame.ui.album.AlbumViewModel
 import com.kappstudio.joboardgame.ui.favorite.FavoriteViewModel
 import com.kappstudio.joboardgame.ui.friend.FriendViewModel
 import com.kappstudio.joboardgame.ui.game.GameViewModel
@@ -58,4 +59,6 @@ val viewModelModule = module {
     viewModelOf(::NewPartyViewModel)
 
     viewModelOf(::SelectGameViewModel)
+
+    viewModelOf(::AlbumViewModel)
 }

@@ -3,9 +3,6 @@ package com.kappstudio.joboardgame
 import android.app.Application
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.kappstudio.joboardgame.data.source.JoRepository
-import com.kappstudio.joboardgame.data.source.JoRepositoryImpl
-import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.di.viewModelModule
 import com.kappstudio.joboardgame.di.daoModule
 import com.kappstudio.joboardgame.di.dbModule
@@ -25,16 +22,6 @@ val screenHeight: Int
     get() = _screenHeight
 
 class JoApplication : Application() {
-
-    private var joRepository: JoRepository? = null
-
-    fun provideJoRepository(): JoRepository {
-        synchronized(this) {
-            return joRepository ?: JoRepositoryImpl(
-                JoRemoteDataSource,
-            )
-        }
-    }
 
     override fun onCreate() {
         super.onCreate()
