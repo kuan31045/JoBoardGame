@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kappstudio.joboardgame.bindImage
 import com.kappstudio.joboardgame.databinding.ItemPhotoAlumbBinding
-import timber.log.Timber
 
 class AlbumAdapter(private val viewModel: AlbumViewModel) :
     ListAdapter<String, AlbumAdapter.AlbumViewHolder>(DiffCallback) {
@@ -15,8 +14,7 @@ class AlbumAdapter(private val viewModel: AlbumViewModel) :
     inner class AlbumViewHolder(private val binding: ItemPhotoAlumbBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(url: String, viewModel: AlbumViewModel,position: Int) {
-            Timber.d("bind")
+        fun bind(url: String, viewModel: AlbumViewModel, position: Int) {
             bindImage(binding.ivPhoto, url)
             binding.ivPhoto.setOnClickListener {
                 viewModel.navToPhoto(position)
@@ -35,7 +33,6 @@ class AlbumAdapter(private val viewModel: AlbumViewModel) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
-        Timber.d("create")
         return AlbumViewHolder(
             ItemPhotoAlumbBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -46,8 +43,6 @@ class AlbumAdapter(private val viewModel: AlbumViewModel) :
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        Timber.d("BindViewHolder")
-
-        holder.bind(getItem(position), viewModel,position)
+        holder.bind(getItem(position), viewModel, position)
     }
 }
