@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                 .navigate(PartyFragmentDirections.navToNotificationFragment())
         }
 
-
         binding.btnToSearch.setOnClickListener {
             this.findNavController(R.id.nav_host_fragment_activity_main).navigate(
                 NavigationDirections.navToSearchFragment(
