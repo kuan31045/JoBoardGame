@@ -3,9 +3,9 @@ package com.kappstudio.joboardgame.data.repository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
+import com.kappstudio.joboardgame.data.Game
 import com.kappstudio.joboardgame.data.Party
 import com.kappstudio.joboardgame.data.PartyMsg
-import com.kappstudio.joboardgame.data.remote.JoRemoteDataSource
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -32,6 +32,8 @@ interface PartyRepository {
     suspend fun addPartyPhoto(partyId: String, photo: String)
 
     fun getUserPartiesStream(userId: String): Flow<List<Party>>
+
+    suspend fun createParty(party: Party): Boolean
 }
 
 class PartyRepositoryImpl : PartyRepository {
@@ -114,6 +116,18 @@ class PartyRepositoryImpl : PartyRepository {
             .snapshots()
             .map { sortParty(it.toObjects(Party::class.java)) }
     }
+
+    override suspend fun createParty(party: Party): Boolean =
+        suspendCoroutine { continuation ->
+            val newParty = party.copy(
+                id = partyCollection.document().id
+            )
+
+            partyCollection
+                .document(newParty.id)
+                .set(newParty)
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+        }
 
     private fun sortParty(parties: List<Party>): List<Party> {
         val openParties =

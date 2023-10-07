@@ -22,7 +22,7 @@ class AddGameAdapter(private val viewModel: NewPartyViewModel) :
                 bindImage(ivGame, game.image)
 
                 tvRemove.setOnClickListener {
-                    viewModel.removeGame(game)
+                    viewModel.removeGame(game.name)
                 }
 
                 if (game.time != 0) {

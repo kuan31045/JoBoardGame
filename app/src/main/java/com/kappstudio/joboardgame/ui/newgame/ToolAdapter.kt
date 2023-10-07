@@ -10,7 +10,6 @@ import com.kappstudio.joboardgame.databinding.ItemCheckBoxBinding
 class ToolAdapter(private val viewModel: NewGameViewModel) :
     ListAdapter<String, ToolAdapter.ToolViewHolder>(ToolAdapter) {
 
-
     inner class ToolViewHolder(private val binding: ItemCheckBoxBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -23,8 +22,6 @@ class ToolAdapter(private val viewModel: NewGameViewModel) :
                     false -> viewModel.removeTool(tool)
                 }
             }
-
-
         }
     }
 
@@ -49,7 +46,6 @@ class ToolAdapter(private val viewModel: NewGameViewModel) :
     }
 
     override fun onBindViewHolder(holder: ToolViewHolder, position: Int) {
-
         holder.bind(getItem(position), viewModel)
     }
 }

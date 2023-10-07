@@ -1,14 +1,23 @@
 package com.kappstudio.joboardgame.ui.newparty
 
 import android.net.Uri
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
-import com.kappstudio.joboardgame.data.*
-import com.kappstudio.joboardgame.data.remote.FirebaseService
+import com.kappstudio.joboardgame.data.Game
+import com.kappstudio.joboardgame.data.Location
+import com.kappstudio.joboardgame.data.Party
+import com.kappstudio.joboardgame.data.Result
+import com.kappstudio.joboardgame.data.repository.GameRepository
+import com.kappstudio.joboardgame.data.repository.PartyRepository
+import com.kappstudio.joboardgame.data.repository.StorageRepository
 import com.kappstudio.joboardgame.util.LoadApiStatus
 import com.kappstudio.joboardgame.ui.gamedetail.NavToGameDetailInterface
+import com.kappstudio.joboardgame.util.ConnectivityUtil
 import com.kappstudio.joboardgame.util.checkValid
 import kotlinx.coroutines.launch
 import com.kappstudio.joboardgame.util.ToastUtil
@@ -16,8 +25,12 @@ import com.kappstudio.joboardgame.util.ToastUtil
 private const val DEFAULT_COVER =
     "https://firebasestorage.googleapis.com/v0/b/jo-tabletop-game.appspot.com/o/cover1.png?alt=media&token=f3144faf-1e81-4d84-b25e-46e32b64b8f1"
 
-class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
-    
+class NewPartyViewModel(
+    private val partyRepository: PartyRepository,
+    private val storageRepository: StorageRepository,
+    gameRepository: GameRepository,
+) : ViewModel(), NavToGameDetailInterface {
+
     var partyTime = MutableLiveData<Long>(0)
 
     // EditText
@@ -26,42 +39,33 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
     var requirePlayerQty = MutableLiveData("")
     var note = MutableLiveData("")
     var gameName = MutableLiveData("")
+
     //LngLat
     var lat = MutableLiveData(0.0)
     var lng = MutableLiveData(0.0)
 
-    private val _gameNameList = MutableLiveData<MutableList<String>>(mutableListOf())
-    val gameNameList: LiveData<MutableList<String>>
-        get() = _gameNameList
+    val allGames: LiveData<List<Game>> = gameRepository.getGamesStream().asLiveData()
+
+    private val _gameNameList = MutableLiveData<List<String>>(emptyList())
+    val gameNameList: LiveData<List<String>> = _gameNameList
 
     private var _partyGames = MutableLiveData<List<Game>>(mutableListOf())
-    val partyGames: LiveData<List<Game>>
-        get() = _partyGames
+    val partyGames: LiveData<List<Game>> = _partyGames
 
     //Cover
-    var photoUri = MutableLiveData<Uri>()
+    val imageUri = MutableLiveData<Uri?>()
+    private val coverUri = MutableLiveData<String>(DEFAULT_COVER)
 
-    private val _coverUrl = MutableLiveData<String>()
-    private val coverUrl: LiveData<String>
-        get() = _coverUrl
+    private val _status = MutableLiveData<LoadApiStatus?>()
+    val status: LiveData<LoadApiStatus?> = _status
 
-    // Handle the error for edittext
-    private val _invalidPublish = MutableLiveData<PartyInvalidInput?>()
-    val invalidPublish: LiveData<PartyInvalidInput?>
-        get() = _invalidPublish
-
-    private val _status = MutableLiveData<LoadApiStatus>()
-    val status: LiveData<LoadApiStatus>
-        get() = _status
-    
     fun addGame() {
-        if (gameName.value.checkValid() ) {
+        if (gameName.value.checkValid()) {
 
-            if (gameNameList.value?.contains(gameName.value ?: "") == true) {
+            if (gameNameList.value?.contains(gameName.value?.trim()) == true) {
                 ToastUtil.show(gameName.value + appInstance.getString(R.string.already_in_list))
             } else {
-                _gameNameList.value =
-                    _gameNameList.value?.plus(gameName.value) as MutableList<String>?
+                _gameNameList.value = _gameNameList.value!! + gameName.value!!
                 gameName.value = ""
             }
 
@@ -69,87 +73,12 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
             ToastUtil.show(appInstance.getString(R.string.enter_game_name))
         }
     }
-    
-    private fun createParty() {
-        viewModelScope.launch {
-            uploadCover()
 
-            val res = FirebaseService.createParty(
-                Party(
-                    title = title.value ?: "",
-                    cover = coverUrl.value ?: DEFAULT_COVER,
-                    partyTime = partyTime.value ?: 0,
-                    location = Location(
-                        location.value ?: "",
-                        lat.value ?: 0.0,
-                        lng.value ?: 0.0
-                    ),
-                    note = note.value ?: "",
-                    requirePlayerQty = requirePlayerQty.value?.toIntOrNull() ?: 1,
-                    gameNameList = gameNameList.value ?: mutableListOf(),
-                )
-            )
-
-            if (res) {
-                ToastUtil.show(appInstance.getString(R.string.creat_ok))
-                _status.value = LoadApiStatus.DONE
-            }
-        }
+    fun removeGame(gameName: String) {
+        _gameNameList.value = _gameNameList.value?.minus(gameName) as MutableList<String>?
     }
 
-    fun removeGame(game: Game) {
-        _gameNameList.value = _gameNameList.value?.minus(game.name) as MutableList<String>?
-    }
-
-    private suspend fun uploadCover() {
-        photoUri.value?.let {
-            _status.value = LoadApiStatus.LOADING
-
-            when (val result = FirebaseService.uploadPhoto(it)) {
-                is Result.Success -> {
-                    _coverUrl.value = result.data!!
-                }
-
-                else -> {}
-            }
-        }
-    }
-
-    fun prepareCreate() {
-        _invalidPublish.value = when {
-            title.value.checkValid() ->
-                PartyInvalidInput.TITLE_EMPTY
-            partyTime.value == 0L ->
-                PartyInvalidInput.TIME_EMPTY
-            location.value.checkValid() ->
-                PartyInvalidInput.LOCATION_EMPTY
-            requirePlayerQty.value.checkValid() ->
-                PartyInvalidInput.QTY_EMPTY
-            note.value.checkValid() ->
-                PartyInvalidInput.DESC_EMPTY
-            gameNameList.value == null || gameNameList.value!!.size == 0 ->
-                PartyInvalidInput.GAMES_EMPTY
-            else -> {
-                createParty()
-                null
-            }
-        }
-    }
-
-    fun addGameFromFavorite(selectedGames: MutableList<Game>) {
-        val list = mutableListOf<String>()
-        selectedGames.forEach {
-            list.add(it.name)
-        }
-        _gameNameList.value =
-            (_gameNameList.value?.plus(list))?.distinctBy { it } as MutableList<String>
-    }
-
-    fun refreshGame() {
-        _gameNameList.value = _gameNameList.value
-    }
-
-    fun setGame() {
+    fun setupGames() {
         val list = mutableListOf<Game>()
         gameNameList.value?.forEach { name ->
             val query = allGames.value?.filter { game ->
@@ -169,5 +98,93 @@ class NewPartyViewModel : ViewModel(), NavToGameDetailInterface {
         }
 
         _partyGames.value = list
+    }
+
+    fun addGameFromFavorite(selectedGames: MutableList<Game>) {
+        val list = selectedGames.map { it.name }
+        _gameNameList.value = (_gameNameList.value!! + list).distinct()
+    }
+
+    fun prepareCreate() {
+        val invalidInput = when {
+            !title.value.checkValid() ->
+                PartyInvalidInput.TITLE_EMPTY
+
+            partyTime.value == 0L ->
+                PartyInvalidInput.TIME_EMPTY
+
+            !location.value.checkValid() ->
+                PartyInvalidInput.LOCATION_EMPTY
+
+            !requirePlayerQty.value.checkValid() ->
+                PartyInvalidInput.QTY_EMPTY
+
+            !note.value.checkValid() ->
+                PartyInvalidInput.DESC_EMPTY
+
+            gameNameList.value == null || gameNameList.value!!.isEmpty() ->
+                PartyInvalidInput.GAMES_EMPTY
+
+            else -> {
+                createParty()
+                null
+            }
+        }
+
+        invalidInput?.let { ToastUtil.showByRes(it.stringRes) }
+    }
+
+    private fun createParty() {
+        if (ConnectivityUtil.isNotConnected()) {
+            ToastUtil.showByRes(R.string.check_internet)
+            return
+        }
+
+        viewModelScope.launch {
+            if (imageUri.value != null) {
+                uploadCover()
+            }
+
+            val newPartyTaskRes = partyRepository.createParty(
+                Party(
+                    title = title.value!!,
+                    cover = coverUri.value!!,
+                    partyTime = partyTime.value!!,
+                    location = Location(
+                        location.value ?: "",
+                        lat.value ?: 0.0,
+                        lng.value ?: 0.0
+                    ),
+                    note = note.value ?: "",
+                    requirePlayerQty = requirePlayerQty.value?.toIntOrNull() ?: 1,
+                    gameNameList = gameNameList.value!!,
+                )
+            )
+
+            _status.value = if (newPartyTaskRes) {
+                ToastUtil.showByRes(R.string.creat_ok)
+                LoadApiStatus.DONE
+            } else {
+                LoadApiStatus.ERROR
+            }
+        }
+    }
+
+    private suspend fun uploadCover() {
+        storageRepository.uploadPhoto(imageUri.value!!).collect { photoRes ->
+            _status.value = when (photoRes) {
+                is Result.Success -> {
+                    coverUri.value = photoRes.data ?: DEFAULT_COVER
+                    status.value
+                }
+
+                is Result.Fail -> {
+                    ToastUtil.showByRes(photoRes.stringRes)
+                    LoadApiStatus.ERROR
+                }
+
+                else -> LoadApiStatus.LOADING
+            }
+        }
     }
 }

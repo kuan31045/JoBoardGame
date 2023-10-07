@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.kappstudio.joboardgame.databinding.FragmentNewPartyBinding
@@ -21,52 +19,32 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.irozon.alertview.AlertActionStyle
 import com.irozon.alertview.AlertStyle
 import com.irozon.alertview.AlertView
 import com.irozon.alertview.objects.AlertAction
 import com.kappstudio.joboardgame.R
-import com.kappstudio.joboardgame.allGames
 import com.kappstudio.joboardgame.appInstance
 import com.kappstudio.joboardgame.util.LoadApiStatus
-import com.kappstudio.joboardgame.factory.VMFactory
 import com.kappstudio.joboardgame.ui.game.GameFragmentDirections
-import com.kappstudio.joboardgame.ui.game.GameViewModel
-import com.kappstudio.joboardgame.ui.party.PartyViewModel
 import com.kappstudio.joboardgame.util.closeSoftKeyboard
 import com.kappstudio.joboardgame.util.ToastUtil
-import org.koin.androidx.viewmodel.ext.android.getViewModel
-import timber.log.Timber
-
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class NewPartyFragment : Fragment() {
-    lateinit var binding: FragmentNewPartyBinding
-    lateinit var viewModel: NewPartyViewModel
 
+    private lateinit var binding: FragmentNewPartyBinding
     private lateinit var startActivityLauncher: StartActivityLauncher
-
-    private val gameViewModel by lazy {
-        requireParentFragment().getViewModel<GameViewModel>()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = activity?.run {
-            ViewModelProviders.of(this)[NewPartyViewModel::class.java]
-        } ?: throw Exception("Invalid Activity")
-    }
+    private val viewModel by activityViewModel<NewPartyViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
+
         binding = FragmentNewPartyBinding.inflate(inflater)
-
-
-
-         startActivityLauncher = StartActivityLauncher(this)
+        startActivityLauncher = StartActivityLauncher(this)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -82,19 +60,21 @@ class NewPartyFragment : Fragment() {
             viewModel.addGame()
         }
 
-        gameViewModel.games.observe(viewLifecycleOwner) {
-            var query = arrayListOf<String>()
+        viewModel.allGames.observe(viewLifecycleOwner) {
+            viewModel.setupGames()
+
+            val query = arrayListOf<String>()
             for (game in it) {
                 query.add(game.name)
             }
-            val arraryAdapter = context?.let { it1 ->
+            val arrayAdapter = context?.let { it1 ->
                 ArrayAdapter(
                     it1,
                     android.R.layout.simple_list_item_1,
                     query
                 )
             }
-            binding.actAddGame.setAdapter(arraryAdapter)
+            binding.actAddGame.setAdapter(arrayAdapter)
         }
 
         var isPickingTime = false
@@ -145,12 +125,6 @@ class NewPartyFragment : Fragment() {
             startAutoCompleteIntent()
         }
 
-        viewModel.invalidPublish.observe(viewLifecycleOwner) {
-            it?.let {
-                ToastUtil.show(it.msg)
-            }
-        }
-
         viewModel.navToGameDetail.observe(viewLifecycleOwner) {
             it?.let {
                 if (it.id == "notFound") {
@@ -192,11 +166,7 @@ class NewPartyFragment : Fragment() {
         }
 
         viewModel.gameNameList.observe(viewLifecycleOwner) {
-            viewModel.setGame()
-        }
-
-        allGames.observe(viewLifecycleOwner) {
-            viewModel.setGame()
+            viewModel.setupGames()
         }
 
         viewModel.partyGames.observe(viewLifecycleOwner) {
@@ -208,6 +178,7 @@ class NewPartyFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner) {
             when (it) {
                 LoadApiStatus.DONE -> findNavController().popBackStack()
+                LoadApiStatus.ERROR -> ToastUtil.show(getString(R.string.create_failed))
                 else -> {}
             }
         }
@@ -233,7 +204,7 @@ class NewPartyFragment : Fragment() {
                             data?.let {
                                 val fileUri = data.data
                                 binding.ivCover.setImageURI(fileUri)
-                                viewModel.photoUri.value = fileUri
+                                viewModel.imageUri.value = fileUri
                             }
                         }
 
@@ -262,26 +233,12 @@ class NewPartyFragment : Fragment() {
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(it)
                         binding.etLocation.setText(place.address)
-                        viewModel.lat.value = place.latLng.latitude
-                        viewModel.lng.value = place.latLng.longitude
-
-                        Timber.d("Place: ${place.name}, ${place.id}")
-                    }
-                }
-
-                AutocompleteActivity.RESULT_ERROR -> {
-                    data?.let {
-                        val status = Autocomplete.getStatusFromIntent(data)
-                        Timber.d(status.statusMessage)
+                        viewModel.lat.value = place.latLng?.latitude
+                        viewModel.lng.value = place.latLng?.longitude
                     }
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.refreshGame()
     }
 
     override fun onDestroy() {
@@ -289,3 +246,4 @@ class NewPartyFragment : Fragment() {
         activity?.viewModelStore?.clear()
     }
 }
+

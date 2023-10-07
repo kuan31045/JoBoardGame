@@ -9,6 +9,7 @@ import com.kappstudio.joboardgame.data.Rating
 import com.kappstudio.joboardgame.data.room.GameDao
 import com.kappstudio.joboardgame.data.room.toGame
 import com.kappstudio.joboardgame.ui.login.UserManager
+import com.kappstudio.joboardgame.util.ToastUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

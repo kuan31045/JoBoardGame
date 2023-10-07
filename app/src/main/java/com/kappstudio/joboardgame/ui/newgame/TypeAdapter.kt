@@ -10,13 +10,11 @@ import com.kappstudio.joboardgame.databinding.ItemCheckBoxBinding
 class TypeAdapter(private val viewModel: NewGameViewModel) :
     ListAdapter<String, TypeAdapter.TypeViewHolder>(TypeAdapter) {
 
-
     inner class TypeViewHolder(private val binding: ItemCheckBoxBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(type: String, viewModel: NewGameViewModel) {
             binding.cb.text = type
-
             binding.cb.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> viewModel.addType(type)
@@ -24,7 +22,6 @@ class TypeAdapter(private val viewModel: NewGameViewModel) :
                     false -> viewModel.removeType(type)
                 }
             }
-
         }
     }
 
@@ -49,7 +46,6 @@ class TypeAdapter(private val viewModel: NewGameViewModel) :
     }
 
     override fun onBindViewHolder(holder: TypeViewHolder, position: Int) {
-
         holder.bind(getItem(position), viewModel)
     }
 }

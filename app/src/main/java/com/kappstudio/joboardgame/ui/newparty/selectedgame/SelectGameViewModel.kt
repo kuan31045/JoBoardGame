@@ -9,12 +9,10 @@ import com.kappstudio.joboardgame.ui.login.UserManager
 class SelectGameViewModel : ViewModel() {
 
     private var _games = MutableLiveData<List<Game>>(UserManager.user.value?.favoriteGames)
-    val games: LiveData<List<Game>>
-        get() = _games
+    val games: LiveData<List<Game>> = _games
 
     private var _selectedGames = MutableLiveData<MutableList<Game>>(mutableListOf())
-    val selectedGames: LiveData<MutableList<Game>>
-        get() = _selectedGames
+    val selectedGames: LiveData<MutableList<Game>> = _selectedGames
 
     fun selectGame(game: Game) {
         if (selectedGames.value?.contains(game) == true) {

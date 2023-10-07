@@ -98,31 +98,6 @@ object FirebaseService {
         }
 
 
-    suspend fun createParty(party: Party): Boolean = suspendCoroutine { continuation ->
-        Timber.d("-----Create Party------------------------------")
-
-        val parties = FirebaseFirestore.getInstance().collection(COLLECTION_PARTIES)
-        val document = parties.document()
-
-        party.id = document.id
-
-        document
-            .set(party)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Timber.d("Create Party Successful: $party")
-                    continuation.resume(true)
-                } else {
-                    task.exception?.let {
-
-                        Timber.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(false)
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(false)
-                }
-            }
-    }
 
 
     fun getLiveUsers(): MutableLiveData<List<User>> {
