@@ -5,13 +5,13 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class User(
-    var id: String = "",
-    var name: String = "",
-    var image: String = "",
-    var status: String = "",
-    var county: String = "",
-    var friendList: MutableList<String> = mutableListOf(),
-    var requestList: MutableList<String> = mutableListOf(),
-    var favoriteGames: MutableList<Game> = mutableListOf(),
-    var photos: MutableList<String> = mutableListOf(),
+    val id: String = "",
+    val name: String = "",
+    val image: String = "",
+    val status: String = "",
+    val county: String = "",
+    val friendList: MutableList<String> = mutableListOf(),
+    val requestList: MutableList<String> = mutableListOf(),
+    val favoriteGames: MutableList<Game> = mutableListOf(),
+    val photos: MutableList<String> = mutableListOf(),
 ): Parcelable
