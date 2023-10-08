@@ -44,6 +44,9 @@
 
 
             <ImageView
+                android:background="@drawable/bg_circlebtn"
+                android:backgroundTint="@color/transparentWhite"
+
                 android:id="@+id/iv_back"
                 style="@style/toolbarBtn"
                 android:layout_marginStart="4dp"
