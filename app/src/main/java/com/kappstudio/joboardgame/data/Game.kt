@@ -11,7 +11,7 @@ data class Game(
     val id: String = "notFound",
     val name: String = "",
     val image: String = "",
-    val type: MutableList<String> = mutableListOf(""),
+    val type: List<String> = listOf(""),
     val time: Int = 0,
     val tools: List<String> = emptyList(),
     val minPlayerQty: Int = 0,

@@ -10,8 +10,8 @@ data class User(
     val image: String = "",
     val status: String = "",
     val county: String = "",
-    val friendList: MutableList<String> = mutableListOf(),
-    val requestList: MutableList<String> = mutableListOf(),
-    val favoriteGames: MutableList<Game> = mutableListOf(),
-    val photos: MutableList<String> = mutableListOf(),
+    val friendList: List<String> = emptyList(),
+    val requestList: List<String> = emptyList(),
+    val favoriteGames: List<Game> = emptyList(),
+    val photos: List<String> = emptyList(),
 ): Parcelable
