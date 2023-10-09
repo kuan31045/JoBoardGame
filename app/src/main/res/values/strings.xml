@@ -55,7 +55,7 @@
     <string name="timer">計時器</string>
     <string name="spin_bottle">轉瓶</string>
     <string name="polygraph">測謊機</string>
-    <string name="scoreboard">計分板</string>
+    <string name="scoreboard">記分板</string>
 
     <!--    Profile-->
     <string name="sample_user_name">AKuan</string>
