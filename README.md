@@ -40,7 +40,7 @@
 * Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation
 * Integrate Google Maps SDK, mark the party location on the map, implement GPS positioning, and customize the InfoWindow
 * Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels
-* Utilize **animation**, **Lottie library**, **Jetpack Compose** and **Canvas**, to develop lively board game tools
+* Utilize **animation**, **Lottie library**, **Jetpack Compose**, **Canvas** and **G-Sensor**, to develop lively board game tools
 
 
 
