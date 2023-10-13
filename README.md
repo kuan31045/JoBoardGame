@@ -35,12 +35,16 @@
 * Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability
 * Design data structures and integrate Firestore for consistent cloud data synchronization across devices
 * Utilize SnapshotListener to monitor real-time cloud data, ensuring synchronization of local updates such as comments and meetup information
+* Implement **dependency injection** and **singleton** pattern with **Koin**
 * Store user browsing data locally using Room Database for efficient offline viewing
 * Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation
 * Integrate Google Maps SDK, mark the party location on the map, implement GPS positioning, and customize the InfoWindow
 * Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels
 * Utilize **animation**, **Lottie library**, **Jetpack Compose** and **Canvas**, to develop lively board game tools
-* 
+
+
+
+
 <img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
 
 ## Architectures & Patterns
