@@ -10,8 +10,10 @@
 
 
  
-一款為桌遊愛好者打造的 APP，幫助你揪團玩桌遊，瀏覽桌遊資料，以及使用桌遊小工具
-
+- An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools.
+  
+- Develop with **Kotlin**, adhere to the **MVVM** architecture, utilize the **Jetpack** toolkit, integrate **Firestore** cloud database, and collaborate with **Coroutine & Flow** to implement asynchronous programming.
+  
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
   
   <a href='https://youtu.be/F4pF40-fW-g' ><img alt='Demo Video' src='https://firebasestorage.googleapis.com/v0/b/publisher-77e03.appspot.com/o/jodemoyt.PNG?alt=media&token=0eb17c39-e111-4d2a-a583-d7e9f0cf9ba7' /></a>
@@ -33,14 +35,14 @@
 <img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
 
 ## Tech Stacks
-* Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability.
-* Design data structures and integrate Firestore for consistent cloud data synchronization across devices.
-* Utilize SnapshotListener to monitor real-time cloud data, ensuring synchronization of local updates such as comments and meetup information.
-* Store user browsing data locally using Room Database for efficient offline viewing.
-* Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation.
-* Integrate Google Maps SDK to mark party locations, offer GPS positioning, and customize the user interface with tailored InfoWindows.
-* Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels.
-* Develop UI components with Jetpack Compose, employing a declarative approach for timer tools and animated interactions.
+* Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability
+* Design data structures and integrate Firestore for consistent cloud data synchronization across devices
+* Utilize SnapshotListener to monitor real-time cloud data, ensuring synchronization of local updates such as comments and meetup information
+* Store user browsing data locally using Room Database for efficient offline viewing
+* Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation
+* Integrate Google Maps SDK, mark the party location on the map, implement GPS positioning, and customize the InfoWindow
+* Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels
+* Develop UI components with Jetpack Compose, employing a declarative approach for timer tools and animated interactions
 
 ## Architectures & Patterns
 
