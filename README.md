@@ -12,7 +12,7 @@
  
 - An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools
   
-- Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and collaborate with **Coroutine & Flow** to implement asynchronous programming
+- Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and cooperate with **Coroutine & Flow** for asynchronous programming.
   
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
   
@@ -42,7 +42,7 @@
 * Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation
 * Integrate Google Maps SDK, mark the party location on the map, implement GPS positioning, and customize the InfoWindow
 * Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels
-* Develop UI components with Jetpack Compose, employing a declarative approach for timer tools and animated interactions
+* Utilize **animation**, **Lottie library**, **Jetpack Compose** and **Canvas**, to develop lively board game tools
 
 ## Architectures & Patterns
 
