@@ -10,9 +10,9 @@
 
 
  
-- An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools.
+- An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools
   
-- Develop with **Kotlin**, adhere to the **MVVM** architecture, utilize the **Jetpack** toolkit, integrate **Firestore** cloud database, and collaborate with **Coroutine & Flow** to implement asynchronous programming.
+- Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and collaborate with **Coroutine & Flow** to implement asynchronous programming
   
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
   
