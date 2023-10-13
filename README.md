@@ -17,62 +17,31 @@
   <a href='https://youtu.be/F4pF40-fW-g' ><img alt='Demo Video' src='https://firebasestorage.googleapis.com/v0/b/publisher-77e03.appspot.com/o/jodemoyt.PNG?alt=media&token=0eb17c39-e111-4d2a-a583-d7e9f0cf9ba7' /></a>
 
  
-## 功能
-
-- 揪團功能 - 尋找一起遊玩的夥伴，並在聚會前安排要玩的遊戲
-- 桌遊瀏覽 - 快速瀏覽桌遊資訊，避免遊玩時充滿疑惑
-- 桌遊工具 - 實用小工具提供你做使用，包括骰子、計時器、轉瓶、抽籤、測謊機
-- 聚會地圖 - 在地圖上找尋在你附近的聚會 
-- 聚會相簿 - 用相片紀錄美好的時光
-- 桌遊評分 - 你可以評分與參考桌遊分數，讓聚會挑選時不迷惘
-- 收藏桌遊 - 收藏喜愛的遊戲，舉辦聚會時可快速選用
-- 搜尋功能 - 你直接搜尋聚會、遊戲、用戶，也可以對你想玩的遊戲搜尋相關的聚會 
-- 交友功能 - 你可以查看其他使用者的喜好與資訊，並和他們成為朋友
-- 檢舉功能 - 對讓你感到不舒服的用戶提出檢舉，我們會立即進行審核並給予懲處
+## Features
+* **Host a Party** - Find companions to play with and arrange the games to play before the meetup
+* **Board Game Browsing** - Quickly browse through board game information to avoid confusion during gameplay
+* **Tabletop Tools** - Handy tools for your use, including dice, timers, spin the bottle, lottery drawing, and a lie detector
+* **Meetup Map** - Locate meetups near you on a map
+* **Meetup Album** - Document the wonderful moments with photos
+* **Board Game Ratings** - Rate and refer to board game scores, making the selection process during meetups less confusing
+* **Collect Board** Games - Save your favorite games for quick access when hosting a meetup
+* **Search Feature** - Directly search for meetups, games, users, or find meetups related to the games you wish to play
+* **Friendship Feature** - View the preferences and information of other users and befriend them
+* **Report Feature** - Report any user that makes you feel uncomfortable; we will promptly review and take necessary actions
  
 
 <img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
 
+## Tech Stacks
+* Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability.
+* Design data structures and integrate Firestore for consistent cloud data synchronization across devices.
+* Utilize SnapshotListener to monitor real-time cloud data, ensuring synchronization of local updates such as comments and meetup information.
+* Store user browsing data locally using Room Database for efficient offline viewing.
+* Adopt a custom RecyclerView for the Album interface, achieving a Waterfall effect, and integrate ViewPager for swipe-based photo navigation.
+* Integrate Google Maps SDK to mark party locations, offer GPS positioning, and customize the user interface with tailored InfoWindows.
+* Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels.
+* Develop UI components with Jetpack Compose, employing a declarative approach for timer tools and animated interactions.
 
-
-
-## 架構
+## Architectures & Patterns
 
 - MVVM
-- Singleton 
-
-## 技術
-
-- MVVM
-- Data Binding
-- LiveData
-- Navigation
-- RecyclerView
-- ViewPiger
-- G-Sensor
-- Jetpack Compose
-
-
-## 第三方套件
-
-- ImagePicker
-- Lottie
-- Glide
-- BlurView
-- TouchImageView
-- permissionx
-- ActivityResultLauncher
-
-## 開發環境
-
-- Android Studio 4.0.1
-- Android SDK 28
-- Gradle 4.0.1
-
-## 版本
-
-- 1.0.0
-
-## 聯絡資訊
-AKuan<br>
-kuanappstudio@gmail.com</br>
