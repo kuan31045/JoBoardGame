@@ -15,8 +15,8 @@ data class Party(
     val location: Location = Location(),
     val note: String = "",
     val requirePlayerQty: Int = 0,
-    val gameNameList: List<String> = mutableListOf(),
-    val playerIdList: List<String> = mutableListOf(UserManager.user.value?.id ?: ""),
+    val gameNameList: List<String> = emptyList(),
+    val playerIdList: List<String> = listOf(UserManager.user.value?.id ?: ""),
     val playerList: List<User> = emptyList(),
-    val photos: List<String> = mutableListOf(),
+    val photos: List<String> = emptyList(),
 ) : Parcelable

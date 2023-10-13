@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.libraries.places.api.Places
@@ -67,6 +68,10 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        viewModel.user.observe(this) {
+            UserManager.user.value = it
+        }
+
         viewModel.isImmersion.observe(this) {
             statusBarUtil(this, it)
         }
@@ -75,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.toolbar.setNavigationOnClickListener {
             navController.popBackStack()
-
         }
 
         setNavController()
@@ -93,6 +97,11 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
+        binding.navView.setOnItemSelectedListener {
+            NavigationUI.onNavDestinationSelected(it, navController)
+            navController.popBackStack(it.itemId, inclusive = false)
+            true
+        }
     }
 
     private fun setBarAttr() {

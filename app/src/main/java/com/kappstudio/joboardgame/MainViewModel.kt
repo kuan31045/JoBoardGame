@@ -3,11 +3,14 @@ package com.kappstudio.joboardgame
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.asLiveData
+import com.kappstudio.joboardgame.data.User
 import com.kappstudio.joboardgame.data.repository.UserRepository
 import com.kappstudio.joboardgame.ui.login.UserManager
 import com.kappstudio.joboardgame.util.PageType
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -24,12 +27,11 @@ class MainViewModel(
     private val _isImmersion = MutableLiveData(false)
     val isImmersion: LiveData<Boolean> = _isImmersion
 
+    lateinit var user: LiveData<User>
+        private set
+
     fun getUserData(userId: String) {
-        viewModelScope.launch(Dispatchers.IO + viewModelScope.coroutineContext) {
-            userRepository.getUserByIdStream(userId).collect {
-                UserManager.user.value = it
-            }
-        }
+        user = userRepository.getUserByIdStream(userId).asLiveData()
     }
 
     fun setBarStatus(status: PageType) {

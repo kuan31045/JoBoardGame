@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.kappstudio.joboardgame.ui.login.UserManager
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
-import java.util.*
+import java.util.Calendar
 import kotlin.collections.HashMap
 
 @Parcelize

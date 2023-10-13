@@ -2,7 +2,7 @@ package com.kappstudio.joboardgame.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import java.util.Calendar
 
 @Parcelize
 data class Report(

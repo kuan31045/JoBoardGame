@@ -60,6 +60,18 @@ class GameDetailFragment : Fragment() {
             findNavController().navigate(GameDetailFragmentDirections.navToTimerFragment())
         }
 
+        binding.btnToScoreboard.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToScoreboardFragment())
+        }
+
+        binding.btnToDrawlots.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToDrawLotsFragment())
+        }
+
+        binding.btnToPolygraph.setOnClickListener {
+            findNavController().navigate(GameDetailFragmentDirections.navToPolygraphFragment())
+        }
+
         viewModel.game.observe(viewLifecycleOwner) {
             it?.let {
                 bindImage(binding.ivGame, it.image)
