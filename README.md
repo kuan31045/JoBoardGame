@@ -12,7 +12,7 @@
  
 - An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools
   
-- Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and cooperate with **Coroutine & Flow** for asynchronous programming.
+- Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and cooperate with **Coroutine & Flow** for asynchronous programming
   
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
   
@@ -31,9 +31,6 @@
 * **Friendship Feature** - View the preferences and information of other users and befriend them
 * **Report Feature** - Report any user that makes you feel uncomfortable; we will promptly review and take necessary actions
  
-
-<img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
-
 ## Tech Stacks
 * Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability
 * Design data structures and integrate Firestore for consistent cloud data synchronization across devices
@@ -43,6 +40,8 @@
 * Integrate Google Maps SDK, mark the party location on the map, implement GPS positioning, and customize the InfoWindow
 * Harness G-Sensor capabilities in the Lie Detector Mechanism to analyze XYZ axes acceleration and gauge subject anxiety levels
 * Utilize **animation**, **Lottie library**, **Jetpack Compose** and **Canvas**, to develop lively board game tools
+* 
+<img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
 
 ## Architectures & Patterns
 
