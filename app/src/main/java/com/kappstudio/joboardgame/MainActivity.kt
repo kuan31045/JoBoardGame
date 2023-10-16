@@ -68,10 +68,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        viewModel.user.observe(this) {
-            UserManager.user.value = it
-        }
-
         viewModel.isImmersion.observe(this) {
             statusBarUtil(this, it)
         }
