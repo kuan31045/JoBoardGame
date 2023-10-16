@@ -43,10 +43,13 @@
 * Utilize **animation**, **Lottie library**, **Jetpack Compose**, **Canvas** and **G-Sensor**, to develop lively board game tools
 
 
+## Screenshots
+<img src='art/party.gif' width='24%'/>  <img src = 'art/user.gif' width='24%'/>  <img src='art/album.gif' width='24%'/>  <img src ='art/search.gif' width='24%'/>
+
+
 
 
 <img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
 
-## Architectures & Patterns
-
-- MVVM
+## Architectures
+![架構](art/architectures.PNG)
