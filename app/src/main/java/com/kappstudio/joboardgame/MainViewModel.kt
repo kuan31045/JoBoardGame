@@ -27,11 +27,12 @@ class MainViewModel(
     private val _isImmersion = MutableLiveData(false)
     val isImmersion: LiveData<Boolean> = _isImmersion
 
-    lateinit var user: LiveData<User>
-        private set
-
     fun getUserData(userId: String) {
-        user = userRepository.getUserByIdStream(userId).asLiveData()
+        CoroutineScope(Dispatchers.Main).launch {
+            userRepository.getUserByIdStream(userId).collectLatest {
+                UserManager.user.value = it
+            }
+        }
     }
 
     fun setBarStatus(status: PageType) {
