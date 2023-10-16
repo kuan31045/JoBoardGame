@@ -7,8 +7,6 @@
 [<img src="https://img.shields.io/badge/kotlin-Language-blue"/>](https://img.shields.io/badge/kotlin-Language-blue)
 
 
-
-
  
 - An app developed for board game enthusiasts, allowing you to host board game parties, browse board game information, and utilize board game tools
   
@@ -16,9 +14,17 @@
   
  <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
   
+
+
+
+## Screenshots
+<img src='art/party.gif' width='24%'/>  <img src = 'art/user.gif' width='24%'/>  <img src='art/album.gif' width='24%'/>  <img src ='art/search.gif' width='24%'/>
+
+
+## Demo
   <a href='https://youtu.be/F4pF40-fW-g' ><img alt='Demo Video' src='https://firebasestorage.googleapis.com/v0/b/publisher-77e03.appspot.com/o/jodemoyt.PNG?alt=media&token=0eb17c39-e111-4d2a-a583-d7e9f0cf9ba7' /></a>
 
- 
+
 ## Features
 * **Host a Party** - Find companions to play with and arrange the games to play before the meetup
 * **Board Game Browsing** - Quickly browse through board game information to avoid confusion during gameplay
@@ -30,6 +36,7 @@
 * **Search Feature** - Directly search for meetups, games, users, or find meetups related to the games you wish to play
 * **Friendship Feature** - View the preferences and information of other users and befriend them
 * **Report Feature** - Report any user that makes you feel uncomfortable; we will promptly review and take necessary actions
+
  
 ## Tech Stacks
 * Implement MVVM Architecture to decouple logic, UI, and data layers, enhancing maintainability
@@ -43,13 +50,8 @@
 * Utilize **animation**, **Lottie library**, **Jetpack Compose**, **Canvas** and **G-Sensor**, to develop lively board game tools
 
 
-## Screenshots
-<img src='art/party.gif' width='24%'/>  <img src = 'art/user.gif' width='24%'/>  <img src='art/album.gif' width='24%'/>  <img src ='art/search.gif' width='24%'/>
-
-
-
-
 <img src='art/dice.gif' width='24%'/>  <img src = 'art/bottle.gif' width='24%'/>  <img src='art/timer.gif' width='24%'/>  <img src ='art/polygraph.gif' width='24%'/>
+
 
 ## Architectures
 ![架構](art/architectures.PNG)
