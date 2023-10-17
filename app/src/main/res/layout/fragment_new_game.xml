@@ -229,7 +229,13 @@ android:text="@={viewModel.name}"
                 app:layout_constraintStart_toStartOf="@id/tv_title_tools"
                 app:layout_constraintEnd_toEndOf="@id/tl_name"
                 />
-
+            <TextView
+                android:id="@+id/tv_ugc"
+                style="@style/textClickBlue"
+                android:layout_marginBottom="4dp"
+                android:text="@string/compliance_ugc"
+                app:layout_constraintBottom_toTopOf="@id/btn_create"
+                app:layout_constraintEnd_toEndOf="@id/btn_create"  />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create"
                 android:layout_width="0dp"

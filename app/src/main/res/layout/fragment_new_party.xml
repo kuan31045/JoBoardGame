@@ -266,6 +266,13 @@ android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="@id/act_add_game"
                 app:srcCompat="@drawable/ic_24px_add03" />
 
+            <TextView
+                android:id="@+id/tv_ugc"
+                style="@style/textClickBlue"
+                android:layout_marginBottom="4dp"
+                android:text="@string/compliance_ugc"
+                app:layout_constraintBottom_toTopOf="@id/btn_create"
+                app:layout_constraintEnd_toEndOf="@id/btn_create"  />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create"

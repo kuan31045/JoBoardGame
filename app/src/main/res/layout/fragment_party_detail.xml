@@ -515,6 +515,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/tv_ugc"
+                        style="@style/textClickBlue"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/compliance_ugc"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_title_msg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_title_msg" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tl_msg"
                         android:layout_width="0dp"

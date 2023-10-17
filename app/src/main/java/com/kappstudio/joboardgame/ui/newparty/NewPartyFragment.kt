@@ -60,6 +60,17 @@ class NewPartyFragment : Fragment() {
             viewModel.addGame()
         }
 
+        binding.tvUgc.setOnClickListener {
+            val mAlert = android.app.AlertDialog.Builder(activity)
+            mAlert.setTitle(getString(R.string.see_rule))
+            mAlert.setMessage(getString(R.string.rule))
+            mAlert.setCancelable(false)
+            mAlert.setPositiveButton(getString(R.string.ok)) { _, _ ->
+            }
+            val mAlertDialog = mAlert.create()
+            mAlertDialog.show()
+        }
+
         viewModel.allGames.observe(viewLifecycleOwner) {
             viewModel.setupGames()
 
