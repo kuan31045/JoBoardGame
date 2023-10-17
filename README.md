@@ -22,7 +22,7 @@
 ## Features
 * **Host a Party** - Find companions to play with and arrange the games to play before the meetup
 * **Board Game Browsing** - Quickly browse through board game information to avoid confusion during gameplay
-* **Board Game Tools** - Handy tools for your use, including dice, timers, spin the bottle, lottery drawing, and a lie detector
+* **Board Game Tools** - Handy tools for your use, including dice, timers, spin the bottle, lottery drawing, and polygraphy
 * **Collect Board** Games - Save your favorite games for quick access when hosting a party
 * **Social** - View the preferences and information of other users and befriend them
 * **Party Map** - Locate party near you on a map
