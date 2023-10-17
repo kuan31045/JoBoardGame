@@ -39,7 +39,7 @@
 ## Tech Stacks
 * Adhere **MVVM Architecture** to decouple logic, UI, and data layers, enhancing maintainability
 * Design data structures and integrate **Firestore** for consistent cloud data synchronization across devices
-* Utilize SnapshotListener + **Flow** to monitor real-time cloud data, ensuring synchronization of local updates such as comments
+* Utilize **SnapshotListener** + **Flow** to monitor real-time cloud data, ensuring synchronization of local updates such as comments
 * Reactive UI with **LiveData** & **DataBinding** to achieve real-time UI state update
 * Implement **dependency injection** and **singleton** pattern with **Koin**
 * **UseCase** for encapsulating complex business logics, and can be reused by multiple ViewModels
@@ -53,7 +53,7 @@
 ## Architectures
 ![架構](art/architectures.PNG)
 MVVM + UseCase
-* **View** - Activities/Fragments manage and display UI interactions with users, observing UI state changes from the ViewModel
+* **View** - Activities/Fragments manage and display UI interactions with users, observing UI state changes from ViewModel
 * **ViewModel** - Fetches data from higher layers, handles and updates the UI state through LiveData
 * **Model** - Data model and Repositories provide interfaces to retrieve data from both local and remote sources
 * **UseCase** - Responsible for encapsulating complex business logics, and can be reused by multiple ViewModels
