@@ -41,6 +41,8 @@ interface UserRepository {
     suspend fun addFriend(userId: String)
 
     fun getUsersStream(): Flow<List<User>>
+
+    suspend fun updateProfile(user: User): Boolean
 }
 
 
@@ -179,6 +181,14 @@ class UserRepositoryImpl : UserRepository {
                 it.toObjects(User::class.java)
             }
     }
+
+    override suspend fun updateProfile(user: User): Boolean =
+        suspendCoroutine { continuation ->
+            userCollection
+                .document(user.id)
+                .set(user)
+                .addOnCompleteListener { continuation.resume(it.isSuccessful) }
+        }
 
     private companion object {
         const val COLLECTION_USERS = "users"

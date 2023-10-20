@@ -45,6 +45,12 @@ class ProfileFragment : Fragment() {
             activity?.finish()
         }
 
+        binding.btnToEdit.setOnClickListener {
+            UserManager.user.value?.let {
+                findNavController().navigate(ProfileFragmentDirections.navToEditFragment())
+            }
+        }
+
         binding.tvPartyQty.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.navToMyPartyFragment(userId))
         }

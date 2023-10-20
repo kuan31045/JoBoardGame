@@ -260,6 +260,12 @@
         android:name="com.kappstudio.joboardgame.ui.tools.polygraph.PolygraphFragment"
         android:label="fragment_polygraph"
         tools:layout="@layout/fragment_polygraph" />
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.kappstudio.joboardgame.ui.edit.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" />
     <action
         android:id="@+id/nav_to_notification_fragment"
         app:destination="@id/notificationFragment" />
@@ -337,4 +343,7 @@
     <action
         android:id="@+id/nav_to_scoreboard_fragment"
         app:destination="@id/scoreboardFragment" />
+    <action
+        android:id="@+id/nav_to_edit_fragment"
+        app:destination="@id/editFragment" />
 </navigation>
