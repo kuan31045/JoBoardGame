@@ -295,4 +295,9 @@ kuanappstudio@gmail.com</string>
     <string name="plz_pick_type">請選擇至少一種類型!</string>
     <string name="create_failed">創建失敗QQ</string>
     <string name="compliance_ugc">請遵守《社群規範》</string>
+    <string name="profile_image">頭像</string>
+    <string name="nick_name">暱稱</string>
+    <string name="introduction">簡介</string>
+    <string name="plz_enter_user_name">請輸入暱稱!</string>
+    <string name="update_ok">更新成功!</string>
 </resources>

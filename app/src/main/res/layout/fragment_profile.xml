@@ -131,7 +131,7 @@
 
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_edit"
+                        android:id="@+id/btn_to_edit"
                         android:layout_marginTop="16dp"
 
                         android:layout_width="wrap_content"
@@ -233,7 +233,7 @@
                         android:text="@{String.valueOf(viewModel.hostParties.size)}"
                         app:layout_constraintEnd_toStartOf="@+id/view_line_host"
                         app:layout_constraintStart_toEndOf="@+id/view_line_party"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_edit"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_to_edit"
                         tools:text="33" />
 
                     <View
