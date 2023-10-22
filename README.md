@@ -45,7 +45,7 @@
 * **UseCase** for encapsulating complex business logics, and can be reused by multiple ViewModels
 * **Room Database** for store user recently viewed games locally
 * Adopt a waterfall **RecyclerView** for the album UI, and integrate **ViewPager** for swipe-based photo navigation
-* Implement image loading with **Coil** and pinch-to-zoom for photos with **BoxWithConstraints** in **Jetpack Compose**
+* Implement pinch-to-zoom for photos with **Coil** and **BoxWithConstraints** in **Jetpack Compose**
 * Integrate **Google Maps** SDK, mark the party location on the map, implement **GPS** positioning, and customize the InfoWindow
 * Utilize **animation**, **Lottie library**, **Jetpack Compose**, **Canvas** and **G-Sensor**, to develop lively board game tools
 * **Firebase Crashlytics** analyzes the reasons for app crashes
