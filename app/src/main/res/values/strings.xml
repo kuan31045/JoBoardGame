@@ -300,4 +300,5 @@ kuanappstudio@gmail.com</string>
     <string name="introduction">簡介</string>
     <string name="plz_enter_user_name">請輸入暱稱!</string>
     <string name="update_ok">更新成功!</string>
+    <string name="update">更新</string>
 </resources>

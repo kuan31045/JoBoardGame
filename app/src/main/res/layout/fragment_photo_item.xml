@@ -6,14 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.album.photo.PhotoItemFragment">
 
+<androidx.compose.ui.platform.ComposeView
+    android:id="@+id/composeView"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
-    <com.ortiz.touchview.TouchImageView
-        android:id="@+id/photo_view"
-        tools:src="@drawable/sample_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

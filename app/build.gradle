@@ -121,9 +121,6 @@ dependencies {
     //Image Picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
-    //TouchImageView
-    implementation 'com.github.MikeOrtiz:TouchImageView:3.1.1'
-
     //permissionx
     implementation 'com.guolindev.permissionx:permissionx:1.6.1'
 
@@ -161,4 +158,7 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_android_version"
     implementation "io.insert-koin:koin-android-compat:$koin_android_version"
     implementation "io.insert-koin:koin-androidx-navigation:$koin_android_version"
+
+    // Coil
+    implementation "io.coil-kt:coil-compose:2.1.0"
 }

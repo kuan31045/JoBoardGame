@@ -123,7 +123,7 @@
             android:enabled="@{viewModel.status != LoadApiStatus.LOADING }"
             android:letterSpacing="0.25"
             android:onClick="@{ ()-> viewModel.prepareUpdate()}"
-            android:text="@string/create"
+            android:text="@string/update"
             android:textColor="@color/white_text_fffcff"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
