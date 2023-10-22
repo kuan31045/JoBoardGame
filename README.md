@@ -43,12 +43,12 @@
 * Reactive UI with **LiveData** & **DataBinding** to achieve real-time UI state update
 * Implement **dependency injection** and **singleton** pattern with **Koin**
 * **UseCase** for encapsulating complex business logics, and can be reused by multiple ViewModels
-* **Room Database** for store user recently viewed games locally
 * Adopt a waterfall **RecyclerView** for the album UI, and integrate **ViewPager** for swipe-based photo navigation
 * Load images with **Coil** and enable pinch-to-zoom for photos using **BoxWithConstraints** in **Jetpack Compose**
 * Integrate **Google Maps** SDK, mark the party location on the map, implement **GPS** positioning, and customize the InfoWindow
 * Utilize **animation**, **Lottie library**, **Jetpack Compose**, **Canvas** and **G-Sensor**, to develop lively board game tools
 * **Firebase Crashlytics** analyzes the reasons for app crashes
+* **Room Database** for store user recently viewed games locally
 
 
 ## Architectures
