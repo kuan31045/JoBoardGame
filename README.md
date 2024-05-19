@@ -12,8 +12,6 @@
   
 - Develop with **Kotlin**, adhere to **MVVM** architecture, utilize **Jetpack** toolkit, integrate **Firestore** cloud database, and cooperate with **Coroutine & Flow** for asynchronous programming
   
- <a href='https://play.google.com/store/apps/details?id=com.kappstudio.joboardgame&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' ><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'  width="250" height="100" /></a>
-
   
 ## Demo
   <a href='https://youtu.be/F4pF40-fW-g' ><img alt='Demo Video' src='https://firebasestorage.googleapis.com/v0/b/publisher-77e03.appspot.com/o/jodemoyt.PNG?alt=media&token=0eb17c39-e111-4d2a-a583-d7e9f0cf9ba7' /></a>
@@ -58,6 +56,9 @@ MVVM + UseCase
 * **ViewModel** - Fetches data from higher layers, handles and updates the UI state through LiveData
 * **Model** - Data model and Repositories provide interfaces to retrieve data from both local and remote sources
 * **UseCase** - Responsible for encapsulating complex business logics, and can be reused by multiple ViewModels
+
+## Download apk 
+https://drive.google.com/file/d/1LR9uwVTNZ0sea31m9hDK6jJDJq4Sanr9/view?usp=sharing
 
 ## Version
 - 1.2.0
